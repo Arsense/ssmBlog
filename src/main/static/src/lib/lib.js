@@ -131,10 +131,15 @@ LazyLoad = function(global) {
     var load_css = function (css) { document.write('<link href="'  + css + '" rel="stylesheet">') }
 
     var el = document.getElementsByTagName('v-app')
-    el[0].setAttribute("id","app")
-    var body_el = document.getElementsByTagName('body')
-    body_el[0].setAttribute('class' , 'hold-transition skin-blue sidebar-mini')
-
+    if(el.length != 0) {
+        el[0].setAttribute("id", "app")
+        var body_el = document.getElementsByTagName('body')
+        body_el[0].setAttribute('class', 'hold-transition skin-purple sidebar-mini')
+    }else{
+        el = document.getElementsByTagName('v-login')
+        var body_el = document.getElementsByTagName('body')
+        body_el[0].setAttribute('class', 'hold-transition login-page')
+    }
     function tag_is_exist(tagName) {
         return document.getElementsByTagName(tagName).length > 0 ;
     }

@@ -14,7 +14,10 @@ import  VCallout    from './components/callout.vue'
 import  VCustomTabs from './components/custom-tab.vue'
 //import VCol         from './grid/Column/vue'
 import  VText       from  './components/text.vue'
+import  VLogin      from   './pages/login.vue'
 
+
+Vue.component('v-login'     ,VLogin)
 Vue.component('v-text'      ,VText)
 Vue.component('v-custom'    ,VCustomTabs)
 Vue.component('v-callout'   , VCallout)

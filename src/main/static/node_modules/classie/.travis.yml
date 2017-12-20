@@ -1,0 +1,11 @@
+language: node_js
+
+node_js:
+  "0.10"
+
+branches:
+
+install:
+  npm install
+
+script: 'npm test'

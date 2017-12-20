@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 </title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+</head>
+
+<body>
+<v-app :data="data">
+    <!-- /.content-wrapper -->
+    <v-box >
+        <v-select2 slot="body">
+            <option>Test</option>
+            <option>Test002</option>
+        </v-select2>
+    </v-box>
+
+    <v-box>
+        <v-table slot="body"  :data="data['tableData']" ></v-table>
+    </v-box>
+
+</v-app>
+<script>
+
+    window.config.app_api = '/get_app_info'
+    window.config.callback.mounted = function () {
+        console.log('mounted')
+    }
+
+</script>
+<script src="/lib/lib.js"></script>
+</body>
+</html>

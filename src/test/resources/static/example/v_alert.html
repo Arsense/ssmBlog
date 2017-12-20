@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ATL - LayOut </title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+<body class="hold-transition skin-purple sidebar-mini   ">
+
+<v-app id="app" :data="data">
+
+    <!--具有图标的情况-->
+     <v-alert>
+         <h4 slot="header"><i class="icon fa fa-check"></i> Alert!</h4>
+         <p slot="body">Success alert preview. This alert is dismissable.</p>
+     </v-alert>
+
+
+
+    <!--普通传值情况-->
+    <v-alert type="success">
+        <p slot="header">我是内容</p>
+        <p slot="body">我是底部</p>
+    </v-alert>
+
+
+    <v-alert type="info">
+        <h4 slot="header"><i class="icon fa fa-info"></i> Alert!</h4>
+        <p slot="body">
+            Info alert preview. This alert is dismissable.
+        </p>
+    </v-alert>
+ </v-app>
+
+ <script src="/lib/lib.js"></script>
+ </body>
+
+ </html>

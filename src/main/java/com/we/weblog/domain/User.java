@@ -2,7 +2,6 @@ package com.we.weblog.domain;
 
 public class User {
 
-
     /**
      *  用户id
      */
@@ -15,6 +14,7 @@ public class User {
      *  用户姓名
      */
     private String password ;
+
 
     public int getUserId() {
         return userId;

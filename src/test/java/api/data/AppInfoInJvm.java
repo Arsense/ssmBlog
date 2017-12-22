@@ -4,6 +4,9 @@ package api.data;
 import com.we.weblog.AppInfo;
 
 public class AppInfoInJvm {
+
+
+
     public static AppInfo getAppInfo() {
         AppInfo appInfo = new AppInfo() ;
         appInfo.setUserName("This is TestName");
@@ -15,4 +18,6 @@ public class AppInfoInJvm {
         appInfo.setLogoShortName("Clay");
         return  appInfo;
     }
+
+
 }

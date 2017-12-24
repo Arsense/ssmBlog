@@ -1,6 +1,7 @@
-package api.data;
+package api.controller;
 
 
+import api.data.AppInfoInJvm;
 import api.data.MenuApiInJvm;
 import com.we.weblog.TableData;
 import com.we.weblog.UIModel;

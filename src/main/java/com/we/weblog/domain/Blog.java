@@ -11,7 +11,7 @@ public class Blog {
     /**
      *  创建时间
      */
-    public Date      time;
+    public Date      date;
     /**
      *  博客名称
      */
@@ -20,6 +20,8 @@ public class Blog {
      *      博客标签
      */
     public String   tags;
+
+
 
 
 
@@ -32,11 +34,11 @@ public class Blog {
     }
 
     public Date getTime() {
-        return time;
+        return date;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setTime(Date date) {
+        this.date = date;
     }
 
     public String getTitle() {

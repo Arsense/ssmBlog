@@ -1,4 +1,4 @@
-package api.data;
+package api.controller;
 
 import api.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,6 @@
 ##基本技术
 
-环境: `Springboot+h2+thymeleaf+admintle+vue.js`环境搭建的个人博客
-
+环境: `Springboot+mysql+admintle+vue.js+mybatis`环境搭建的个人博客
 
 
 ## 后台实现
@@ -15,11 +14,17 @@
 12-21日<br>
 1. 后台登录简单效验<br>
 		用户名:`admin`  
-		密码:`admin888`
+		密码:`admin`
 
+12-24日<br>
+1.  把h2数据库更改成mysql
+2.  增加mybatis 使用注解查询更改数据库
+3.  使用
 ##预计改进
 1. 登录在前端效验 前后端完全分离<br>
-2. 目前是h2数据库 改为mysql，mybatis管理
+2. 目前是h2数据库 改为mysql，mybatis管理使用注解更快更方便
+3. 使用.yml格式配置文件代替apptioncation.properties
+配置更方便
 ##后台登录界面
  ![](https://i.imgur.com/axudahd.png)
 

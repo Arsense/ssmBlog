@@ -1,4 +1,4 @@
-package com.we.weblog.service;
+package api.service;
 
 import com.we.weblog.domain.User;
 

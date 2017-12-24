@@ -1,4 +1,4 @@
-package com.we.weblog.mapping;
+package api.mapping;
 
 
 /**

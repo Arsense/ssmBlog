@@ -1,6 +1,7 @@
 package api.data;
 
-import com.we.weblog.service.Impl.UserServiceImpl;
+import api.service.Impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -16,7 +17,12 @@ import java.io.IOException;
 public class LoginController {
 
 
-    private  static UserServiceImpl userService = new UserServiceImpl();
+    private  static UserServiceImpl userService;
+
+    @Autowired
+    public LoginController(UserServiceImpl userService){
+        this.userService = userService;
+    }
     /**
      * 登陆捕获
      * @param request

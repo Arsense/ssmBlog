@@ -1,24 +1,22 @@
-package com.we.weblog.service.Impl;
+package api.service.Impl;
 
-import com.we.weblog.dao.UserDao;
 import com.we.weblog.domain.User;
-import com.we.weblog.service.UserService;
+import api.mapping.UserMapper;
+import api.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
 
 
-    private static UserDao userDao;
+    private UserMapper userMapper;
 
-    static {
-        try {
-            userDao = new UserDao();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+    @Autowired
+    public  UserServiceImpl(UserMapper userMapper){
+        this.userMapper=userMapper;
     }
+
 
     @Override
     public User getUserAllInformation() {
@@ -32,9 +30,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkLogin(String username) throws Exception {
-        User user  = userDao.searchUserByName(username);
+        User user  = userMapper.searchUserByName(username);
 
-        if(user.getPassword().equals("admin888") && user.getUserName().equals("admin")){
+        if(user.getPassword().equals("admin") && user.getUserName().equals("admin")){
             return true;
         }
 

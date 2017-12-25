@@ -1,8 +1,0 @@
-{
-  "name": "classie",
-  "repo": "yawetse/classie",
-  "description": "class helper",
-  "version": "0.1.1",
-  "scripts": ["classie.min.js"],
-  "main": "classie.min.js"
-}

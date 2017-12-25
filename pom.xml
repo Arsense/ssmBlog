@@ -69,16 +69,15 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
+
+		<dependency>
+		<groupId>com.blog.vue</groupId>
+		<artifactId>vue-test</artifactId>
+		<version>1.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
-		<resources>
-			<resource>
-				<directory>${project.basedir}/src/main/static/dist/lib</directory>
-				<targetPath>${project.build.outputDirectory}/META-INF/resources/lib</targetPath>
-			</resource>
-		</resources>
-
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -88,12 +87,6 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-
-
-
-
-
-
 		</plugins>
 	</build>
 

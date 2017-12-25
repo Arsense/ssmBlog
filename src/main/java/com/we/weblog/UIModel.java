@@ -14,6 +14,7 @@ public class UIModel extends HashMap implements Map {
     public static final String MENU_TAG = "menu_items" ;
     public static final String APP_INFO = "app_info" ;
     public static final String IS_LOGIN = "is_login" ;
+    public static final String TABLE_DATA = "tableData";
 
     public UIModel menu(List<Menu> menus) {
         put(MENU_TAG , menus) ;
@@ -35,5 +36,8 @@ public class UIModel extends HashMap implements Map {
         super.put(key , value) ;
         return  this ;
     }
-
+    public UIModel tableData(TableData tableData) {
+        super.put(TABLE_DATA , tableData) ;
+        return  this ;
+    }
 }

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 </title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+<body class="hold-transition skin-yellow  sidebar-mini">
+        <v-app id="app" :data="data">
+
+            <div id="page-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>Blog List</h1>
+                        <ol class="breadcrumb">
+                            <li><a href="/admin/"><i class="fa fa-dashboard"></i>Monitor</a></li>
+                            <li class="active"><i class="fa fa-table"></i>Blogs</li>
+                        </ol>
+                    </div>
+                </div><!-- /.row -->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2>All Pages</h2>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Blog<i class="fa fa-sort"></i></th>
+                                    <th>Tags<i class="fa fa-sort"></i></th>
+                                    <th>Operation<i class="fa fa-sort"></i></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!--#foreach($item in ${blogList})-->
+                                <!--#liClass($velocityCount)-->
+                                <!--<td>$!{item.Title}</td>-->
+                                <!--<td>$!{item.Tags}</td>-->
+                                <td>
+                                    <a href="/admin/update$!{item.Vid}"><i class="fa fa-pencil"></i></a>
+                                    <a class="delete" role="button" href="/admin/delete/${item.Vid}"  data-title="Delete this blog!" data-confirm-button="Yes">
+                                        <i class="fa fa-trash-o"></i></a>
+                                </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <!--<center>-->
+                                <!--#set($href = "/admin/blogList")-->
+                                <!--#flip($pageNum  $current $href)-->
+                            <!--</center>-->
+
+                        </div>
+                    </div>
+                </div><!-- /.row -->
+            </div><!-- /#page-wrapper -->
+
+            </div><!-- /#wrapper -->
+
+
+
+
+        </v-app>
+        <script src="/lib/lib.js"></script>
+</body>
+</html>

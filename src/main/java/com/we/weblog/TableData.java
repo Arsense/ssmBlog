@@ -13,25 +13,72 @@ public class TableData {
     public static final String KEY_TAG = "key" ;
     public static final String TITLE_TAG = "title" ;
 
-    private List<Map<String,String>> columns = new ArrayList<>();
+    private List<Column> columns = new ArrayList<>();
     private List<Object> dataItems = new ArrayList<>();
 
-    public void addColumnsHeader(String key , String title) {
-        Map<String,String> col = new HashMap<>() ;
-        col.put(KEY_TAG , key) ;
-        col.put(TITLE_TAG , title) ;
-        columns.add(col) ;
+    private boolean isPage  = true;
+    private int totalSize  ;
+
+    public void configDisplayColumn(Column column) {
+        columns.add(column) ;
     }
 
-    public void addData(Object o) {
-        dataItems.add(o);
+    public void addData(Object data) {
+        dataItems.add(data);
     }
 
-    public List<Map<String, String>> getColumns() {
+    public List<Column>  getColumns() {
         return columns;
     }
 
     public List<Object> getDataItems() {
         return dataItems;
+    }
+
+    public static Column createColumn(String key , String lable) {
+        return new Column(key , lable) ;
+    }
+
+    public int getTotalSize() {
+        return totalSize;
+    }
+
+    public void setTotalSize(int totalSize) {
+        this.totalSize = totalSize;
+    }
+
+    public boolean isPage() {
+        return isPage;
+    }
+
+    public void setPage(boolean page) {
+        isPage = page;
+    }
+
+    public static class Column {
+
+        private String key  ;
+        private String label ;
+
+        public Column(String key, String label) {
+            this.key = key;
+            this.label = label;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+
+        public void setLabel(String label) {
+            this.label = label;
+        }
     }
 }

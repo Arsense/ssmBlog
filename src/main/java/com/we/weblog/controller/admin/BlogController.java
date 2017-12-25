@@ -18,12 +18,10 @@ public class BlogController {
     //博客的增删改查
 
 
-    @GetMapping("/bloglist/{page}")
+    @GetMapping("/bloglist")
     public void showBlogs(@PathVariable int page, HttpServletResponse response) throws IOException {
-
-
-
-        response.sendRedirect("/");
+        int a= 1;
+        response.sendRedirect("admin/add_article.html");
     }
 
 

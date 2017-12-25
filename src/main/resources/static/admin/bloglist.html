@@ -1,11 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ATL - Box </title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
 </head>
 <body>
-    <h2>blog list test ok</h2>
+<v-app :data="data" >
+    <!-- /.content-wrapper -->
+    <v-box >
+        <input name="name" v-model="query['name']"/>
+        <input name="name" v-model="query['age']"/>
+        <button @click="re_query"> 查询</button>
+        <v-table :ajax_url="ajax_url" :query="query" :send_req="send_req" :operations="operations" ></v-table>
+    </v-box>
 
+</v-app>
+<script src="/lib/lib.js"></script>
+<script>
+    app.main({
+
+        data : function () {
+            return {
+                query : {} ,
+                ajax_url : '/get_table_data' ,
+                send_req : 0 ,
+                operations : [
+                    {
+                        name : '详情' ,
+                        method : function(row , $table) {
+                            console.log(row)
+                            $table.fetchData()
+                        }
+                    } ,
+                    {
+                        name : '删除'  ,
+                        method : function(row ,$table) {
+
+                        }
+                    }
+                ]
+            }
+        } ,
+        methods : {
+            re_query : function () {
+                this.send_req++
+            }
+        } ,
+        mounted : function () {}
+    })
+</script>
 </body>
 </html>

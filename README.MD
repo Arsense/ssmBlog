@@ -1,4 +1,5 @@
-##基本技术
+
+## 基本技术
 
 环境: `Springboot+mysql+admintle+vue.js+mybatis`环境搭建的个人博客
 
@@ -20,7 +21,7 @@
 1.  把h2数据库更改成mysql
 2.  增加mybatis 使用注解查询更改数据库
 3.  使用
-##预计改进
+## 预计改进
 1. 登录在前端效验 前后端完全分离<br>
 2. 目前是h2数据库 改为mysql，mybatis管理使用注解更快更方便
 3. 使用.yml格式配置文件代替apptioncation.properties
@@ -31,8 +32,10 @@
 ##后台管理界面
 ![](https://i.imgur.com/A7dJ0IM.png)
 
-##本地引入jar包
+
+## 本地引入jar包
 - 安装命令
+
 
 mvn install:install-file -Dfile=D:\code\vue-adminlte\target\vue-test-1.0.1-SNAPS
 HOT.jar -DgroupId=com.blog.vue -DartifactId=vue-test  -Dversion=1.0.1-SNAPSHOT -Dpackaging=jar

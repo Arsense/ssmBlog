@@ -20,8 +20,10 @@ public class MenuApiInJvm {
         Menu menu3 = createMenu("/kind.html" , "类别管理" , "fa fa-edit" , 2) ;
         Menu menu4 = createMenu("/message.html" , "评论管理" , "fa fa-share" , 2) ;
         Menu menu5 = createMenu("/bmanage.html" , "博客配置" , "fa fa-cog" , 2) ;
-        menu1.addChildMenu(createMenu
-                ("/example/v_table.html" , "table使用" , "fa fa-circle-o" , 2));
+
+        menu2.addChildMenu(createMenu
+                ("/admin/bloglist" , "显示所有博客" , "fa fa-circle-o" , 2));
+
         menu2.addChildMenu(createMenu("/admin/add_article.html" , "添加新" +
                 "" +
                 "随笔" , "fa fa-circle-o" , 2));

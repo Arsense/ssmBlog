@@ -22,6 +22,34 @@ public class Blog {
     public String   tags;
 
 
+    public String  mdText;
+
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getMdText() {
+        return mdText;
+    }
+
+    public void setMdText(String mdText) {
+        this.mdText = mdText;
+    }
+
+    public String getArticle() {
+        return article;
+    }
+
+    public void setArticle(String article) {
+        this.article = article;
+    }
+
+    public String  article;
 
 
 

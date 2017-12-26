@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="admin">
+    <meta name="author" content="jcala">
+
+    <title>admin</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Add custom CSS here -->
+    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">
+    <link href="/css/sb-admin.min.css" rel="stylesheet">
+    <link href="/css/editormd.min.css" rel="stylesheet"/>
+    <link href="/css/bootstrap-tagsinput.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/morris.js/0.4.3/morris.css" rel="stylesheet">
+</head>
+<body>
+
+<v-app id="app" :data="data">
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-md-6 column">
+                <center>
+                    <form role="form" class="form-inline" name="blogForm">
+                        <div class="form-group">
+                            <label for = "blogTitle" class="text-warning">Title</label>
+                            <input type="text" class="form-control" name="title" placeholder="请输入博客标题"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="blogTags" class="text-warning">Tags</label>
+                            <input type="text" class="form-control" name="tags" placeholder="输入标签后请点击回车键" data-role="tagsinput"/>
+                        </div>
+                        <input type="hidden" name="md" />
+                        <input type="hidden" name="article" />
+                        <div class="form-group">
+                            <label for="blogSubmit" class="text-warning">submit</label>
+                            <input type="submit" class="form-control jcala-input" id="add-blog" value="save"/>
+                        </div>
+                    </form>
+                </center>
+            </div>
+            <div class="col-md-6 column">
+                <div class="styled-select">
+                    <select id="editormd-theme-select">
+                        <option disabled="disabled">select Editor.md themes</option>
+                    </select>
+                    <select id="editor-area-theme-select">
+                        <option disabled="disabled">select editor area themes</option>
+                    </select>
+                    <select id="preview-area-theme-select">
+                        <option disabled="disabled">select preview area themes</option>
+                    </select>
+                </div>
+            </div>
+        </div><!-- /.row -->
+    </div><!-- /#page-wrapper -->
+
+    <div id="page-wrapper1">
+        <div class="row">
+            <div class="col-md-12 column">
+                <div id="markdown-editor">
+                    <textarea style="display:none;"></textarea>
+                </div>
+            </div>
+        </div><!-- /.row -->
+    </div><!-- /#page-wrapper -->
+
+    </div><!-- /#wrapper -->
+
+    <!-- JavaScript -->
+</v-app>
+
+
+</body>
+
+
+
+<script src="../js/editormd.min.js"></script>
+<script src="../js/bootstrap-tagsinput.min.js"></script>
+<script src="../js/jcala-md-form.min.js"></script>
+<script src="/lib/lib.js"></script>
+<script>
+    app.main({
+
+        data : function () {
+            return {
+                query : {name : 'test'} ,
+                ajax_url : '/get_table_data'
+
+            }
+        } ,
+        methods : {
+            re_query : function () {
+                console.log('re_query')
+                this.ajax_url = '/get_table_data?'  + 'name=' + this.query.name
+            }
+        } ,
+        mounted : function () {}
+    })
+</script>
+</html>

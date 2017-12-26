@@ -25,6 +25,7 @@
 1. 登录在前端效验 前后端完全分离<br>
 2. 目前是h2数据库 改为mysql，mybatis管理使用注解更快更方便
 3. 使用.yml格式配置文件代替apptioncation.properties
+4. 在Service增加事务管理
 配置更方便
 ##后台登录界面
  ![](https://i.imgur.com/axudahd.png)

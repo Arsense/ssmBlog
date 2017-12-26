@@ -24,12 +24,12 @@ public class MenuApiInJvm {
         menu2.addChildMenu(createMenu
                 ("/admin/bloglist.html" , "显示所有博客" , "fa fa-circle-o" , 2));
 
-        menu2.addChildMenu(createMenu("/admin/add_article.html" , "添加新" +
+        menu2.addChildMenu(createMenu("/admin/addblog.html" , "添加新" +
                 "" +
                 "随笔" , "fa fa-circle-o" , 2));
         menu2.addChildMenu(createMenu("/admin/draft.html" , "草稿箱" , "fa fa-circle-o" , 2));
 
-        menu5.addChildMenu(createMenu("/admin/add_article.html" , "博客签名" , "fa fa-circle-o" , 2));
+        menu5.addChildMenu(createMenu("/admin/addblog.html" , "博客签名" , "fa fa-circle-o" , 2));
 
         menus.add(menu1);
         menus.add(menu2);

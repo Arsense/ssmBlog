@@ -20,7 +20,7 @@ public interface BlogMapper {
      * @return
      */
     @Select({"select * from t_blog where id = #{id}"})
-        Blog searchBlogById(@Param("id") int id);
+     Blog searchBlogById(@Param("id") int id);
 
     /**
      * 得到博客的总数量
@@ -56,5 +56,17 @@ public interface BlogMapper {
     List<Blog> getTenBlogs(@Param("count") int count);
 
 
+
+    @Update("{ update t_blog " +
+            " set title = #{b.title}," +
+            "set date = #{b.date}" +
+            "set md = #{b.md}" +
+            "set article=#{b.article}}")
+    void updateBlog(@Param("b") Blog blog);
+
+
+    @Select({"select dinstinct name from t_blog"})
+    @ResultType(String.class)
+    List<String> getAllTags();
 
 }

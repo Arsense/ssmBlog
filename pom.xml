@@ -65,10 +65,7 @@
 			<version>1.3.172</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-		</dependency>
+
 
 		<dependency>
 		<groupId>com.blog.vue</groupId>

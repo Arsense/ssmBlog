@@ -37,8 +37,7 @@
 - 安装命令
 
 
-mvn install:install-file -Dfile=D:\code\vue-adminlte\target\vue-test-1.0.1-SNAPS
-HOT.jar -DgroupId=com.blog.vue -DartifactId=vue-test  -Dversion=1.0.1-SNAPSHOT -Dpackaging=jar
+mvn install:install-file -Dfile=D:\code\blog\ssmBlog\src\vuejar\vue-test-1.0.1-SNAPSHOT.jar -DgroupId=com.blog.vue -DartifactId=vue-test  -Dversion=1.0.1-SNAPSHOT -Dpackaging=jar
 
 <groupId>com.blog.vue</groupId>
     <artifactId>vue-test</artifactId>

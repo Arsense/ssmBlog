@@ -10,22 +10,16 @@
 <body class="hold-transition skin-purple sidebar-mini   ">
 
 <v-app id="app" :data="data">
-
     <!--具有图标的情况-->
      <v-alert>
          <h4 slot="header"><i class="icon fa fa-check"></i> Alert!</h4>
          <p slot="body">Success alert preview. This alert is dismissable.</p>
      </v-alert>
-
-
-
     <!--普通传值情况-->
     <v-alert type="success">
         <p slot="header">我是内容</p>
         <p slot="body">我是底部</p>
     </v-alert>
-
-
     <v-alert type="info">
         <h4 slot="header"><i class="icon fa fa-info"></i> Alert!</h4>
         <p slot="body">

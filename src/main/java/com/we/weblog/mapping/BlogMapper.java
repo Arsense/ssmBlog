@@ -35,8 +35,8 @@ public interface BlogMapper {
      * @return
      */
     @Insert({"insert into t_blog " +
-            "(b.title,b.data,b.tags) " +
-            "values (#{b.title},#{b.data},#{b.tags})"})
+            "(title,date,tags) " +
+            "values (#{b.title},#{b.date},#{b.tags})"})
     int insertBlog(@Param("b") Blog blog);
 
     /**
@@ -52,7 +52,7 @@ public interface BlogMapper {
      * @param count
      * @return
      */
-    @Select({"select title,date,tags from t_blog limit #{count}"})
+    @Select({"select id,title,date,tags from t_blog limit #{count}"})
     List<Blog> getTenBlogs(@Param("count") int count);
 
 

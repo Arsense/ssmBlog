@@ -3,6 +3,7 @@ package com.we.weblog.controller;
 import com.we.weblog.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -29,7 +30,8 @@ public class LoginController {
      * @param response
      * @throws IOException
      */
-    @PostMapping("/login")
+//    @PostMapping("/login")
+    @GetMapping("/login")
     public void checkLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String username = (String) request.getParameter("username");
         String password = request.getParameter("password");

@@ -25,7 +25,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public void addBlog(Blog blog) {
-
+        blogMapper.insertBlog(blog);
     }
 
     @Override
@@ -35,13 +35,13 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public void deleteBlogById(int id) {
-
+        blogMapper.deleteBlogById(id);
     }
 
 
     @Override
     public List<Blog> showBlogs(int page) {
-       page = (page-1)*10;
+       page = page*10;
        List<Blog> blogs =  new ArrayList<>();
        blogs = blogMapper.getTenBlogs(page);
 

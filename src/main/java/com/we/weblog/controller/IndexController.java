@@ -22,6 +22,9 @@ public class IndexController {
 
     private BlogService blogService;
 
+    //遍历查询数据库
+    public static List<Blog> tempBlogs = new ArrayList<>();
+
     public IndexController(BlogService blogService){
         this.blogService = blogService;
     }
@@ -52,13 +55,12 @@ public class IndexController {
     Map<String,Object> get_table_data(@RequestParam(required = false) String name) {
         UIModel uiModel = new UIModel() ;
         TableData tableData = new TableData() ;
+//        tableData.configDisplayColumn(TableData.createColumn("id" , "博客编号") );
         tableData.configDisplayColumn(TableData.createColumn("title" , "标题") );
         tableData.configDisplayColumn(TableData.createColumn("tags" , "标签" ));
+        tableData.configDisplayColumn(TableData.createColumn("date" , "创建日期" ));
 
-        //遍历查询数据库
-        List<Blog> tempBlogs = new ArrayList<>();
 
-        tempBlogs = blogService.showBlogs(1);
         for(Blog blog : tempBlogs){
             tableData.addData(blog);
         }

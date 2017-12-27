@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../css/editormd.css" />
     <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
     <style>
+
         /*.editormd-preview-theme-dark {
             color: #777;
             background:#2C2827;
@@ -91,34 +92,42 @@
     </style>
 </head>
 <body>
-<div id="layout">
-    <header>
-        <h1>完整示例</h1>
-        <p>Full example</p>
-        <ul style="margin: 10px 0 0 18px;">
-            <li>Enable HTML tags decode</li>
-            <li>Enable TeX, Flowchart, Sequence Diagram, Emoji, FontAwesome, Task lists</li>
-            <li>Enable Image upload</li>
-            <li>Enable [TOCM], Search Replace, Code fold</li>
-        </ul>
-    </header>
-    <div class="btns">
-        <button id="goto-line-btn">Goto line 90</button>
-        <button id="show-btn">Show editor</button>
-        <button id="hide-btn">Hide editor</button>
-        <button id="get-md-btn">Get Markdown</button>
-        <button id="get-html-btn">Get HTML</button>
-        <button id="watch-btn">Watch</button>
-        <button id="unwatch-btn">Unwatch</button>
-        <button id="preview-btn">Preview HTML (Press Shift + ESC cancel)</button>
-        <button id="fullscreen-btn">Fullscreen (Press ESC cancel)</button>
-        <button id="show-toolbar-btn">Show toolbar</button>
-        <button id="close-toolbar-btn">Hide toolbar</button>
-        <button id="toc-menu-btn">ToC Dropdown menu</button>
-        <button id="toc-default-btn">ToC default</button>
-    </div>
-    <div id="test-editormd"></div>
-</div>
+    <v-app id = "app"  :data="data">
+        <v-box>
+            <div id="layout">
+                <header>
+                    <h1>完整示例</h1>
+                    <p>Full example</p>
+                    <ul style="margin: 10px 0 0 18px;">
+                        <li>Enable HTML tags decode</li>
+                        <li>Enable TeX, Flowchart, Sequence Diagram, Emoji, FontAwesome, Task lists</li>
+                        <li>Enable Image upload</li>
+                        <li>Enable [TOCM], Search Replace, Code fold</li>
+                    </ul>
+                </header>
+                <div class="btns">
+                    <button id="goto-line-btn">跳转到 90</button>
+                    <button id="show-btn">显示编辑器</button>
+                    <button id="hide-btn">Hide editor</button>
+                    <button id="get-md-btn">Get Markdown</button>
+                    <button id="get-html-btn">Get HTML</button>
+                    <button id="watch-btn">Watch</button>
+                    <button id="unwatch-btn">Unwatch</button>
+                    <button id="preview-btn">Preview HTML (Press Shift + ESC cancel)</button>
+                    <button id="fullscreen-btn">全屏(按ESC退出)</button>
+                    <button id="show-toolbar-btn">显示Toolbar</button>
+                    <button id="close-toolbar-btn">隐藏toolbar</button>
+                    <button id="toc-menu-btn">ToC Dropdown menu</button>
+                    <button id="toc-default-btn">ToC default</button>
+                </div>
+                <div id="test-editormd"></div>
+            </div>
+        </v-box>
+
+    </v-app>
+
+</body>
+<script src="/lib/lib.js"></script>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/editormd.js"></script>
 <script type="text/javascript">
@@ -226,6 +235,27 @@
             testEditor.config("tocDropdown", false);
         });
     });
+
+
+
 </script>
-</body>
+
+<script>
+    app.main({
+        data : function () {
+            return {
+                query : {} ,
+                ajax_url : '/get_table_data' ,
+                send_req : 0 ,
+            }
+        } ,
+        methods : {
+            re_query : function () {
+                this.send_req++
+            }
+        } ,
+        mounted : function () {}
+    })
+</script>
+
 </html>

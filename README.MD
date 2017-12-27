@@ -21,11 +21,23 @@
 1.  把h2数据库更改成mysql
 2.  增加mybatis 使用注解查询更改数据库
 3.  使用
+
+
+12-26日<br>
+1.  完后后端对博客的和博客标签的各种管理功能
+2.  
+
+12-27日<br>
+1.  搭建前端 连接前端login和后台
+2.  测试好editor.md文本编辑器 加入成功 在/admin/testeditor.html
+
 ## 预计改进
 1. 登录在前端效验 前后端完全分离<br>
 2. 目前是h2数据库 改为mysql，mybatis管理使用注解更快更方便
 3. 使用.yml格式配置文件代替apptioncation.properties
 4. 在Service增加事务管理
+
+
 配置更方便
 ##后台登录界面
  ![](https://i.imgur.com/axudahd.png)

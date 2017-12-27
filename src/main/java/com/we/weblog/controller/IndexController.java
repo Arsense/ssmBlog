@@ -41,10 +41,6 @@ public class IndexController {
         TableData tableData = new TableData() ;
         tableData.configDisplayColumn(TableData.createColumn("title" , "标题") );
         tableData.configDisplayColumn(TableData.createColumn("tags" , "标签" ));
-        Map<String,Object> map = new HashMap<>() ;
-        map.put("name" , "xiaohong ") ;
-        map.put("age" , "1") ;
-        tableData.addData(map);
         uiModel.put("tableData" , tableData ) ;
         //return uiModel ;
         return uiModel ;

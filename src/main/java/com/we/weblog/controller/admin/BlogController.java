@@ -35,13 +35,7 @@ public class BlogController {
     public void showBlogs(HttpServletResponse response) throws IOException {
 
         IndexController.tempBlogs = blogService.showBlogs(1);
-        //TODO没有专门写测试类 这里OK delete OK insert ok
-//        Blog blog = new Blog();
-//        blog.setTags("插入的");
-//        blog.setTime(new Date(System.currentTimeMillis()));
-//        blog.setTitle("插入");
-//        blogService.addBlog(blog);
-//        blogService.deleteBlogById(12);
+
         response.sendRedirect("/admin/show.html");
     }
 

@@ -139,5 +139,15 @@ public class BlogServiceImpl implements BlogService {
         return null;
     }
 
+    @Override
+    public List<Blog> getYearBlog(int page) {
+        return null;
+    }
+
+    @Override
+    public int getNumberOfYearBlog() {
+        return 0;
+    }
+
 
 }

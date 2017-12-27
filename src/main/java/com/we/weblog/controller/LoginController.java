@@ -31,7 +31,7 @@ public class LoginController {
      * @throws IOException
      */
 //    @PostMapping("/login")
-    @GetMapping("/admin")
+    @PostMapping("/adminer")
     public void checkLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String username = (String) request.getParameter("username");
         String password = request.getParameter("password");

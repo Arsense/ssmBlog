@@ -30,16 +30,17 @@
                 send_req : 0 ,
                 operations : [
                     {
-                        name : '详情' ,
+                        name : '更改' ,
                         method : function(row , $table) {
                             console.log(row)
                             $table.fetchData()
+                            window.location.href="http://localhost:8002/admin/update.html"
                         }
                     } ,
                     {
                         name : '删除'  ,
                         method : function(row ,$table) {
-
+                            window.location.href="http://localhost:8002/admin/delete.html"
                         }
                     }
                 ]

@@ -52,7 +52,7 @@ public interface BlogMapper {
      * @param count
      * @return
      */
-    @Select({"select id,title,date,tags from t_blog limit #{count}"})
+    @Select({"select blog_id,title,date,tags from t_blog limit #{count}"})
     List<Blog> getTenBlogs(@Param("count") int count);
 
 

@@ -15,7 +15,12 @@ public class UIModel extends HashMap implements Map {
     public static final String APP_INFO = "app_info" ;
     public static final String IS_LOGIN = "is_login" ;
     public static final String TABLE_DATA = "tableData";
+    public static final String LOGIN_URL = "login_url";
 
+    public  UIModel setLoginUrl(String url){
+        put(LOGIN_URL,url);
+        return this;
+    }
     public UIModel menu(List<Menu> menus) {
         put(MENU_TAG , menus) ;
         return this ;

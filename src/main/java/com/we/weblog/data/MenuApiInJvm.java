@@ -15,11 +15,11 @@ public class MenuApiInJvm {
 
         List<Menu> menus = new ArrayList<>() ;
 
-        Menu menu1 = createMenu("/main.html" , "博客首页" , "fa fa-dashboard" , 1) ;
-        Menu menu2 = createMenu("/textlist.html" , "文章管理" , "fa fa-files-o" , 2) ;
-        Menu menu3 = createMenu("/kind.html" , "类别管理" , "fa fa-edit" , 2) ;
-        Menu menu4 = createMenu("/message.html" , "评论管理" , "fa fa-share" , 2) ;
-        Menu menu5 = createMenu("/bmanage.html" , "博客配置" , "fa fa-cog" , 2) ;
+        Menu menu1 = createMenu("/admin/main.html" , "博客首页" , "fa fa-dashboard" , 1) ;
+        Menu menu2 = createMenu("/admin/textlist.html" , "文章管理" , "fa fa-files-o" , 2) ;
+        Menu menu3 = createMenu("/admin/kind.html" , "类别管理" , "fa fa-edit" , 2) ;
+        Menu menu4 = createMenu("/admin/message.html" , "评论管理" , "fa fa-share" , 2) ;
+        Menu menu5 = createMenu("/admin/bmanage.html" , "博客配置" , "fa fa-cog" , 2) ;
 
         menu2.addChildMenu(createMenu
                 ("/admin/bloglist.html" , "显示所有博客" , "fa fa-circle-o" , 2));

@@ -20,8 +20,8 @@ public interface UserMapper {
      * @param username
      * @return
      */
-    @Select({"select * from t_user where username=#{name}"})
-    User searchUserByName(@Param("name") String username);
+    @Select({"select count(*) from t_user where username=#{name} and password=#{ps}"})
+    int selectByPassAndName(@Param("name") String username,@Param("ps") String password) throws RuntimeException;
 
 
 

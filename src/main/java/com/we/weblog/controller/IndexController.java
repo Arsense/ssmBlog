@@ -24,11 +24,11 @@ public class IndexController {
 
     //遍历查询数据库
     public static List<Blog> tempBlogs = new ArrayList<>();
-
+    public  static boolean loginStatus = false;
     public IndexController(BlogService blogService){
         this.blogService = blogService;
     }
-
+    public static String url = "http://localhost:8002/login.html";
     @GetMapping("/get_app_info")
     @ResponseBody
     Map getAppInfo() {
@@ -36,7 +36,8 @@ public class IndexController {
         UIModel uiModel = new UIModel()
                 .menu(MenuApiInJvm.getMenu())
                 .appInfo(AppInfoInJvm.getAppInfo())
-                .isLogin(true);
+                .isLogin(loginStatus)
+                .setLoginUrl(url);
 
         TableData tableData = new TableData() ;
         tableData.configDisplayColumn(TableData.createColumn("title" , "标题") );

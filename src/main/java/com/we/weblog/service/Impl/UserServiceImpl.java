@@ -6,6 +6,10 @@ import com.we.weblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -29,15 +33,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean checkLogin(String username) throws Exception {
-        User user  = userMapper.searchUserByName(username);
+    public boolean checkLogin(String username,String password) throws Exception {
+       int result = 0;
 
-        if(user.getPassword().equals("admin") && user.getUserName().equals("admin")){
-            return true;
-        }
+       result = userMapper.selectByPassAndName(username,password);
+       if(result > 0){
+           return  true;
+       }
+       return false;
 
-        return false;
 
+    }
+
+    @Override
+    public void addSession(HttpServletRequest request, String username) {
+        HttpSession session = request.getSession(true);
+        session.setAttribute("login_user",username);
+        session.setMaxInactiveInterval(600);
+    }
+
+    @Override
+    public void destorySession(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        session.removeAttribute("login_user");
     }
 
 

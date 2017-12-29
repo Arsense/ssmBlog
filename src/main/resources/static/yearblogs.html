@@ -139,29 +139,39 @@
 </footer>
 <!--footer end-->
 <script>
-    axio.get('/yearsblog').then(function (response) {
-        var
 
-    })_
-    var vm = new Vue({
-        el:"#list",
+        new Vue({
+            el:"#list",
 
-        props:{
-            data: Object
-        },
-        data:function () {
-            return {
-                years : 2017,
-                Lists : [],
+            props:{
+                data: Object
+            },
+            data:function () {
+                return {
+                    years : 2017,
+                    Lists : [],
 
+                }
+            },
+            method:function () {
+
+            },
+            created:function(){
+                var url = "/yearsblog";
+
+                this.$http.get(url).then(function (data) {
+                    var json = data.body;
+                    this.data = eval("("+json+")");
+                }).function(response){
+                    console.info(response)
+                }
             }
-        },
-        method:function () {
-
-        }
 
 
-    })
+        })
+
+
+
 
 
 </script>

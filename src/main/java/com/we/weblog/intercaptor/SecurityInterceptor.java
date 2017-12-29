@@ -1,6 +1,8 @@
 package com.we.weblog.intercaptor;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.we.weblog.UIModel;
 import com.we.weblog.controller.IndexController;
 import com.we.weblog.domain.Blog;
 import com.we.weblog.service.UserService;
@@ -39,27 +41,18 @@ public class SecurityInterceptor implements HandlerInterceptor{
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //在这里处理拦截请求
         Object obj = request.getSession().getAttribute("login_user");
-        if(obj == null){
-            // response.sendRedirect(request.getContextPath()+"/login");
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            if(username!=null && password != null) {
-                boolean result = userService.checkLogin(username,password);
-                if (result) {
-                    IndexController.loginStatus = true;
-                    userService.addSession(request,username);
-//                    IndexController.url = "http://localhost:8002/admin/main.html";
-                   // response.sendRedirect("/admin/main.html");
-                    return true;
-                }else {
-                    IndexController.url = "http://localhost:8002/login?reuslt=fail";
-                }
-
-            }
-            IndexController.loginStatus = false;
-            return false;
+        //判断有没有登陆
+        if(obj == null ) {
+            UIModel uiModel = new UIModel() ;
+            uiModel.isLogin(false) ;
+            uiModel.setLoginUrl("/login.html") ;
+            ObjectMapper objectMapper = new ObjectMapper() ;
+            String json = objectMapper.writeValueAsString(uiModel);
+            response.getOutputStream().write(json.getBytes("utf-8"));
+            response.flushBuffer();
+            return false ;
         }
-        return true;
+        return true ;
     }
 
 

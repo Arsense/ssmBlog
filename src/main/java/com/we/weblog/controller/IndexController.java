@@ -6,6 +6,7 @@ import com.we.weblog.service.BlogService;
 import com.we.weblog.TableData;
 import com.we.weblog.UIModel;
 import com.we.weblog.domain.Blog;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,13 +20,11 @@ public class IndexController {
 
     private BlogService blogService;
 
-    //遍历查询数据库
-    public static List<Blog> tempBlogs = new ArrayList<>();
-    public  static boolean loginStatus = false;
-    public IndexController(BlogService blogService){
+    @Autowired
+    public IndexController(BlogService blogService) {
         this.blogService = blogService;
     }
-    public static String url = "http://localhost:8002/login.html";
+    ;
     @GetMapping("/get_app_info")
     @ResponseBody
     Map getAppInfo() {
@@ -33,8 +32,7 @@ public class IndexController {
         UIModel uiModel = new UIModel()
                 .menu(MenuApiInJvm.getMenu())
                 .appInfo(AppInfoInJvm.getAppInfo())// 1
-                .isLogin(loginStatus)
-                .setLoginUrl(url);
+                .isLogin(true) ;
 
         TableData tableData = new TableData() ;
         tableData.configDisplayColumn(TableData.createColumn("title" , "标题") );
@@ -46,20 +44,20 @@ public class IndexController {
 
     @GetMapping("/get_table_data")
     @ResponseBody
-    Map<String,Object> get_table_data(@RequestParam(required = false) String name) {
+    Map<String,Object> get_table_data() {
         UIModel uiModel = new UIModel() ;
         TableData tableData = new TableData() ;
-//        tableData.configDisplayColumn(TableData.createColumn("id" , "博客编号") );
+        tableData.configDisplayColumn(TableData.createColumn("blog_id" , "博客编号") );
         tableData.configDisplayColumn(TableData.createColumn("title" , "标题") );
         tableData.configDisplayColumn(TableData.createColumn("tags" , "标签" ));
         tableData.configDisplayColumn(TableData.createColumn("date" , "创建日期" ));
+
+        //遍历查询数据库
+        List<Blog> tempBlogs = new ArrayList<>();
+        tempBlogs = blogService.showBlogs(1);
+
         for(Blog blog : tempBlogs){
             tableData.addData(blog);
-        }
-
-        if("".equals(name)) {
-            tableData.setTotalSize(0);
-            tableData.setPage(false);
         }
 
         tableData.setTotalSize(50);

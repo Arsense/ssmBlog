@@ -1,6 +1,8 @@
 package com.we.weblog.controller.admin;
 
 
+import com.we.weblog.TableData;
+import com.we.weblog.UIModel;
 import com.we.weblog.controller.IndexController;
 import com.we.weblog.domain.Blog;
 import com.we.weblog.service.Impl.BlogServiceImpl;
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -24,17 +28,6 @@ public class BlogController {
         this.blogService = blogService;
     }
 
-    //博客的增删改查
-
-
-
-    @GetMapping("/bloglist")
-    public void showBlogs(HttpServletResponse response) throws IOException {
-
-        IndexController.tempBlogs = blogService.showBlogs(1);
-
-        response.sendRedirect("/admin/show.html");
-    }
 
     @GetMapping("/delete")
     public  void deleteBlog(HttpServletRequest request,HttpServletResponse response){

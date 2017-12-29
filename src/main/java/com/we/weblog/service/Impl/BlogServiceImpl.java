@@ -8,13 +8,11 @@ import com.we.weblog.service.BlogService;
 import com.we.weblog.domain.Blog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
+
 
 @Service
 public class BlogServiceImpl implements BlogService {
-
-
     private BlogMapper blogMapper;
     private TagMapper tagMapper;
 
@@ -147,8 +145,8 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<YearBlog> getYearBlog(int page) {
         int start = (page-1)*12;
-
-        return sortBlogsByYears(blogMapper.selectBlogsByYear(page));
+        List<Blog> list = blogMapper.selectBlogsByYear(start);
+        return sortBlogsByYears(list);
     }
 
 

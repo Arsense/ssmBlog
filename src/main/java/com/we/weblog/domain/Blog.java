@@ -7,7 +7,7 @@ public class Blog {
     /**
      *  博客id
      */
-    private Integer   blogId;
+    private int   blog_id;
     /**
      *  创建时间
      */
@@ -63,11 +63,11 @@ public class Blog {
 
 
     public Integer getBlogId() {
-        return blogId;
+        return blog_id;
     }
 
     public void setBlogId(Integer blogId) {
-        this.blogId = blogId;
+        this.blog_id = blog_id;
     }
 
     public Date getTime() {

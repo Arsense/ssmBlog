@@ -22,7 +22,7 @@ public class MenuApiInJvm {
         Menu menu5 = createMenu("/admin/bmanage.html" , "博客配置" , "fa fa-cog" , 2) ;
 
         menu2.addChildMenu(createMenu
-                ("/admin/bloglist.html" , "显示所有博客" , "fa fa-circle-o" , 2));
+                ("/admin/show.html" , "显示所有博客" , "fa fa-circle-o" , 2));
 
         menu2.addChildMenu(createMenu("/admin/testeditor.html" , "添加新" +
                 "" +

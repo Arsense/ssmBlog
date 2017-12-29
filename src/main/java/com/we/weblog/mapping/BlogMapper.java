@@ -71,7 +71,7 @@ public interface BlogMapper {
 
 
 
-    @Select({"select blog_id,title,date,tags from t_blog order by date desc limit #{st},12"})
+    @Select({"select blog_id,title,date,tags from t_blog order by date desc limit #{p},12"})
     List<Blog> selectBlogsByYear(@Param("p") int page);
 
 }

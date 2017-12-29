@@ -2,9 +2,35 @@
 ## 基本技术
 
 环境: `Springboot+mysql+admintle+vue.js+mybatis`环境搭建的个人博客
+##前台 白天版本
+
+![](https://i.imgur.com/lL7KoN8.jpg)
+##前台 夜晚版本
+
+![](https://i.imgur.com/Dhk0Mvl.jpg)
+##后台登录界面
+ ![](https://i.imgur.com/axudahd.png)
+
+##后台管理界面
+![](https://i.imgur.com/A7dJ0IM.png)
+
+###博客列表显示
+![](https://i.imgur.com/mQKfZms.png)
+
+###博客编辑器 采用开源的editor.md
+![](https://i.imgur.com/PqxEg1Y.png)
+
+## 本地引入jar包
+- 安装命令
 
 
-## 后台实现
+mvn install:install-file -Dfile=D:\code\blog\ssmBlog\src\vuejar\vue-test-1.0.1-SNAPSHOT.jar -DgroupId=com.blog.vue -DartifactId=vue-test  -Dversion=1.0.1-SNAPSHOT -Dpackaging=jar
+
+<groupId>com.blog.vue</groupId>
+    <artifactId>vue-test</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+
+## 后台完成日志
 12-19日<br>
 1.前期环境选择搭建和大致情况设计完毕
 
@@ -37,7 +63,9 @@
 2. 增加session验证和拦截器拦截 以免访问不该访问的界面
 
 12-29r日<br>
-
+1. 前后端完全分离，拦截器的bug修复了
+2. 编写前端的博客按年显示后台功能
+3. 存在问题 有bug 能查出ID 但是不能显示 改js
 ## 预计改进
 1. 登录在前端效验 前后端完全分离<br>
 2. 目前是h2数据库 改为mysql，mybatis管理使用注解更快更方便
@@ -46,19 +74,4 @@
 
 
 配置更方便
-##后台登录界面
- ![](https://i.imgur.com/axudahd.png)
 
-##后台管理界面
-![](https://i.imgur.com/A7dJ0IM.png)
-
-
-## 本地引入jar包
-- 安装命令
-
-
-mvn install:install-file -Dfile=D:\code\blog\ssmBlog\src\vuejar\vue-test-1.0.1-SNAPSHOT.jar -DgroupId=com.blog.vue -DartifactId=vue-test  -Dversion=1.0.1-SNAPSHOT -Dpackaging=jar
-
-<groupId>com.blog.vue</groupId>
-    <artifactId>vue-test</artifactId>
-    <version>1.0.1-SNAPSHOT</version>

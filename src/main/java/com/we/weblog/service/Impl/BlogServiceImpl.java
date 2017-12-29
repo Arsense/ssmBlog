@@ -1,6 +1,7 @@
 package com.we.weblog.service.Impl;
 
 
+import com.we.weblog.domain.YearBlog;
 import com.we.weblog.mapping.BlogMapper;
 import com.we.weblog.mapping.TagMapper;
 import com.we.weblog.service.BlogService;
@@ -8,10 +9,7 @@ import com.we.weblog.domain.Blog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 @Service
 public class BlogServiceImpl implements BlogService {
@@ -129,6 +127,7 @@ public class BlogServiceImpl implements BlogService {
         return null;
     }
 
+
     @Override
     public Blog getPreviousBlog(int blogId) {
         return null;
@@ -139,13 +138,48 @@ public class BlogServiceImpl implements BlogService {
         return null;
     }
 
+
+    /**
+     * 根据页码显示每个年份的博客
+     * @param page
+     * @return
+     */
     @Override
-    public List<Blog> getYearBlog(int page) {
-        return null;
+    public List<YearBlog> getYearBlog(int page) {
+        int start = (page-1)*12;
+
+        return sortBlogsByYears(blogMapper.selectBlogsByYear(page));
     }
+
+
+
+    @Override
+    public List<YearBlog> sortBlogsByYears(List<Blog> bloglist) {
+        List<YearBlog> yearBlogs = new ArrayList<>();
+        Map<Integer,YearBlog> yearMap = new HashMap<>();
+        for(Blog blog : bloglist){
+            Date date= blog.getDate();
+            blog.setMonth(TimeTool.getEdate(date));
+            int year = TimeTool.getYear(date);
+            if(yearMap.containsKey(year)){
+                yearMap.get(year).getYearBlogs().add(blog);
+            }else{
+                YearBlog yearBlog = new YearBlog(year,new ArrayList<Blog>());
+                yearMap.put(year,yearBlog);
+                yearBlog.getYearBlogs().add(blog);
+                yearBlogs.add(yearBlog);
+            }
+
+    }
+
+        return yearBlogs;
+    }
+
+
 
     @Override
     public int getNumberOfYearBlog() {
+        //先只处理一页吧
         return 0;
     }
 

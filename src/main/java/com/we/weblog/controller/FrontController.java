@@ -2,6 +2,7 @@ package com.we.weblog.controller;
 
 
 import com.we.weblog.domain.Blog;
+import com.we.weblog.domain.YearBlog;
 import com.we.weblog.service.BlogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,10 +28,10 @@ public class FrontController {
         this.blogService = blogService;
     }
 
-    @GetMapping("/year/{page}")
+    @GetMapping("//yearblogs/{page}")
     @ResponseBody
-    public List<Blog>  getYearBlogs(@PathVariable int page, HttpServletResponse response) throws IOException {
-        List<Blog> blogList = blogService.getYearBlog(page);
+    public List<YearBlog>  getYearBlogs(@PathVariable int page, HttpServletResponse response) throws IOException {
+        List<YearBlog> blogList = blogService.getYearBlog(page);
         int nblog = blogService.getNumberOfYearBlog();
         return  blogList ;
     }

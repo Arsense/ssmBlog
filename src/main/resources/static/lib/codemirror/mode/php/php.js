@@ -17,7 +17,7 @@
     return obj;
   }
 
-  // Helper for stringWithEscapes
+  // helper for stringWithEscapes
   function matchSequence(list, end) {
     if (list.length == 0) return stringWithEscapes(end);
     return function (stream, state) {

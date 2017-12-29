@@ -1,6 +1,7 @@
 package com.we.weblog.service;
 
 import com.we.weblog.domain.Blog;
+import com.we.weblog.domain.YearBlog;
 
 import java.util.List;
 
@@ -16,13 +17,13 @@ public interface BlogService {
     Blog getBlogHtml();                     //获得前端html
     List<Blog> getBlogsByTag(String tagName);   //根据标签获得博客
 
-
+     List<YearBlog> sortBlogsByYears(List<Blog> bloglist); //
 
     Blog getPreviousBlog(int blogId);
     Blog getNextBlog(int blogId);
 
 
     //处理YearBlog
-    List<Blog> getYearBlog(int page);
+    List<YearBlog> getYearBlog(int page);
     int getNumberOfYearBlog();
 }

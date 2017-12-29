@@ -69,4 +69,9 @@ public interface BlogMapper {
     @ResultType(String.class)
     List<String> getAllTags();
 
+
+
+    @Select({"select blog_id,title,date,tags from t_blog order by date desc limit #{st},12"})
+    List<Blog> selectBlogsByYear(@Param("p") int page);
+
 }

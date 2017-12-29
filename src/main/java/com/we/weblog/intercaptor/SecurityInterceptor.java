@@ -1,7 +1,10 @@
 package com.we.weblog.intercaptor;
 
 
+import com.we.weblog.controller.IndexController;
 import com.we.weblog.domain.Blog;
+import com.we.weblog.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +20,13 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class SecurityInterceptor implements HandlerInterceptor{
 
+
+    private UserService userService;
+
+    @Autowired
+    public  SecurityInterceptor(UserService userService){
+        this.userService = userService;
+    }
     /**
      * 拦截
      * @param request
@@ -30,8 +40,23 @@ public class SecurityInterceptor implements HandlerInterceptor{
         //在这里处理拦截请求
         Object obj = request.getSession().getAttribute("login_user");
         if(obj == null){
-            response.sendRedirect(request.getContextPath()+"/login");
+            // response.sendRedirect(request.getContextPath()+"/login");
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            if(username!=null && password != null) {
+                boolean result = userService.checkLogin(username,password);
+                if (result) {
+                    IndexController.loginStatus = true;
+                    userService.addSession(request,username);
+//                    IndexController.url = "http://localhost:8002/admin/main.html";
+                   // response.sendRedirect("/admin/main.html");
+                    return true;
+                }else {
+                    IndexController.url = "http://localhost:8002/login?reuslt=fail";
+                }
 
+            }
+            IndexController.loginStatus = false;
             return false;
         }
         return true;

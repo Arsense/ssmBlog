@@ -7,23 +7,32 @@ public class Blog {
     /**
      *  博客id
      */
-    public Integer   blogId;
+    private Integer   blogId;
     /**
      *  创建时间
      */
-    public Date      date;
+    private Date      date;
     /**
      *  博客名称
      */
-    public String    title;
+    private String    title;
     /**
      *      博客标签
      */
-    public String   tags;
+    private String   tags;
 
 
-    public String  mdText;
+    private String  mdText;
 
+    private String month;
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
 
     public Date getDate() {
         return date;

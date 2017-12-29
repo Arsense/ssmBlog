@@ -32,7 +32,8 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     public void addInterceptors(InterceptorRegistry registry){
         //配置登录拦截器拦截路径 
         registry.addInterceptor(interceptor).addPathPatterns("/get_app_info");
-        registry.addInterceptor(interceptor).addPathPatterns("/get_app_data");
+        registry.addInterceptor(interceptor).addPathPatterns("/get_table_data");
+        registry.addInterceptor(interceptor).addPathPatterns("/admin");
     }
     
     

@@ -1,6 +1,5 @@
 package com.we.weblog.controller;
 
-
 import com.we.weblog.data.AppInfoInJvm;
 import com.we.weblog.data.MenuApiInJvm;
 import com.we.weblog.service.BlogService;
@@ -11,9 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +32,7 @@ public class IndexController {
 
         UIModel uiModel = new UIModel()
                 .menu(MenuApiInJvm.getMenu())
-                .appInfo(AppInfoInJvm.getAppInfo())
+                .appInfo(AppInfoInJvm.getAppInfo())// 1
                 .isLogin(loginStatus)
                 .setLoginUrl(url);
 
@@ -56,12 +53,9 @@ public class IndexController {
         tableData.configDisplayColumn(TableData.createColumn("title" , "标题") );
         tableData.configDisplayColumn(TableData.createColumn("tags" , "标签" ));
         tableData.configDisplayColumn(TableData.createColumn("date" , "创建日期" ));
-
-
         for(Blog blog : tempBlogs){
             tableData.addData(blog);
         }
-
 
         if("".equals(name)) {
             tableData.setTotalSize(0);

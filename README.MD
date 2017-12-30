@@ -17,7 +17,7 @@
 ### 博客列表显示
 ![](https://i.imgur.com/mQKfZms.png)
 
-###博客编辑器 采用开源的editor.md
+### 博客编辑器 采用开源的editor.md
 ![](https://i.imgur.com/PqxEg1Y.png)
 
 ## 本地引入jar包

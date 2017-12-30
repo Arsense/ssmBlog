@@ -2,19 +2,19 @@
 ## 基本技术
 
 环境: `Springboot+mysql+admintle+vue.js+mybatis`环境搭建的个人博客
-##前台 白天版本
+## 前台 白天版本
 
 ![](https://i.imgur.com/lL7KoN8.jpg)
-##前台 夜晚版本
+## 前台 夜晚版本
 
 ![](https://i.imgur.com/Dhk0Mvl.jpg)
-##后台登录界面
+## 后台登录界面
  ![](https://i.imgur.com/axudahd.png)
 
-##后台管理界面
+## 后台管理界面
 ![](https://i.imgur.com/A7dJ0IM.png)
 
-###博客列表显示
+### 博客列表显示
 ![](https://i.imgur.com/mQKfZms.png)
 
 ###博客编辑器 采用开源的editor.md

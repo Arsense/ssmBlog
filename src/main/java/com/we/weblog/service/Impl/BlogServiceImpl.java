@@ -128,12 +128,16 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Blog getPreviousBlog(int blogId) {
-        return null;
+        return blogMapper.getPreviousBlog(blogId);
     }
 
     @Override
-    public Blog getNextBlog(int blogId) {
-        return null;
+    public Blog getNextBlog(int blogId) { return blogMapper.getNextBlog(blogId);
+    }
+
+    @Override
+    public Blog getBlogById(int id) {
+        return blogMapper.getBlogById(id);
     }
 
 

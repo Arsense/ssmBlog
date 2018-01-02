@@ -38,7 +38,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right myBar">
                 <li>
-                    <a href="/textlist/1">Archives</a>
+                    <a href="/yearblogs.html">Archives</a>
                 </li>
                 <li>
                     <a href="/tags">Tags</a>
@@ -89,16 +89,22 @@
         </div>
     </div>
 </div>
-<a href="#content" id="blog_content"></a><div class="container">
+<a href="#content" id="blog_content"></a>
+
+<div class="container" id = "main">
     <div class="row">
         <div class="col-lg-12 post">
-            <div class="archive" v-for="year in years">
-            <h2 class="year"> {{year}}}</h2>
-                <div class="post-item">
-                    <div v-for="bv in list"  class="post-item">
-                        {{bv['MonthDay']}}}
+            <div class="archive" v-for="item in blogData">
+            <h2 class="year"> {{item['year']}}</h2>
+                <div class="post-item" v-for="blogs in item['yearBlogs']">
+                    <div   class="post-item">
+                        <li >
+                            {{blogs.month}}
+                            {{blogs['blogId']}}
+                        </li>
+                        <a :href="getpostUrl(blogs)" class="post-link">{{blogs.title}}</a>
                     </div>
-                    <a href="/post/{{bv['id']}}"class="post-link">{{bv.Title}}</a>
+
                 </div>
 
             </div>
@@ -107,9 +113,7 @@
 </div>
 
 
-<div id = "list">
 
-</div>
 
 <footer>
     <div class="container">
@@ -138,48 +142,45 @@
     </div>
 </footer>
 <!--footer end-->
-<script>
-
-        new Vue({
-            el:"#list",
-
-            props:{
-                data: Object
-            },
-            data:function () {
-                return {
-                    years : 2017,
-                    Lists : [],
-
-                }
-            },
-            method:function () {
-
-            },
-            created:function(){
-                var url = "/yearsblog";
-
-                this.$http.get(url).then(function (data) {
-                    var json = data.body;
-                    this.data = eval("("+json+")");
-                }).function(response){
-                    console.info(response)
-                }
-            }
-
-
-        })
-
-
-
-
-
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="js/front-end.min.js"></script>
+<script>
+         var v=new Vue({
+             el: "#main",
+             data: function(){
+                return {
+                    blogData:[]
+                }
+             },
+             methods:{
+
+                 recommend:function(){
+                     var self = this;
+                     $.ajax({
+                         type: "get",
+                         url: "/years_blog_data",
+                         dataType: "json",
+                         success: function(response) {
+                             self.blogData = response
+
+
+                         },
+                     });
+
+                 },
+                 getpostUrl:function (Object) {
+                     return "/post/"+Object.blogId;
+                 }
+             },
+
+         });
+        v.recommend()
+
+</script>
+
 </body>
 
 </html>

@@ -74,4 +74,13 @@ public interface BlogMapper {
     @Select({"select blog_id,title,date,tags from t_blog order by date desc limit #{p},12"})
     List<Blog> selectBlogsByYear(@Param("p") int page);
 
+
+    @Select({"select title,article from t_blog where id = #{id}"})
+    Blog getBlogById(@Param("id") int id);
+
+    @Select({"select title,article from t_blog order by id desc where id < #{id}"})
+    Blog getPreviousBlog(@Param("id") int id);
+
+    @Select({"select title,article from t_blog where order by id desc where id > #{id}"})
+    Blog getNextBlog(@Param("id") int id);
 }

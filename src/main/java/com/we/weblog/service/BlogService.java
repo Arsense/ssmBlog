@@ -21,7 +21,7 @@ public interface BlogService {
 
     Blog getPreviousBlog(int blogId);
     Blog getNextBlog(int blogId);
-
+    Blog getBlogById(int id);
 
     //处理YearBlog
     List<YearBlog> getYearBlog(int page);

@@ -58,13 +58,14 @@ public class FrontController {
     @GetMapping("/post")
     @ResponseBody
     public Map<String, Blog> postData( ){
+        Map<String,Blog> map  = new HashMap<>();
         Blog currentBlog = blogService.getBlogById(postId);
         Blog preBlog = blogService.getPreviousBlog(postId);
         Blog nextBlog = blogService.getNextBlog(postId);
-        Map<String,Blog> map  = new HashMap<>();
+
         map.put("current",currentBlog);
-        map.put("previous",preBlog);
         map.put("next",nextBlog);
+        map.put("previous",preBlog);
         return map;
     }
 

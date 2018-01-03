@@ -257,23 +257,23 @@
 
 
 </script>
-    <script>
+<script>
 
     function getData(){
-    var a=document.forms[0];
-    var b,c;
-    a.action="/admin/send";
-    a.method="post";
-    // document.blogForm.article.value=$(".markdown-body")[0].innerHTML,
-    b = testEditor.getMarkdown();
-    c = testEditor.getHTML();
-    document.blogFrom.mdText.value=testEditor.getMarkdown();
-    document.blogFrom.article.value = testEditor.getHTML();
+        var a=document.forms[0];
+        var b,c;
+        a.action="/admin/send";
+        a.method="post";
+        // document.blogForm.article.value=$(".markdown-body")[0].innerHTML,
+        b = testEditor.getMarkdown();
+        c = testEditor.getHTML();
+        document.blogFrom.mdText.value=testEditor.getMarkdown();
+        document.blogFrom.article = testEditor.getHTML();
 
-    a.submit()
+        a.submit()
     }
 
-    </script>
+</script>
 
 
 </html>

@@ -3,6 +3,7 @@ package com.we.weblog.mapping;
 
 import com.we.weblog.domain.Blog;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.mapping.StatementType;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -35,8 +36,10 @@ public interface BlogMapper {
      * @return
      */
     @Insert({"insert into t_blog " +
-            "(title,date,tags) " +
-            "values (#{b.title},#{b.date},#{b.tags})"})
+            "(article,title,date,tags,md) " +
+            "values (#{b.article},#{b.title},#{b.date},#{b.tags},#{b.md})"})
+    @SelectKey(before=false,keyProperty="b.blog_id",resultType=Integer.class,
+            statementType= StatementType.STATEMENT,statement="SELECT LAST_INSERT_ID() AS id")
     int insertBlog(@Param("b") Blog blog);
 
     /**
@@ -83,4 +86,9 @@ public interface BlogMapper {
 
     @Select({"select blog_id,title,article from t_blog where blog_id > #{id} order by blog_id desc limit 1"})
     Blog getNextBlog(@Param("id") int id);
+
+    //distinct 不重复的
+    @Select({"select distinct tag_name from t_tag "})
+    @ResultType(String.class)
+    List<String> selectTagkinds();
 }

@@ -41,8 +41,8 @@ public class BlogController {
       * @param blog 表单中提交的博客信息,包括标题，标签，md页面，和md转成的html页面
      * @return
      */
-    @PostMapping("/post.action")
-    public void postAction(@ModelAttribute("formName")Blog blog,HttpServletResponse response) throws IOException {
+    @PostMapping("/send")
+    public void postAction(@ModelAttribute("blogFrom")Blog blog,HttpServletResponse response) throws IOException {
             blogService.addBlog(blog);
             response.sendRedirect("/admin/show.html");
     }

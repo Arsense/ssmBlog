@@ -185,5 +185,9 @@ public class BlogServiceImpl implements BlogService {
         return 0;
     }
 
+    public List<String> getAllKindTags(){
+        return blogMapper.selectTagkinds();
+    }
+
 
 }

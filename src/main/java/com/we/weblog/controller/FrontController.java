@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +68,14 @@ public class FrontController {
         map.put("next",nextBlog);
         map.put("previous",preBlog);
         return map;
+    }
+
+    @GetMapping("/tags_data")
+    @ResponseBody
+    public List<String> getTags(){
+        List<String> list = new ArrayList<>();
+        list = blogService.getAllKindTags();
+        return list;
     }
 
 

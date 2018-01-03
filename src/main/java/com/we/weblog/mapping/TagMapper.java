@@ -22,9 +22,7 @@ public interface TagMapper {
 
 
     @Insert({
-            "insert ignore into t_tag (tag_name,blog_id) values" +
-                    "#(tag),#(id)"
-              })
+            "insert ignore into t_tag (tag_name,blog_id) values (#{tag},#{id})"})
     int insertBlogTag(@Param("tag") String tag,@Param("id") int id);
 
 

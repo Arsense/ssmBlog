@@ -22,7 +22,7 @@ public class Blog {
     private String   tags;
 
 
-    private String  mdText;
+    private String  md;
 
     private String month;
 
@@ -43,11 +43,11 @@ public class Blog {
     }
 
     public String getMdText() {
-        return mdText;
+        return md;
     }
 
-    public void setMdText(String mdText) {
-        this.mdText = mdText;
+    public void setMdText(String md) {
+        this.md = md;
     }
 
     public String getArticle() {

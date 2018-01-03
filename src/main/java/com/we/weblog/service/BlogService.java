@@ -14,6 +14,7 @@ public interface BlogService {
     List<Blog>  showBlogs(int page);        //显示博客
     int getBlogsPages();                    //获得所有博客的页数
     List<String> getAllTags();              //获得所有的标签分类
+    List<String>getAllKindTags();
     Blog getBlogHtml();                     //获得前端html
     List<Blog> getBlogsByTag(String tagName);   //根据标签获得博客
 
@@ -26,4 +27,6 @@ public interface BlogService {
     //处理YearBlog
     List<YearBlog> getYearBlog(int page);
     int getNumberOfYearBlog();
+
+
 }

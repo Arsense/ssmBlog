@@ -1,7 +1,11 @@
 
 ## 基本技术
 
-环境: `Springboot+mysql+admintle+vue.js+mybatis`环境搭建的个人博客
+环境: `Springboot+mysql+admintle+vue.js+mybatis`环境搭建的个博客
+
+###版本控制
+
+- 1月3日  v1.0
 ## 前台 白天版本
 
 ![](https://i.imgur.com/lL7KoN8.jpg)
@@ -62,7 +66,7 @@ mvn install:install-file -Dfile=D:\code\blog\ssmBlog\src\vuejar\vue-test-1.0.1-S
 1. 登陆校验在前端，并前端js加密密码
 2. 增加session验证和拦截器拦截 以免访问不该访问的界面
 
-12-29r日<br>
+12-29r<br>
 1. 前后端完全分离，拦截器的bug修复了
 2. 编写前端的博客按年显示后台功能
 3. 存在问题 有bug 能查出ID 但是不能显示 改js
@@ -73,5 +77,8 @@ mvn install:install-file -Dfile=D:\code\blog\ssmBlog\src\vuejar\vue-test-1.0.1-S
 4. 在Service增加事务管理
 
 
-配置更方便
+18 年1-3日<br>
 
+
+1.前台根据日期 标签显示博客基本完成
+2.后台添加博客完成 粗糙v1.0完成

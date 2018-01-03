@@ -1,0 +1,7 @@
+CREATE TABLE `t_user` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '用户id',
+  `username` varchar(30) CHARACTER SET utf8 NOT NULL,
+  `password` varchar(80) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+

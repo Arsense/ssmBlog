@@ -122,7 +122,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public List<Blog> getBlogsByTag(String tagName) {
-        return null;
+        return blogMapper.selectBlogByTag(tagName);
     }
 
 

@@ -11,9 +11,19 @@
     <link href="css/jcala-md.min.css" rel="stylesheet"/>
     <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">
 </head>
-<body>
-<script src="js/front-end.min.js"></script>
-
+<script type="text/javascript">
+    function switch_theme_css() {
+        var css=document.getElementById("theme-css");
+        if(localStorage.blog_theme==undefined){
+            localStorage.blog_theme="light";
+        }
+        if(localStorage.blog_theme=="dark"){
+            css.href="/css/landing-page-dark.min.css";
+        }
+    }
+    switch_theme_css();
+</script>
+<body >
 <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
     <div class="container topnav">
         <div class="navbar-header">
@@ -33,7 +43,6 @@
                 <li>
                     <a href="/tags.html">Tags</a>
                 </li>
-
                 <li>
                     <a href="/about">About</a>
                 </li>
@@ -52,20 +61,50 @@
 <!--header end-->
 
 
-<div class="container" id ="main">
-    <div class="row">
-        <div class="col-lg-12 post">
-            <div class="editormd-preview" id="md-container">
-                <div id = "showhtml" class="markdown-body editormd-preview-container" previewcontainer="true" style="padding: 20px;">
-                    getHtmlShow(current)
+
+<div class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="intro-message">
+                    <h1>jcala</h1>
+                    <h3>my blog about programming</h3>
+                    <hr class="intro-divider">
+                    <ul class="list-inline intro-social-buttons">
+                        <li>
+                            <a href="mailto:#" class="btn btn-default btn-lg"><i class="fa fa-envelope fa-fw"></i> <span class="network-name">Email</span></a>
+                        </li>
+                        <li>
+                            <a href="#" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                        </li>
+                        <li>
+                            <a href="#" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <br><br>
-            <a v-if="previous != null" :href="getPostUrl(previous)" class="post-flip"><i class="fa fa-arrow-left"></i>&nbsp;{{previous.title}}</a>
-            <a v-if="next != null" :href="getPostUrl(next)" class="post-flip" style="float: right;">{{next.title}}&nbsp;<i class="fa fa-arrow-right"></i></a>
         </div>
     </div>
 </div>
+<a href="#content" id="blog_content"></a>
+
+<div class="container" id = "main">
+    <div class="row">
+        <div class="col-lg-12 post">
+            <div class="archive" v-for="item in tagData">
+                <h2 class="year">  {{item['tags']}}</h2>
+                <div class="post-item">
+                    {{item['month']}}
+                    <a :href="getpostUrl(item)" class="post-link">{{item.title}}</a>
+                    <br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 <footer>
     <div class="container">
@@ -95,43 +134,40 @@
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
+<script src="js/front-end.min.js"></script>
 <script>
-    var vm = new Vue({
-        el:"#main",
-        data: function () {
+    var v=new Vue({
+        el: "#main",
+        data: function(){
             return {
-                current:Object,
-                previous:Object,
-                next:Object
+                tagData:[]
             }
         },
         methods:{
-            getData:function () {
+            recommend:function(){
                 var self = this;
                 $.ajax({
-                    type:"get",
+                    type: "get",
+                    url: "/tags_detail_data",
                     dataType: "json",
-                    url:"/post",
-                    success: function (reponse) {
-                        self.current = reponse.current;
-                        self.previous = reponse.previous;
-                        self.next = reponse.next;
-                    }
-                })
-            },
-            getPostUrl:function (Object) {
-                return "/post/"+Object.blogId
-            },
-            getHtmlShow:function (data) {
-                document.getElementById("showhtml").innerHTML = data.article
-            }
+                    success: function(response) {
+                        self.tagData = response
 
-        }
+
+                    },
+                });
+
+            },
+            getpostUrl:function (Object) {
+                return "/post/"+Object.blogId;
+            }
+        },
 
     });
-         vm.getData()
+    v.recommend()
+
 </script>
+
 </body>
+
 </html>

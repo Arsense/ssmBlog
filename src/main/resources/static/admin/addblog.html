@@ -120,11 +120,24 @@
         <button id="toc-menu-btn">ToC Dropdown menu</button>
         <button id="toc-default-btn">ToC default</button>
     </div>
-    <form method="post"  name="blogFrom" >
+    <form method="post" id="blogForm" name="blogFrom" >
 
         <div id="test-editormd"></div>
         <div style="width:90%;margin: 10px auto;">
-            <input type="submit" name="submit" value="提交表单 Submit" style="padding: 5px;" />
+            <div class="form-group">
+                <label for="blogTitle" class="text-warning">Title</label>
+                <input id = "blogTitle" type="text" class="form-control" name="title" placeholder="请输入博客标题"/>
+            </div>
+            <div class="form-group">
+                <label for="blogTags" class="text-warning">Tags</label>
+                <input id = "blogTags" type="text" class="form-control" name="tags" placeholder="输入标签后请点击回车键" data-role="tagsinput"/>
+            </div>
+            <input type="hidden" name="mdText" id = "mdText" />
+            <input type="hidden" name="article" id = "article"/>
+            <div class="form-group">
+                <label for="blogSubmit" class="text-warning">submit</label>
+                <input id = "blogSubmit" type="submit" class="form-control jcala-input" onclick="getData()" value="save"/>
+            </div>
         </div>
     </form>
 
@@ -140,7 +153,7 @@
 
     $(function() {
 
-        $.get('test.md', function(md){
+        $.get('add.md', function(md){
             testEditor = editormd("test-editormd", {
                 width: "90%",
                 height: 740,
@@ -244,19 +257,23 @@
 
 
 </script>
-<!--<script>-->
+<script>
 
-<!--function getData(){-->
-<!--var a=document.forms[0];-->
-<!--a.action="/admin/post.action";-->
-<!--a.method="post";-->
-<!--// document.blogForm.article.value=$(".markdown-body")[0].innerHTML,-->
-<!--document.blogForm.article = testEditor.getHTML();-->
-<!--document.blogForm.md.value=testEditor.getMarkdown();-->
-<!--a.submit()-->
-<!--}-->
+    function getData(){
+        var a=document.forms[0];
+        var b,c;
+        a.action="/admin/send";
+        a.method="post";
+        // document.blogForm.article.value=$(".markdown-body")[0].innerHTML,
+        b = testEditor.getMarkdown();
+        c = testEditor.getHTML();
+        document.blogFrom.mdText.value=testEditor.getMarkdown();
+        document.blogFrom.article.value = testEditor.getHTML();
 
-<!--</script>-->
+        a.submit()
+    }
+
+</script>
 
 
 </html>

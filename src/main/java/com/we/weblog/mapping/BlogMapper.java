@@ -5,6 +5,7 @@ import com.we.weblog.domain.Blog;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.StatementType;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -91,4 +92,9 @@ public interface BlogMapper {
     @Select({"select distinct tag_name from t_tag "})
     @ResultType(String.class)
     List<String> selectTagkinds();
+
+
+
+    @Select("select * from t_blog where tags=#{tag}")
+    List<Blog> selectBlogByTag(@Param("tag") String tagName);
 }

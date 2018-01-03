@@ -25,6 +25,7 @@ public class FrontController {
 
     private BlogService blogService;
     private static int postId = 0;
+    private static String tagName = null;
 
     public FrontController(BlogService blogService){
         this.blogService = blogService;
@@ -49,9 +50,6 @@ public class FrontController {
     public void post(@PathVariable String id,HttpServletResponse response ) throws IOException {
         int tempId = Integer.parseInt(id);
         postId = tempId;
-        if(postId==0){
-            //去错误界面 page 404
-        }
         response.sendRedirect("/article.html");
 
     }
@@ -73,8 +71,32 @@ public class FrontController {
     @GetMapping("/tags_data")
     @ResponseBody
     public List<String> getTags(){
-        List<String> list = new ArrayList<>();
+        List<String> list;
         list = blogService.getAllKindTags();
+        return list;
+    }
+
+    /**
+     * 捕获点击的博客类别的get请求
+     * @param tag
+     * @param response
+     * @throws IOException
+     */
+    @GetMapping("/tags/{tag}")
+    public void getTagName(@PathVariable String tag,HttpServletResponse response) throws IOException {
+        tagName = tag;
+        response.sendRedirect("/tagdetail.html");
+    }
+
+    /**
+     *  根据tags 展示所有博客
+     * @return
+     */
+    @GetMapping("/tags_detail_data")
+    @ResponseBody
+    public  List<Blog> tagDetailData(){
+        List<Blog> list;
+        list = blogService.getBlogsByTag(tagName);
         return list;
     }
 

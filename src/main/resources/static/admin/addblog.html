@@ -96,14 +96,27 @@
 
 <div id="layout">
     <header>
-        <h1>完整示例</h1>
-        <p>Full example</p>
-        <ul style="margin: 10px 0 0 18px;">
-            <li>Enable HTML tags decode</li>
-            <li>Enable TeX, Flowchart, Sequence Diagram, Emoji, FontAwesome, Task lists</li>
-            <li>Enable Image upload</li>
-            <li>Enable [TOCM], Search Replace, Code fold</li>
-        </ul>
+        <h1>添加博客</h1>
+        <form method="post" id="blogForm" name="blogFrom" >
+
+            <div id="test-editormd"></div>
+            <div style="width:90%;margin: 10px auto;">
+                <div class="form-group">
+                    <label for="blogTitle" class="text-warning">Title</label>
+                    <input id = "blogTitle" type="text" class="form-control" name="title" placeholder="请输入博客标题"/>
+                </div>
+                <div class="form-group">
+                    <label for="blogTags" class="text-warning">Tags</label>
+                    <input id = "blogTags" type="text" class="form-control" name="tags" placeholder="输入标签后请点击回车键" data-role="tagsinput"/>
+                </div>
+                <input type="hidden" name="mdText" id = "mdText" />
+                <input type="hidden" name="article" id = "article"/>
+                <div class="form-group">
+                    <label for="blogSubmit" class="text-warning">submit</label>
+                    <input id = "blogSubmit" type="submit" class="form-control jcala-input" onclick="getData()" value="save"/>
+                </div>
+            </div>
+        </form>
     </header>
     <div class="btns">
         <button id="goto-line-btn">Goto line 90</button>
@@ -120,26 +133,7 @@
         <button id="toc-menu-btn">ToC Dropdown menu</button>
         <button id="toc-default-btn">ToC default</button>
     </div>
-    <form method="post" id="blogForm" name="blogFrom" >
 
-        <div id="test-editormd"></div>
-        <div style="width:90%;margin: 10px auto;">
-            <div class="form-group">
-                <label for="blogTitle" class="text-warning">Title</label>
-                <input id = "blogTitle" type="text" class="form-control" name="title" placeholder="请输入博客标题"/>
-            </div>
-            <div class="form-group">
-                <label for="blogTags" class="text-warning">Tags</label>
-                <input id = "blogTags" type="text" class="form-control" name="tags" placeholder="输入标签后请点击回车键" data-role="tagsinput"/>
-            </div>
-            <input type="hidden" name="mdText" id = "mdText" />
-            <input type="hidden" name="article" id = "article"/>
-            <div class="form-group">
-                <label for="blogSubmit" class="text-warning">submit</label>
-                <input id = "blogSubmit" type="submit" class="form-control jcala-input" onclick="getData()" value="save"/>
-            </div>
-        </div>
-    </form>
 
 
 </div>

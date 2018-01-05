@@ -22,6 +22,7 @@ import java.util.Map;
 public class BlogController {
 
     private BlogServiceImpl blogService;
+    private int setUpdateId = 0;
 
     @Autowired
     public BlogController(BlogServiceImpl blogService){
@@ -30,11 +31,25 @@ public class BlogController {
 
 
     @GetMapping("/delete")
-    public  void deleteBlog(HttpServletRequest request,HttpServletResponse response){
-        String userId = request.getParameter("id");
-
+    public  void deleteBlog(@RequestParam int deleteId,HttpServletResponse response) throws IOException {
+        int id = deleteId;
+        blogService.deleteBlogById(id);
+        //response.sendRedirect("/admin/show.html");
     }
 
+    @GetMapping("/toupdate")
+    public  void updateBlog(@RequestParam int updateId,HttpServletResponse response) throws IOException {
+        setUpdateId = updateId;
+        //查找博客 md显示 标签还要处理吗？
+        response.sendRedirect("/admin/edit.html");
+    }
+
+     @GetMapping("/update_send_data")
+     @ResponseBody
+     public  Blog updateData(){
+         return blogService.getBlogById(setUpdateId);
+
+     }
 
     /**
      * 添加博客的表单控制器

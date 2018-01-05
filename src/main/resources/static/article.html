@@ -56,8 +56,8 @@
     <div class="row">
         <div class="col-lg-12 post">
             <div class="editormd-preview" id="md-container">
-                <div id = "showhtml" class="markdown-body editormd-preview-container" previewcontainer="true" style="padding: 20px;">
-                    getHtmlShow(current)
+                <div id = "showgirl" class="markdown-body editormd-preview-container" previewcontainer="true" style="padding: 20px;">
+
                 </div>
             </div>
             <br><br>
@@ -118,20 +118,18 @@
                         self.current = reponse.current;
                         self.previous = reponse.previous;
                         self.next = reponse.next;
+                        document.getElementById("showgirl").innerHTML = self.current.article
                     }
                 })
             },
             getPostUrl:function (Object) {
                 return "/post/"+Object.blogId
-            },
-            getHtmlShow:function (data) {
-                document.getElementById("showhtml").innerHTML = data.article
             }
 
         }
 
     });
-         vm.getData()
+         vm.getData();
 </script>
 </body>
 </html>

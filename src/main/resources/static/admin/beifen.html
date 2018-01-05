@@ -109,14 +109,12 @@
         <button id="goto-line-btn">Goto line 90</button>
         <button id="show-btn">Show editor</button>
         <button id="hide-btn">Hide editor</button>
-        <button id="get-md-btn">Get Markdown</button>
-        <button id="get-html-btn">Get HTML</button>
         <button id="watch-btn">Watch</button>
         <button id="unwatch-btn">Unwatch</button>
         <button id="preview-btn">Preview HTML (Press Shift + ESC cancel)</button>
-        <button id="fullscreen-btn">Fullscreen (Press ESC cancel)</button>
-        <button id="show-toolbar-btn">Show toolbar</button>
-        <button id="close-toolbar-btn">Hide toolbar</button>
+        <button id="fullscreen-btn">全屏(按ESC退出)</button>
+        <button id="show-toolbar-btn">展示工具栏</button>
+        <button id="close-toolbar-btn">隐藏工具栏</button>
         <button id="toc-menu-btn">ToC Dropdown menu</button>
         <button id="toc-default-btn">ToC default</button>
     </div>
@@ -268,7 +266,7 @@
         b = testEditor.getMarkdown();
         c = testEditor.getHTML();
         document.blogFrom.mdText.value=testEditor.getMarkdown();
-        document.blogFrom.article = testEditor.getHTML();
+        document.blogFrom.article.value = testEditor.getHTML();
 
         a.submit()
     }

@@ -91,7 +91,12 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public void deleteBlogById(int id) {
-        blogMapper.deleteBlogById(id);
+        int result = blogMapper.deleteBlogById(id);
+        if(result == 0){
+
+        }else{
+
+        }
     }
 
 

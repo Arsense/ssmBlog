@@ -30,16 +30,28 @@
                 send_req : 0 ,
                 operations : [
                     {
-                        name : '更新' ,
+                        name : '编辑' ,
                         method : function(row , $table) {
-                            console.log(row)
+
+                            var id = row.blogId;
+                            axios.get('/admin/toupdate',{
+                                params:{
+                                    updateId:id
+                                }
+                            });
                             $table.fetchData()
                         }
                     } ,
                     {
                         name : '删除'  ,
                         method : function(row ,$table) {
-
+                            var id = row.blogId;
+                            axios.get('/admin/delete',{
+                                params:{
+                                    deleteId:id
+                                }
+                            });
+                            $table.fetchData()
                         }
                     }
                 ]

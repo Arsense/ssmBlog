@@ -48,7 +48,7 @@ public interface BlogMapper {
      * @param id
      * @return
      */
-    @Delete({"delete from t_blog where id = #{id}"})
+    @Delete({"delete from t_blog where blog_id = #{id}"})
     int deleteBlogById(@Param("id") int id);
 
     /**

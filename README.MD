@@ -70,6 +70,11 @@ mvn install:install-file -Dfile=D:\code\blog\ssmBlog\src\vuejar\vue-test-1.0.1-S
 1. 前后端完全分离，拦截器的bug修复了
 2. 编写前端的博客按年显示后台功能
 3. 存在问题 有bug 能查出ID 但是不能显示 改js
+
+18 年1-3日<br>
+1. 基本前后台功能全部完善
+2. 调改出更改bolg md 编辑器传值问题
+
 ## 预计改进
 1. 登录在前端效验 前后端完全分离<br>
 2. 目前是h2数据库 改为mysql，mybatis管理使用注解更快更方便
@@ -77,7 +82,7 @@ mvn install:install-file -Dfile=D:\code\blog\ssmBlog\src\vuejar\vue-test-1.0.1-S
 4. 在Service增加事务管理
 
 
-18 年1-3日<br>
+
 
 
 1.前台根据日期 标签显示博客基本完成

@@ -47,7 +47,7 @@ public class IndexController {
     Map<String,Object> get_table_data() {
         UIModel uiModel = new UIModel() ;
         TableData tableData = new TableData() ;
-        tableData.configDisplayColumn(TableData.createColumn("blog_id" , "博客编号") );
+        tableData.configDisplayColumn(TableData.createColumn("blogId" , "博客编号") );
         tableData.configDisplayColumn(TableData.createColumn("title" , "标题") );
         tableData.configDisplayColumn(TableData.createColumn("tags" , "标签" ));
         tableData.configDisplayColumn(TableData.createColumn("date" , "创建日期" ));

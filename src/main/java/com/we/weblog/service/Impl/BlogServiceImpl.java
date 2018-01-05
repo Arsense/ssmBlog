@@ -8,6 +8,8 @@ import com.we.weblog.service.BlogService;
 import com.we.weblog.domain.Blog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 import java.util.*;
 
 
@@ -152,7 +154,7 @@ public class BlogServiceImpl implements BlogService {
      * @return
      */
     @Override
-    public List<YearBlog> getYearBlog(int page) {
+    public List<YearBlog> getYearBlog(int page) throws IOException {
         int start = (page-1)*12;
         List<Blog> list = blogMapper.selectBlogsByYear(start);
         return sortBlogsByYears(list);
@@ -161,7 +163,7 @@ public class BlogServiceImpl implements BlogService {
 
 
     @Override
-    public List<YearBlog> sortBlogsByYears(List<Blog> bloglist) {
+    public List<YearBlog> sortBlogsByYears(List<Blog> bloglist) throws IOException{
         List<YearBlog> yearBlogs = new ArrayList<>();
         Map<Integer,YearBlog> yearMap = new HashMap<>();
         for(Blog blog : bloglist){

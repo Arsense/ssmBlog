@@ -12,13 +12,13 @@
 <body>
 <div id="layout">
     <header>
-        <form method="post" id="blogForm" name="blogFrom" >
+        <form method="post" id = "main" name="blogFrom" >
 
             <div id="test-editormd"></div>
             <div style="width:90%;margin: 10px auto;">
-                <div id = "main" class="form-group">
+                <div  class="form-group">
                     <label for="blogTitle" class="text-warning">Title</label>
-                    <input id = "blogTitle" type="text" class="form-control" name="title" placeholder="请输入博客标题"/>
+                    <input id = "blogTitle" type="text" class="form-control" name="title" value="mdData.title" placeholder="请输入博客标题"/>
                 </div>
                 <div class="form-group">
                     <label for="blogTags" class="text-warning">Tags</label>
@@ -48,12 +48,15 @@
 </body>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/editormd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     var testEditor;
 
     $(function() {
-
+        var temp = vm.mdData.mdText;
         $.get('add.md', function(md){
+            md = temp;
             testEditor = editormd("test-editormd", {
                 width: "90%",
                 height: 740,
@@ -79,6 +82,7 @@
                     console.log('onload', this);
                 }
             });
+
         });
         $("#get-md-btn").bind('click', function(){
             alert(testEditor.getMarkdown());
@@ -120,29 +124,26 @@
         });
     });
 
-
-
-</script>
-<script>
-
     var vm = new Vue({
         el:"#main",
-        data:function () {
+        data: function () {
             mdData:Object
         },
         methods:{
             fixMdData:function () {
                 var self = this;
+              //  var editor = testEditor;
                 $.ajax({
-                   url:"/admin/update_send_data",
-                   type:"get" ,
-                   dataType:"json",
+                    url:"/admin/update_send_data",
+                    type:"get" ,
+                    dataType:"json",
                     success:function (data) {
-                        testEditor.setMarkdown(data.md)
+                        self.mdData = data;
+                        //editor.setMarkdown(data.mdText)
                     }
 
                 });
-            }        
+            }
         }
     });
     vm.fixMdData();
@@ -159,7 +160,9 @@
         document.blogFrom.article.value = testEditor.getHTML();
         a.submit()
     }
+
 </script>
+
 
 
 </html>

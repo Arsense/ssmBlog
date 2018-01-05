@@ -3,18 +3,38 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 </title>
+    <title>博客系统 </title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>here is test</title>
 </head>
 <body>
+
     <v-app id="app"  :data="data">
-        <v-box >
-            <input name="id" v-model="query['id']"/>
-            <input name="name" v-model="query['tags']"/>
+        <v-box title="查询条件">
+
+            <p>{{query['name']}}</p>
+
+
+            <v-form>
+                <v-row>
+                    <v-form-item span="4" label="Name:">
+                        <input type="text" class="form-control" placeholder="Enter ..." v-model="query['name']">
+                    </v-form-item>
+
+                    <v-form-item span="4" label="Age:">
+                        <v-input  v-model="query['age']" placeholder="Enter Age" ></v-input>
+                    </v-form-item >
+                </v-row>
+            </v-form>
+
+
+            </form>
+
             <button @click="re_query"> 查询</button>
+
             <v-table :ajax_url="ajax_url" :query="query" :send_req="send_req" :operations="operations" ></v-table>
+
         </v-box>
 
     </v-app>
@@ -39,6 +59,7 @@
                                     updateId:id
                                 }
                             });
+                            window.location.href = "http://localhost:8002/admin/edit.html";
                             $table.fetchData()
                         }
                     } ,

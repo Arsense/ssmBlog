@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 </title>
+    <title>标签页 </title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -104,31 +104,30 @@
 <script>
 
     var vm = new Vue({
-        el:"#main",
-        data:function(){
+        el: "#main",
+        data: function () {
             return {
-                tags:[]
-             }
+                tags: []
+            }
         },
-            methods:{
-                getTags: function() {
-                    var self = this;
-                    $.ajax({
-                        url:"/tags_data",
-                        type:"get",
-                        dataType:"json",
-                        success:function (response) {
-                            self.tags = response
-                        }
+        methods: {
+            getTags: function () {
+                var self = this;
+                $.ajax({
+                    url: "/tags_data",
+                    type: "get",
+                    dataType: "json",
+                    success: function (response) {
+                        self.tags = response
+                    }
 
-                    });
-                },
-                getTagUrl: function (data) {
-                        return "/tags/"+data
-                }
-
+                });
+            },
+            getTagUrl: function (data) {
+                return "/tags/" + data
             }
 
+        }
 
 
     });

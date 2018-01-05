@@ -3,6 +3,7 @@ package com.we.weblog.service;
 import com.we.weblog.domain.Blog;
 import com.we.weblog.domain.YearBlog;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface BlogService {
@@ -18,14 +19,14 @@ public interface BlogService {
     Blog getBlogHtml();                     //获得前端html
     List<Blog> getBlogsByTag(String tagName);   //根据标签获得博客
 
-     List<YearBlog> sortBlogsByYears(List<Blog> bloglist); //
+     List<YearBlog> sortBlogsByYears(List<Blog> bloglist) throws IOException; //
 
     Blog getPreviousBlog(int blogId);
     Blog getNextBlog(int blogId);
     Blog getBlogById(int id);
 
     //处理YearBlog
-    List<YearBlog> getYearBlog(int page);
+    List<YearBlog> getYearBlog(int page) throws IOException;
     int getNumberOfYearBlog();
 
 

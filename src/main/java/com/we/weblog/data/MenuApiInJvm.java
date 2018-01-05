@@ -29,7 +29,7 @@ public class MenuApiInJvm {
                 "随笔" , "fa fa-circle-o" , 2));
         menu2.addChildMenu(createMenu("/admin/draft.html" , "草稿箱" , "fa fa-circle-o" , 2));
 
-        menu5.addChildMenu(createMenu("/admin/addblog.html" , "博客签名" , "fa fa-circle-o" , 2));
+        menu5.addChildMenu(createMenu("/admin/signature.html" , "博客签名" , "fa fa-circle-o" , 2));
 
         menus.add(menu1);
         menus.add(menu2);

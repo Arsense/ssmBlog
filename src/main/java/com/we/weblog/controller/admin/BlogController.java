@@ -38,10 +38,9 @@ public class BlogController {
     }
 
     @GetMapping("/toupdate")
-    public  void updateBlog(@RequestParam int updateId,HttpServletResponse response) throws IOException {
+    public  void updateBlog(@RequestParam int updateId) throws IOException {
         setUpdateId = updateId;
         //查找博客 md显示 标签还要处理吗？
-        response.sendRedirect("/admin/edit.html");
     }
 
      @GetMapping("/update_send_data")
@@ -61,7 +60,6 @@ public class BlogController {
             blogService.addBlog(blog);
             response.sendRedirect("/admin/show.html");
     }
-
 
 
 

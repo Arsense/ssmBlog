@@ -128,6 +128,7 @@
         el:"#main",
         data: function () {
             mdData:Object
+
         },
         methods:{
             fixMdData:function () {
@@ -139,7 +140,7 @@
                     dataType:"json",
                     success:function (data) {
                         self.mdData = data;
-                        //editor.setMarkdown(data.mdText)
+
                     }
 
                 });

@@ -20,6 +20,7 @@ public class MenuApiInJvm {
         Menu menu3 = createMenu("/admin/kind.html" , "类别管理" , "fa fa-edit" , 2) ;
         Menu menu4 = createMenu("/admin/message.html" , "评论管理" , "fa fa-share" , 2) ;
         Menu menu5 = createMenu("/admin/bmanage.html" , "博客配置" , "fa fa-cog" , 2) ;
+        Menu menu6 = createMenu("/logout.html" , "退出登录" , "fa fa-cog" , 2) ;
 
         menu2.addChildMenu(createMenu
                 ("/admin/show.html" , "显示所有博客" , "fa fa-circle-o" , 2));
@@ -36,6 +37,7 @@ public class MenuApiInJvm {
         menus.add(menu3);
         menus.add(menu4);
         menus.add(menu5);
+        menus.add(menu6);
         return menus;
     }
 

@@ -30,7 +30,8 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     //registry.addInterceptor可以通过此方法添加拦截器, 可以是spring提供的或者自己添加的
     @Override
     public void addInterceptors(InterceptorRegistry registry){
-        //配置登录拦截器拦截路径 
+        //配置登录拦截器拦截路径
+        registry.addInterceptor(interceptor).addPathPatterns("/admin/edit.html");
         registry.addInterceptor(interceptor).addPathPatterns("/get_app_info");
         registry.addInterceptor(interceptor).addPathPatterns("/get_table_data");
     }

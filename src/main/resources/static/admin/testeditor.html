@@ -11,9 +11,11 @@
 </head>
 <body>
 <div id="layout">
-    <header>
-        <form method="post" id="blogForm" name="blogFrom" >
 
+        <div id="page-wrapper" >
+        <div class="col-md-6 column">
+        <form method="post" id="blogForm" name="blogFrom" >
+            <!--style="position:absolute;width:2200px;height:110px;left:40%;top:20px;-->
             <div id="test-editormd"></div>
             <div style="width:90%;margin: 10px auto;">
                 <div class="form-group">
@@ -31,18 +33,22 @@
                     <input id = "blogSubmit" type="submit" class="form-control jcala-input" onclick="getData()" value="save"/>
                 </div>
             </div>
-        </form>
-    </header>
 
-    <div class="btns">
-        <button id="watch-btn">Watch</button>
-        <button id="unwatch-btn">Unwatch</button>
-        <button id="fullscreen-btn">全屏(按ESC退出)</button>
-        <button id="show-toolbar-btn">展示工具栏</button>
-        <button id="close-toolbar-btn">隐藏工具栏</button>
-        <button id="toc-menu-btn">ToC Dropdown menu</button>
-        <button id="toc-default-btn">ToC default</button>
-    </div>
+        </form>
+        </div>
+
+            <div class="btns">
+                <button id="watch-btn">Watch</button>
+                <button id="unwatch-btn">Unwatch</button>
+                <button id="fullscreen-btn">全屏(按ESC退出)</button>
+                <button id="show-toolbar-btn">展示工具栏</button>
+                <button id="close-toolbar-btn">隐藏工具栏</button>
+                <button id="toc-menu-btn">ToC Dropdown menu</button>
+                <button id="toc-default-btn">ToC default</button>
+            </div>
+        </div>
+
+
 </div>
 
 </body>

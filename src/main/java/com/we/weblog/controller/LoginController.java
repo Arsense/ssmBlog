@@ -63,7 +63,7 @@ public class LoginController {
     public void quitLogin(HttpServletRequest request,HttpServletResponse response) throws IOException {
         //销毁session
         userService.destorySession(request);
-        response.sendRedirect("/login.html");
+        response.sendRedirect("/index.html");
 
     }
 }

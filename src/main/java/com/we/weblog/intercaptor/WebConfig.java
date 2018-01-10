@@ -1,5 +1,7 @@
 package com.we.weblog.intercaptor;
 
+import com.baomidou.kisso.web.interceptor.SSOSpringInterceptor;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,27 +15,19 @@ import java.util.Arrays;
 /**
  * web页面配置类，拦截器地址在此注册
  */
+@ControllerAdvice
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter{
 
 
-    private SecurityInterceptor interceptor;
 
-
-
-    @Autowired
-    public WebConfig(SecurityInterceptor securityInterceptor){
-        super();
-        this.interceptor = securityInterceptor;
-    }
-
-    //registry.addInterceptor可以通过此方法添加拦截器, 可以是spring提供的或者自己添加的
     @Override
     public void addInterceptors(InterceptorRegistry registry){
-        //配置登录拦截器拦截路径
-        registry.addInterceptor(interceptor).addPathPatterns("/admin/edit.html");
-        registry.addInterceptor(interceptor).addPathPatterns("/get_app_info");
-        registry.addInterceptor(interceptor).addPathPatterns("/get_table_data");
+
+        // kisso 拦截器配置
+        registry.addInterceptor(new SSOSpringInterceptor()).addPathPatterns("/get_app_info");
+        registry.addInterceptor(new SSOSpringInterceptor()).addPathPatterns("/get_table_data");
+        registry.addInterceptor(new SSOSpringInterceptor()).addPathPatterns("/admin/edit.html");
     }
     
     

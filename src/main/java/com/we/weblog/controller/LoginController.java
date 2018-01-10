@@ -1,69 +1,91 @@
 package com.we.weblog.controller;
 
+import com.baomidou.kisso.SSOHelper;
+import com.baomidou.kisso.annotation.Action;
+import com.baomidou.kisso.annotation.Login;
+import com.baomidou.kisso.security.token.SSOToken;
+import com.baomidou.kisso.web.waf.request.WafRequestWrapper;
 import com.we.weblog.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.IOException;
 
 
 //@EnableAutoConfiguration注释，此注释自动载入应用程序所需的所有Bean
 @Controller
-public class LoginController {
+public class LoginController extends BaseController{
 
 
     private  static UserServiceImpl userService;
+
+
 
     @Autowired
     public LoginController(UserServiceImpl userService){
         this.userService = userService;
     }
+
     /**
-     *  表单提交真正的登陆 检验session
-     * @param request
-     * @param response
-     * @throws IOException
+     * 登录 （注解跳过权限验证）
      */
+  //  @Login(action = Action.Skip)
     @PostMapping("/admin")
-    public void doLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String doLogin() throws Exception {
+        /**
+         * 生产环境需要过滤sql注入
+         */
+        WafRequestWrapper req = new WafRequestWrapper(request);
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
         boolean result = userService.checkLogin(username, password);
         if (result) {
-            userService.addSession(request, username);
-            response.sendRedirect("/admin/main.html");
+            SSOHelper.setCookie(request, response, SSOToken.create().setIp(request).setId(1000).setIssuer(username), false);
+            return redirectTo("/admin/main.html");
         }else {
-            response.sendRedirect("/login.html");
+            return   redirectTo("/login1.html");
         }
     }
 
 
-    /**
-     *  捕获login请求 这里并不是登陆
-     */
-//    @PostMapping("/admin")
-//    public void goLogin(HttpServletRequest request,HttpServletResponse response) throws IOException  {
-//        String result = request.getParameter("result");
-//        if(result !=null && request.equals("fail")){
-//            //这里前端接收信息显示错误
-//        }
-//
-//        response.sendRedirect("/admin/main.html");
-//    }
+
 
 
     @GetMapping("/logout")
-    public void quitLogin(HttpServletRequest request,HttpServletResponse response) throws IOException {
+    public String logout() throws IOException {
         //销毁session
-        userService.destorySession(request);
-        response.sendRedirect("/index.html");
+       // userService.destorySession(request);
+        SSOHelper.clearLogin(request, response);
+        return redirectTo("/index.html");
 
     }
+
+
+
+
+
+     /**
+     * 登录 （注解跳过权限验证）
+     */
+    @Login(action = Action.Skip)
+    @RequestMapping("/login")
+    public String login() {
+        // 设置登录 COOKIE
+        SSOToken st = SSOHelper.getSSOToken(request);
+        if(st != null) {
+
+            return redirectTo("/admin/main.html");
+        }
+        //在这里处理拦截请求
+        /*
+         * 登录需要跳转登录前页面，自己处理 ReturnURL 使用
+         * HttpUtil.decodeURL(xx) 解码后重定向
+         */
+        return redirectTo("/login1.html");
+    }
+
+
+
 }

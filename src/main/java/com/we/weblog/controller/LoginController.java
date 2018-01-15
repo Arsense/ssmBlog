@@ -5,7 +5,7 @@ import com.baomidou.kisso.annotation.Action;
 import com.baomidou.kisso.annotation.Login;
 import com.baomidou.kisso.security.token.SSOToken;
 import com.baomidou.kisso.web.waf.request.WafRequestWrapper;
-import com.we.weblog.service.Impl.UserServiceImpl;
+import com.we.weblog.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

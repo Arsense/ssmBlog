@@ -1,14 +1,13 @@
-package com.we.weblog.service.Impl;
+package com.we.weblog.service;
 
 
 import com.we.weblog.domain.YearBlog;
 import com.we.weblog.mapping.BlogMapper;
 import com.we.weblog.mapping.TagMapper;
-import com.we.weblog.service.BlogService;
 import com.we.weblog.domain.Blog;
+import com.we.weblog.service.Impl.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.util.*;
 
@@ -38,10 +37,7 @@ public class BlogServiceImpl implements BlogService {
         while (st.hasMoreTokens()){
             tagList.add(st.nextToken());
         }
-
         return tagList;
-
-
     }
 
     /**
@@ -161,7 +157,6 @@ public class BlogServiceImpl implements BlogService {
     }
 
 
-
     @Override
     public List<YearBlog> sortBlogsByYears(List<Blog> bloglist) throws IOException{
         List<YearBlog> yearBlogs = new ArrayList<>();
@@ -183,7 +178,6 @@ public class BlogServiceImpl implements BlogService {
 
         return yearBlogs;
     }
-
 
 
     @Override

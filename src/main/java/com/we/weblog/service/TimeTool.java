@@ -1,4 +1,4 @@
-package com.we.weblog.service.Impl;
+package com.we.weblog.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

@@ -3,7 +3,7 @@ package com.we.weblog.controller;
 
 import com.we.weblog.domain.Blog;
 import com.we.weblog.domain.YearBlog;
-import com.we.weblog.service.BlogService;
+import com.we.weblog.service.Impl.BlogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

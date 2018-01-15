@@ -1,13 +1,12 @@
-package com.we.weblog.service.Impl;
+package com.we.weblog.service;
 
 import com.we.weblog.domain.User;
 import com.we.weblog.mapping.UserMapper;
-import com.we.weblog.service.UserService;
+import com.we.weblog.service.Impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Service

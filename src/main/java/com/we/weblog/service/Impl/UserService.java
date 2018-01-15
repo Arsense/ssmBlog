@@ -1,9 +1,8 @@
-package com.we.weblog.service;
+package com.we.weblog.service.Impl;
 
 import com.we.weblog.domain.User;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 public interface UserService {
 

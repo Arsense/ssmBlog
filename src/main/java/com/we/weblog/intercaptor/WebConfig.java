@@ -19,8 +19,6 @@ import java.util.Arrays;
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter{
 
-
-
     @Override
     public void addInterceptors(InterceptorRegistry registry){
 
@@ -29,28 +27,6 @@ public class WebConfig extends WebMvcConfigurerAdapter{
         registry.addInterceptor(new SSOSpringInterceptor()).addPathPatterns("/get_table_data");
         registry.addInterceptor(new SSOSpringInterceptor()).addPathPatterns("/admin/edit.html");
     }
-    
-    
-//    @Bean
-//    public CorsFilter corsFilter(){
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        //下面都是设置HTTP响应头
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        //#允许Cookie跨域，在做登录校验的时候有用
-//        configuration.setAllowCredentials(true);
-//        //允许访问的请求头
-//        configuration.addAllowedHeader("*");
-//        //#允许提交请求的方法，*表示全部允许
-//        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","POST","DELETE"));
-//        //允许访问的源
-//        configuration.addAllowedOrigin("*");
-//        source.registerCorsConfiguration("/**",configuration);
-//        return new CorsFilter(source);
-//
-//
-//
-//    }
-
 
 
 

@@ -2,7 +2,7 @@ package com.we.weblog.controller;
 
 import com.we.weblog.data.AppInfoInJvm;
 import com.we.weblog.data.MenuApiInJvm;
-import com.we.weblog.service.BlogService;
+import com.we.weblog.service.Impl.BlogService;
 import com.we.weblog.TableData;
 import com.we.weblog.UIModel;
 import com.we.weblog.domain.Blog;

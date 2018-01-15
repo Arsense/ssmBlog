@@ -7,7 +7,8 @@
 
 - 1月3日  v1.0
 ## 前台 白天版本
-
+- 1月10日 v1.1   加入kisso单点登录 删除自己拦截器
+ 
 ![](https://i.imgur.com/lL7KoN8.jpg)
 ## 前台 夜晚版本
 
@@ -75,6 +76,10 @@ mvn install:install-file -Dfile=D:\code\blog\ssmBlog\src\vuejar\vue-test-1.0.1-S
 1. 基本前后台功能全部完善
 2. 调改出更改bolg md 编辑器传值问题
 
+18 年 1-10日<br>
+1. 删除自己的拦截器 
+2.删除冗余代码
+3. 加入Kisso单点登录
 ## 预计改进
 1. 登录在前端效验 前后端完全分离<br>
 2. 目前是h2数据库 改为mysql，mybatis管理使用注解更快更方便

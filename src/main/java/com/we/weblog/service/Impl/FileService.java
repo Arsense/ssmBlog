@@ -1,8 +1,10 @@
 package com.we.weblog.service.Impl;
 
+import com.we.weblog.domain.UploadPicture;
 import javax.servlet.http.HttpServletRequest;
+
 
 public interface FileService {
 
-    void loadPicture(HttpServletRequest request);
+    UploadPicture loadPicture(HttpServletRequest request) throws Exception;
 }

@@ -3,12 +3,12 @@
 
 环境: `Springboot+mysql+admintle+vue.js+mybatis`环境搭建的个博客
 
-###版本控制
+### 版本控制
 
 - 1月3日  v1.0
 ## 前台 白天版本
 - 1月10日 v1.1   加入kisso单点登录 删除自己拦截器
- 
+- 1.11   v1.2   前台能解析mdtext文本，后台的editor.md加入到VUE框架中，后面editor界面BUG修改成功
 ![](https://i.imgur.com/lL7KoN8.jpg)
 ## 前台 夜晚版本
 
@@ -30,8 +30,6 @@
 
 
 mvn install:install-file -Dfile=D:\code\blog\ssmBlog\src\vuejar\vue-adminlte4j-1.0.1-SNAPSHOT.jar -DgroupId=com.vue.adminlte4j -DartifactId=vue-adminlte4j  -Dversion=1.0.1-SNAPSHOT -Dpackaging=jar
-
-
 
 引入:
 	<dependency>

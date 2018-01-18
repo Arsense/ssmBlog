@@ -1,11 +1,13 @@
 package com.we.weblog.domain;
 
+
+
 public class UploadPicture {
 
 
-   private  int     success;        //上传的状态 0失败 1成功
+    private int success;//0 表示上传失败，1 表示上传成功
    private  String  message;     //回传消息
-   private  String  urlPath;     //上传成功后的路径
+   private  String  url;     //上传成功后的路径
 
 
 
@@ -26,13 +28,21 @@ public class UploadPicture {
    }
 
    public String getUrlPath() {
-      return urlPath;
+      return url;
    }
 
-   public void setUrlPath(String urlPath) {
-      this.urlPath = urlPath;
+   public void setUrlPath(String url) {
+      this.url = url;
    }
 
 
+    @Override
+    public String toString() {
+        return "UploadPicture{" +
+                "success=" + success +
+                ", message='" + message + '\'' +
+                ", url='" + url + '\'' +
+                '}';
+    }
 
 }

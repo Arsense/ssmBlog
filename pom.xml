@@ -73,9 +73,9 @@
 		</dependency>
 
 		<dependency>
-		<groupId>com.blog.vue</groupId>
-		<artifactId>vue-test</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+			<groupId>com.vue.adminlte4j</groupId>
+			<artifactId>vue-adminlte4j</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

@@ -29,11 +29,16 @@
 - 安装命令
 
 
-mvn install:install-file -Dfile=D:\code\blog\ssmBlog\src\vuejar\vue-test-1.0.1-SNAPSHOT.jar -DgroupId=com.blog.vue -DartifactId=vue-test  -Dversion=1.0.1-SNAPSHOT -Dpackaging=jar
+mvn install:install-file -Dfile=D:\code\blog\ssmBlog\src\vuejar\vue-adminlte4j-1.0.1-SNAPSHOT.jar -DgroupId=com.vue.adminlte4j -DartifactId=vue-adminlte4j  -Dversion=1.0.1-SNAPSHOT -Dpackaging=jar
 
-<groupId>com.blog.vue</groupId>
-    <artifactId>vue-test</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+
+
+引入:
+	<dependency>
+			<groupId>com.vue.adminlte4j</groupId>
+			<artifactId>vue-adminlte4j</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
+		</dependency>
 
 ## 后台完成日志
 12-19日<br>

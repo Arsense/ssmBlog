@@ -10,131 +10,157 @@
     </style>
 </head>
 <body>
-<div id="layout">
-    <header>
-        <form method="post" id="blogForm" name="blogFrom" >
 
-            <div id="test-editormd"></div>
+
+
+<v-app  id="app" :data="data" >
+    <!-- /.content-wrapper -->
+
+    <v-box>
+        <div class="btns">
+            <button id="watch-btn">Watch</button>
+            <button id="unwatch-btn">Unwatch</button>
+            <button id="fullscreen-btn">全屏(按ESC退出)</button>
+            <button id="show-toolbar-btn">展示工具栏</button>
+            <button id="close-toolbar-btn">隐藏工具栏</button>
+            <button id="toc-menu-btn">ToC Dropdown menu</button>
+            <button id="toc-default-btn">ToC default</button>
+        </div>
+        <form method="post" id="blogForm" name="blogFrom" >
+            <!--style="position:absolute;width:2200px;height:110px;left:40%;top:20px;-->
+
             <div style="width:90%;margin: 10px auto;">
-                <div class="form-group">
-                    <label for="blogTitle" class="text-warning">Title</label>
+
+                <v-form-item span="9" label="blogTitle" class="text-warning">
                     <input id = "blogTitle" type="text" class="form-control" name="title" placeholder="请输入博客标题"/>
-                </div>
-                <div class="form-group">
-                    <label for="blogTags" class="text-warning">Tags</label>
+                </v-form-item >
+
+
+                <v-form-item span="9" label="blogTags" class="text-warning">
+
                     <input id = "blogTags" type="text" class="form-control" name="tags" placeholder="输入标签后请点击回车键" data-role="tagsinput"/>
-                </div>
+                </v-form-item>
+                <v-form-item span="9">
+                    <input id = "blogSubmit" type="submit" class="btn btn-primary" onclick="getData()" value="save"/>
+                </v-form-item>
                 <input type="hidden" name="mdText" id = "mdText" />
                 <input type="hidden" name="article" id = "article"/>
-                <div class="form-group">
-                    <label for="blogSubmit" class="text-warning">submit</label>
-                    <input id = "blogSubmit" type="submit" class="form-control jcala-input" onclick="getData()" value="save"/>
-                </div>
             </div>
         </form>
-    </header>
+        <!--这里是编辑器-->
+        <div id="test-editormd"></div>
+        <div id="layout">
+            <div id="page-wrapper" >
+            </div>
+        </div>
+    </v-box>
 
-    <div class="btns">
-        <button id="watch-btn">Watch</button>
-        <button id="unwatch-btn">Unwatch</button>
-        <button id="fullscreen-btn">全屏(按ESC退出)</button>
-        <button id="show-toolbar-btn">展示工具栏</button>
-        <button id="close-toolbar-btn">隐藏工具栏</button>
-        <button id="toc-menu-btn">ToC Dropdown menu</button>
-        <button id="toc-default-btn">ToC default</button>
-    </div>
-</div>
+
+</v-app>
 
 </body>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/editormd.js"></script>
+<script src="/lib/lib.js"></script>
 <script type="text/javascript">
-    var testEditor;
 
-    $(function() {
 
-        $.get('add.md', function(md){
-            testEditor = editormd("test-editormd", {
-                width: "90%",
-                height: 740,
-                path : '../lib/',
-                theme : "dark",
-                previewTheme : "dark",
-                editorTheme : "pastel-on-dark",
-                markdown : md,
-                codeFold : true,
-                saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
-                searchReplace : true,
-                htmlDecode : "style,script,iframe|on*",            // 开启 HTML 标签解析，为了
-                emoji : true,
-                taskList : true,
-                tocm            : true,         // Using [TOCM]
-                tex : true,                   // 开启科学公式TeX语言支持，默认关闭
-                flowChart : true,             // 开启流程图支持，默认关闭
-                sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
-                imageUpload : true,
-                imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                imageUploadURL : "./php/upload.php",
-                onload : function() {
-                    console.log('onload', this);
-                }
+
+
+    app.main({
+
+        data : function () {
+            return {
+
+
+            }
+        } ,
+        methods : {
+
+        } ,
+        mounted : function () {
+            var testEditor;
+
+            $(function() {
+
+                $.get('add.md', function(md){
+                    testEditor = editormd("test-editormd", {
+                        width: "90%",
+                        height: 740,
+                        path : '../lib/',
+                        theme : "dark",
+                        previewTheme : "dark",
+                        editorTheme : "pastel-on-dark",
+                        markdown : md,
+                        codeFold : true,
+                        saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
+                        searchReplace : true,
+                        htmlDecode : "style,script,iframe|on*",            // 开启 HTML 标签解析，为了
+                        emoji : true,
+                        taskList : true,
+                        tocm            : true,         // Using [TOCM]
+                        tex : true,                   // 开启科学公式TeX语言支持，默认关闭
+                        flowChart : true,             // 开启流程图支持，默认关闭
+                        sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
+                        imageUpload : true,
+                        imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                        imageUploadURL : "/admin/upload",
+                        onload : function() {
+                            console.log('onload', this);
+                        }
+                    });
+                });
+                $("#get-md-btn").bind('click', function(){
+                    alert(testEditor.getMarkdown());
+                });
+
+                $("#watch-btn").bind('click', function() {
+                    testEditor.watch();
+                });
+
+                $("#unwatch-btn").bind('click', function() {
+                    testEditor.unwatch();
+                });
+
+                $("#preview-btn").bind('click', function() {
+                    testEditor.previewing();
+                });
+
+                $("#fullscreen-btn").bind('click', function() {
+                    testEditor.fullscreen();
+                });
+
+                $("#show-toolbar-btn").bind('click', function() {
+                    testEditor.showToolbar();
+                });
+
+                $("#close-toolbar-btn").bind('click', function() {
+                    testEditor.hideToolbar();
+                });
+
+                $("#toc-menu-btn").click(function(){
+                    testEditor.config({
+                        tocDropdown   : true,
+                        tocTitle      : "目录 Table of Contents",
+                    });
+                });
+
+                $("#toc-default-btn").click(function() {
+                    testEditor.config("tocDropdown", false);
+                });
             });
-        });
-        $("#get-md-btn").bind('click', function(){
-            alert(testEditor.getMarkdown());
-        });
+            var a=document.forms[0];
+            var b,c;
+            a.action="/admin/send";
+            a.method="post";
+            b = testEditor.getMarkdown();
+            c = testEditor.getHTML();
+            document.blogFrom.mdText.value=testEditor.getMarkdown();
+            document.blogFrom.article.value = testEditor.getHTML();
+            a.submit()
+        }
+    })
 
-        $("#watch-btn").bind('click', function() {
-            testEditor.watch();
-        });
-
-        $("#unwatch-btn").bind('click', function() {
-            testEditor.unwatch();
-        });
-
-        $("#preview-btn").bind('click', function() {
-            testEditor.previewing();
-        });
-
-        $("#fullscreen-btn").bind('click', function() {
-            testEditor.fullscreen();
-        });
-
-        $("#show-toolbar-btn").bind('click', function() {
-            testEditor.showToolbar();
-        });
-
-        $("#close-toolbar-btn").bind('click', function() {
-            testEditor.hideToolbar();
-        });
-
-        $("#toc-menu-btn").click(function(){
-            testEditor.config({
-                tocDropdown   : true,
-                tocTitle      : "目录 Table of Contents",
-            });
-        });
-
-        $("#toc-default-btn").click(function() {
-            testEditor.config("tocDropdown", false);
-        });
-    });
-
-
-
-</script>
-<script>
-    function getData(){
-        var a=document.forms[0];
-        var b,c;
-        a.action="/admin/send";
-        a.method="post";
-        b = testEditor.getMarkdown();
-        c = testEditor.getHTML();
-        document.blogFrom.mdText.value=testEditor.getMarkdown();
-        document.blogFrom.article.value = testEditor.getHTML();
-        a.submit()
-    }
 </script>
 
 

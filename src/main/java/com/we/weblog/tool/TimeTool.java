@@ -25,8 +25,8 @@ public class TimeTool {
 
     public static  String getCurrentTime(){
         CALENDAR.setTime(new Date());
-        int month = CALENDAR.get(CALENDAR.MONDAY);
         int year = CALENDAR.get(CALENDAR.YEAR);
+        int month = CALENDAR.get(CALENDAR.MONTH);
         return year+""+month;
 
 

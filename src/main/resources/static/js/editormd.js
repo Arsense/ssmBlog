@@ -3115,7 +3115,7 @@
             cm.replaceSelection("`" + selection + "`");
 
             if (selection === "") {
-                cm.setCursor(cursor.line, cursor.ch + 1);
+               // cm.setCursor(cursor.line, cursor.ch + 1);
             }
         },
 

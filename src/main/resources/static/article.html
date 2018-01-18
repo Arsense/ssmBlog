@@ -8,7 +8,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/landing-page.min.css" rel="stylesheet" id="theme-css"/>
-    <link href="css/jcala-md.min.css" rel="stylesheet"/>
+    <link href="/css/jcala-md.min.css" rel="stylesheet"/>
     <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">
 </head>
 <body>
@@ -118,7 +118,9 @@
                         self.current = reponse.current;
                         self.previous = reponse.previous;
                         self.next = reponse.next;
-                        document.getElementById("showgirl").innerHTML = self.current.article
+                        var str = self.current.article;//获取服务器传来的字符串
+                        var $a = $(str);//转换为jquery对象
+                        $("#editormd-preview").append($a);//添加到你想放的地方
                     }
                 })
             },

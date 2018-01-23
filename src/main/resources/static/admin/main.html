@@ -1,46 +1,45 @@
 <!DOCTYPE html>
-<html>
-<html xmlns:th=http://www.thymeleaf.org xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="ttp://www.thymeleaf.or "></html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 </title>
+    <title>111111 </title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
 </head>
+<body class="hold-transition skin-blue sidebar-mini">
 
-<body>
-        <v-app  id="app" :data="data" >
-            <!-- /.content-wrapper -->
+<v-app id="app" :data="data">
+    <v-box>
 
-            <v-box>
-                <v-select2 slot="body">
-                    <option>Test</option>
-                    <option>Test002</option>
-                </v-select2>
-            </v-box>
+        <v-tags header="1" footer="发表了几篇文章">
 
+        </v-tags>
 
-        </v-app>
+        <v-tags color="green" header="0" footer="收到了几条留言">
+
+        </v-tags>
+
+        <v-tags color="yellow" header="0" footer="上传了几个附件">
+
+        </v-tags>
+
+    </v-box>
+
+</v-app>
+
 <script src="/lib/lib.js"></script>
-
 <script>
     app.main({
 
         data : function () {
             return {
-                query : {name : 'test'} ,
-                ajax_url : '/get_table_data'
+
 
             }
         } ,
         methods : {
-            re_query : function () {
-                console.log('re_query')
-                this.ajax_url = '/get_table_data?'  + 'name=' + this.query.name
-            }
+
         } ,
         mounted : function () {}
     })

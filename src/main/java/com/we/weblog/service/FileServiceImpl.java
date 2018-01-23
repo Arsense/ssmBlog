@@ -24,12 +24,12 @@ public class FileServiceImpl implements FileService{
 
         if("".equals(url)){
             pic.setSuccess(0);
-            pic.setUrlPath("");
+            pic.setUrl("");
             pic.setMessage("Upload fail");
             return pic;
         }
         pic.setSuccess(1);
-        pic.setUrlPath(url);
+        pic.setUrl(url);
         pic.setMessage("Upload success");
 
         return pic;

@@ -15,22 +15,16 @@ public class MenuApiInJvm {
 
         List<Menu> menus = new ArrayList<>() ;
 
-        Menu menu1 = createMenu("/admin/main.html" , "博客首页" , "fa fa-dashboard" , 1) ;
-        Menu menu2 = createMenu("/admin/yearblogs.html" , "文章管理" , "fa fa-files-o" , 2) ;
-        Menu menu3 = createMenu("/admin/kind.html" , "类别管理" , "fa fa-edit" , 2) ;
-        Menu menu4 = createMenu("/admin/message.html" , "评论管理" , "fa fa-share" , 2) ;
-        Menu menu5 = createMenu("/admin/bmanage.html" , "博客配置" , "fa fa-cog" , 2) ;
-        Menu menu6 = createMenu("/logout.html" , "退出登录" , "fa fa-cog" , 2) ;
+        Menu menu1 = createMenu("/admin/main.html" , "仪表盘" , "fa fa-dashboard" , 1) ;
 
-        menu2.addChildMenu(createMenu
-                ("/admin/show.html" , "显示所有博客" , "fa fa-circle-o" , 2));
-
-        menu2.addChildMenu(createMenu("/admin/testeditor.html" , "添加新" +
-                "" +
-                "随笔" , "fa fa-circle-o" , 2));
-        menu2.addChildMenu(createMenu("/admin/draft.html" , "草稿箱" , "fa fa-circle-o" , 2));
-
-        menu5.addChildMenu(createMenu("/admin/signature.html" , "博客签名" , "fa fa-circle-o" , 2));
+        Menu menu2 = createMenu("/admin/testeditor.html" , "新随笔" , "fa fa-edit" , 2) ;
+        Menu menu3 = createMenu("/admin/show.html" , "博客管理" , "fa fa-edit" , 2) ;
+        Menu menu4 = createMenu("/admin/message.html" , "评论管理" , "fa  fa-weixin" , 2) ;
+        Menu menu5 = createMenu("/admin/tag_manage.html" , "页面管理" , "fa  fa-pagelines" , 2) ;
+        Menu menu6 = createMenu("/admin/bmanage.html" , "分类标签" , "fa fa-tags" , 2) ;
+        Menu menu7 = createMenu("/admin/scheme.html" , "主题设置" , "fa fa fa-laptop" , 2) ;
+        Menu menu8 = createMenu("/admin/system.html" , "系统设置" , "fa fa-cog" , 2) ;
+        Menu menu9 = createMenu("/logout.html" , "退出登录" , "fa fa-sign-out" , 2) ;
 
         menus.add(menu1);
         menus.add(menu2);
@@ -38,6 +32,10 @@ public class MenuApiInJvm {
         menus.add(menu4);
         menus.add(menu5);
         menus.add(menu6);
+        menus.add(menu7);
+        menus.add(menu8);
+        menus.add(menu9);
+
         return menus;
     }
 

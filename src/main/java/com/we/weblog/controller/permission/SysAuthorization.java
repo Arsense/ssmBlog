@@ -3,7 +3,6 @@ package com.we.weblog.controller.permission;
 
 import com.baomidou.kisso.SSOAuthorization;
 import com.baomidou.kisso.security.token.SSOToken;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -10,7 +10,7 @@ public class AppInfoInJvm {
     public static AppInfo getAppInfo() {
         AppInfo appInfo = new AppInfo() ;
         appInfo.setUserName("小狗欢迎你");
-        appInfo.setIndexUrl("/main.html");
+        appInfo.setIndexUrl("/index.html");
         appInfo.setSignOutUrl("/.html");
         appInfo.setProfileUrl("/profile.html");
         appInfo.setUserImgUrl("");

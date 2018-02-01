@@ -18,41 +18,60 @@
 
     <v-box>
         <div class="btns">
-            <button id="watch-btn">Watch</button>
-            <button id="unwatch-btn">Unwatch</button>
-            <button id="fullscreen-btn">全屏(按ESC退出)</button>
-            <button id="show-toolbar-btn">展示工具栏</button>
-            <button id="close-toolbar-btn">隐藏工具栏</button>
-            <button id="toc-menu-btn">ToC Dropdown menu</button>
-            <button id="toc-default-btn">ToC default</button>
+            <button id="watch-btn" >显示预览</button>
+            <button id="unwatch-btn">隐藏预览</button>
+            <button id="fullscreen-btn" >全屏(按ESC退出)</button>
+            <button id="show-toolbar-btn" >展示工具栏</button>
+            <button id="close-toolbar-btn" >隐藏工具栏</button>
+
         </div>
         <form method="post" id="blogForm" name="blogFrom" >
             <!--style="position:absolute;width:2200px;height:110px;left:40%;top:20px;-->
 
             <div style="width:90%;margin: 10px auto;">
 
-                <v-form-item span="9" label="blogTitle" class="text-warning">
-                    <input id = "blogTitle" type="text" class="form-control" name="title" placeholder="请输入博客标题"/>
+                <v-form-item span="5" label="博客标题(必须)" class="text-warning">
+                    <input id="blogTitle" type="text" class="form-control" name="title" placeholder="请输入博客标题"/>
                 </v-form-item >
 
-
-                <v-form-item span="9" label="blogTags" class="text-warning">
-
-                    <input id = "blogTags" type="text" class="form-control" name="tags" placeholder="输入标签后请点击回车键" data-role="tagsinput"/>
+                <v-form-item span="5" label="自定义访问路径" class="text-warning">
+                    <input  type="text" class="form-control" name="slug" placeholder="自定义访问路径，如：my-first-article  默认为文章id" />
                 </v-form-item>
-                <v-form-item span="9">
-                    <input id = "blogSubmit" type="submit" class="btn btn-primary" onclick="getData()" value="save"/>
+
+                <v-form-item span="5" label="博客标签" class="text-warning">
+                    <input id="blogTags" type="text" class="form-control" name="tags" placeholder="请填写文章标签" />
                 </v-form-item>
+
+                <v-form-item span="5" label="博客分类" class="text-warning">
+                    <select id="multiple-sel" class="select2 form-control" multiple="multiple" data-placeholder="请选择分类...">
+                        <option value="默认分类" selected>默认分类</option>
+                    </select>
+                </v-form-item>
+                <div class="clearfix"></div>
+
+                <div id="page-wrapper">
+                    <div class="row">
+                        <div class="col-md-12 column">
+                            <div id="test-editormd">
+                                <textarea style="display:none;"></textarea>
+                            </div>
+                        </div>
+                    </div><!-- /.row -->
+                </div><!-- /#page-wrapper -->
+                <div class="text-right">
+                    <input id = "blogSubmit" type="submit" class="btn btn-success" onclick="getData(testEditor)" value="保存文章"/>
+
+                </div>
+
                 <input type="hidden" name="mdText" id = "mdText" />
                 <input type="hidden" name="article" id = "article"/>
             </div>
         </form>
         <!--这里是编辑器-->
-        <div id="test-editormd"></div>
-        <div id="layout">
-            <div id="page-wrapper" >
-            </div>
-        </div>
+        <!--<div id="test-editormd"></div>-->
+
+
+
     </v-box>
 
 
@@ -76,6 +95,17 @@
             }
         } ,
         methods : {
+            getData:function (testEditor) {
+                var a=document.forms[0];
+                var b,c;
+                a.action="/admin/send";
+                a.method="post";
+                b = testEditor.getMarkdown();
+                c = testEditor.getHTML();
+                document.blogFrom.mdText.value=testEditor.getMarkdown();
+                document.blogFrom.article.value = testEditor.getHTML();
+                a.submit()
+            }
 
         } ,
         mounted : function () {
@@ -85,12 +115,12 @@
 
                 $.get('add.md', function(md){
                     testEditor = editormd("test-editormd", {
-                        width: "90%",
-                        height: 740,
+                        width: "98%",
+                        height: 540,
                         path : '../lib/',
-                        theme : "dark",
-                        previewTheme : "dark",
-                        editorTheme : "pastel-on-dark",
+                        theme : "default",
+                        previewTheme : "default",
+                        editorTheme : "default",
                         markdown : md,
                         codeFold : true,
                         saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
@@ -100,7 +130,6 @@
                         taskList : true,
                         tocm            : true,         // Using [TOCM]
                         tex : true,                   // 开启科学公式TeX语言支持，默认关闭
-                        flowChart : true,             // 开启流程图支持，默认关闭
                         sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
                         imageUpload : true,
                         imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
@@ -149,16 +178,7 @@
                     testEditor.config("tocDropdown", false);
                 });
             });
-            var a=document.forms[0];
-            var b,c;
-            a.action="/admin/send";
-            a.method="post";
-            b = testEditor.getMarkdown();
-            c = testEditor.getHTML();
-            document.blogFrom.mdText.value=testEditor.getMarkdown();
-            document.blogFrom.article.value = testEditor.getHTML();
-          //  document.blogForm.article.value = $(".markdown-body")[0].innerHTML;
-            a.submit()
+
         }
     })
 

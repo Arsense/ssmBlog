@@ -30,17 +30,39 @@
 
             <div style="width:90%;margin: 10px auto;">
 
-                <v-form-item span="7" label="博客标题" class="text-warning">
+                <v-form-item span="5" label="博客标题(必须)" class="text-warning">
                     <input id="blogTitle" type="text" class="form-control" name="title" placeholder="请输入博客标题"/>
                 </v-form-item >
 
+                <v-form-item span="5" label="自定义访问路径" class="text-warning">
+                    <input  type="text" class="form-control" name="slug" placeholder="自定义访问路径，如：my-first-article  默认为文章id" />
+                </v-form-item>
 
-                <v-form-item span="7" label="博客标签" class="text-warning">
-                    <input id="blogTags" type="text" class="form-control" name="tags" placeholder="输入标签后请点击回车键" data-role="tagsinput"/>
+                <v-form-item span="5" label="博客标签" class="text-warning">
+                    <input id="blogTags" type="text" class="form-control" name="tags" placeholder="请填写文章标签" />
                 </v-form-item>
-                <v-form-item span="3">
-                    <input id = "blogSubmit" type="submit" class="btn btn-primary" onclick="getData(testEditor)" value="save"/>
-                </v-form-item>
+
+                    <v-form-item span="5" label="博客分类" class="text-warning">
+                        <select id="multiple-sel" class="select2 form-control" multiple="multiple" data-placeholder="请选择分类...">
+                            <option value="默认分类" selected>默认分类</option>
+                        </select>
+                    </v-form-item>
+                <div class="clearfix"></div>
+
+                <div id="page-wrapper">
+                    <div class="row">
+                        <div class="col-md-12 column">
+                            <div id="test-editormd">
+                                <textarea style="display:none;"></textarea>
+                            </div>
+                        </div>
+                    </div><!-- /.row -->
+                </div><!-- /#page-wrapper -->
+                <div class="text-right">
+                    <input id = "blogSubmit" type="submit" class="btn btn-success" onclick="getData(testEditor)" value="保存文章"/>
+
+                </div>
+
                 <input type="hidden" name="mdText" id = "mdText" />
                 <input type="hidden" name="article" id = "article"/>
             </div>
@@ -49,15 +71,7 @@
         <!--<div id="test-editormd"></div>-->
 
 
-        <div id="page-wrapper">
-            <div class="row">
-                <div class="col-md-12 column">
-                    <div id="test-editormd">
-                        <textarea style="display:none;"></textarea>
-                    </div>
-                </div>
-            </div><!-- /.row -->
-        </div><!-- /#page-wrapper -->
+
     </v-box>
 
 
@@ -101,8 +115,8 @@
 
                 $.get('add.md', function(md){
                     testEditor = editormd("test-editormd", {
-                        width: "70%",
-                        height: 640,
+                        width: "98%",
+                        height: 540,
                         path : '../lib/',
                         theme : "default",
                         previewTheme : "default",

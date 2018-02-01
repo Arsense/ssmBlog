@@ -43,7 +43,7 @@ public class LoginController extends BaseController{
         boolean result = userService.checkLogin(username, password);
         if (result) {
             SSOHelper.setCookie(request, response, SSOToken.create().setIp(request).setId(1000).setIssuer(username), false);
-            return redirectTo("/admin/main.html");
+            return redirectTo("/admin/index.html");
         }else {
             return   redirectTo("/login1.html");
         }
@@ -76,7 +76,7 @@ public class LoginController extends BaseController{
         SSOToken st = SSOHelper.getSSOToken(request);
         if(st != null) {
 
-            return redirectTo("/admin/main.html");
+            return redirectTo("/admin/index.html");
         }
         //在这里处理拦截请求
         /*

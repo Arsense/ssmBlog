@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>111111 </title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+
+<v-app id="app" :data="data">
+    <v-box>
+
+        <v-tags header="1" footer="发表了几篇文章">
+
+        </v-tags>
+
+        <v-tags color="green" header="0" footer="收到了几条留言">
+
+        </v-tags>
+
+        <v-tags color="yellow" header="0" footer="上传了几个附件">
+
+        </v-tags>
+
+
+
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">最新文章</h4>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+
+                            <li class="list-group-item">
+                            <span class="badge badge-primary"></span>
+                                <a target="_blank" href="#">第一篇文章</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">最新留言</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="list-group-item ">
+                            还没有收到留言.
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">系统日志</h4>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span>后台日志</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </v-box>
+
+
+
+
+</v-app>
+
+<script src="/lib/lib.js"></script>
+<script>
+    app.main({
+
+        data : function () {
+            return {
+
+
+            }
+        } ,
+        methods : {
+
+        } ,
+        mounted : function () {}
+    })
+</script>
+</body>
+</html>

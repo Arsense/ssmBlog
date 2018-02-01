@@ -23,3 +23,5 @@ dist/
 nbdist/
 .nb-gradle/
 target/
+src/main/static/node_modules/
+src/main/static/bower_components/

@@ -15,16 +15,16 @@ public class MenuApiInJvm {
 
         List<Menu> menus = new ArrayList<>() ;
 
-        Menu menu1 = createMenu("/admin/index1.html" , "仪表盘" , "fa fa-dashboard" , 1) ;
-        Menu menu2 = createMenu("/admin/testeditor.html" , "新随笔" , "fa fa-edit" , 2) ;
+        Menu menu1 = createMenu("/admin/index.html" , "仪表盘" , "fa fa-dashboard" , 1) ;
+        Menu menu2 = createMenu("/admin/add_blog.html" , "新随笔" , "fa fa-edit" , 2) ;
         Menu menu3 = createMenu("/admin/show.html" , "博客管理" , "fa fa-edit" , 2) ;
-        Menu menu4 = createMenu("/admin/message.html" , "评论管理" , "fa  fa-weixin" , 2) ;
+        Menu menu4 = createMenu("/admin/comments.html" , "评论管理" , "fa  fa-weixin" , 2) ;
         Menu menu5 = createMenu("/admin/tag_manage.html" , "页面管理" , "fa  fa-pagelines" , 2) ;
         Menu menu6 = createMenu("/admin/bmanage.html" , "分类标签" , "fa fa-tags" , 2) ;
         Menu menu7 = createMenu("/admin/scheme.html" , "主题设置" , "fa fa fa-laptop" , 2) ;
         Menu menu8 = createMenu("/admin/system.html" , "系统设置" , "fa fa-cog" , 2) ;
         Menu menu9 = createMenu("/logout.html" , "退出登录" , "fa fa-sign-out" , 2) ;
-
+        menu8.addChildMenu(createMenu("/admin/appinfo.html" , "appinfo设置" , "fa fa-link" , 2));
         menus.add(menu1);
         menus.add(menu2);
         menus.add(menu3);

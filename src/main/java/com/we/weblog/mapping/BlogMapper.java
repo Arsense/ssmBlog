@@ -5,6 +5,7 @@ import com.we.weblog.domain.Blog;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.StatementType;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
@@ -78,6 +79,9 @@ public interface BlogMapper {
     @Select({"select blog_id,title,date,tags from t_blog order by date desc limit #{p},12"})
     List<Blog> selectBlogsByYear(@Param("p") int page);
 
+
+    @Select({"select blog_id,title,date from t_blog order by date desc limit #{p},10"})
+    List<Blog> getNewBlogs(@Param("p") int page);
 
     @Select({"select title,article,md from t_blog where blog_id = #{id}"})
     Blog getBlogById(@Param("id") int id);

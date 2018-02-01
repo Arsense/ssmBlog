@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>Full example - Editor.md examples</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/editormd.css" />
+    <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+    <style>
+    </style>
+</head>
+<body>
+
+
+
+<v-app  id="app" :data="data" >
+    <!-- /.content-wrapper -->
+
+    <v-box>
+        <div class="btns">
+            <button id="watch-btn" >显示预览</button>
+            <button id="unwatch-btn">隐藏预览</button>
+            <button id="fullscreen-btn" >全屏(按ESC退出)</button>
+            <button id="show-toolbar-btn" >展示工具栏</button>
+            <button id="close-toolbar-btn" >隐藏工具栏</button>
+
+        </div>
+        <form method="post" id="blogForm" name="blogFrom" >
+            <!--style="position:absolute;width:2200px;height:110px;left:40%;top:20px;-->
+
+            <div style="width:90%;margin: 10px auto;">
+
+                <v-form-item span="5" label="博客标题(必须)" class="text-warning">
+                    <input id="blogTitle" type="text" class="form-control" name="title" placeholder="请输入博客标题"/>
+                </v-form-item >
+
+                <v-form-item span="5" label="自定义访问路径" class="text-warning">
+                    <input  type="text" class="form-control" name="slug" placeholder="自定义访问路径，如：my-first-article  默认为文章id" />
+                </v-form-item>
+
+                <v-form-item span="5" label="博客标签" class="text-warning">
+                    <input id="blogTags" type="text" class="form-control" name="tags" placeholder="请填写文章标签" />
+                </v-form-item>
+
+                    <v-form-item span="5" label="博客分类" class="text-warning">
+                        <select id="multiple-sel" class="select2 form-control" multiple="multiple" data-placeholder="请选择分类...">
+                            <option value="默认分类" selected>默认分类</option>
+                        </select>
+                    </v-form-item>
+                <div class="clearfix"></div>
+
+                <div id="page-wrapper">
+                    <div class="row">
+                        <div class="col-md-12 column">
+                            <div id="test-editormd">
+                                <textarea style="display:none;"></textarea>
+                            </div>
+                        </div>
+                    </div><!-- /.row -->
+                </div><!-- /#page-wrapper -->
+                <div class="text-right">
+                    <input id = "blogSubmit" type="submit" class="btn btn-success" onclick="getData(testEditor)" value="保存文章"/>
+
+                </div>
+
+                <input type="hidden" name="mdText" id = "mdText" />
+                <input type="hidden" name="article" id = "article"/>
+            </div>
+        </form>
+        <!--这里是编辑器-->
+        <!--<div id="test-editormd"></div>-->
+
+
+
+    </v-box>
+
+
+</v-app>
+
+</body>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/editormd.js"></script>
+<script src="/lib/lib.js"></script>
+<script type="text/javascript">
+
+
+
+
+    app.main({
+
+        data : function () {
+            return {
+
+
+            }
+        } ,
+        methods : {
+            getData:function (testEditor) {
+                var a=document.forms[0];
+                var b,c;
+                a.action="/admin/send";
+                a.method="post";
+                b = testEditor.getMarkdown();
+                c = testEditor.getHTML();
+                document.blogFrom.mdText.value=testEditor.getMarkdown();
+                document.blogFrom.article.value = testEditor.getHTML();
+                a.submit()
+            }
+
+        } ,
+        mounted : function () {
+            var testEditor;
+
+            $(function() {
+
+                $.get('add.md', function(md){
+                    testEditor = editormd("test-editormd", {
+                        width: "98%",
+                        height: 540,
+                        path : '../lib/',
+                        theme : "default",
+                        previewTheme : "default",
+                        editorTheme : "default",
+                        markdown : md,
+                        codeFold : true,
+                        saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
+                        searchReplace : true,
+                        htmlDecode : "style,script,iframe|on*",            // 开启 HTML 标签解析，为了
+                        emoji : true,
+                        taskList : true,
+                        tocm            : true,         // Using [TOCM]
+                        tex : true,                   // 开启科学公式TeX语言支持，默认关闭
+                        sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
+                        imageUpload : true,
+                        imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                        imageUploadURL : "/admin/upload",
+                        onload : function() {
+                            console.log('onload', this);
+                        }
+                    });
+                });
+                $("#get-md-btn").bind('click', function(){
+                    alert(testEditor.getMarkdown());
+                });
+
+                $("#watch-btn").bind('click', function() {
+                    testEditor.watch();
+                });
+
+                $("#unwatch-btn").bind('click', function() {
+                    testEditor.unwatch();
+                });
+
+                $("#preview-btn").bind('click', function() {
+                    testEditor.previewing();
+                });
+
+                $("#fullscreen-btn").bind('click', function() {
+                    testEditor.fullscreen();
+                });
+
+                $("#show-toolbar-btn").bind('click', function() {
+                    testEditor.showToolbar();
+                });
+
+                $("#close-toolbar-btn").bind('click', function() {
+                    testEditor.hideToolbar();
+                });
+
+                $("#toc-menu-btn").click(function(){
+                    testEditor.config({
+                        tocDropdown   : true,
+                        tocTitle      : "目录 Table of Contents",
+                    });
+                });
+
+                $("#toc-default-btn").click(function() {
+                    testEditor.config("tocDropdown", false);
+                });
+            });
+
+        }
+    })
+
+</script>
+
+
+</html>

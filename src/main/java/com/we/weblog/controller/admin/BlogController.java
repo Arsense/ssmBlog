@@ -7,8 +7,12 @@ import com.we.weblog.service.BlogServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -43,12 +47,12 @@ public class BlogController {
          return blogService.getBlogById(setUpdateId);
 
      }
-
     /**
      * 添加博客的表单控制器
-      * @param blog 表单中提交的博客信息,包括标题，标签，md页面，和md转成的html页面
+     * @param blog 表单中提交的博客信息,包括标题，标签，md页面，和md转成的html页面
      * @return
      */
+
     @PostMapping("/send")
     public void postAction(@ModelAttribute("blogFrom")Blog blog,HttpServletResponse response) throws IOException {
             blogService.addBlog(blog);
@@ -56,7 +60,19 @@ public class BlogController {
     }
 
 
-
+    /**
+     *  仪表盘
+     * @param request
+     * @return
+     */
+//    @GetMapping("/index")
+//    @ResponseBody
+//    public Map<String,Object> index(HttpServletRequest request){
+//        //获得最新的20条日志  获得最新的文章
+//        List<Blog>  blogs = blogService.getRecentBlogs(5);
+//
+//
+//    }
 
 
 }

@@ -192,4 +192,14 @@ public class BlogServiceImpl implements BlogService {
     }
 
 
+
+    public List<Blog> getRecentBlogs(int limit){
+        if(limit < 0 || limit >20){
+            limit = 10;
+        }
+
+        return  blogMapper.getNewBlogs(limit);
+
+    }
+
 }

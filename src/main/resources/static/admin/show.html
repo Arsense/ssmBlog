@@ -51,6 +51,8 @@
                 operations : [
                     {
                         name : '编辑' ,
+                        scheme: 'green',
+                        icon:'edit',
                         method : function(row , $table) {
 
                             var id = row.blogId;
@@ -65,6 +67,8 @@
                     } ,
                     {
                         name : '删除'  ,
+                        scheme: 'blue',
+                        icon:'trash',
                         method : function(row ,$table) {
                             var id = row.blogId;
                             axios.get('/admin/delete',{

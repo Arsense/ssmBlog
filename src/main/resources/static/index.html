@@ -1,123 +1,170 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-    <meta name="renderer" content="webkit">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-    <meta name="keywords" content="博客系统,Blade框架,Tale">
-    <meta name="description" content="博客系统,Blade框架,Tale">
-
-    <link rel="shortcut icon" href="./css/tale/favicon.png"><link rel="apple-touch-icon" href="http://127.0.0.1:9000/templates/themes/default/static/img/apple-touch-icon.png">
-    <title>Clay的博客系统</title>
-    <link href="./css/tale/xcode.min.css" rel="stylesheet">
-    <link href="./css/tale/style.min.css" rel="stylesheet">
-
-    <script src="//cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 </title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/landing-page.min.css" rel="stylesheet" id="theme-css"/>
+    <link href="css/jcala-md.min.css" rel="stylesheet"/>
+    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">
 </head>
-<body class="bg-grey">
-<header id="header" class="header bg-white">
-    <div class="navbar-container">
-        <a href="http://localhost:8002/" class="navbar-logo">
-            <img src="./css/tale/logo.png" alt="Clay博客"/>
-
-        </a>
-        <div class="navbar-menu">
-            <a href="./article.html">归档</a>
-            <a href="./message.html">友链</a>
-            <a href="./tags.html">关于</a>
+<script type="text/javascript">
+    function switch_theme_css() {
+        var css=document.getElementById("theme-css");
+        if(localStorage.blog_theme==undefined){
+            localStorage.blog_theme="light";
+        }
+        if(localStorage.blog_theme=="dark"){
+            css.href="/css/landing-page-dark.min.css";
+        }
+    }
+    switch_theme_css();
+</script>
+<body >
+<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <div class="container topnav">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand topnav" href="/">Home</a>
         </div>
-        <div class="navbar-search" onclick="">
-            <span class="icon-search"></span>
-            <form role="search" onsubmit="return false;">
-                <span class="search-box">
-                    <input type="text" id="search-inp" class="input" placeholder="搜索..." maxlength="30"
-                           autocomplete="off">
-                </span>
-            </form>
-        </div>
-        <div class="navbar-mobile-menu" onclick="">
-            <span class="icon-menu cross"><span class="middle"></span></span>
-            <ul>
-                <li>  <a href="./article.html">归档</a></li>
-                <li><a href="./message.html">友链</a></li>
-                <li><a href="./tags.html">关于</a></li>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right myBar">
+                <li>
+                    <a href="/yearblogs.html">Archives</a>
+                </li>
+                <li>
+                    <a href="/tags.html">Tags</a>
+                </li>
+                <li>
+                    <a href="/message.html">message</a>
+                </li>
+                <li>
+                    <a href="/login.html">Admin</a>
+                </li>
+                <li>
+                    <a href='javascript:void(0)' onclick="day_night()"><i class="fa fa-moon-o" id="day-night"></i>
+                        <span class="network-name" id="day-night-name">night</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
-</header>
+</nav>
+<!--header end-->
 
 
-<div class="main-content index-page clearfix">
-    <div class="post-lists">
-        <div class="post-lists-body">
-            <div class="post-list-item">
-                <div class="post-list-item-container">
-                    <div class="item-thumb bg-deepgrey" style="background-image:url(/css/tale/rand/2.jpg);"></div>
-                    <a href="#">
-                        <div class="item-desc">
-                            <p>111</p>
-                        </div>
-                    </a>
-                    <div class="item-slant reverse-slant bg-deepgrey"></div>
-                    <div class="item-slant"></div>
-                    <div class="item-label">
-                        <div class="item-title"><a href="#">第一篇文章</a>
-                        </div>
-                        <div class="item-meta clearfix">
-                            <div class="item-meta-ico bg-ico-note"
-                                 style="background: url(/css/tale/bg-ico.png) no-repeat;background-size: 40px auto;"></div>
-                            <div class="item-meta-cat">
-                               默认分类
-                            </div>
-                        </div>
-                    </div>
+<div class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="intro-message">
+                    <h1>Clay的博客系统</h1>
+                    <h3>my blog about programming</h3>
+                    <hr class="intro-divider"/>
+                    <ul class="list-inline intro-social-buttons">
+                        <li>
+                            <a href="mailto:$!{info.Email}" class="btn btn-default btn-lg"><i class="fa fa-envelope fa-fw"></i> <span class="network-name">Email</span></a>
+                        </li>
+                        <li>
+                            <a href="$!{info.Github}" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                        </li>
+                        <li>
+                            <a href="$!{info.Twitter}" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-
         </div>
     </div>
-    <div class="lists-navigator clearfix">
+</div>
 
+<div class="content-section-a">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-sm-6">
+                <hr class="section-heading-spacer"/>
+                <div class="clearfix"></div>
+                <h2 class="section-heading">java,scala,goLang:</h2>
+                <p class="lead">They are three programming languages those i use most,and scala is my favorite</p>
+            </div>
+            <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                <img class="img-responsive" src="./img/ipad.png" alt=""/>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="content-section-b">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                <hr class="section-heading-spacer"/>
+                <div class="clearfix"></div>
+                <h2 class="section-heading">passion:</h2>
+                <p class="lead">The reason why i become a programmer just because i like it,rather than for living</p>
+            </div>
+            <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                <img class="img-responsive" src="./img/dog.png" alt=""/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-section-a">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-5 col-sm-6">
+                <hr class="section-heading-spacer"/>
+                <div class="clearfix"></div>
+                <h2 class="section-heading">new:</h2>
+                <p class="lead">I never refuse new things. for example,I use gradle instead of maven or ant,because I think gradle is better</p>
+            </div>
+            <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                <img class="img-responsive" src="./img/phones.png" alt=""/>
+            </div>
+        </div>
     </div>
 </div>
 
 
-<footer id="footer" class="footer bg-white">
-    <div class="footer-social">
-        <div class="footer-container clearfix">
-        </div>
-    </div>
-    <div class="footer-meta">
-        <div class="footer-container">
-            <div class="meta-item meta-copyright">
-                <div class="meta-copyright-info">
-                    <a href="${site_url()}" class="info-logo">
-                        <img src="./css/tale/logo.png" alt="Tale">
-                    </a>
-                    <div class="info-text">
-                        <p>一生有所追求.</p>
-                        <p>Powered by <a href="https://github.com/Arsense" target="_blank" rel="nofollow">Tale</a>
-                        </p>
-                        <p>&copy; 2018 <a href="https://github.com/Arsense">biezhi</a></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="meta-item meta-posts">
-                <h3 class="meta-title">最新文章</h3>
-
-            </div>
-
-            <div class="meta-item meta-comments">
-                <h3 class="meta-title">最新评论</h3>
-
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="list-inline">
+                    <li>
+                        <a href="/yearblogs.html">Archives</a>
+                    </li>
+                    <li>
+                        <a href="/tags.html">Tags</a>
+                    </li>
+                    <li>
+                        <a href="/message.html">About</a>
+                    </li>
+                    <li>
+                        <a href="/login.html">Admin</a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted small"></p>
             </div>
         </div>
     </div>
 </footer>
+<!--footer end-->
+
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="./js/front-end.min.js"></script>
 </body>
 </html>

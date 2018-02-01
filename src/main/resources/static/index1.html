@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 </title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/landing-page.min.css" rel="stylesheet" id="theme-css"/>
+    <link href="css/jcala-md.min.css" rel="stylesheet"/>
+    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">
+</head>
+<script type="text/javascript">
+    function switch_theme_css() {
+        var css=document.getElementById("theme-css");
+        if(localStorage.blog_theme==undefined){
+            localStorage.blog_theme="light";
+        }
+        if(localStorage.blog_theme=="dark"){
+            css.href="/css/landing-page-dark.min.css";
+        }
+    }
+    switch_theme_css();
+</script>
+<body >
+<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <div class="container topnav">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand topnav" href="/">Home</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right myBar">
+                <li>
+                    <a href="/yearblogs.html">Archives</a>
+                </li>
+                <li>
+                    <a href="/tags.html">Tags</a>
+                </li>
+                <li>
+                    <a href="/message.html">message</a>
+                </li>
+                <li>
+                    <a href="/login.html">Admin</a>
+                </li>
+                <li>
+                    <a href='javascript:void(0)' onclick="day_night()"><i class="fa fa-moon-o" id="day-night"></i>
+                        <span class="network-name" id="day-night-name">night</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!--header end-->
+
+
+<div class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="intro-message">
+                    <h1>Clay的博客系统</h1>
+                    <h3>my blog about programming</h3>
+                    <hr class="intro-divider"/>
+                    <ul class="list-inline intro-social-buttons">
+                        <li>
+                            <a href="mailto:$!{info.Email}" class="btn btn-default btn-lg"><i class="fa fa-envelope fa-fw"></i> <span class="network-name">Email</span></a>
+                        </li>
+                        <li>
+                            <a href="$!{info.Github}" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                        </li>
+                        <li>
+                            <a href="$!{info.Twitter}" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-section-a">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-sm-6">
+                <hr class="section-heading-spacer"/>
+                <div class="clearfix"></div>
+                <h2 class="section-heading">java,scala,goLang:</h2>
+                <p class="lead">They are three programming languages those i use most,and scala is my favorite</p>
+            </div>
+            <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                <img class="img-responsive" src="./img/ipad.png" alt=""/>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="content-section-b">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                <hr class="section-heading-spacer"/>
+                <div class="clearfix"></div>
+                <h2 class="section-heading">passion:</h2>
+                <p class="lead">The reason why i become a programmer just because i like it,rather than for living</p>
+            </div>
+            <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                <img class="img-responsive" src="./img/dog.png" alt=""/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-section-a">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-5 col-sm-6">
+                <hr class="section-heading-spacer"/>
+                <div class="clearfix"></div>
+                <h2 class="section-heading">new:</h2>
+                <p class="lead">I never refuse new things. for example,I use gradle instead of maven or ant,because I think gradle is better</p>
+            </div>
+            <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                <img class="img-responsive" src="./img/phones.png" alt=""/>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="list-inline">
+                    <li>
+                        <a href="/yearblogs.html">Archives</a>
+                    </li>
+                    <li>
+                        <a href="/tags.html">Tags</a>
+                    </li>
+                    <li>
+                        <a href="/message.html">About</a>
+                    </li>
+                    <li>
+                        <a href="/login.html">Admin</a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted small"></p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--footer end-->
+
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="./js/front-end.min.js"></script>
+</body>
+</html>

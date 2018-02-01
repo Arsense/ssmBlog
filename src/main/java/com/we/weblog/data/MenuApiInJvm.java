@@ -15,7 +15,7 @@ public class MenuApiInJvm {
 
         List<Menu> menus = new ArrayList<>() ;
 
-        Menu menu1 = createMenu("/admin/index.html" , "仪表盘" , "fa fa-dashboard" , 1) ;
+        Menu menu1 = createMenu("/admin/index1.html" , "仪表盘" , "fa fa-dashboard" , 1) ;
         Menu menu2 = createMenu("/admin/testeditor.html" , "新随笔" , "fa fa-edit" , 2) ;
         Menu menu3 = createMenu("/admin/show.html" , "博客管理" , "fa fa-edit" , 2) ;
         Menu menu4 = createMenu("/admin/message.html" , "评论管理" , "fa  fa-weixin" , 2) ;

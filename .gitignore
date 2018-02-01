@@ -23,4 +23,3 @@ dist/
 nbdist/
 .nb-gradle/
 target/
-src/main/static/

@@ -26,7 +26,7 @@ public interface BlogService {
 
     //处理YearBlog
     List<YearBlog> getYearBlog(int page) throws IOException;
-    int getNumberOfYearBlog();
+    int getTotalBlog();
 
 
 }

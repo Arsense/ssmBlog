@@ -35,7 +35,7 @@ public class FrontController {
     public List<YearBlog>  getYearBlogs(  HttpServletResponse response) throws IOException {
         int page = 1;  //先默认为1吧
         List<YearBlog> blogList = blogService.getYearBlog(page);
-        int nblog = blogService.getNumberOfYearBlog();
+
         return  blogList ;
     }
 

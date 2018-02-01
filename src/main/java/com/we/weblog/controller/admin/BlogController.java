@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -65,14 +66,19 @@ public class BlogController {
      * @param request
      * @return
      */
-//    @GetMapping("/index")
-//    @ResponseBody
-//    public Map<String,Object> index(HttpServletRequest request){
-//        //获得最新的20条日志  获得最新的文章
-//        List<Blog>  blogs = blogService.getRecentBlogs(5);
-//
-//
-//    }
+    @GetMapping("/index_data")
+    @ResponseBody
+    public Map<String,Object> index(HttpServletRequest request){
+        //获得最新的20条日志  获得最新的文章  后台统计对象
+        Map<String,Object> map = new HashMap<>();
+        List<Blog>  blogs = blogService.getRecentBlogs(5);
+        int blogCount = blogService.getTotalBlog();
+
+        map.put("blogNumber",blogCount);
+        map.put("blogs",blogs);
+
+        return map;
+    }
 
 
 }

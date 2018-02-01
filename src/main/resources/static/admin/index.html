@@ -12,7 +12,7 @@
 <v-app id="app" :data="data">
     <v-box>
 
-        <v-tags header="1" footer="发表了几篇文章">
+        <v-tags header="{{blogNumber}}" footer="发表了几篇文章">
 
         </v-tags>
 
@@ -23,9 +23,6 @@
         <v-tags color="yellow" header="0" footer="上传了几个附件">
 
         </v-tags>
-
-
-
 
         <div class="row">
             <div class="col-md-4">
@@ -91,15 +88,22 @@
 
         data : function () {
             return {
-
-
+                blogNumber:0,
+                blogs:[]
             }
         } ,
         methods : {
-
+                getArticles:function () {
+                    return blogNumber;
+                }
         } ,
-        mounted : function () {
+        mounted : function ($vm) {
+            var self = $vm;
+            axios.get("/admin/index_data").then(function (response) {
+                self.blogNumber = response.blogNumber;
+                self.blogs = response.blogs;
 
+            })
 
         }
     })

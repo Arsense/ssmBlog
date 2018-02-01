@@ -182,9 +182,9 @@ public class BlogServiceImpl implements BlogService {
 
 
     @Override
-    public int getNumberOfYearBlog() {
-        //先只处理一页吧
-        return 0;
+    public int getTotalBlog() {
+
+        return blogMapper.getBlogNumber();
     }
 
     public List<String> getAllKindTags(){

@@ -12,8 +12,7 @@
 <v-app id="app" :data="data">
     <v-box>
 
-        <v-tags header="{{blogNumber}}" footer="发表了几篇文章">
-
+        <v-tags v-bind:header="blogNumber" footer="发表了几篇文章">
         </v-tags>
 
         <v-tags color="green" header="0" footer="收到了几条留言">
@@ -30,12 +29,11 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">最新文章</h4>
                     </div>
-                    <div class="panel-body">
-                        <ul class="list-group">
-
+                    <div  class="panel-body">
+                        <ul v-for="blog in blogs" class="list-group" >
                             <li class="list-group-item">
                             <span class="badge badge-primary"></span>
-                                <a target="_blank" href="#">第一篇文章</a>
+                                <a target="_blank" :href="getpostUrl(blog)">{{blog['title']}}</a>
                             </li>
                         </ul>
                     </div>
@@ -88,21 +86,21 @@
 
         data : function () {
             return {
-                blogNumber:0,
-                blogs:[]
+                blogNumber:"",
+                blogs:[],
+
             }
         } ,
         methods : {
-                getArticles:function () {
-                    return blogNumber;
-                }
+            getpostUrl:function (Object) {
+                return "/post/"+Object.blogId;
+            }
         } ,
         mounted : function ($vm) {
             var self = $vm;
             axios.get("/admin/index_data").then(function (response) {
-                self.blogNumber = response.blogNumber;
-                self.blogs = response.blogs;
-
+                self.blogNumber = response.data.blogNumber;
+                self.blogs = response.data.blogs;
             })
 
         }

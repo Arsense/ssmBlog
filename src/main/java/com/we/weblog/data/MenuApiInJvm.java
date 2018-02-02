@@ -1,6 +1,6 @@
 package com.we.weblog.data;
 
-import com.we.weblog.Menu;
+import com.vue.adminlte4j.model.Menu;
 
 import java.util.ArrayList;
 import java.util.List;

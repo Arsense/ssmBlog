@@ -22,13 +22,12 @@
         <form method="post" id = "main" name="blogFrom" >
 
                 <v-form-item span="7" label="博客标题" class="text-warning">
-                    <input id="blogTitle" type="text" class="form-control" name="title" v-model="mdData.title"/>
+                    <input id="blogTitle" type="text" class="form-control" name="title" v-model="mdData['title']"/>
                 </v-form-item >
 
 
-
                 <v-form-item span="7" label="博客标签" class="text-warning">
-                    <input id="blogTags" type="text" class="form-control" name="title"  v-model="mdData.tags" />
+                    <input id="blogTags" name="tags" type="text" class="form-control"  v-model="mdData['tags']" />
                 </v-form-item >
 
             <div id="page-wrapper">

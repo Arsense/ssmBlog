@@ -1,12 +1,12 @@
 package com.we.weblog.controller;
 
 import com.vue.adminlte4j.model.AppInfo;
+import com.vue.adminlte4j.model.TableData;
+import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.support.ModelConfigManager;
 import com.we.weblog.data.AppInfoInJvm;
 import com.we.weblog.data.MenuApiInJvm;
 import com.we.weblog.service.Impl.BlogService;
-import com.we.weblog.TableData;
-import com.we.weblog.UIModel;
 import com.we.weblog.domain.Blog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

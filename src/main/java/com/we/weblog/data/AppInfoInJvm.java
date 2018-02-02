@@ -1,7 +1,7 @@
 package com.we.weblog.data;
 
 
-import com.we.weblog.AppInfo;
+import com.vue.adminlte4j.model.AppInfo;
 
 public class AppInfoInJvm {
 

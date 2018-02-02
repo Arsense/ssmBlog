@@ -1,11 +1,10 @@
 package com.we.weblog.service;
 
 
+import com.we.weblog.domain.Context;
 import com.we.weblog.domain.YearBlog;
-import com.we.weblog.mapping.BlogMapper;
+import com.we.weblog.mapping.ContextMapper;
 import com.we.weblog.mapping.TagMapper;
-import com.we.weblog.domain.Blog;
-import com.we.weblog.service.Impl.BlogService;
 import com.we.weblog.tool.TimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,18 +13,18 @@ import java.util.*;
 
 
 @Service
-public class BlogServiceImpl implements BlogService {
-    private BlogMapper blogMapper;
+public class ContextService {
+    private ContextMapper contextMapper;
     private TagMapper tagMapper;
 
     /**
      * 构造函数
-     * @param blogMapper
+     * @param contextMapper
      */
     @Autowired
-    public BlogServiceImpl(BlogMapper blogMapper,TagMapper tagMapper) {
+    public ContextService(ContextMapper contextMapper, TagMapper tagMapper) {
         this.tagMapper = tagMapper;
-        this.blogMapper = blogMapper;
+        this.contextMapper = contextMapper;
 }
     /**
      *  将tags拆分放到数组里
@@ -71,26 +70,24 @@ public class BlogServiceImpl implements BlogService {
 
     /**
      * 添加博客 同时把tags添加进去
-     * @param blog
+     * @param context
      */
-    @Override
-    public void addBlog(Blog blog) {
-        blog.setTime(new Date(System.currentTimeMillis()));
-        blogMapper.insertBlog(blog);
-        addBlogTags(blog.getTags(),blog.getBlogId());
+    public void addBlog(Context context) {
+        context.setTime(new Date(System.currentTimeMillis()));
+        contextMapper.insertBlog(context);
+        addBlogTags(context.getTags(), context.getBlogId());
 
     }
 
-    @Override
-    public void updateBlog(Blog blog) {
-        blogMapper.updateBlog(blog);
-        updateBlogTag(blog.getTags(),blog.getBlogId());
-        updateBlogTag(blog.getTags(),blog.getBlogId());
+
+    public void updateBlog(Context context) {
+        contextMapper.updateBlog(context);
+        updateBlogTag(context.getTags(), context.getBlogId());
+        updateBlogTag(context.getTags(), context.getBlogId());
     }
 
-    @Override
     public void deleteBlogById(int id) {
-        int result = blogMapper.deleteBlogById(id);
+        int result = contextMapper.deleteBlogById(id);
         if(result == 0){
 
         }else{
@@ -99,49 +96,49 @@ public class BlogServiceImpl implements BlogService {
     }
 
 
-    @Override
-    public List<Blog> showBlogs(int page) {
-       page = page*10;
-       List<Blog> blogs =  new ArrayList<>();
-       blogs = blogMapper.getTenBlogs(page);
 
-       return blogs;
+    public List<Context> showBlogs(int page) {
+       page = page*10;
+       List<Context> contexts =  new ArrayList<>();
+       contexts = contextMapper.getTenBlogs(page);
+
+       return contexts;
 
     }
 
-    @Override
+
     public int getBlogsPages() {
         return 0;
     }
 
-    @Override
+
     public List<String> getAllTags() {
-        return blogMapper.getAllTags();
+        return contextMapper.getAllTags();
     }
 
-    @Override
-    public Blog getBlogHtml() {
+
+    public Context getBlogHtml() {
         return null;
     }
 
-    @Override
-    public List<Blog> getBlogsByTag(String tagName) {
-        return blogMapper.selectBlogByTag(tagName);
+
+    public List<Context> getBlogsByTag(String tagName) {
+        return contextMapper.selectBlogByTag(tagName);
     }
 
 
-    @Override
-    public Blog getPreviousBlog(int blogId) {
-        return blogMapper.getPreviousBlog(blogId);
+
+    public Context getPreviousBlog(int blogId) {
+        return contextMapper.getPreviousBlog(blogId);
     }
 
-    @Override
-    public Blog getNextBlog(int blogId) { return blogMapper.getNextBlog(blogId);
+
+    public Context getNextBlog(int blogId) { return contextMapper.getNextBlog(blogId);
     }
 
-    @Override
-    public Blog getBlogById(int id) {
-        return blogMapper.getBlogById(id);
+
+    public Context getBlogById(int id) {
+        return contextMapper.getBlogById(id);
     }
 
 
@@ -150,28 +147,26 @@ public class BlogServiceImpl implements BlogService {
      * @param page
      * @return
      */
-    @Override
     public List<YearBlog> getYearBlog(int page) throws IOException {
         int start = (page-1)*12;
-        List<Blog> list = blogMapper.selectBlogsByYear(start);
+        List<Context> list = contextMapper.selectBlogsByYear(start);
         return sortBlogsByYears(list);
     }
 
 
-    @Override
-    public List<YearBlog> sortBlogsByYears(List<Blog> bloglist) throws IOException{
+    public List<YearBlog> sortBlogsByYears(List<Context> bloglist) throws IOException{
         List<YearBlog> yearBlogs = new ArrayList<>();
         Map<Integer,YearBlog> yearMap = new HashMap<>();
-        for(Blog blog : bloglist){
-            Date date= blog.getDate();
-            blog.setMonth(TimeTool.getEdate(date));
+        for(Context context : bloglist){
+            Date date= context.getDate();
+            context.setMonth(TimeTool.getEdate(date));
             int year = TimeTool.getYear(date);
             if(yearMap.containsKey(year)){
-                yearMap.get(year).getYearBlogs().add(blog);
+                yearMap.get(year).getYearContexts().add(context);
             }else{
-                YearBlog yearBlog = new YearBlog(year,new ArrayList<Blog>());
+                YearBlog yearBlog = new YearBlog(year,new ArrayList<Context>());
                 yearMap.put(year,yearBlog);
-                yearBlog.getYearBlogs().add(blog);
+                yearBlog.getYearContexts().add(context);
                 yearBlogs.add(yearBlog);
             }
 
@@ -181,24 +176,23 @@ public class BlogServiceImpl implements BlogService {
     }
 
 
-    @Override
     public int getTotalBlog() {
 
-        return blogMapper.getBlogNumber();
+        return contextMapper.getBlogNumber();
     }
 
     public List<String> getAllKindTags(){
-        return blogMapper.selectTagkinds();
+        return tagMapper.selectTagkinds();
     }
 
 
 
-    public List<Blog> getRecentBlogs(int limit){
+    public List<Context> getRecentBlogs(int limit){
         if(limit < 0 || limit >20){
             limit = 10;
         }
 
-        return  blogMapper.getNewBlogs(limit);
+        return  contextMapper.getNewBlogs(limit);
 
     }
 

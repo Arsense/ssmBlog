@@ -6,8 +6,8 @@ import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.support.ModelConfigManager;
 import com.we.weblog.data.AppInfoInJvm;
 import com.we.weblog.data.MenuApiInJvm;
-import com.we.weblog.service.Impl.BlogService;
-import com.we.weblog.domain.Blog;
+import com.we.weblog.domain.Context;
+import com.we.weblog.service.ContextService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,11 +23,11 @@ import java.util.Map;
 @Controller
 public class IndexController {
 
-    private BlogService blogService;
+    private ContextService contextService;
 
     @Autowired
-    public IndexController(BlogService blogService) {
-        this.blogService = blogService;
+    public IndexController(ContextService contextService) {
+        this.contextService = contextService;
     }
     ;
     @GetMapping("/get_app_info")
@@ -58,11 +58,11 @@ public class IndexController {
         tableData.configDisplayColumn(TableData.createColumn("date" , "创建日期" ));
 
         //遍历查询数据库
-        List<Blog> tempBlogs = new ArrayList<>();
-        tempBlogs = blogService.showBlogs(1);
+        List<Context> tempContexts = new ArrayList<>();
+        tempContexts = contextService.showBlogs(1);
 
-        for(Blog blog : tempBlogs){
-            tableData.addData(blog);
+        for(Context context : tempContexts){
+            tableData.addData(context);
         }
 
         tableData.setTotalSize(50);

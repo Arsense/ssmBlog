@@ -5,7 +5,7 @@ import com.baomidou.kisso.annotation.Action;
 import com.baomidou.kisso.annotation.Login;
 import com.baomidou.kisso.security.token.SSOToken;
 import com.baomidou.kisso.web.waf.request.WafRequestWrapper;
-import com.we.weblog.service.UserServiceImpl;
+import com.we.weblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,12 +19,12 @@ import java.io.IOException;
 public class LoginController extends BaseController{
 
 
-    private  static UserServiceImpl userService;
+    private  static UserService userService;
 
 
 
     @Autowired
-    public LoginController(UserServiceImpl userService){
+    public LoginController(UserService userService){
         this.userService = userService;
     }
 
@@ -55,8 +55,6 @@ public class LoginController extends BaseController{
 
     @GetMapping("/logout")
     public String logout() throws IOException {
-        //销毁session
-       // userService.destorySession(request);
         SSOHelper.clearLogin(request, response);
         return redirectTo("/index.html");
 

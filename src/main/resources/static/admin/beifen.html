@@ -12,10 +12,8 @@
 <body>
 
 
-
 <v-app  id="app" :data="data" >
     <!-- /.content-wrapper -->
-
     <v-box>
         <div class="btns">
             <button id="watch-btn" >显示预览</button>
@@ -23,7 +21,6 @@
             <button id="fullscreen-btn" >全屏(按ESC退出)</button>
             <button id="show-toolbar-btn" >展示工具栏</button>
             <button id="close-toolbar-btn" >隐藏工具栏</button>
-
         </div>
         <form method="post" id="blogForm" name="blogFrom" >
             <!--style="position:absolute;width:2200px;height:110px;left:40%;top:20px;-->
@@ -59,7 +56,7 @@
                     </div><!-- /.row -->
                 </div><!-- /#page-wrapper -->
                 <div class="text-right">
-                    <input id = "blogSubmit" type="submit" class="btn btn-success" onclick="getData(testEditor)" value="保存文章"/>
+                    <input id = "blogSubmit" type="submit" class="btn btn-success" @click="getData(testEditor)" value="保存文章"/>
 
                 </div>
 
@@ -84,8 +81,6 @@
 <script type="text/javascript">
 
 
-
-
     app.main({
 
         data : function () {
@@ -95,7 +90,7 @@
             }
         } ,
         methods : {
-            getData:function (testEditor) {
+            getData:function () {
                 var a=document.forms[0];
                 var b,c;
                 a.action="/admin/send";

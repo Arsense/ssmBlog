@@ -4,8 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 </title>
-    <!-- Tell the browser to be responsive to screen width -->
+    <title>Clay Blog </title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/landing-page.min.css" rel="stylesheet" id="theme-css"/>
@@ -15,10 +14,10 @@
 <script type="text/javascript">
     function switch_theme_css() {
         var css=document.getElementById("theme-css");
-        if(localStorage.blog_theme==undefined){
+        if(localStorage.blog_theme===undefined){
             localStorage.blog_theme="light";
         }
-        if(localStorage.blog_theme=="dark"){
+        if(localStorage.blog_theme==="dark"){
             css.href="/css/landing-page-dark.min.css";
         }
     }
@@ -68,7 +67,7 @@
             <div class="col-lg-12">
                 <div class="intro-message">
                     <h1>Clay的博客系统</h1>
-                    <h3>my blog about programming</h3>
+                    <h3>my context about programming</h3>
                     <hr class="intro-divider"/>
                     <ul class="list-inline intro-social-buttons">
                         <li>

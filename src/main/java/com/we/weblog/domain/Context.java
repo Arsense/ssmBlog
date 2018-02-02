@@ -1,8 +1,12 @@
 package com.we.weblog.domain;
 
+import jdk.nashorn.internal.objects.annotations.Getter;
+import jdk.nashorn.internal.objects.annotations.Setter;
+
 import java.util.Date;
 
-public class Blog {
+
+public class Context {
     //   博客内容md 博客内容的html
     /**
      *  博客id
@@ -11,16 +15,17 @@ public class Blog {
     /**
      *  创建时间
      */
-    private Date      date;
+    private Date   date;
     /**
      *  博客名称
      */
-    private String    title;
+    private String   title;
     /**
      *      博客标签
      */
     private String   tags;
 
+    public String  article;
 
     private String  md;
 
@@ -58,7 +63,6 @@ public class Blog {
         this.article = article;
     }
 
-    public String  article;
 
 
 

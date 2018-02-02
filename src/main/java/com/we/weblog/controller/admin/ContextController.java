@@ -2,8 +2,8 @@ package com.we.weblog.controller.admin;
 
 
 
-import com.we.weblog.domain.Blog;
-import com.we.weblog.service.BlogServiceImpl;
+import com.we.weblog.domain.Context;
+import com.we.weblog.service.ContextService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,21 +18,21 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
-public class BlogController {
+public class ContextController {
 
-    private BlogServiceImpl blogService;
+    private ContextService contextService;
     private int setUpdateId = 0;
 
     @Autowired
-    public BlogController(BlogServiceImpl blogService){
-        this.blogService = blogService;
+    public ContextController(ContextService contextService){
+        this.contextService = contextService;
     }
 
 
     @GetMapping("/delete")
     public  void deleteBlog(@RequestParam int deleteId,HttpServletResponse response) throws IOException {
         int id = deleteId;
-        blogService.deleteBlogById(id);
+        contextService.deleteBlogById(id);
         //response.sendRedirect("/admin/show.html");
     }
 
@@ -44,20 +44,20 @@ public class BlogController {
 
      @GetMapping("/update_send_data")
      @ResponseBody
-     public  Blog updateData(){
-         return blogService.getBlogById(setUpdateId);
+     public Context updateData(){
+         return contextService.getBlogById(setUpdateId);
 
      }
     /**
      * 添加博客的表单控制器
-     * @param blog 表单中提交的博客信息,包括标题，标签，md页面，和md转成的html页面
+     * @param context 表单中提交的博客信息,包括标题，标签，md页面，和md转成的html页面
      * @return
      */
 
     @PostMapping("/send")
-    public void postAction(@ModelAttribute("blogFrom")Blog blog,HttpServletResponse response) throws IOException {
-            blogService.addBlog(blog);
-            response.sendRedirect("/admin/show.html");
+    public void postAction(@ModelAttribute("blogFrom")Context context, HttpServletResponse response) throws IOException {
+             contextService.addBlog(context);
+             response.sendRedirect("/admin/show.html");
     }
 
 
@@ -71,11 +71,11 @@ public class BlogController {
     public Map<String,Object> index(HttpServletRequest request){
         //获得最新的20条日志  获得最新的文章  后台统计对象
         Map<String,Object> map = new HashMap<>();
-        List<Blog>  blogs = blogService.getRecentBlogs(5);
-        int blogCount = blogService.getTotalBlog();
+        List<Context> contexts = contextService.getRecentBlogs(5);
+        int blogCount = contextService.getTotalBlog();
 
         map.put("blogNumber",blogCount);
-        map.put("blogs",blogs);
+        map.put("contexts", contexts);
 
         return map;
     }

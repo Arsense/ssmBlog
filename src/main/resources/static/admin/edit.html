@@ -45,7 +45,7 @@
                 <input type="hidden" name="article" id = "article"/>
                 <div class="form-group">
                     <label for="blogSubmit" class="text-warning">submit</label>
-                    <input id = "blogSubmit" type="submit" class="form-control jcala-input" onclick="updateData()" value="保持"/>
+                    <input id = "blogSubmit" type="submit" class="form-control jcala-input" @click="updateData" value="保持"/>
                 </div>
         </form>
 
@@ -67,7 +67,6 @@
             }
         } ,
         methods : {
-
                 updateData:function(){
                     var a=document.forms[0];
                     var b,c;
@@ -79,7 +78,6 @@
                     document.blogFrom.article.value = testEditor.getHTML();
                     a.submit()
                }
-
         } ,
         mounted : function ($vm) {
             var self = $vm;
@@ -112,7 +110,6 @@
                         taskList : true,
                         tocm            : true,         // Using [TOCM]
                         tex : true,                   // 开启科学公式TeX语言支持，默认关闭
-                        sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
                         imageUpload : true,
                         imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
                         imageUploadURL : "/admin/upload",

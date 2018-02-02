@@ -1,9 +1,9 @@
 package com.we.weblog.controller;
 
 
-import com.we.weblog.domain.Blog;
+import com.we.weblog.domain.Context;
 import com.we.weblog.domain.YearBlog;
-import com.we.weblog.service.Impl.BlogService;
+import com.we.weblog.service.ContextService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,19 +22,19 @@ import java.util.Map;
 public class FrontController {
 
 
-    private BlogService blogService;
+    private ContextService contextService;
     private static int postId = 0;
     private static String tagName = null;
 
-    public FrontController(BlogService blogService){
-        this.blogService = blogService;
+    public FrontController(ContextService blogService){
+        this.contextService = blogService;
     }
 
     @GetMapping("/years_blog_data")
     @ResponseBody
     public List<YearBlog>  getYearBlogs(  HttpServletResponse response) throws IOException {
         int page = 1;  //先默认为1吧
-        List<YearBlog> blogList = blogService.getYearBlog(page);
+        List<YearBlog> blogList = contextService.getYearBlog(page);
 
         return  blogList ;
     }
@@ -55,15 +55,15 @@ public class FrontController {
 
     @GetMapping("/post")
     @ResponseBody
-    public Map<String, Blog> postData( ){
-        Map<String,Blog> map  = new HashMap<>();
-        Blog currentBlog = blogService.getBlogById(postId);
-        Blog preBlog = blogService.getPreviousBlog(postId);
-        Blog nextBlog = blogService.getNextBlog(postId);
+    public Map<String, Context> postData( ){
+        Map<String,Context> map  = new HashMap<>();
+        Context currentContext = contextService.getBlogById(postId);
+        Context preContext = contextService.getPreviousBlog(postId);
+        Context nextContext = contextService.getNextBlog(postId);
 
-        map.put("current",currentBlog);
-        map.put("next",nextBlog);
-        map.put("previous",preBlog);
+        map.put("current", currentContext);
+        map.put("next", nextContext);
+        map.put("previous", preContext);
         return map;
     }
 
@@ -71,7 +71,7 @@ public class FrontController {
     @ResponseBody
     public List<String> getTags(){
         List<String> list;
-        list = blogService.getAllKindTags();
+        list = contextService.getAllKindTags();
         return list;
     }
 
@@ -93,9 +93,9 @@ public class FrontController {
      */
     @GetMapping("/tags_detail_data")
     @ResponseBody
-    public  List<Blog> tagDetailData(){
-        List<Blog> list;
-        list = blogService.getBlogsByTag(tagName);
+    public  List<Context> tagDetailData(){
+        List<Context> list;
+        list = contextService.getBlogsByTag(tagName);
         return list;
     }
 

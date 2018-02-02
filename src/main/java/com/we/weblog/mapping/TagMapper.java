@@ -28,4 +28,11 @@ public interface TagMapper {
 
     @Delete({"delete t_tag where id = #{id}"})
     void  deleteTagsById(@Param("id") int id);
+
+
+
+    //distinct 不重复的
+    @Select({"select distinct tag_name from t_tag "})
+    @ResultType(String.class)
+    List<String> selectTagkinds();
 }

@@ -5,16 +5,22 @@ import com.baomidou.kisso.annotation.Action;
 import com.baomidou.kisso.annotation.Login;
 import com.baomidou.kisso.security.token.SSOToken;
 import com.baomidou.kisso.web.waf.request.WafRequestWrapper;
+import com.we.weblog.domain.Log;
+import com.we.weblog.domain.modal.LogActions;
 import com.we.weblog.service.UserService;
+import com.we.weblog.tool.IpTool;
+import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 
-//@EnableAutoConfiguration注释，此注释自动载入应用程序所需的所有Bean
+@Slf4j
 @Controller
 public class LoginController extends BaseController{
 
@@ -33,15 +39,19 @@ public class LoginController extends BaseController{
      */
   //  @Login(action = Action.Skip)
     @PostMapping("/admin")
-    public String doLogin() throws Exception {
+    public String doLogin(HttpServletRequest request) throws Exception {
         /**
          * 生产环境需要过滤sql注入
          */
+        // id 先写到1
         WafRequestWrapper req = new WafRequestWrapper(request);
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         boolean result = userService.checkLogin(username, password);
         if (result) {
+            //创建日志
+            new Log(LogActions.LOGIN,username, IpTool.getIpAddress(request),1);
+
             SSOHelper.setCookie(request, response, SSOToken.create().setIp(request).setId(1000).setIssuer(username), false);
             return redirectTo("/admin/index.html");
         }else {

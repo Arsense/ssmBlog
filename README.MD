@@ -116,6 +116,8 @@ mvn install:install-file -Dfile=D:\code\context\ssmBlog\src\vuejar\vue-adminlte4
 待更新....
 
 项目maven package打包成war包 放到相应tomcat工作目录 运行tomcat
+### 默认账号名密码都是 admin admin 
 
+### 联系方式
 
-### 版本控制  
+QQ：1984562796 欢迎交流学习

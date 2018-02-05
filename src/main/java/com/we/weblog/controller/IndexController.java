@@ -70,6 +70,50 @@ public class IndexController {
         return uiModel ;
     }
 
+    @GetMapping("/get_comment_data")
+    @ResponseBody
+    Map<String,Object> getCommentsdata() {
+        UIModel uiModel = new UIModel() ;
+        TableData tableData = new TableData() ;
+        tableData.configDisplayColumn(TableData.createColumn("content" , "评论内容") );
+        tableData.configDisplayColumn(TableData.createColumn("author" , "评论人") );
+        tableData.configDisplayColumn(TableData.createColumn("created" , "评论时间" ));
+        tableData.configDisplayColumn(TableData.createColumn("mail" , "评论人邮箱" ));
+        tableData.configDisplayColumn(TableData.createColumn("status" , "评论状态" ));
+
+
+        //遍历查询数据库
+
+
+        tableData.setTotalSize(10);
+        uiModel.tableData(tableData);
+        return uiModel ;
+    }
+
+
+
+    @GetMapping("/get_tags_data")
+    @ResponseBody
+    Map<String,Object> getTagssdata() {
+        UIModel uiModel = new UIModel() ;
+        TableData tableData = new TableData() ;
+        tableData.configDisplayColumn(TableData.createColumn("content" , "页面名称") );
+        tableData.configDisplayColumn(TableData.createColumn("author" , "页面路径") );
+        tableData.configDisplayColumn(TableData.createColumn("created" , "发布时间" ));
+        tableData.configDisplayColumn(TableData.createColumn("mail" , "发布状态" ));
+
+
+        //遍历查询数据库
+
+
+        tableData.setTotalSize(10);
+        uiModel.tableData(tableData);
+        return uiModel ;
+    }
+
+
+
+
     @GetMapping("/get_app_data")
     @ResponseBody
     AppInfo getAppinfoData() throws IOException {

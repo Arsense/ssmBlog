@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ATL - Box </title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+<body>
+<v-app  :data="data">
+
+    <div class="col-md-6">
+        <div class="panel panel-color panel-primary">
+            <div class="panel-heading">
+                <h1 class="panel-title">分类列表</h1>
+            </div>
+            <div class="panel-body">
+
+                <div class="btn-group m-b-10">
+
+                    <button type="button" class="btn btn-inverse waves-effect waves-light">
+
+                    </button>
+                    <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light"
+                            data-toggle="dropdown" aria-expanded="false"><span
+                            class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="javascript:void(0)" mid="${c.mid}" cname="${c.name}" class="edit-category">修改</a>
+                        </li>
+                        <li><a href="javascript:void(0)" mid="" class="del-category">删除</a></li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel  panel-pink">
+            <div class="panel-heading">
+                <h1 class="panel-title">标签列表</h1>
+            </div>
+            <div class="panel-body">
+
+                <div class="btn-group m-b-10">
+                    <button type="button" class="btn btn-purple dropdown-toggle waves-effect waves-light"
+                            data-toggle="dropdown" aria-expanded="false"> <span
+                            class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="javascript:void(0)" mid="" class="del-category">删除</a></li
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form id="cform" class="form-inline" role="form">
+                    <input type="hidden" id="mid"/>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="cname" placeholder="请输入分类名称">
+                    </div>
+                    <button id="save-category-btn" type="button"
+                            class="btn btn-success waves-effect waves-light m-l-10">保存分类
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</v-app>
+
+<script src="/lib/lib.js"></script>
+<script>
+    app.main({
+
+        data : function () {
+            return {
+
+            }
+        } ,
+        methods : {
+
+
+
+        } ,
+        mounted : function () {
+
+        }
+    });
+
+</script>
+</body>
+</html>

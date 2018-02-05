@@ -1,10 +1,11 @@
 #change 
-#Fri Feb 02 18:15:31 CST 2018
-appName=111
-logoName=Admin
+#Mon Feb 05 14:32:17 CST 2018
+appName=Blog's system
+logoName=hello
 userImgUrl=/profile.html
 indexUrl=/index.html
 profileUrl=/index.html
-userName=liuyong
+userName=Clay
 signOutUrl=/index.html
-logoShortName=ATL
+logoShortName=什么鬼？
+

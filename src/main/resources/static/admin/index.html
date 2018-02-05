@@ -30,8 +30,8 @@
                         <h4 class="panel-title">最新文章</h4>
                     </div>
                     <div  class="panel-body">
-                        <ul v-for="context in contexts" class="list-group" >
-                            <li class="list-group-item">
+                        <ul  class="list-group" >
+                            <li v-for="context in contexts" class="list-group-item">
                             <span class="badge badge-primary"></span>
                                 <a target="_blank" :href="getpostUrl(context)">{{context['title']}}</a>
                             </li>
@@ -47,7 +47,7 @@
 
                     </div>
                     <div class="panel-body">
-                        <div class="list-group-item ">
+                            <div class="btn btn-block btn-warning disabled  ">
                             还没有收到留言.
                         </div>
 

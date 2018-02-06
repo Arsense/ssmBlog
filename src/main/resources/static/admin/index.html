@@ -62,10 +62,10 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">系统日志</h4>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body" >
                         <ul class="list-group">
-                            <li class="list-group-item">
-                                <span>后台日志</span>
+                            <li class="list-group-item" v-for="log in logs">
+                                <span>{{log.created}}--> {{log.action}}</span>
                             </li>
                         </ul>
                     </div>
@@ -88,6 +88,7 @@
             return {
                 blogNumber:"",
                 contexts:[],
+                logs:[],
 
             }
         } ,
@@ -100,7 +101,8 @@
             var self = $vm;
             axios.get("/admin/index_data").then(function (response) {
                 self.blogNumber = response.data.blogNumber;
-                self.contexts = response.data.contexts;
+                self.contexts   = response.data.contexts;
+                self.logs       = response.data.logs;
             })
 
         }

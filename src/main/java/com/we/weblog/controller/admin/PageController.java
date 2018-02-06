@@ -13,9 +13,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/admin/page")
 public class PageController {
 
-    @Autowired
+
     private ContextService contextService;
+
     //编辑 删除 添加功能
+
+    @Autowired
+    public  PageController(ContextService contextService){
+        this.contextService = contextService;
+
+    }
+
 
 
     @GetMapping("/get")

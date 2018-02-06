@@ -1,13 +1,15 @@
 package com.we.weblog.controller.admin;
 
-
-
+import com.we.weblog.controller.BaseController;
 import com.we.weblog.domain.Context;
+import com.we.weblog.domain.Log;
+import com.we.weblog.domain.modal.LogActions;
 import com.we.weblog.service.ContextService;
+import com.we.weblog.service.LogService;
+import com.we.weblog.tool.IpTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -18,26 +20,29 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
-public class ContextController {
+public class ContextController extends BaseController{
 
     private ContextService contextService;
+    private LogService logService;
     private int setUpdateId = 0;
 
     @Autowired
-    public ContextController(ContextService contextService){
+    public ContextController(ContextService contextService,LogService  logService){
         this.contextService = contextService;
+        this.logService = logService;
     }
 
 
     @GetMapping("/delete")
-    public  void deleteBlog(@RequestParam int deleteId,HttpServletResponse response) throws IOException {
+    public  void deleteBlog(@RequestParam int deleteId,HttpServletRequest request) {
         int id = deleteId;
         contextService.deleteBlogById(id);
-        //response.sendRedirect("/admin/show.html");
+        logService.addLog(new Log(LogActions.DELETE_BLOG,id+" ", IpTool.getIpAddress(request),1));
+
     }
 
     @GetMapping("/toupdate")
-    public  void updateBlog(@RequestParam int updateId) throws IOException {
+    public  void updateBlog(@RequestParam int updateId) {
         setUpdateId = updateId;
         //查找博客 md显示 标签还要处理吗？
     }
@@ -74,8 +79,11 @@ public class ContextController {
         List<Context> contexts = contextService.getRecentBlogs(5);
         int blogCount = contextService.getTotalBlog();
 
+
+        List<Log> logs = logService.getLogPages(10);
         map.put("blogNumber",blogCount);
         map.put("contexts", contexts);
+        map.put("logs",logs);
 
         return map;
     }

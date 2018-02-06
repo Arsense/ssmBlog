@@ -53,10 +53,6 @@ mvn install:install-file -Dfile=D:\code\context\ssmBlog\src\vuejar\vue-adminlte4
 1. 后台登录页面检查用户登录
 2. 后台管理页面前端
 
-12-21日<br>
-1. 后台登录简单效验<br>
-		用户名:`admin`  
-		密码:`admin`
 
 12-24日<br>
 1.  把h2数据库更改成mysql

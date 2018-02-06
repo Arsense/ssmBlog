@@ -7,6 +7,7 @@ import com.baomidou.kisso.security.token.SSOToken;
 import com.baomidou.kisso.web.waf.request.WafRequestWrapper;
 import com.we.weblog.domain.Log;
 import com.we.weblog.domain.modal.LogActions;
+import com.we.weblog.service.LogService;
 import com.we.weblog.service.UserService;
 import com.we.weblog.tool.IpTool;
 import groovy.util.logging.Slf4j;
@@ -25,13 +26,15 @@ import java.io.IOException;
 public class LoginController extends BaseController{
 
 
-    private  static UserService userService;
+    private   UserService userService;
+    private   LogService  logService;
 
 
 
     @Autowired
-    public LoginController(UserService userService){
+     LoginController(UserService userService,LogService logService) {
         this.userService = userService;
+        this.logService = logService;
     }
 
     /**
@@ -50,8 +53,11 @@ public class LoginController extends BaseController{
         boolean result = userService.checkLogin(username, password);
         if (result) {
             //创建日志
-            new Log(LogActions.LOGIN,username, IpTool.getIpAddress(request),1);
+            Log loginLog =new Log(LogActions.LOGIN,username, IpTool.getIpAddress(request),1);
+            if(logService.addLog(loginLog)<0)
+                throw  new Exception("loginLog add error");
 
+            //这里创建session 防止重复登录
             SSOHelper.setCookie(request, response, SSOToken.create().setIp(request).setId(1000).setIssuer(username), false);
             return redirectTo("/admin/index.html");
         }else {
@@ -64,8 +70,10 @@ public class LoginController extends BaseController{
 
 
     @GetMapping("/logout")
-    public String logout() throws IOException {
+    public String logout() {
         SSOHelper.clearLogin(request, response);
+        logService.addLog(new Log(LogActions.LOGOUT,null,IpTool.getIpAddress(request),1));
+
         return redirectTo("/index.html");
 
     }

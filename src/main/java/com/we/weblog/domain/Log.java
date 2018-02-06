@@ -8,28 +8,32 @@ import java.util.Date;
 public class Log {
 
 
-    private String      id;                      //主键
-    private Integer     authod_id;               //操作的ID
-    private String      data;                    //产生的数据
-    private String      action;                  //操作是啥
+    private Integer      id;                      //主键
+    private String       action;                  //操作是啥
+    private String       data;                    //产生的数据
+    private Integer      author_id;               //操作的ID
+    private String       ip;                      //日志创建的IP
     private Integer      created;                 //操作的时间
-    private String      ip;                      //日志创建的IP
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Integer getAuthod_id() {
-        return authod_id;
+    public Integer getAuthor_id() {
+        return author_id;
     }
 
-    public void setAuthod_id(Integer authod_id) {
-        this.authod_id = authod_id;
+    public void setAuthor_id(Integer author_id) {
+        this.author_id = author_id;
     }
+
+    public int getId() {
+        return id;
+    }
+
+
+
 
     public String getData() {
         return data;
@@ -46,6 +50,7 @@ public class Log {
     public void setAction(String action) {
         this.action = action;
     }
+
 
     public Integer getCreated() {
         return created;
@@ -64,10 +69,14 @@ public class Log {
     }
 
     public Log(String action, String data, String ip, Integer uid) {
-        this.authod_id = uid;
+        this.author_id = uid;
         this.data = data;
         this.action = action;
         this.created = (int) Instant.now().getEpochSecond();
         this.ip = ip;
     }
+    public  Log(){
+
+    }
+
 }

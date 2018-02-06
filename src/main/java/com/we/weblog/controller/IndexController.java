@@ -94,7 +94,7 @@ public class IndexController {
 
     @GetMapping("/get_tags_data")
     @ResponseBody
-    Map<String,Object> getTagssdata() {
+    UIModel getTagssdata() {
         UIModel uiModel = new UIModel() ;
         TableData tableData = new TableData() ;
         tableData.configDisplayColumn(TableData.createColumn("content" , "页面名称") );

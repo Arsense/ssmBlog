@@ -39,7 +39,7 @@ public interface ContextMapper {
     @Insert({"insert into t_context " +
             "(article,title,date,tags,md) " +
             "values (#{b.article},#{b.title},#{b.date},#{b.tags},#{b.md})"})
-    @SelectKey(before=false,keyProperty="b.blog_id",resultType=Integer.class,
+    @SelectKey(before=false,keyProperty="b.uid",resultType=Integer.class,
             statementType= StatementType.STATEMENT,statement="SELECT LAST_INSERT_ID() AS id")
     int insertBlog(@Param("b") Context context);
 
@@ -48,7 +48,7 @@ public interface ContextMapper {
      * @param id
      * @return
      */
-    @Delete({"delete from t_context where blog_id = #{id}"})
+    @Delete({"delete from t_context where uid = #{id}"})
     int deleteBlogById(@Param("id") int id);
 
     /**
@@ -56,7 +56,7 @@ public interface ContextMapper {
      * @param count
      * @return
      */
-    @Select({"select blog_id,title,date,tags from t_context limit #{count}"})
+    @Select({"select uid,title,date,tags from t_context limit #{count}"})
     List<Context> getTenBlogs(@Param("count") int count);
 
 
@@ -75,26 +75,32 @@ public interface ContextMapper {
 
 
 
-    @Select({"select blog_id,title,date,tags from t_context order by date desc limit #{p},12"})
+    @Select({"select uid,title,date,tags from t_context order by date desc limit #{p},12"})
     List<Context> selectBlogsByYear(@Param("p") int page);
 
 
-    @Select({"select blog_id,title,date from t_context order by date desc limit #{p},10"})
+    @Select({"select uid,title,date from t_context order by date desc limit #{p},10"})
     List<Context> getNewBlogs(@Param("p") int page);
 
-    @Select({"select title,article,md from t_context where blog_id = #{id}"})
+    @Select({"select title,article,md from t_context where uid = #{id}"})
     Context getBlogById(@Param("id") int id);
 
-    @Select({"select blog_id,title from t_context where blog_id < #{id} order by blog_id desc limit 1"})
+    @Select({"select uid,title from t_context where uid < #{id} order by uid desc limit 1"})
     Context getPreviousBlog(@Param("id") int id);
 
-    @Select({"select blog_id,title,article from t_context where blog_id > #{id} order by blog_id desc limit 1"})
+    @Select({"select uid,title,article from t_context where uid > #{id} order by uid desc limit 1"})
     Context getNextBlog(@Param("id") int id);
 
 
 
 
 
-    @Select("select * from t_blog where tags=#{tag}")
+    @Select("select * from t_context where tags=#{tag}")
     List<Context> selectBlogByTag(@Param("tag") String tagName);
+
+
+
+
+    @Select({"select * from t_context where type= #{type} order by uid desc"})
+    List<Context> getPagesByType(@Param("type")String page);
 }

@@ -3,11 +3,14 @@ package com.we.weblog.service;
 
 import com.we.weblog.domain.Context;
 import com.we.weblog.domain.YearBlog;
+import com.we.weblog.domain.modal.Types;
 import com.we.weblog.mapping.ContextMapper;
 import com.we.weblog.mapping.TagMapper;
 import com.we.weblog.tool.TimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.reflect.generics.tree.TypeSignature;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -73,17 +76,17 @@ public class ContextService {
      * @param context
      */
     public void addBlog(Context context) {
-        context.setTime(new Date(System.currentTimeMillis()));
+        context.setCreated(new Date(System.currentTimeMillis()));
         contextMapper.insertBlog(context);
-        addBlogTags(context.getTags(), context.getBlogId());
+        addBlogTags(context.getTags(), context.getUid());
 
     }
 
 
     public void updateBlog(Context context) {
         contextMapper.updateBlog(context);
-        updateBlogTag(context.getTags(), context.getBlogId());
-        updateBlogTag(context.getTags(), context.getBlogId());
+        updateBlogTag(context.getTags(), context.getUid());
+        updateBlogTag(context.getTags(), context.getUid());
     }
 
     public void deleteBlogById(int id) {
@@ -96,30 +99,19 @@ public class ContextService {
     }
 
 
-
+    /**
+     *  批量查询博客
+     * @param page
+     * @return
+     */
     public List<Context> showBlogs(int page) {
-       page = page*10;
-       List<Context> contexts =  new ArrayList<>();
-       contexts = contextMapper.getTenBlogs(page);
-
-       return contexts;
-
+        if(page <0 || page >10)
+            page=1;
+        page = page*10;
+        return contextMapper.getTenBlogs(page);
     }
 
 
-    public int getBlogsPages() {
-        return 0;
-    }
-
-
-    public List<String> getAllTags() {
-        return contextMapper.getAllTags();
-    }
-
-
-    public Context getBlogHtml() {
-        return null;
-    }
 
 
     public List<Context> getBlogsByTag(String tagName) {
@@ -158,7 +150,7 @@ public class ContextService {
         List<YearBlog> yearBlogs = new ArrayList<>();
         Map<Integer,YearBlog> yearMap = new HashMap<>();
         for(Context context : bloglist){
-            Date date= context.getDate();
+            Date date= context.getCreated();
             context.setMonth(TimeTool.getEdate(date));
             int year = TimeTool.getYear(date);
             if(yearMap.containsKey(year)){
@@ -169,15 +161,12 @@ public class ContextService {
                 yearBlog.getYearContexts().add(context);
                 yearBlogs.add(yearBlog);
             }
-
     }
-
         return yearBlogs;
     }
 
 
     public int getTotalBlog() {
-
         return contextMapper.getBlogNumber();
     }
 
@@ -191,9 +180,16 @@ public class ContextService {
         if(limit < 0 || limit >20){
             limit = 10;
         }
-
         return  contextMapper.getNewBlogs(limit);
 
+    }
+
+    /**
+     * 得到页面管理的信息
+     * @return
+     */
+    public  List<Context> getArticlePages(){
+        return contextMapper.getPagesByType(Types.PAGE);
     }
 
 }

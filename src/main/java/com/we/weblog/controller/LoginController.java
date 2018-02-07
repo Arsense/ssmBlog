@@ -44,12 +44,14 @@ public class LoginController extends BaseController{
     @PostMapping("/admin")
     public String doLogin(HttpServletRequest request) throws Exception {
         /**
-         * 生产环境需要过滤sql注入
+         * 生产环境需要过滤sql注入  登陆验证次数校验  返回一个IP
          */
-        // id 先写到1
+
         WafRequestWrapper req = new WafRequestWrapper(request);
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+
         boolean result = userService.checkLogin(username, password);
         if (result) {
             //创建日志
@@ -59,6 +61,8 @@ public class LoginController extends BaseController{
 
             //这里创建session 防止重复登录
             SSOHelper.setCookie(request, response, SSOToken.create().setIp(request).setId(1000).setIssuer(username), false);
+
+
             return redirectTo("/admin/index.html");
         }else {
             return   redirectTo("/login1.html");
@@ -66,19 +70,19 @@ public class LoginController extends BaseController{
     }
 
 
-
-
-
+    /**
+     *  登出页面
+     * @return
+     */
     @GetMapping("/logout")
     public String logout() {
         SSOHelper.clearLogin(request, response);
+
         logService.addLog(new Log(LogActions.LOGOUT,null,IpTool.getIpAddress(request),1));
 
         return redirectTo("/index.html");
 
     }
-
-
 
 
 
@@ -94,11 +98,7 @@ public class LoginController extends BaseController{
 
             return redirectTo("/admin/index.html");
         }
-        //在这里处理拦截请求
-        /*
-         * 登录需要跳转登录前页面，自己处理 ReturnURL 使用
-         * HttpUtil.decodeURL(xx) 解码后重定向
-         */
+
         return redirectTo("/login1.html");
     }
 

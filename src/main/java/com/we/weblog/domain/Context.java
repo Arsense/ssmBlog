@@ -1,35 +1,57 @@
 package com.we.weblog.domain;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.Setter;
 
 import java.util.Date;
 
 
 public class Context {
     //   博客内容md 博客内容的html
-    /**
-     *  博客id
-     */
-    private int   blog_id;
-    /**
-     *  创建时间
-     */
-    private Date   date;
-    /**
-     *  博客名称
-     */
+
+
+    // 博客id
+    private int   uid;
+    //创建时间
+    private Date   created;
+    //博客名称
     private String   title;
-    /**
-     *      博客标签
-     */
+    //博客标签
     private String   tags;
-
+   //文章标签
     public String  article;
-
+    //md内容
     private String  md;
-
+    //发布时间
     private String month;
+    //文章类型
+    private String type;
+    //缩略名
+    private String slug;
+
+
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
 
     public String getMonth() {
         return month;
@@ -37,14 +59,6 @@ public class Context {
 
     public void setMonth(String month) {
         this.month = month;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public String getMdText() {
@@ -63,23 +77,20 @@ public class Context {
         this.article = article;
     }
 
-
-
-
-    public Integer getBlogId() {
-        return blog_id;
+    public int getUid() {
+        return uid;
     }
 
-    public void setBlogId(Integer blogId) {
-        this.blog_id = blog_id;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
-    public Date getTime() {
-        return date;
+    public String getMd() {
+        return md;
     }
 
-    public void setTime(Date date) {
-        this.date = date;
+    public void setMd(String md) {
+        this.md = md;
     }
 
     public String getTitle() {
@@ -97,8 +108,6 @@ public class Context {
     public void setTags(String tags) {
         this.tags = tags;
     }
-
-
 
 
 

@@ -36,7 +36,7 @@
 - 安装命令
 
 
-mvn install:install-file -Dfile=D:\code\context\ssmBlog\src\vuejar\vue-adminlte4j-1.0.1-SNAPSHOT.jar -DgroupId=com.vue.adminlte4j -DartifactId=vue-adminlte4j  -Dversion=1.0.1-SNAPSHOT -Dpackaging=jar
+mvn install:install-file -Dfile=D:\code\blog\ssmBlog\src\vuejar\vue-adminlte4j-1.0.1-SNAPSHOT.jar -DgroupId=com.vue.adminlte4j -DartifactId=vue-adminlte4j  -Dversion=1.0.1-SNAPSHOT -Dpackaging=jar
 
 引入:
 	<dependency>
@@ -98,7 +98,7 @@ mvn install:install-file -Dfile=D:\code\context\ssmBlog\src\vuejar\vue-adminlte4
 在编辑器按 `alt+12` 打开终端 输入下面命令  记得路径要改为自己工程里面vue-adminlte4j-1.0.1-SNAPSHOT.jar文件包的路径
 ```
 
-mvn install:install-file -Dfile=D:\code\context\ssmBlog\src\vuejar\vue-adminlte4j-1.0.1-SNAPSHOT.jar -DgroupId=com.vue.adminlte4j -DartifactId=vue-adminlte4j  -Dversion=1.0.1-SNAPSHOT -Dpackaging=jar
+mvn install:install-file -Dfile=D:\code\blog\ssmBlog\src\vuejar\vue-adminlte4j-1.0.1-SNAPSHOT.jar -DgroupId=com.vue.adminlte4j -DartifactId=vue-adminlte4j  -Dversion=1.0.1-SNAPSHOT -Dpackaging=jar
 ```
 然后依次按下图点击 clean 清除原先的包 编译导入包 安装依赖到工程中
 ![](https://i.imgur.com/p2XL4kj.jpg)

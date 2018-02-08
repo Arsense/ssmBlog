@@ -5,7 +5,6 @@ import com.vue.adminlte4j.model.AppInfo;
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.support.ModelConfigManager;
-import com.we.weblog.data.AppInfoInJvm;
 import com.we.weblog.data.MenuApiInJvm;
 import com.we.weblog.domain.Context;
 import com.we.weblog.domain.YearBlog;
@@ -116,32 +115,15 @@ public class FrontController {
 
     }
 
-    @GetMapping("/get_app_info")
-    @ResponseBody
-    Map getAppInfo() {
-
-        UIModel uiModel = new UIModel()
-                .menu(MenuApiInJvm.getMenu())
-                .appInfo(AppInfoInJvm.getAppInfo())// 1
-                .isLogin(true) ;
-
-        TableData tableData = new TableData() ;
-        tableData.configDisplayColumn(TableData.createColumn("title" , "标题") );
-        tableData.configDisplayColumn(TableData.createColumn("tags" , "标签" ));
-        uiModel.put("tableData" , tableData ) ;
-
-        //return uiModel ;
-        return uiModel ;
-    }
 
     @GetMapping("/get_table_data")
     @ResponseBody
     Map<String,Object> get_table_data() {
 
-        UIModel uiModel = new UIModel() ;
+            UIModel uiModel = new UIModel() ;
         TableData tableData = new TableData() ;
 
-        tableData.configDisplayColumn(TableData.createColumn("blogId" , "博客编号") );
+        tableData.configDisplayColumn(TableData.createColumn("uid" , "博客编号") );
         tableData.configDisplayColumn(TableData.createColumn("title" , "标题") );
         tableData.configDisplayColumn(TableData.createColumn("tags" , "标签" ));
         tableData.configDisplayColumn(TableData.createColumn("date" , "创建日期" ));
@@ -231,7 +213,5 @@ public class FrontController {
             return com.vue.adminlte4j.model.UIModel.fail().setMsg("修改失败!") ;
         }
     }
-
-
 
 }

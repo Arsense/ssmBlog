@@ -58,11 +58,10 @@ public class ContextController extends BaseController{
      * @param context 表单中提交的博客信息,包括标题，标签，md页面，和md转成的html页面
      * @return
      */
-
     @PostMapping("/send")
     public void postAction(@ModelAttribute("blogFrom")Context context, HttpServletResponse response) throws IOException {
-             contextService.addBlog(context);
-             response.sendRedirect("/admin/show.html");
+           contextService.addBlog(context);
+           response.sendRedirect("/admin/show.html");
     }
 
 

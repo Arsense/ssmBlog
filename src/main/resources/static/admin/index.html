@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <title>博客后台管理系统</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>111111 </title>
     <!-- Tell the browser to be responsive to screen width -->
@@ -94,7 +95,7 @@
         } ,
         methods : {
             getpostUrl:function (Object) {
-                return "/post/"+Object.blogId;
+                return "/post/"+Object.uid;
             }
         } ,
         mounted : function ($vm) {

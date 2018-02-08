@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <title>博客后台管理系统</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>博客系统 </title>
     <!-- Tell the browser to be responsive to screen width -->
@@ -55,7 +56,7 @@
                         icon:'edit',
                         method : function(row , $table) {
 
-                            var id = row.blogId;
+                            var id = row.uid;
                             axios.get('/admin/toupdate',{
                                 params:{
                                     updateId:id
@@ -70,7 +71,7 @@
                         scheme: 'blue',
                         icon:'trash',
                         method : function(row ,$table) {
-                            var id = row.blogId;
+                            var id = row.uid;
                             axios.get('/admin/delete',{
                                 params:{
                                     deleteId:id

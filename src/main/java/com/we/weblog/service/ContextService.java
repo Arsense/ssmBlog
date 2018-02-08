@@ -120,12 +120,12 @@ public class ContextService {
 
 
 
-    public Context getPreviousBlog(int blogId) {
-        return contextMapper.getPreviousBlog(blogId);
+    public Context getPreviousBlog(int uid) {
+        return contextMapper.getPreviousBlog(uid);
     }
 
 
-    public Context getNextBlog(int blogId) { return contextMapper.getNextBlog(blogId);
+    public Context getNextBlog(int uid) { return contextMapper.getNextBlog(uid);
     }
 
 
@@ -180,7 +180,13 @@ public class ContextService {
         if(limit < 0 || limit >20){
             limit = 10;
         }
-        return  contextMapper.getNewBlogs(limit);
+        List<Context> blogs = contextMapper.getNewBlogs(limit);
+        for(Context blog:blogs){
+            Date date = blog.getCreated();
+            blog.setMonth(TimeTool.getEdate(date));
+        }
+
+        return  blogs;
 
     }
 

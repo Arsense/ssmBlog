@@ -90,7 +90,8 @@ mvn install:install-file -Dfile=D:\code\blog\ssmBlog\src\vuejar\vue-adminlte4j-1
 2. 目前是h2数据库 改为mysql，mybatis管理使用注解更快更方便
 4. 在Service增加事务管理
 
-
+2-7 
+1. 添加一个字段添加publish 判断是草稿还是已发布文章
 
 ### 本地搭建
 1. 使用IDEA编辑器 打开文件中pom.xml文件

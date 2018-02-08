@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.StatementType;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,8 +36,8 @@ public interface ContextMapper {
      * @return
      */
     @Insert({"insert into t_context " +
-            "(article,title,date,tags,md) " +
-            "values (#{b.article},#{b.title},#{b.date},#{b.tags},#{b.md})"})
+            "(article,title,created,tags,md) " +
+            "values (#{b.article},#{b.title},#{b.created},#{b.tags},#{b.md})"})
     @SelectKey(before=false,keyProperty="b.uid",resultType=Integer.class,
             statementType= StatementType.STATEMENT,statement="SELECT LAST_INSERT_ID() AS id")
     int insertBlog(@Param("b") Context context);
@@ -56,14 +55,14 @@ public interface ContextMapper {
      * @param count
      * @return
      */
-    @Select({"select uid,title,date,tags from t_context limit #{count}"})
+    @Select({"select uid,title,created,tags from t_context limit #{count}"})
     List<Context> getTenBlogs(@Param("count") int count);
 
 
 
     @Update("{ update t_context " +
             " set title = #{b.title}," +
-            "set date = #{b.date}" +
+            "set created = #{b.created}" +
             "set md = #{b.md}" +
             "set article=#{b.article}}")
     void updateBlog(@Param("b") Context context);
@@ -75,11 +74,11 @@ public interface ContextMapper {
 
 
 
-    @Select({"select uid,title,date,tags from t_context order by date desc limit #{p},12"})
+    @Select({"select uid,title,created,tags from t_context order by created desc limit #{p},12"})
     List<Context> selectBlogsByYear(@Param("p") int page);
 
 
-    @Select({"select uid,title,date from t_context order by date desc limit #{p},10"})
+    @Select({"select uid,title,created from t_context where type = 'post' order by created desc limit #{p},20"})
     List<Context> getNewBlogs(@Param("p") int page);
 
     @Select({"select title,article,md from t_context where uid = #{id}"})
@@ -101,6 +100,6 @@ public interface ContextMapper {
 
 
 
-    @Select({"select * from t_context where type= #{type} order by uid desc"})
+    @Select({"select uid,slug,type,created,article from t_context where type= #{type} order by uid desc"})
     List<Context> getPagesByType(@Param("type")String page);
 }

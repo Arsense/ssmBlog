@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>Full example - Editor.md examples</title>
+    <title>博客后台管理系统</title>
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/editormd.css" />
     <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
@@ -81,15 +81,13 @@
         } ,
         mounted : function ($vm) {
             var self = $vm;
-                //  var editor = testEditor;
-            $.ajax({
-                 url:"/admin/update_send_data",
-                 type:"get" ,
-                 dataType:"json",
-                 success:function (data) {
-                    self.mdData = data;
-                    self.mdText = data.mdText;
-                }});
+            axios.get("/admin/update_send_data").then(function (response) {
+                self.mdData = response.data;
+                self.mdText = response.data.mdText;
+            }) .catch(function (error) {
+                console.log(error);
+            });
+
             var testEditor;
             $(function() {
                 $.get('add.md', function(md){

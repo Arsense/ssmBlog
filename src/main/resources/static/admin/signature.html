@@ -32,14 +32,14 @@
         data : function () {
             return {
                 query : {name : 'test'} ,
-                ajax_url : '/get_table_data'
+                ajax_url : '/admin/get_table_data'
 
             }
         } ,
         methods : {
             re_query : function () {
                 console.log('re_query')
-                this.ajax_url = '/get_table_data?'  + 'name=' + this.query.name
+                this.ajax_url = '/admin/get_table_data?'  + 'name=' + this.query.name
             }
         } ,
         mounted : function () {}

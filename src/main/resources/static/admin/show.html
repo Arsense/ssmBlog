@@ -12,27 +12,7 @@
 <body>
 
     <v-app id="app"  :data="data">
-        <v-box title="查询条件">
-
-            <p>{{query['name']}}</p>
-
-
-            <v-form>
-                <v-row>
-                    <v-form-item span="4" label="Name:">
-                        <input type="text" class="form-control" placeholder="Enter ..." v-model="query['name']">
-                    </v-form-item>
-
-                    <v-form-item span="4" label="Age:">
-                        <v-input  v-model="query['age']" placeholder="Enter Age" ></v-input>
-                    </v-form-item >
-                </v-row>
-            </v-form>
-
-
-            </form>
-
-            <button @click="re_query"> 查询</button>
+        <v-box title="博客列表">
 
             <v-table :ajax_url="ajax_url" :query="query" :send_req="send_req" :operations="operations" ></v-table>
 
@@ -47,7 +27,7 @@
         data : function () {
             return {
                 query : {} ,
-                ajax_url : '/get_table_data' ,
+                ajax_url : '/admin/get_table_data' ,
                 send_req : 0 ,
                 operations : [
                     {

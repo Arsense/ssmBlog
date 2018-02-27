@@ -1,5 +1,6 @@
 package com.we.weblog.controller;
 
+import com.we.weblog.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,9 @@ public class BaseController {
     @Autowired
     protected HttpServletResponse response;
 
-
+//    public User user() {
+//        return TaleUtils.getLoginUser();
+//    }
 
 
     protected String redirectTo( String url ) {

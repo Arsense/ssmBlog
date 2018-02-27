@@ -1,169 +1,376 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Clay Blog </title>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/landing-page.min.css" rel="stylesheet" id="theme-css"/>
-    <link href="css/jcala-md.min.css" rel="stylesheet"/>
-    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="AONOSORA">
+
+    <meta name="description" content="今生今世轮回尽, 来世愿为幻想乡">
+    <title>senrenbankaの部落格</title>
+    <!-- inject:style -->
+    <link href="./css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('./images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: '加载中';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+
 </head>
-<script type="text/javascript">
-    function switch_theme_css() {
-        var css=document.getElementById("theme-css");
-        if(localStorage.blog_theme===undefined){
-            localStorage.blog_theme="light";
-        }
-        if(localStorage.blog_theme==="dark"){
-            css.href="/css/landing-page-dark.min.css";
-        }
-    }
-    switch_theme_css();
-</script>
-<body >
-<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
-    <div class="container topnav">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand topnav" href="/">Home</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right myBar">
-                <li>
-                    <a href="/yearblogs.html">Archives</a>
-                </li>
-                <li>
-                    <a href="/tags.html">Tags</a>
-                </li>
-                <li>
-                    <a href="/tale/index.html">更换主题</a>
-                </li>
-                <li>
-                    <a href="/login1.html">Admin</a>
-                </li>
-                <li>
-                    <a href='javascript:void(0)' onclick="day_night()"><i class="fa fa-moon-o" id="day-night"></i>
-                        <span class="network-name" id="day-night-name">night</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<!--header end-->
+<body>
 
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+        <ul class="cube-menu-collapse">
 
-<div class="intro-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="intro-message">
-                    <h1>Clay的博客系统</h1>
-                    <h3>my context about programming</h3>
-                    <hr class="intro-divider"/>
-                    <ul class="list-inline intro-social-buttons">
-                        <li>
-                            <a href="mailto:$!{info.Email}" class="btn btn-default btn-lg"><i class="fa fa-envelope fa-fw"></i> <span class="network-name">Email</span></a>
-                        </li>
-                        <li>
-                            <a href="$!{info.Github}" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-                        </li>
-                        <li>
-                            <a href="$!{info.Twitter}" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
-                        </li>
-                    </ul>
+            <li>
+                <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+                <a href="/">首页</a>
+            </li>
+            <li>
+                <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+                <a href="./login1.html">admin</a>
+            </li>
+            <li>
+                <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+                <a href="/archives">归档</a>
+            </li>
+
+            <li>
+                <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+                <a href="/categories">分类</a>
+            </li>
+
+            <li>
+                <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+                <a href="/tags">标签</a>
+            </li>
+
+            <li>
+                <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+                <a href="/about-me">关于我</a>
+            </li>
+
+        </ul>
+    </nav>
+    <nav class="cube-side-menu" id="cube-side-menu">
+        <ul class="cube-menu-list">
+
+            <li>
+                <a class="lrc-control">开启歌词</a>
+            </li>
+
+            <li>
+                <a class="scroll-to-top">回到顶部</a>
+            </li>
+        </ul>
+    </nav>
+    <header class="cube-header" id="cube-header">
+        <img src=" http://cube-1252774894.cosgz.myqcloud.com/background.jpg " alt="头部背景图片">
+
+        <div class="cube-type">
+            <span class="cube-typed-title">clayの部落格</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+
+    </header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+
+            z-index: -1;
+            background-image: url('http://cube-1252774894.cosgz.myqcloud.com/background.jpg');
+            background-repeat: no-repeat;
+            background-position: center -256px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('http://cube-1252774894.cosgz.myqcloud.com/background.jpg');
+            background-position: center -300px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+
+        <div class="cube-type">
+            <span class="cube-typed-title">clayの部落格</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '1920',
+                height: '1080'
+            }
+
+        })(window)
+    </script>
+
+</div>
+
+<div class ="cube-content" style="visibility: visible;">
+<div class ="cube-left">
+    <div class="cube-excerpt" id="cube-excerpt-制作一个不轻量的hexo主题:cube">
+        <header class="cube-excerpt-header">
+            <h1><a href="/2017/08/15/制作一个不轻量的hexo主题-cube/">制作一个不轻量的hexo主题:cube</a></h1>
+            <div class="cube-excerpt-header-msg">
+                <div class="cube-excerpt-date">
+                    <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                    2017-08-15
+                </div>
+                <div class="cube-excerpt-tags">
+                    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+
+                    <a href="/tags/Hexo/" class="cube-excerpt-tag-link">#Hexo</a>
+
                 </div>
             </div>
+        </header>
+        <article class="cube-excerpt-entry cube-markdown" lg-uid="lg0">
+
+
+            <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>之前自己用Laravel写了个博客, 用了一段时间果断弃之, 又用回了原来的Hexo, 上网找了下主题, 没找到自己想要的, 于是决定自己写一款主题(在写主题的过程倒是找到了很多自己觉得不错的2333), 这篇文章只是用来记录一下最近这段时间写这个主题的过程, 中间存在着很多的问题, 主题目前还没有正式完成, 最近实习 + 毕设搞得比较颓, 9月份之后会逐步完善修复。</p>
+            <p><a href="https://github.com/ZEROKISEKI/hexo-theme-cube">hexo-theme-cube</a><br><a href="https://github.com/ZEROKISEKI/cube-generator">cube-generator</a><br><a href="http://sora1.coding.me/">示例网站</a>  </p>
+            <p>其中<code>cube-generator</code>是主题的生成器, 通过运行对应的gulp命令能够重新生成主题cube</p>
+            <h2 id="u6784_u5EFA_u4E3B_u9898"><a href="#u6784_u5EFA_u4E3B_u9898" class="headerlink" title="构建主题"></a>构建主题</h2><p>看了一些github上的主题项目, 很多都是ES5 + jQuery的实现方式, 于是自己有了一个想法，用ES6来写这个主题样式, 最终代码是要转化为ES5的, 那么就需要babel进行转换了, 又因为写样式决定采用SaSS, 所以就决定用gulp进行自动化构建, 所以最终的决定是:</p>
+            <ul>
+                <li>gulp中利用<code>browserify + babelify</code>对前端代码进行ES6到ES5的转换, Babel转换的规则写在<code>babelify</code>上面, js代码的入口规定为<code>source/js/app.js</code>, <code>app.js</code>中<code>import</code>对应功能的js代码, gulp进行<code>bundle script</code>的生成代码如下:</li>
+            </ul>
+            <pre><code class="hljs vim">const <span class="hljs-keyword">b</span> = browserify({
+    cache: {},
+       packageCache: {},
+       entrie<span class="hljs-variable">s:</span> path.<span class="hljs-keyword">join</span>(<span class="hljs-string">'./source/js/app.js'</span>),
+       debu<span class="hljs-variable">g:</span> true
+})
+
+// 配置babel转换规则
+<span class="hljs-keyword">b</span>.transform(babelify, {
+       preset<span class="hljs-variable">s:</span> [<span class="hljs-string">'env'</span>, <span class="hljs-string">'es2015'</span>, <span class="hljs-string">'stage-2'</span>],
+       plugin<span class="hljs-variable">s:</span> [[<span class="hljs-string">'transform-runtime'</span>, {
+           <span class="hljs-string">'polyfill'</span>: true,
+           <span class="hljs-string">'regenerator'</span>: true
+       }]]
+})
+
+gulp.task(<span class="hljs-string">'buildScript'</span>, bundle)
+
+// <span class="hljs-keyword">b</span>.<span class="hljs-keyword">on</span>(<span class="hljs-string">'update'</span>, bundle)
+
+// bundle生成script.js并且放在cube/<span class="hljs-keyword">source</span>/js/script.js上面
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bundle</span><span class="hljs-params">()</span> {</span>
+       <span class="hljs-keyword">return</span> <span class="hljs-keyword">b</span>.bundle()
+           .<span class="hljs-keyword">on</span>(<span class="hljs-string">'error'</span>, err =&gt; console.<span class="hljs-built_in">log</span>(err))
+           .pipe(<span class="hljs-keyword">source</span>(<span class="hljs-string">'script.js'</span>))
+           .pipe(<span class="hljs-keyword">buffer</span>())
+           .pipe(sourcemaps.init({ loadMap<span class="hljs-variable">s:</span> true }))
+           .pipe(uglify())
+           .pipe(sourcemaps.<span class="hljs-keyword">write</span>(<span class="hljs-string">'./'</span>))
+           .pipe(gulp.dest(path.<span class="hljs-keyword">join</span>(Path.theme, Path.<span class="hljs-keyword">source</span>, <span class="hljs-string">'/js'</span>)))
+}
+</code></pre><p>JS的部分如下所示:</p>
+            <p><a href="http://7xqtjy.com1.z0.glb.clouddn.com/js%E6%A8%A1%E5%9D%97-1.png" title="JS模块" class="gallery-item" lg-event-uid="&amp;1"><img src="http://7xqtjy.com1.z0.glb.clouddn.com/js%E6%A8%A1%E5%9D%97-1.png" alt="JS模块"></a></p>
+
+        </article>
+        <footer class="cube-excerpt-footer">
+            <a class="cube-excerpt-more" href="/2017/08/15/制作一个不轻量的hexo主题-cube/">阅读全文</a>
+        </footer>
+    </div>
+</div>
+<div class ="cube-right">
+    <div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
+        <div class="title">
+            <a href="/tags">标签云</a>
         </div>
+        <div class="cube-boxs">
+
+
+            <div class="cube-box ">
+                <a href="/tags/杂谈/">#杂谈</a>
+            </div>
+
+
+            <div class="cube-box ">
+                <a href="/tags/逆向/">#逆向</a>
+            </div>
+
+
+            <div class="cube-box ">
+                <a href="/tags/博客搭建/">#博客搭建</a>
+            </div>
+
+
+            <div class="cube-box ">
+                <a href="/tags/网络相关/">#网络相关</a>
+            </div>
+
+
+            <div class="cube-box ">
+                <a href="/tags/云服务器/">#云服务器</a>
+            </div>
+
+
+            <div class="cube-box ">
+                <a href="/tags/Hexo/">#Hexo</a>
+            </div>
+
+
+            <div class="cube-box ">
+                <a href="/tags/AngularJS/">#AngularJS</a>
+            </div>
+
+
+            <div class="cube-box ">
+                <a href="/tags/php/">#php</a>
+            </div>
+
+
+            <div class="cube-box-bg ">
+                <a href="/tags/javascript/">#javascript</a>
+            </div>
+
+
+            <div class="cube-box-bg ">
+                <a href="/tags/python/">#python</a>
+            </div>
+
+        </div>
+    </div>
+    <div class="cube-links cube-sidebar" id="cube-links">
+        <div class="title">
+            <a>个人链接</a>
+        </div>
+        <ul class="list">
+
+            <li>
+
+
+                <img src="http://cube-1252774894.cosgz.myqcloud.com/links/GitHub.png">
+
+                <a href="https://github.com/ZEROKISEKI" target="_blank">GitHub</a>
+            </li>
+
+            <li>
+
+
+                <img src="http://cube-1252774894.cosgz.myqcloud.com/links/Coding.png">
+
+                <a href="https://coding.net/u/SORA1" target="_blank">Coding</a>
+            </li>
+
+            <li>
+
+
+                <img src="http://cube-1252774894.cosgz.myqcloud.com/links/SF.png">
+
+                <a href="https://segmentfault.com/u/aonosora" target="_blank">SF社区</a>
+            </li>
+
+            <li>
+
+
+                <img src="http://cube-1252774894.cosgz.myqcloud.com/links/开发者头条.png">
+
+                <a href="https://toutiao.io/u/148070" target="_blank">开发者头条</a>
+            </li>
+
+        </ul>
+    </div>
+
+
+
+    <div class="cube-friend-links cube-sidebar" id="cube-friend-links">
+        <div class="title">
+            <a>友情链接</a>
+        </div>
+        <ul class="list">
+
+            <li>
+                <!-- TODO change avatar.png to friend.png-->
+                <img src="http://cube-1252774894.cosgz.myqcloud.com/friend_links/micblo.png">
+                <a href="https://blog.micblo.com/" target="_blank">罗大佬</a>
+            </li>
+
+            <li>
+                <!-- TODO change avatar.png to friend.png-->
+                <img src="http://cube-1252774894.cosgz.myqcloud.com/friend_links/DIYgod.jpg">
+                <a href="https://www.anotherhome.net/" target="_blank">DIYgod</a>
+            </li>
+
+            <li>
+                <!-- TODO change avatar.png to friend.png-->
+                <img src="./images/friend_links.jpg ">
+                <a href="https://aonosora.com/" target="_blank">咪西西の部落格</a>
+            </li>
+
+        </ul>
     </div>
 </div>
 
-<div class="content-section-a">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-5 col-sm-6">
-                <hr class="section-heading-spacer"/>
-                <div class="clearfix"></div>
-                <h2 class="section-heading">java,scala,goLang:</h2>
-                <p class="lead">They are three programming languages those i use most,and scala is my favorite</p>
-            </div>
-            <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                <img class="img-responsive" src="./img/ipad.png" alt=""/>
-            </div>
-        </div>
 
-    </div>
-</div>
-<div class="content-section-b">
-
-    <div class="container">
-
-        <div class="row">
-            <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
-                <hr class="section-heading-spacer"/>
-                <div class="clearfix"></div>
-                <h2 class="section-heading">passion:</h2>
-                <p class="lead">The reason why i become a programmer just because i like it,rather than for living</p>
-            </div>
-            <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                <img class="img-responsive" src="./img/dog.png" alt=""/>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="content-section-a">
-    <div class="container">
-
-        <div class="row">
-            <div class="col-lg-5 col-sm-6">
-                <hr class="section-heading-spacer"/>
-                <div class="clearfix"></div>
-                <h2 class="section-heading">new:</h2>
-                <p class="lead">I never refuse new things. for example,I use gradle instead of maven or ant,because I think gradle is better</p>
-            </div>
-            <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                <img class="img-responsive" src="./img/phones.png" alt=""/>
-            </div>
-        </div>
-    </div>
 </div>
 
+<footer class="cube-footer">
 
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <ul class="list-inline">
-                    <li>
-                        <a href="/yearblogs.html">Archives</a>
-                    </li>
-                    <li>
-                        <a href="/tags.html">Tags</a>
-                    </li>
-                    <li>
-                        <a href="/message.html">About</a>
-                    </li>
-                    <li>
-                        <a href="/login.html">Admin</a>
-                    </li>
-                </ul>
-                <p class="copyright text-muted small"></p>
-            </div>
-        </div>
-    </div>
+    © 2017 AONOSORA
+
+    <br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
 </footer>
-<!--footer end-->
-
-<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="./js/front-end.min.js"></script>
+<!-- inject:script -->
+<script src="./js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
 </body>
 </html>

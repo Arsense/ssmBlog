@@ -11,9 +11,9 @@
 <body>
 <v-app  :data="data">
 
+    <v-box>
     <v-table :ajax_url="ajax_url" :query="query" :send_req="send_req" :operations="operations" ></v-table>
-
-
+    </v-box>
 </v-app>
 <script src="/lib/lib.js"></script>
 <script>
@@ -30,15 +30,15 @@
                         scheme: 'green',
                         icon:'edit',
                         method : function(row , $table) {
-                            //
-                            // var id = row.blogId;
-                            // axios.get('/admin/',{
-                            //     params:{
-                            //         updateId:id
-                            //     }
-                            // });
-                            // window.location.href = "http://localhost:8002/admin/edit.html";
-                            // $table.fetchData()
+
+                            var id = row.uid;
+                            axios.get('/admin/toupdate',{
+                                params:{
+                                    updateId:id
+                                }
+                            });
+                            window.location.href = "http://localhost:8002/admin/edit.html";
+                            $table.fetchData()
                         }
                     } ,
                     {
@@ -46,13 +46,13 @@
                         scheme: 'blue',
                         icon:'trash',
                         method : function(row ,$table) {
-
-                            // axios.get('/',{
-                            //     params:{
-                            //         deleteId:id
-                            //     }
-                            // });
-                            // $table.fetchData()
+                            var id = row.uid;
+                            axios.get('/admin/delete',{
+                                params:{
+                                    deleteId:id
+                                }
+                            });
+                            $table.fetchData()
                         }
                     }
                 ]

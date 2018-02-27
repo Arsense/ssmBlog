@@ -25,11 +25,21 @@ public class TimeTool {
 
     public static  String getCurrentTime(){
         CALENDAR.setTime(new Date());
-        int year = CALENDAR.get(CALENDAR.YEAR);
-        int month = CALENDAR.get(CALENDAR.MONTH);
+        int year = CALENDAR.get(Calendar.YEAR);
+        int month = CALENDAR.get(Calendar.MONTH);
         return year+""+month;
 
+    }
 
 
+    /**
+     * 获取格式化的时间
+     * 输出格式：2015-08-04 20:55:35
+     */
+    public String getFormatDate(Date date){
+        long times = date.getTime();//时间戳
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateString = formatter.format(date);
+        return dateString;
     }
 }

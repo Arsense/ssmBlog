@@ -36,8 +36,8 @@ public interface ContextMapper {
      * @return
      */
     @Insert({"insert into t_context " +
-            "(article,title,created,tags,md) " +
-            "values (#{b.article},#{b.title},#{b.created},#{b.tags},#{b.md})"})
+            "(article,title,created,tags,md,type) " +
+            "values (#{b.article},#{b.title},#{b.created},#{b.tags},#{b.md},#{b.type})"})
     @SelectKey(before=false,keyProperty="b.uid",resultType=Integer.class,
             statementType= StatementType.STATEMENT,statement="SELECT LAST_INSERT_ID() AS id")
     int insertBlog(@Param("b") Context context);
@@ -100,6 +100,6 @@ public interface ContextMapper {
 
 
 
-    @Select({"select uid,slug,type,created,article from t_context where type= #{type} order by uid desc"})
+    @Select({"select * from t_context where type= #{type} order by uid desc"})
     List<Context> getPagesByType(@Param("type")String page);
 }

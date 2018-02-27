@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 /**
  * web页面配置类，拦截器地址在此注册
  */
-@ControllerAdvice
+/*@ControllerAdvice*/
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter{
 
@@ -17,9 +17,9 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     public void addInterceptors(InterceptorRegistry registry){
 
         // kisso 拦截器配置
-        registry.addInterceptor(new SSOSpringInterceptor()).addPathPatterns("/get_app_info");
-        registry.addInterceptor(new SSOSpringInterceptor()).addPathPatterns("/get_table_data");
-        registry.addInterceptor(new SSOSpringInterceptor()).addPathPatterns("/admin/");
+
+        registry.addInterceptor(new SSOSpringInterceptor()).addPathPatterns("/admin/**");
+
     }
 
 

@@ -17,14 +17,7 @@
     <!-- /.content-wrapper -->
 
     <v-box>
-        <div class="btns">
-            <button id="watch-btn" >显示预览</button>
-            <button id="unwatch-btn">隐藏预览</button>
-            <button id="fullscreen-btn" >全屏(按ESC退出)</button>
-            <button id="show-toolbar-btn" >展示工具栏</button>
-            <button id="close-toolbar-btn" >隐藏工具栏</button>
 
-        </div>
         <form method="post" id="blogForm" name="blogFrom" >
             <!--style="position:absolute;width:2200px;height:110px;left:40%;top:20px;-->
 
@@ -39,13 +32,13 @@
                 </v-form-item>
 
                 <v-form-item span="5" label="博客标签" class="text-warning">
-                    <input id="blogTags" type="text" class="form-control" name="tags" placeholder="请填写文章标签" />
+                    <input name="tags"  type="text" class="form-control" placeholder="请填写文章标签" />
                 </v-form-item>
 
-                    <v-form-item span="5" label="博客分类" class="text-warning">
+                <v-form-item span="5" label="博客分类" class="text-warning">
                         <select id="multiple-sel" class="select2 form-control" multiple="multiple" data-placeholder="请选择分类...">
                             <option value="默认分类" selected>默认分类</option>
-                        </select>
+                        </select>>
                     </v-form-item>
                 <div class="clearfix"></div>
 
@@ -110,7 +103,7 @@
         } ,
         mounted : function ($vm) {
             var testEditor;
-            var self=$vm
+            var self=$vm;
             $(function() {
 
                 $.get('add.md', function(md){
@@ -140,44 +133,7 @@
                     self.editor = testEditor;
                 });
 
-                $("#get-md-btn").bind('click', function(){
-                    alert(testEditor.getMarkdown());
-                });
 
-                $("#watch-btn").bind('click', function() {
-                    testEditor.watch();
-                });
-
-                $("#unwatch-btn").bind('click', function() {
-                    testEditor.unwatch();
-                });
-
-                $("#preview-btn").bind('click', function() {
-                    testEditor.previewing();
-                });
-
-                $("#fullscreen-btn").bind('click', function() {
-                    testEditor.fullscreen();
-                });
-
-                $("#show-toolbar-btn").bind('click', function() {
-                    testEditor.showToolbar();
-                });
-
-                $("#close-toolbar-btn").bind('click', function() {
-                    testEditor.hideToolbar();
-                });
-
-                $("#toc-menu-btn").click(function(){
-                    testEditor.config({
-                        tocDropdown   : true,
-                        tocTitle      : "目录 Table of Contents",
-                    });
-                });
-
-                $("#toc-default-btn").click(function() {
-                    testEditor.config("tocDropdown", false);
-                });
             });
 
         }

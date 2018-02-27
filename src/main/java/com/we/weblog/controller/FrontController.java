@@ -116,7 +116,7 @@ public class FrontController {
     }
 
 
-    @GetMapping("/get_table_data")
+    @GetMapping("/admin/get_table_data")
     @ResponseBody
     Map<String,Object> get_table_data() {
 
@@ -126,17 +126,16 @@ public class FrontController {
         tableData.configDisplayColumn(TableData.createColumn("uid" , "博客编号") );
         tableData.configDisplayColumn(TableData.createColumn("title" , "标题") );
         tableData.configDisplayColumn(TableData.createColumn("tags" , "标签" ));
-        tableData.configDisplayColumn(TableData.createColumn("date" , "创建日期" ));
+        tableData.configDisplayColumn(TableData.createColumn("month" , "创建日期" ));
 
         //遍历查询数据库
-        List<Context> tempContexts = new ArrayList<>();
-        tempContexts = contextService.showBlogs(1);
+        List<Context> tempContexts=contextService.showBlogs(1);;
 
         for(Context context : tempContexts){
             tableData.addData(context);
         }
 
-        tableData.setTotalSize(50);
+        tableData.setTotalSize(contextService.getTotalBlog());
         uiModel.tableData(tableData);
         return uiModel ;
     }
@@ -145,7 +144,7 @@ public class FrontController {
      * 前端 评论信息
      * @return
      */
-    @GetMapping("/get_comment_data")
+    @GetMapping("/admin/get_comment_data")
     @ResponseBody
     Map<String,Object> getCommentsdata() {
 
@@ -154,15 +153,11 @@ public class FrontController {
 
         tableData.configDisplayColumn(TableData.createColumn("content" , "评论内容") );
         tableData.configDisplayColumn(TableData.createColumn("author" , "评论人") );
-
         tableData.configDisplayColumn(TableData.createColumn("created" , "评论时间" ));
         tableData.configDisplayColumn(TableData.createColumn("mail" , "评论人邮箱" ));
-
         tableData.configDisplayColumn(TableData.createColumn("status" , "评论状态" ));
 
-
         //遍历查询数据库
-
         tableData.setTotalSize(10);
         uiModel.tableData(tableData);
         return uiModel ;
@@ -178,12 +173,20 @@ public class FrontController {
     UIModel getTagssdata() {
         UIModel uiModel = new UIModel() ;
         TableData tableData = new TableData() ;
+        tableData.configDisplayColumn(TableData.createColumn("title" , "页面名称") );
+        tableData.configDisplayColumn(TableData.createColumn("slug" , "页面路径") );
 
-        tableData.configDisplayColumn(TableData.createColumn("content" , "页面名称") );
-        tableData.configDisplayColumn(TableData.createColumn("author" , "页面路径") );
+        tableData.configDisplayColumn(TableData.createColumn("month" , "发布时间" ));
+        tableData.configDisplayColumn(TableData.createColumn("publish" , "发布状态" ));
 
-        tableData.configDisplayColumn(TableData.createColumn("created" , "发布时间" ));
-        tableData.configDisplayColumn(TableData.createColumn("mail" , "发布状态" ));
+
+        //遍历查询数据库
+        List<Context> tempContexts=contextService.getArticlePages();;
+
+        for(Context context : tempContexts){
+            tableData.addData(context);
+        }
+
 
         //遍历查询数据库
         tableData.setTotalSize(10);

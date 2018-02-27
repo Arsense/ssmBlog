@@ -6,12 +6,15 @@ import com.we.weblog.domain.YearBlog;
 import com.we.weblog.domain.modal.Types;
 import com.we.weblog.mapping.ContextMapper;
 import com.we.weblog.mapping.TagMapper;
+import com.we.weblog.tool.StringTool;
 import com.we.weblog.tool.TimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sun.reflect.generics.tree.TypeSignature;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.sql.SQLException;
 import java.util.*;
 
 
@@ -75,29 +78,48 @@ public class ContextService {
      * 添加博客 同时把tags添加进去
      * @param context
      */
-    public void addBlog(Context context) {
+    public void addBlog(Context context) throws SQLException {
+
+        context.setType(Types.ARTICLE);
+
+        //默认没有分类则创建分类
+        if(StringTool.isBlank(context.getCategories())){
+            context.setCategories("默认分类");
+        }
+
+        context.setPublish(Types.PUBLISH);
+
         context.setCreated(new Date(System.currentTimeMillis()));
+
         contextMapper.insertBlog(context);
-        addBlogTags(context.getTags(), context.getUid());
+
+        try{
+            addBlogTags(context.getTags(), context.getUid());
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new SQLException("addBlog fail");
+        }
+
 
     }
 
 
-    public void updateBlog(Context context) {
-        contextMapper.updateBlog(context);
+    public void updateBlog(Context context) throws SQLException {
+
+
+        try{
+            contextMapper.updateBlog(context);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new SQLException("update fail");
+        }
         updateBlogTag(context.getTags(), context.getUid());
         updateBlogTag(context.getTags(), context.getUid());
     }
 
     public void deleteBlogById(int id) {
         int result = contextMapper.deleteBlogById(id);
-        if(result == 0){
-
-        }else{
-
-        }
     }
-
 
     /**
      *  批量查询博客
@@ -108,7 +130,7 @@ public class ContextService {
         if(page <0 || page >10)
             page=1;
         page = page*10;
-        return contextMapper.getTenBlogs(page);
+        return sortContextDate(contextMapper.getTenBlogs(page));
     }
 
 
@@ -180,13 +202,7 @@ public class ContextService {
         if(limit < 0 || limit >20){
             limit = 10;
         }
-        List<Context> blogs = contextMapper.getNewBlogs(limit);
-        for(Context blog:blogs){
-            Date date = blog.getCreated();
-            blog.setMonth(TimeTool.getEdate(date));
-        }
-
-        return  blogs;
+        return  sortContextDate(contextMapper.getNewBlogs(limit));
 
     }
 
@@ -195,7 +211,20 @@ public class ContextService {
      * @return
      */
     public  List<Context> getArticlePages(){
-        return contextMapper.getPagesByType(Types.PAGE);
+        return sortContextDate(contextMapper.getPagesByType(Types.PAGE));
+    }
+
+    /**
+     * 将Date变成年月份
+     * @param pages
+     * @return
+     */
+    public  List<Context> sortContextDate(List<Context> pages){
+        for(Context page:pages){
+            Date date = page.getCreated();
+            page.setMonth(TimeTool.getEdate(date));
+        }
+        return  pages;
     }
 
 }

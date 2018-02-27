@@ -10,25 +10,28 @@
 <body>
 
     <v-app :data="data" id="app">
-        <div class="btns">
-            <button id="watch-btn">Watch</button>
-            <button id="unwatch-btn">Unwatch</button>
-            <button id="fullscreen-btn">全屏(按ESC退出)</button>
-            <button id="show-toolbar-btn">展示工具栏</button>
-            <button id="close-toolbar-btn">隐藏工具栏</button>
-            <button id="toc-menu-btn">ToC Dropdown menu</button>
-            <button id="toc-default-btn">ToC default</button>
-        </div>
         <form method="post" id = "main" name="blogFrom" >
 
                 <v-form-item span="7" label="博客标题" class="text-warning">
                     <input id="blogTitle" type="text" class="form-control" name="title" v-model="mdData['title']"/>
                 </v-form-item >
 
+            <v-form-item span="5" label="自定义访问路径" class="text-warning">
+                <input  type="text" class="form-control" name="slug"  v-model="mdData['slug']" />
+            </v-form-item>
 
-                <v-form-item span="7" label="博客标签" class="text-warning">
+            <v-form-item span="7" label="博客标签" class="text-warning">
                     <input id="blogTags" name="tags" type="text" class="form-control"  v-model="mdData['tags']" />
-                </v-form-item >
+            </v-form-item >
+
+
+            <v-form-item span="5" label="博客分类" class="text-warning">
+                <select id="multiple-sel" class="select2 form-control" multiple="multiple" data-placeholder="请选择分类...">
+                    <option value="默认分类" selected>默认分类</option>
+                </select>>
+            </v-form-item>
+
+
 
             <div id="page-wrapper">
                 <div class="row">
@@ -39,18 +42,14 @@
                     </div>
                 </div><!-- /.row -->
             </div><!-- /#page-wrapper -->
-
-
                 <input type="hidden" name="mdText" id = "mdText" />
                 <input type="hidden" name="article" id = "article"/>
-                <div class="form-group">
-                    <label for="blogSubmit" class="text-warning">submit</label>
-                    <input id = "blogSubmit" type="submit" class="form-control jcala-input" @click="updateData" value="保持"/>
+
+                <div class="text-right">
+                    <input id = "blogSubmit" type="submit" class="btn btn-success" @click="updateData" value="确认修改"/>
+
                 </div>
         </form>
-
-
-
     </v-app>
  </body>
 <script src="../js/jquery.min.js"></script>
@@ -115,30 +114,6 @@
                             console.log('onload', this);
                         }
                     });
-                });
-
-                $("#watch-btn").bind('click', function() {
-                    testEditor.watch();
-                });
-
-                $("#unwatch-btn").bind('click', function() {
-                    testEditor.unwatch();
-                });
-
-                $("#preview-btn").bind('click', function() {
-                    testEditor.previewing();
-                });
-
-                $("#fullscreen-btn").bind('click', function() {
-                    testEditor.fullscreen();
-                });
-
-                $("#show-toolbar-btn").bind('click', function() {
-                    testEditor.showToolbar();
-                });
-
-                $("#close-toolbar-btn").bind('click', function() {
-                    testEditor.hideToolbar();
                 });
 
 

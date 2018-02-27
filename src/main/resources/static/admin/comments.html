@@ -24,7 +24,7 @@
         data : function () {
             return {
                 query : {} ,
-                ajax_url : '/get_comment_data' ,
+                ajax_url : '/admin/get_comment_data' ,
                 send_req : 0 ,
                 operations : [
                     {
@@ -32,15 +32,7 @@
                         scheme: 'green',
                         icon:'edit',
                         method : function(row , $table) {
-                            //
-                            // var id = row.blogId;
-                            // axios.get('/admin/',{
-                            //     params:{
-                            //         updateId:id
-                            //     }
-                            // });
-                            // window.location.href = "http://localhost:8002/admin/edit.html";
-                            // $table.fetchData()
+
                         }
                     } ,
                     {
@@ -49,12 +41,6 @@
                         icon:'trash',
                         method : function(row ,$table) {
 
-                            // axios.get('/',{
-                            //     params:{
-                            //         deleteId:id
-                            //     }
-                            // });
-                            // $table.fetchData()
                         }
                     }
                 ]

@@ -21,12 +21,26 @@ public class Context {
     //md内容
     private String  md;
     //发布时间
+
+
     private String month;
     //文章类型
     private String type;
     //缩略名
     private String slug;
 
+    private String publish;
+    // 分类列表
+    private String  categories;
+
+
+    public String getPublish() {
+        return publish;
+    }
+
+    public void setPublish(String publish) {
+        this.publish = publish;
+    }
 
 
     public Date getCreated() {
@@ -77,6 +91,13 @@ public class Context {
         this.article = article;
     }
 
+    public String getCategories() {
+        return categories;
+    }
+
+    public void setCategories(String categories) {
+        this.categories = categories;
+    }
     public int getUid() {
         return uid;
     }

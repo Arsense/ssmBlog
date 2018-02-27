@@ -7,6 +7,6 @@ public interface Types {
     String ARTICLE = "post";
 
     String PAGE = "page";
-
+    String PUBLISH = "publish";
 
 }

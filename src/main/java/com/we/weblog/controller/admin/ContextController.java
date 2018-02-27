@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +60,7 @@ public class ContextController extends BaseController{
      * @return
      */
     @PostMapping("/send")
-    public void postAction(@ModelAttribute("blogFrom")Context context, HttpServletResponse response) throws IOException {
+    public void postAction(@ModelAttribute("blogFrom")Context context, HttpServletResponse response) throws IOException, SQLException {
            contextService.addBlog(context);
            response.sendRedirect("/admin/show.html");
     }

@@ -6,12 +6,8 @@
     <title>后台登录| Log in</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
     <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./lib/bootstrap/dist/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./lib/bootstrap/dist/css/ionicons.min.css">
     <link rel="stylesheet" href="./dist/css/AdminLTE.min.css">
-    <link rel="stylesheet" href="./plugins/iCheck/square/blue.css">
 
 </head>
 <body class="hold-transition login-page">
@@ -54,10 +50,12 @@
     <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
-<script src="./bower_components/jquery/dist/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js">
+</script>
 <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="./plugins/iCheck/icheck.min.js"></script>
+
 <script src="//cdn.bootcss.com/blueimp-md5/2.3.1/js/md5.min.js"></script>
+<script src="https://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script>
 <script>
     $(function () {
         $('input').iCheck({
@@ -69,7 +67,7 @@
     
      function login() {
                     var b,a = document.forms[0];
-                    a.action = "/admin";
+                    a.action = "/login";
                     b = document.getElementById("passBefore").value;
                     document.getElementById("password").value=md5(b);
                     a.method="post";

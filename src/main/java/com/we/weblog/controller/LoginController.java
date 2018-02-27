@@ -1,5 +1,6 @@
 package com.we.weblog.controller;
 
+import com.baomidou.kisso.SSOConfig;
 import com.baomidou.kisso.SSOHelper;
 import com.baomidou.kisso.annotation.Action;
 import com.baomidou.kisso.annotation.Login;
@@ -41,7 +42,7 @@ public class LoginController extends BaseController{
      * 登录 （注解跳过权限验证）
      */
   //  @Login(action = Action.Skip)
-    @PostMapping("/admin")
+    @PostMapping("/login")
     public String doLogin(HttpServletRequest request) throws Exception {
         /**
          * 生产环境需要过滤sql注入  登陆验证次数校验  返回一个IP

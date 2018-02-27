@@ -1,7 +1,6 @@
 package com.we.weblog.service;
 
-import com.baomidou.kisso.SSOConfig;
-import com.baomidou.kisso.SSOHelper;
+
 import com.we.weblog.domain.User;
 import com.we.weblog.mapping.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -180,48 +180,6 @@
         </header>
         <article class="cube-excerpt-entry cube-markdown" lg-uid="lg0">
 
-
-            <h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>之前自己用Laravel写了个博客, 用了一段时间果断弃之, 又用回了原来的Hexo, 上网找了下主题, 没找到自己想要的, 于是决定自己写一款主题(在写主题的过程倒是找到了很多自己觉得不错的2333), 这篇文章只是用来记录一下最近这段时间写这个主题的过程, 中间存在着很多的问题, 主题目前还没有正式完成, 最近实习 + 毕设搞得比较颓, 9月份之后会逐步完善修复。</p>
-            <p><a href="https://github.com/ZEROKISEKI/hexo-theme-cube">hexo-theme-cube</a><br><a href="https://github.com/ZEROKISEKI/cube-generator">cube-generator</a><br><a href="http://sora1.coding.me/">示例网站</a>  </p>
-            <p>其中<code>cube-generator</code>是主题的生成器, 通过运行对应的gulp命令能够重新生成主题cube</p>
-            <h2 id="u6784_u5EFA_u4E3B_u9898"><a href="#u6784_u5EFA_u4E3B_u9898" class="headerlink" title="构建主题"></a>构建主题</h2><p>看了一些github上的主题项目, 很多都是ES5 + jQuery的实现方式, 于是自己有了一个想法，用ES6来写这个主题样式, 最终代码是要转化为ES5的, 那么就需要babel进行转换了, 又因为写样式决定采用SaSS, 所以就决定用gulp进行自动化构建, 所以最终的决定是:</p>
-            <ul>
-                <li>gulp中利用<code>browserify + babelify</code>对前端代码进行ES6到ES5的转换, Babel转换的规则写在<code>babelify</code>上面, js代码的入口规定为<code>source/js/app.js</code>, <code>app.js</code>中<code>import</code>对应功能的js代码, gulp进行<code>bundle script</code>的生成代码如下:</li>
-            </ul>
-            <pre><code class="hljs vim">const <span class="hljs-keyword">b</span> = browserify({
-    cache: {},
-       packageCache: {},
-       entrie<span class="hljs-variable">s:</span> path.<span class="hljs-keyword">join</span>(<span class="hljs-string">'./source/js/app.js'</span>),
-       debu<span class="hljs-variable">g:</span> true
-})
-
-// 配置babel转换规则
-<span class="hljs-keyword">b</span>.transform(babelify, {
-       preset<span class="hljs-variable">s:</span> [<span class="hljs-string">'env'</span>, <span class="hljs-string">'es2015'</span>, <span class="hljs-string">'stage-2'</span>],
-       plugin<span class="hljs-variable">s:</span> [[<span class="hljs-string">'transform-runtime'</span>, {
-           <span class="hljs-string">'polyfill'</span>: true,
-           <span class="hljs-string">'regenerator'</span>: true
-       }]]
-})
-
-gulp.task(<span class="hljs-string">'buildScript'</span>, bundle)
-
-// <span class="hljs-keyword">b</span>.<span class="hljs-keyword">on</span>(<span class="hljs-string">'update'</span>, bundle)
-
-// bundle生成script.js并且放在cube/<span class="hljs-keyword">source</span>/js/script.js上面
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bundle</span><span class="hljs-params">()</span> {</span>
-       <span class="hljs-keyword">return</span> <span class="hljs-keyword">b</span>.bundle()
-           .<span class="hljs-keyword">on</span>(<span class="hljs-string">'error'</span>, err =&gt; console.<span class="hljs-built_in">log</span>(err))
-           .pipe(<span class="hljs-keyword">source</span>(<span class="hljs-string">'script.js'</span>))
-           .pipe(<span class="hljs-keyword">buffer</span>())
-           .pipe(sourcemaps.init({ loadMap<span class="hljs-variable">s:</span> true }))
-           .pipe(uglify())
-           .pipe(sourcemaps.<span class="hljs-keyword">write</span>(<span class="hljs-string">'./'</span>))
-           .pipe(gulp.dest(path.<span class="hljs-keyword">join</span>(Path.theme, Path.<span class="hljs-keyword">source</span>, <span class="hljs-string">'/js'</span>)))
-}
-</code></pre><p>JS的部分如下所示:</p>
-            <p><a href="http://7xqtjy.com1.z0.glb.clouddn.com/js%E6%A8%A1%E5%9D%97-1.png" title="JS模块" class="gallery-item" lg-event-uid="&amp;1"><img src="http://7xqtjy.com1.z0.glb.clouddn.com/js%E6%A8%A1%E5%9D%97-1.png" alt="JS模块"></a></p>
-
         </article>
         <footer class="cube-excerpt-footer">
             <a class="cube-excerpt-more" href="/2017/08/15/制作一个不轻量的hexo主题-cube/">阅读全文</a>
@@ -254,7 +212,7 @@ gulp.task(<span class="hljs-string">'buildScript'</span>, bundle)
             }
         </style>
 
-        <img src="http://cube-1252774894.cosgz.myqcloud.com/avatar.png" alt="avatar" class="cube-avatar">
+        <img src="./images/font.jpg" alt="avatar" class="cube-avatar">
 
 
         <span>AONOSORA</span>
@@ -591,6 +549,40 @@ gulp.task(<span class="hljs-string">'buildScript'</span>, bundle)
 </footer>
 <!-- inject:script -->
 <script src="./js/script.js"></script>
+
+
+
+<script>
+
+    //要接收文章 接收文章数量  标签数量  分类数量 近期文章  标签
+    var vm=new Vue({
+        el: "#main",
+        data: function(){
+            return {
+                tagData:[]
+            }
+        },
+        methods:{
+            recommend:function(){
+                var self = this;
+                $.ajax({
+                    type: "get",
+                    url: "/tags_detail_data",
+                    dataType: "json",
+                    success: function(response) {
+                        self.tagData = response
+                    },
+                });
+
+            },
+            getpostUrl:function (Object) {
+                return "/post/"+Object.uid;
+            }
+        },
+
+    });
+    vm.recommend()
+</script>
 <!-- endinject -->
 <div class="cube-loading out"></div>
 </body>

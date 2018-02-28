@@ -43,7 +43,7 @@ public class PageController {
         context.setTags("test");  //tags not null
         contextService.addBlog(context);
 
-        response.sendRedirect("/admin/new.html");
+        response.sendRedirect("/admin/sort_tags.html");
 
     }
 

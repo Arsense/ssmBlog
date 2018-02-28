@@ -80,7 +80,7 @@ public class ContextService {
      */
     public void addBlog(Context context) throws SQLException {
 
-        context.setType(Types.ARTICLE);
+
 
         //默认没有分类则创建分类
         if(StringTool.isBlank(context.getCategories())){

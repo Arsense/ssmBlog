@@ -13,7 +13,6 @@
 
 <v-app  id="app" :data="data" >
     <!-- /.content-wrapper -->
-
     <v-box>
 
         <form method="post" id="pageFrom" name="pageFrom" >
@@ -52,8 +51,6 @@
         <!--这里是编辑器-->
         <!--<div id="test-editormd"></div>-->
 
-
-
     </v-box>
 
 
@@ -75,6 +72,7 @@
         } ,
         methods : {
             getData:function () {
+                //这里可以更换为axios
                 var a=document.forms[0];
                 var b,c;
                 a.action="/admin/page/publish";

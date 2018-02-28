@@ -8,9 +8,13 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -31,12 +35,15 @@ public class PageController {
 
 
 
-    @GetMapping("/publish")
+    @PostMapping("/publish")
     @ResponseBody
-    public void createPages(Context context) throws SQLException {
+    public void createPages(Context context, HttpServletResponse response) throws SQLException, IOException {
 
-        context.setPublish(Types.PAGE);
+        context.setType(Types.PAGE);
+        context.setTags("test");  //tags not null
         contextService.addBlog(context);
+
+        response.sendRedirect("/admin/new.html");
 
     }
 

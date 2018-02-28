@@ -1,137 +1,664 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 </title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/landing-page.min.css" rel="stylesheet" id="theme-css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="AONOSORA">
 
-    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">
+    <meta name="description" content="今生今世轮回尽, 来世愿为幻想乡">
+    <title>senrenbankaの部落格</title>
+    <!-- inject:style -->
+    <link href="./css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('./images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: '加载中';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+
 </head>
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
-    <div class="container topnav">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand topnav" href="/">Home</a>
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+        <ul class="cube-menu-collapse">
+
+            <li>
+                <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+                <a href="./index.html">首页</a>
+            </li>
+            <li>
+                <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+                <a href="./login1.html">admin</a>
+            </li>
+            <li>
+                <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+                <a href="./article.html">归档</a>
+            </li>
+
+            <li>
+                <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+                <a href="./categories.html">分类</a>
+            </li>
+
+            <li>
+                <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+                <a href="./tags.html">标签</a>
+            </li>
+
+            <li>
+                <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+                <a href="./about.html">关于我</a>
+            </li>
+
+        </ul>
+    </nav>
+    <nav class="cube-side-menu" id="cube-side-menu">
+        <ul class="cube-menu-list">
+
+            <li>
+                <a class="lrc-control">开启歌词</a>
+            </li>
+
+            <li>
+                <a class="scroll-to-top">回到顶部</a>
+            </li>
+        </ul>
+    </nav>
+    <header class="cube-header" id="cube-header">
+        <img src=" http://cube-1252774894.cosgz.myqcloud.com/background.jpg " alt="头部背景图片">
+
+        <div class="cube-type">
+            <span class="cube-typed-title">clayの部落格</span>
+            <span class="cube-typed-cursor">|</span>
         </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right myBar">
+
+    </header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+
+            z-index: -1;
+            background-image: url('http://cube-1252774894.cosgz.myqcloud.com/background.jpg');
+            background-repeat: no-repeat;
+            background-position: center -256px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('http://cube-1252774894.cosgz.myqcloud.com/background.jpg');
+            background-position: center -300px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+
+        <div class="cube-type">
+            <span class="cube-typed-title">clayの部落格</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '1920',
+                height: '1080'
+            }
+
+        })(window)
+    </script>
+
+</div>
+
+<div class ="cube-content" style="visibility: visible;">
+    <div class="cube-left">
+        <style>
+            @media(max-width: 768px) {
+                body {
+                    background-color: #fff!important;
+                }
+            }
+        </style>
+        <div class="cube-archives">
+
+
+            <div class="cube-archive" style="margin-top: 0;">
+
+
+
+                <h1 class="title">2017</h1>
+                <ul class="posts">
+
+                    <li class="post">
+                        <a href="/2017/08/15/制作一个不轻量的hexo主题-cube/">制作一个不轻量的hexo主题:cube</a>
+                    </li>
+
+
+
+
+                    <li class="post">
+                        <a href="/2017/03/04/博客搬迁/">博客搬迁</a>
+                    </li>
+
+
+
+
+                    <li class="post">
+                        <a href="/2017/01/11/xampp-phpstorm的简单配置/">xampp + phpstorm的简单配置</a>
+                    </li>
+
+
+
+
+                </ul>
+            </div>
+            <div class="cube-archive">
+
+                <h1 class="title">2016</h1>
+                <ul class="posts">
+
+                    <li class="post">
+                        <a href="/2016/11/07/某crackme破解/">某crackme破解</a>
+                    </li>
+
+
+
+
+                    <li class="post">
+                        <a href="/2016/10/31/脱壳练习1/">记一次小软件脱壳</a>
+                    </li>
+
+
+
+
+                    <li class="post">
+                        <a href="/2016/06/07/javascript函数化构造器/">javascript函数化构造器</a>
+                    </li>
+
+
+
+
+                    <li class="post">
+                        <a href="/2016/05/16/《AngularJS深度剖析与最佳实践》学习笔记（二）/">《AngularJS深度剖析与最佳实践》学习笔记（二）</a>
+                    </li>
+
+
+
+
+                    <li class="post">
+                        <a href="/2016/05/12/《AngularJS深度剖析与最佳实践》学习笔记（一）/">《AngularJS深度剖析与最佳实践》学习笔记（一）</a>
+                    </li>
+
+
+
+
+                    <li class="post">
+                        <a href="/2016/04/08/新手玩云服务器/">新手玩云服务器</a>
+                    </li>
+
+
+
+
+                    <li class="post">
+                        <a href="/2016/03/09/HEXO解决Google字库链接缓慢问题/">HEXO解决Google字库链接缓慢问题</a>
+                    </li>
+
+
+
+
+                    <li class="post">
+                        <a href="/2016/03/08/Python之Tkinter/">Python文档之Tkinter</a>
+                    </li>
+
+
+
+
+                    <li class="post">
+                        <a href="/2016/03/04/信息安全小知识/">信息安全小知识</a>
+                    </li>
+
+
+
+
+                    <li class="post">
+                        <a href="/2016/03/03/浅析SSL协议/">浅析SSL协议</a>
+                    </li>
+
+
+
+
+                </ul>
+            </div>
+            <div class="cube-archive">
+
+                <h1 class="title">2015</h1>
+                <ul class="posts">
+
+                    <li class="post">
+                        <a href="/2015/12/20/用hexo搭建博客/">用hexo搭建博客</a>
+                    </li>
+
+
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+    <div class ="cube-right">
+        <!--作者信息-->
+        <div class="cube-author cube-sidebar" id="cube-author">
+
+
+            <style>
+                @media(min-width: 768px) {
+                    .cube-author img {
+                        margin-top: 40px;
+                        margin-bottom: 10px;
+                    }
+                }
+                @media(max-width: 1120px) and (min-width: 768px) {
+                    .cube-author img {
+                        width: 128px;
+                        height: 128px;
+                    }
+                }
+                @media(min-width: 1120px) {
+                    .cube-author img {
+                        width: 160px;
+                        height: 160px;
+                    }
+                }
+            </style>
+
+            <img src="http://cube-1252774894.cosgz.myqcloud.com/avatar.png" alt="avatar" class="cube-avatar">
+
+
+            <span>AONOSORA</span>
+
+
+            <a title="今生今世轮回尽, 来世愿为幻想乡">今生今世轮回尽, 来世愿为幻想乡</a>
+
+            <div class="count">
+                <a class="count articles"><span>14</span>文章</a>
+                <a class="count tags"><span>10</span>标签</a>
+                <a class="count categories"><span>0</span>分类</a>
+            </div>
+        </div>
+        <!--音乐播放软件-->
+        <div class="cube-music cube-sidebar" id="cube-music">
+            <div class="cube-player aplayer aplayer-withlrc aplayer-withlist" id="cube-player">
+                <div class="aplayer-pic" style="background-image: url('http://cube-1252774894.cosgz.myqcloud.com/music/image/TRIPLANE - Dear friends.jpg');">
+                    <div class="aplayer-button aplayer-play">
+                        <button type="button" class="aplayer-icon aplayer-icon-play">
+                            <svg xmlns:xlink="http://www.w3.org/1999/xlink" height="100%" version="1.1" viewBox="0 0 16 31" width="100%">
+                                <use xlink:href="#aplayer-play"></use>
+                                <path class="aplayer-fill" d="M15.552 15.168q0.448 0.32 0.448 0.832 0 0.448-0.448 0.768l-13.696 8.512q-0.768 0.512-1.312 0.192t-0.544-1.28v-16.448q0-0.96 0.544-1.28t1.312 0.192z" id="aplayer-play"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="aplayer-info">
+                    <div class="aplayer-music">
+                        <span class="aplayer-title">Dear friends</span>
+                        <span class="aplayer-author">TRIPLANE</span>
+                    </div>
+                    <div class="aplayer-lrc">
+                        <div class="aplayer-lrc-contents" style="transform: translateY(0); -webkit-transform: translateY(0);"><p class="aplayer-lrc-current">毎日陽が沈むまで 泥まみれになりながら</p><p>完成したパズルを届けよう难忘儿时天真的我们每天夕阳西下</p><p>無邪気に過ごした日々も捨て難いけれど</p><p>满身灰泥那无忧无虑的日子</p><p>夢見る僕が居てもそれはそれで僕だから</p><p>那是做著美好的梦的我</p><p>ジグソーパズルみたいにはまってなくて良い</p><p>可以不必在乎那些拼图</p><p>别人说的「对」对你来说和「错」没有两样</p><p>誰かの「Yes」が君にとって「No」であるのと同じように</p><p>いつだって自由なはずだから</p><p>无论何时都应该如此自由</p><p>就算明天大风吹散了拼图</p><p>明日 風が通り抜けた時にパズルが欠けていたとしても</p><p>也不会有人责备</p><p>誰もそれを責めたりしないよ</p><p>あの日夢見た僕らは 間違いじゃないと信じて</p><p>那一天憧憬著梦想的我们坚信著彼此的信念</p><p>荒くうねる海原を渡って行ける</p><p>跨过波涛汹涌的大海</p><p>你的痛苦我们比谁都清楚</p><p>君の胸の痛みだって 僕らは知っているから</p><p>即使你离开这条船去了不同的世界</p><p>もしも君がこの船を下りて違う世界に居たとしても</p><p>最後にはきっと笑えるよ</p><p>最后也定能开怀大笑</p><p>今でも僕らは夢を見ているよ</p><p>现在我们仍然在憧憬著梦想</p><p>乘着这个被托付的梦想向前进</p><p>託されたその想いも乗せて</p><p>这片汹涌的海洋上有痛苦的回忆我们一路奋战到今天还要向前</p><p>荒れたこの海原を痛みと戦って今日も行く</p><p>約束が嘘にならないように</p><p>约定的誓言永远不会是谎言</p><p>そしていつか 僕らの船を下りた違う世界に居る君に</p><p>直到有一天</p><p>完成したパズルを届けよう难忘儿时天真的我们每天夕阳西下</p><p>一定会把完成的拼图传递</p></div>
+                    </div>
+                    <div class="aplayer-controller">
+                        <div class="aplayer-bar-wrap">
+                            <div class="aplayer-bar">
+                                <div class="aplayer-loaded" style="width: 74.4389%;"></div>
+                                <div class="aplayer-played" style="width: 0; background: #b7daff;">
+                                    <span class="aplayer-thumb" style="border: 1px solid #b7daff;"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="aplayer-time">
+                        <span class="aplayer-time-inner">
+                            - <span class="aplayer-ptime">00:00</span> / <span class="aplayer-dtime">04:32</span>
+                        </span>
+                            <div class="aplayer-volume-wrap">
+                                <button type="button" class="aplayer-icon aplayer-icon-volume-down">
+                                    <svg xmlns:xlink="http://www.w3.org/1999/xlink" height="100%" version="1.1" viewBox="0 0 28 32" width="100%">
+                                        <use xlink:href="#aplayer-volume-down"></use>
+                                        <path class="aplayer-fill" d="M13.728 6.272v19.456q0 0.448-0.352 0.8t-0.8 0.32-0.8-0.32l-5.952-5.952h-4.672q-0.48 0-0.8-0.352t-0.352-0.8v-6.848q0-0.48 0.352-0.8t0.8-0.352h4.672l5.952-5.952q0.32-0.32 0.8-0.32t0.8 0.32 0.352 0.8zM20.576 16q0 1.344-0.768 2.528t-2.016 1.664q-0.16 0.096-0.448 0.096-0.448 0-0.8-0.32t-0.32-0.832q0-0.384 0.192-0.64t0.544-0.448 0.608-0.384 0.512-0.64 0.192-1.024-0.192-1.024-0.512-0.64-0.608-0.384-0.544-0.448-0.192-0.64q0-0.48 0.32-0.832t0.8-0.32q0.288 0 0.448 0.096 1.248 0.48 2.016 1.664t0.768 2.528z" id="aplayer-volume-down"></path>
+                                    </svg>
+                                </button>
+                                <div class="aplayer-volume-bar-wrap">
+                                    <div class="aplayer-volume-bar">
+                                        <div class="aplayer-volume" style="height: 80%; background: #b7daff;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="aplayer-icon aplayer-icon-mode">
+                                <svg xmlns:xlink="http://www.w3.org/1999/xlink" height="100%" version="1.1" viewBox="0 0 29 32" width="100%">
+                                    <use xlink:href="#aplayer-circulation"></use>
+                                    <path class="aplayer-fill" d="M25.6 9.92q1.344 0 2.272 0.928t0.928 2.272v9.28q0 1.28-0.928 2.24t-2.272 0.96h-22.4q-1.28 0-2.24-0.96t-0.96-2.24v-9.28q0-1.344 0.96-2.272t2.24-0.928h8v-3.52l6.4 5.76-6.4 5.76v-3.52h-6.72v6.72h19.84v-6.72h-4.8v-4.48h6.080z" id="aplayer-circulation"></path>
+                                </svg>
+                            </button>
+                            <button type="button" class="aplayer-icon aplayer-icon-menu">
+                                <svg xmlns:xlink="http://www.w3.org/1999/xlink" height="100%" version="1.1" viewBox="0 0 22 32" width="100%">
+                                    <use xlink:href="#aplayer-menu"></use>
+                                    <path class="aplayer-fill" d="M20.8 14.4q0.704 0 1.152 0.48t0.448 1.12-0.48 1.12-1.12 0.48h-19.2q-0.64 0-1.12-0.48t-0.48-1.12 0.448-1.12 1.152-0.48h19.2zM1.6 11.2q-0.64 0-1.12-0.48t-0.48-1.12 0.448-1.12 1.152-0.48h19.2q0.704 0 1.152 0.48t0.448 1.12-0.48 1.12-1.12 0.48h-19.2zM20.8 20.8q0.704 0 1.152 0.48t0.448 1.12-0.48 1.12-1.12 0.48h-19.2q-0.64 0-1.12-0.48t-0.48-1.12 0.448-1.12 1.152-0.48h19.2z" id="aplayer-menu"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="aplayer-list" style="max-height: 513px; height: 98px;">
+                    <ol>
+                        <li class="aplayer-list-light">
+                            <span class="aplayer-list-cur" style="background: #b7daff;"></span>
+                            <span class="aplayer-list-index">1</span>
+                            <span class="aplayer-list-title">Dear friends</span>
+                            <span class="aplayer-list-author">TRIPLANE</span>
+                        </li>
+                        <li>
+                            <span class="aplayer-list-cur" style="background: #b7daff;"></span>
+                            <span class="aplayer-list-index">2</span>
+                            <span class="aplayer-list-title">Butter-Fly</span>
+                            <span class="aplayer-list-author">和田光司</span>
+                        </li>
+                        <li>
+                            <span class="aplayer-list-cur" style="background: #b7daff;"></span>
+                            <span class="aplayer-list-index">3</span>
+                            <span class="aplayer-list-title">宵闇花火</span>
+                            <span class="aplayer-list-author">葉月ゆら</span>
+                        </li>
+                    </ol>
+                </div></div>
+        </div>
+        <!--播放音乐JS-->
+        <script>
+            (function (window) {
+                window.musicModule = {}
+                window.musicModule.musicConfig = '{"narrow":false,"autoplay":false,"showlrc":3,"theme":"#b7daff","mutex":true,"mode":"circulation","preload":"auto","listmaxheight":"513px","music":[{"title":"Dear friends","author":"TRIPLANE","url":"http://cube-1252774894.cosgz.myqcloud.com/music/source/TRIPLANE - Dear friends.mp3","lrc":"http://cube-1252774894.cosgz.myqcloud.com/music/lrc/Dear friends - TRIPLANE.lrc","pic":"http://cube-1252774894.cosgz.myqcloud.com/music/image/TRIPLANE - Dear friends.jpg"},{"title":"Butter-Fly","author":"和田光司","url":"http://cube-1252774894.cosgz.myqcloud.com/music/source/和田光司 - Butter-Fly (ピアノヴァージョン).mp3","lrc":"http://cube-1252774894.cosgz.myqcloud.com/music/lrc/Butter-Fly (ピアノヴァージョン) - 和田光司.lrc","pic":"http://cube-1252774894.cosgz.myqcloud.com/music/image/和田光司 - Butter-Fly (ピアノヴァージョン).jpg"},{"title":"宵闇花火","author":"葉月ゆら","url":"http://cube-1252774894.cosgz.myqcloud.com/music/source/葉月ゆら - 宵闇花火.mp3","lrc":"http://cube-1252774894.cosgz.myqcloud.com/music/lrc/宵闇花火 - 葉月ゆら.lrc","pic":"http://cube-1252774894.cosgz.myqcloud.com/music/image/葉月ゆら - 宵闇花火.jpg"}]}'
+                window.musicModule.lrcConfig = {
+                    open: '开启歌词',
+                    close: '关闭歌词'
+                }
+            })(window)
+        </script>
+        <!--近期发布的文章-->
+        <div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
+            <div class="title">
+                <a>近期文章</a>
+            </div>
+            <ul class="list">
+
+
                 <li>
-                    <a href="/yearblogs.html">Archives</a>
+                    <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
+
+
+                    <div class="preview">
+                        <p class="index first">
+                            <span>1</span>
+                        </p>
+                        <div class="image" style="background-image: url(http://cube-1252774894.cosgz.myqcloud.com/previews/制作一个不轻量的hexo主题.png);"></div>
+                        <div class="info">
+                            <p class="title">
+                                <a href="/2017/08/15/制作一个不轻量的hexo主题-cube/" title="制作一个不轻量的hexo主题:cube">制作一个不轻量的hexo主题:cube</a>
+                            </p>
+                            <p class="date">
+                                2017-08-15
+                            </p>
+                        </div>
+                    </div>
+
                 </li>
+
+
+
                 <li>
-                    <a href="/tags.html">Tags</a>
+                    <div class="normal">
+                        <p class="index">
+                            <span>2</span>
+                        </p>
+                        <p class="title">
+                            <a href="/2017/03/04/博客搬迁/" title="博客搬迁">博客搬迁</a>
+                        </p>
+                    </div>
+                </li>
+
+
+
+                <li>
+                    <div class="normal">
+                        <p class="index">
+                            <span>3</span>
+                        </p>
+                        <p class="title">
+                            <a href="/2017/01/11/xampp-phpstorm的简单配置/" title="xampp + phpstorm的简单配置">xampp + phpstorm的简单配置</a>
+                        </p>
+                    </div>
+                </li>
+
+
+
+                <li>
+                    <div class="normal">
+                        <p class="index">
+                            <span>4</span>
+                        </p>
+                        <p class="title">
+                            <a href="/2016/11/07/某crackme破解/" title="某crackme破解">某crackme破解</a>
+                        </p>
+                    </div>
+                </li>
+
+
+
+                <li>
+                    <div class="normal">
+                        <p class="index">
+                            <span>5</span>
+                        </p>
+                        <p class="title">
+                            <a href="/2016/10/31/脱壳练习1/" title="记一次小软件脱壳">记一次小软件脱壳</a>
+                        </p>
+                    </div>
+                </li>
+
+
+            </ul>
+        </div>
+        <!--标签-->
+        <div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
+            <div class="title">
+                <a href="/tags">标签云</a>
+            </div>
+            <div class="cube-boxs">
+
+
+                <div class="cube-box ">
+                    <a href="/tags/杂谈/">#杂谈</a>
+                </div>
+
+
+                <div class="cube-box ">
+                    <a href="/tags/逆向/">#逆向</a>
+                </div>
+
+
+                <div class="cube-box ">
+                    <a href="/tags/博客搭建/">#博客搭建</a>
+                </div>
+
+
+                <div class="cube-box ">
+                    <a href="/tags/网络相关/">#网络相关</a>
+                </div>
+
+
+                <div class="cube-box ">
+                    <a href="/tags/云服务器/">#云服务器</a>
+                </div>
+
+
+                <div class="cube-box ">
+                    <a href="/tags/Hexo/">#Hexo</a>
+                </div>
+
+
+                <div class="cube-box ">
+                    <a href="/tags/AngularJS/">#AngularJS</a>
+                </div>
+
+
+                <div class="cube-box ">
+                    <a href="/tags/php/">#php</a>
+                </div>
+
+
+                <div class="cube-box-bg ">
+                    <a href="/tags/javascript/">#javascript</a>
+                </div>
+
+
+                <div class="cube-box-bg ">
+                    <a href="/tags/python/">#python</a>
+                </div>
+
+            </div>
+        </div>
+        <!--友情链接-->
+        <div class="cube-links cube-sidebar" id="cube-links">
+            <div class="title">
+                <a>个人链接</a>
+            </div>
+            <ul class="list">
+
+                <li>
+
+
+                    <img src="http://cube-1252774894.cosgz.myqcloud.com/links/GitHub.png">
+
+                    <a href="https://github.com/ZEROKISEKI" target="_blank">GitHub</a>
                 </li>
 
                 <li>
-                    <a href="/about">About</a>
+
+
+                    <img src="http://cube-1252774894.cosgz.myqcloud.com/links/Coding.png">
+
+                    <a href="https://coding.net/u/SORA1" target="_blank">Coding</a>
                 </li>
+
                 <li>
-                    <a href="/login1.html">Admin</a>
+
+
+                    <img src="http://cube-1252774894.cosgz.myqcloud.com/links/SF.png">
+
+                    <a href="https://segmentfault.com/u/aonosora" target="_blank">SF社区</a>
                 </li>
+
                 <li>
-                    <a href='javascript:void(0)' onclick="day_night()"><i class="fa fa-moon-o" id="day-night"></i>
-                        <span class="network-name" id="day-night-name">night</span>
-                    </a>
+
+
+                    <img src="http://cube-1252774894.cosgz.myqcloud.com/links/开发者头条.png">
+
+                    <a href="https://toutiao.io/u/148070" target="_blank">开发者头条</a>
                 </li>
+
+            </ul>
+        </div>
+
+
+
+        <div class="cube-friend-links cube-sidebar" id="cube-friend-links">
+            <div class="title">
+                <a>友情链接</a>
+            </div>
+            <ul class="list">
+
+                <li>
+                    <!-- TODO change avatar.png to friend.png-->
+                    <img src="http://cube-1252774894.cosgz.myqcloud.com/friend_links/micblo.png">
+                    <a href="https://blog.micblo.com/" target="_blank">罗大佬</a>
+                </li>
+
+                <li>
+                    <!-- TODO change avatar.png to friend.png-->
+                    <img src="http://cube-1252774894.cosgz.myqcloud.com/friend_links/DIYgod.jpg">
+                    <a href="https://www.anotherhome.net/" target="_blank">DIYgod</a>
+                </li>
+
+                <li>
+                    <!-- TODO change avatar.png to friend.png-->
+                    <img src="./images/friend_links.jpg ">
+                    <a href="https://aonosora.com/" target="_blank">咪西西の部落格</a>
+                </li>
+
             </ul>
         </div>
     </div>
-</nav>
-<!--header end-->
 
 
-<div class="container" id ="main">
-    <div class="row">
-        <div class="col-lg-12 post">
-            <div class="editormd-preview" id="md-container">
-                <div id = "showgirl" class="markdown-body editormd-preview-container" previewcontainer="true" style="padding: 20px;">
-
-                </div>
-            </div>
-            <br><br>
-            <a v-if="previous != null" :href="getPostUrl(previous)" class="post-flip"><i class="fa fa-arrow-left"></i>&nbsp;{{previous.title}}</a>
-            <a v-if="next != null" :href="getPostUrl(next)" class="post-flip" style="float: right;">{{next.title}}&nbsp;<i class="fa fa-arrow-right"></i></a>
-        </div>
-    </div>
 </div>
 
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <ul class="list-inline">
-                    <li>
-                        <a href="/yearblogs.html">Archives</a>
-                    </li>
-                    <li>
-                        <a href="/tags.html">Tags</a>
-                    </li>
-                    <li>
-                        <a href="/about">About</a>
-                    </li>
-                    <li>
-                        <a href="/login.html">Admin</a>
-                    </li>
-                </ul>
-                <p class="copyright text-muted small"></p>
-            </div>
-        </div>
-    </div>
+<footer class="cube-footer">
+
+    © 2017 AONOSORA
+
+    <br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
 </footer>
-<!--footer end-->
-
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="./js/front-end.min.js"></script>
-
-
-<script>
-    var vm = new Vue({
-        el:"#main",
-        data: function () {
-            return {
-                current:Object,
-                previous:Object,
-                next:Object
-            }
-        },
-        methods:{
-            getData:function () {
-                var self = this;
-                $.ajax({
-                    type:"get",
-                    dataType: "json",
-                    url:"/post",
-                    success: function (reponse) {
-                        self.current = reponse.current;
-                        self.previous = reponse.previous;
-                        self.next = reponse.next;
-                        document.getElementById('showgirl').innerHTML =  self.current.article
-
-                    }
-                })
-            },
-            getPostUrl:function (Object) {
-                return "/post/"+Object.uid
-            }
-
-        }
-
-    });
-         vm.getData();
-</script>
-
+<!-- inject:script -->
+<script src="./js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
 </body>
 </html>

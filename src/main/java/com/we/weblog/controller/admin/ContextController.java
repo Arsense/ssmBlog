@@ -4,6 +4,7 @@ import com.we.weblog.controller.BaseController;
 import com.we.weblog.domain.Context;
 import com.we.weblog.domain.Log;
 import com.we.weblog.domain.modal.LogActions;
+import com.we.weblog.domain.modal.Types;
 import com.we.weblog.service.ContextService;
 import com.we.weblog.service.LogService;
 import com.we.weblog.tool.IpTool;
@@ -61,6 +62,7 @@ public class ContextController extends BaseController{
      */
     @PostMapping("/send")
     public void postAction(@ModelAttribute("blogFrom")Context context, HttpServletResponse response) throws IOException, SQLException {
+           context.setType(Types.ARTICLE);
            contextService.addBlog(context);
            response.sendRedirect("/admin/show.html");
     }

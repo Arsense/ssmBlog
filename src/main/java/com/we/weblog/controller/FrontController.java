@@ -181,7 +181,7 @@ public class FrontController {
 
 
         //遍历查询数据库
-        List<Context> tempContexts=contextService.getArticlePages();;
+        List<Context> tempContexts=contextService.getArticlePages();
 
         for(Context context : tempContexts){
             tableData.addData(context);

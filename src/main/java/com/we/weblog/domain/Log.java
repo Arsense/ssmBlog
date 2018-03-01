@@ -13,8 +13,16 @@ public class Log {
     private String       data;                    //产生的数据
     private Integer      author_id;               //操作的ID
     private String       ip;                      //日志创建的IP
-    private Integer      created;                 //操作的时间
+    private Date      created;                 //操作的时间
+    private String       dateFormat;
 
+    public String getDateFormat() {
+        return dateFormat;
+    }
+
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -52,11 +60,11 @@ public class Log {
     }
 
 
-    public Integer getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Integer created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
@@ -72,7 +80,7 @@ public class Log {
         this.author_id = uid;
         this.data = data;
         this.action = action;
-        this.created = (int) Instant.now().getEpochSecond();
+        this.created = new Date(System.currentTimeMillis());
         this.ip = ip;
     }
     public  Log(){

@@ -3,6 +3,7 @@ package com.we.weblog.service;
 
 import com.we.weblog.domain.Log;
 import com.we.weblog.mapping.LogMapper;
+import com.we.weblog.tool.TimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +41,12 @@ public class LogService {
         if(limit < 0||limit >20) {
          limit = 10;
         }
-        return logMapper.getLogs(limit);
+        List<Log> logs= logMapper.getLogs(limit);
+        for(Log log:logs){
+            log.setDateFormat(TimeTool.getFormatClearToSecond(log.getCreated()));
+        }
+
+        return logs;
     }
 
 

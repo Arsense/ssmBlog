@@ -36,18 +36,18 @@ public class TimeTool {
      * 获取格式化的时间
      * 输出格式：2015-08-04 20:55:35
      */
-    public static String getFormatDate(Date date){
+    public static String getFormatClearToDay(Date date){
+        long times = date.getTime();//时间戳
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd ");
+        return formatter.format(date);
+
+    }
+    public static String getFormatClearToSecond(Date date){
         long times = date.getTime();//时间戳
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String dateString = formatter.format(date);
-        return dateString;
+        return formatter.format(date);
 
     }
 
 
-    public static void main(String[] args) {
-
-
-
-    }
 }

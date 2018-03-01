@@ -66,10 +66,6 @@ public class ContextService {
     public  List<Context> getLastestBlogs(){
         List<Context> lists =contextMapper.getTenBlogs(5);
 
-//        for(Context list: lists){
-//            list.setCreated(TimeTool.getFormatDate(list.getCreated()));
-//        }
-
 
         return  lists;
     }
@@ -236,8 +232,8 @@ public class ContextService {
      */
     public  List<Context> sortContextDate(List<Context> pages){
         for(Context page:pages){
-            Date date = page.getCreated();
-            page.setMonth(TimeTool.getEdate(date));
+            String time = TimeTool.getFormatClearToDay(page.getCreated());
+            page.setMonth(time);
         }
         return  pages;
     }

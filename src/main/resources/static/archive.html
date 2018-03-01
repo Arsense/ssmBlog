@@ -68,7 +68,7 @@
             </li>
             <li>
                 <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
-                <a href="./article.html">归档</a>
+                <a href="./archive.html">归档</a>
             </li>
 
             <li>
@@ -171,43 +171,19 @@
                 }
             }
         </style>
-        <div class="cube-article">
-            <h1 class="title"></h1>
+        <div class="cube-archives">
 
-            <div class="cube-article-header">
-                <div class="cube-article-date">
-                    <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-                    {{current['created']}}
-                </div>
-                <div class="cube-article-tags">
-                    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
-                    <a href="/tags/杂谈/">{{current.tags}}</a>
+            <div class="cube-archive" style="margin-top: 0;" v-for="yearBlogs in blogData">
+                <h1 class="title">{{yearBlogs.year}}</h1>
+                <ul class="posts" >
 
-                </div>
+                    <li class="post" v-for="yearBlog in yearBlogs.yearContexts">
+                        <a :href="getPostUrl(yearBlog)">{{yearBlog.title}}</a>
+                    </li>
+                </ul>
+
             </div>
 
-            <div v-html="current['article']" class="cube-article-content cube-markdown" lg-uid="lg0">
-            </div>
-        </div>
-
-
-        <div class="cube-article-nav">
-            <ul>
-
-                <li class="prev" v-if="previous != null">
-                    <a :href="getPostUrl(previous)">
-                        <i class="cube-icon cube-prev" aria-hidden="true"></i>
-                        {{previous.title}}
-                    </a>
-                </li>
-
-                <li class="next" v-if="next != null">
-                    <a :href="getPostUrl(next)">
-                        {{next.title}}
-                        <i class="cube-icon cube-next" aria-hidden="true"></i>
-                    </a>
-                </li>
-            </ul>
         </div>
     </div>
     <div class ="cube-right">
@@ -602,7 +578,7 @@
                 });
 
             },
-            getpostUrl:function (Object) {
+            getPostUrl:function (Object) {
                 return "/post/"+Object.uid;
             }
         },

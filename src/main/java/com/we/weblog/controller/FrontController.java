@@ -217,4 +217,24 @@ public class FrontController {
         }
     }
 
+
+    @GetMapping("/get_all_datas")
+    @ResponseBody
+    public Map<String,Object> getFrontData(){
+
+        Map<String,Object> maps = new HashMap<>();
+
+        List<Context> blogs = contextService.getLastestBlogs();
+
+        int blogCount = contextService.getTotalBlog();
+        int totalTags = 10;
+
+        maps.put("tagsCount",totalTags);
+        maps.put("blogCount",blogCount);
+        maps.put("blogs",blogs);
+
+        return maps;
+
+    }
+
 }

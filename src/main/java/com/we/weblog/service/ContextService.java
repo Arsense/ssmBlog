@@ -59,6 +59,17 @@ public class ContextService {
     }
 
 
+    public  List<Context> getLastestBlogs(){
+        List<Context> lists =contextMapper.getTenBlogs(5);
+
+//        for(Context list: lists){
+//            list.setCreated(TimeTool.getFormatDate(list.getCreated()));
+//        }
+
+
+        return  lists;
+    }
+
     /**
      * 更新博客标签 实际是删除重插入
      * @param tags

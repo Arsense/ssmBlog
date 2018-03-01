@@ -52,6 +52,8 @@
     </style>
 
 </head>
+
+
 <body>
 
 <div class="cube-body">
@@ -160,15 +162,15 @@
 
 </div>
 
-<div class ="cube-content" style="visibility: visible;">
+<div class ="cube-content" id="main" style="visibility: visible;">
 <div class ="cube-left">
-    <div class="cube-excerpt" id="cube-excerpt-制作一个不轻量的hexo主题:cube">
+    <div class="cube-excerpt" v-for="blog in blogs">
         <header class="cube-excerpt-header">
-            <h1><a href="/2017/08/15/制作一个不轻量的hexo主题-cube/">制作一个不轻量的hexo主题:cube</a></h1>
+            <h1><a :href="getpostUrl(blog)">{{blog['title']}}</a></h1>
             <div class="cube-excerpt-header-msg">
                 <div class="cube-excerpt-date">
                     <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-                    2017-08-15
+                    {{blog.created}}
                 </div>
                 <div class="cube-excerpt-tags">
                     <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
@@ -179,14 +181,14 @@
             </div>
         </header>
         <article class="cube-excerpt-entry cube-markdown" lg-uid="lg0">
-
+           {{blog.article}}
         </article>
         <footer class="cube-excerpt-footer">
-            <a class="cube-excerpt-more" href="/2017/08/15/制作一个不轻量的hexo主题-cube/">阅读全文</a>
+            <a class="cube-excerpt-more" :href="getpostUrl(blog)">阅读全文</a>
         </footer>
     </div>
 </div>
-<div class ="cube-right">
+<div class ="cube-right"  >
         <!--作者信息-->
     <div class="cube-author cube-sidebar" id="cube-author">
 
@@ -206,13 +208,16 @@
             }
             @media(min-width: 1120px) {
                 .cube-author img {
-                    width: 160px;
+                    width: 100px;
                     height: 160px;
                 }
             }
+
+
         </style>
 
-        <img src="./images/font.jpg" alt="avatar" class="cube-avatar">
+
+        <!--<img src="./images/font.jpg" alt="avatar"  class="cube-avatar">-->
 
 
         <span>AONOSORA</span>
@@ -220,9 +225,9 @@
 
         <a title="今生今世轮回尽, 来世愿为幻想乡">今生今世轮回尽, 来世愿为幻想乡</a>
 
-        <div class="count">
-            <a class="count articles"><span>14</span>文章</a>
-            <a class="count tags"><span>10</span>标签</a>
+        <div class="count" >
+            <a class="count articles"><span>{{blogsCount}}</span>文章</a>
+            <a class="count tags"><span>{{tagsCount}}</span>标签</a>
             <a class="count categories"><span>0</span>分类</a>
         </div>
     </div>
@@ -327,84 +332,41 @@
         <div class="title">
             <a>近期文章</a>
         </div>
-        <ul class="list">
-
-
-            <li>
-                <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
-
-
-                <div class="preview">
-                    <p class="index first">
-                        <span>1</span>
-                    </p>
-                    <div class="image" style="background-image: url(http://cube-1252774894.cosgz.myqcloud.com/previews/制作一个不轻量的hexo主题.png);"></div>
-                    <div class="info">
-                        <p class="title">
-                            <a href="/2017/08/15/制作一个不轻量的hexo主题-cube/" title="制作一个不轻量的hexo主题:cube">制作一个不轻量的hexo主题:cube</a>
-                        </p>
-                        <p class="date">
-                            2017-08-15
-                        </p>
-                    </div>
-                </div>
-
-            </li>
-
-
-
-            <li>
+        <ul class="list"  >
+            <li v-for="(blog,index) in blogs">
                 <div class="normal">
                     <p class="index">
-                        <span>2</span>
+                        <span >{{index}}</span>
                     </p>
                     <p class="title">
-                        <a href="/2017/03/04/博客搬迁/" title="博客搬迁">博客搬迁</a>
+                        <a :href="getpostUrl(blog)" >{{blog.title}}</a>
                     </p>
                 </div>
             </li>
-
-
-
-            <li>
-                <div class="normal">
-                    <p class="index">
-                        <span>3</span>
-                    </p>
-                    <p class="title">
-                        <a href="/2017/01/11/xampp-phpstorm的简单配置/" title="xampp + phpstorm的简单配置">xampp + phpstorm的简单配置</a>
-                    </p>
-                </div>
-            </li>
-
-
-
-            <li>
-                <div class="normal">
-                    <p class="index">
-                        <span>4</span>
-                    </p>
-                    <p class="title">
-                        <a href="/2016/11/07/某crackme破解/" title="某crackme破解">某crackme破解</a>
-                    </p>
-                </div>
-            </li>
-
-
-
-            <li>
-                <div class="normal">
-                    <p class="index">
-                        <span>5</span>
-                    </p>
-                    <p class="title">
-                        <a href="/2016/10/31/脱壳练习1/" title="记一次小软件脱壳">记一次小软件脱壳</a>
-                    </p>
-                </div>
-            </li>
-
-
         </ul>
+            <!--<li>-->
+                <!--&lt;!&ndash; TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) &ndash;&gt;-->
+                <!---->
+                <!--<div class="preview">-->
+                    <!--<p class="index first">-->
+                        <!--<span>1</span>-->
+                    <!--</p>-->
+                    <!--<div class="image" style="background-image: url(http://cube-1252774894.cosgz.myqcloud.com/previews/制作一个不轻量的hexo主题.png);"></div>-->
+                    <!--<div class="info">-->
+                        <!--<p class="title">-->
+                            <!--<a href="/2017/08/15/制作一个不轻量的hexo主题-cube/" title="制作一个不轻量的hexo主题:cube">制作一个不轻量的hexo主题:cube</a>-->
+                        <!--</p>-->
+                        <!--<p class="date">-->
+                            <!--2017-08-15-->
+                        <!--</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+            <!--</li>-->
+
+
+
+
     </div>
     <!--标签-->
     <div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
@@ -549,6 +511,8 @@
 </footer>
 <!-- inject:script -->
 <script src="./js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 
 
 
@@ -559,7 +523,10 @@
         el: "#main",
         data: function(){
             return {
-                tagData:[]
+                blogs:[],
+                tagsCount:0,
+                blogsCount:1,
+
             }
         },
         methods:{
@@ -567,17 +534,20 @@
                 var self = this;
                 $.ajax({
                     type: "get",
-                    url: "/tags_detail_data",
+                    url: "/get_all_datas",
                     dataType: "json",
                     success: function(response) {
-                        self.tagData = response
+                        self.blogs = response.blogs;
+                        self.tagsCount =response.tagsCount;
+                        self.blogsCount = response.blogCount;
                     },
                 });
 
             },
             getpostUrl:function (Object) {
                 return "/post/"+Object.uid;
-            }
+            },
+
         },
 
     });

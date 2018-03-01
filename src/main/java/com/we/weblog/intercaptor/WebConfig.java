@@ -1,18 +1,18 @@
 package com.we.weblog.intercaptor;
 
 import com.baomidou.kisso.SSOConfig;
-import com.baomidou.kisso.SSOHelper;
 import com.baomidou.kisso.web.handler.SSOHandlerInterceptor;
 import com.baomidou.kisso.web.interceptor.SSOSpringInterceptor;
 import com.vue.adminlte4j.model.UIModel;
+import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowire;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 import static com.vue.adminlte4j.model.UIModel.IS_LOGIN;
 
@@ -23,35 +23,17 @@ import static com.vue.adminlte4j.model.UIModel.IS_LOGIN;
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter{
 
-
     private String LOGIN_URL = "/login1.html" ;
 
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry){
-
-        // kisso 拦截器配置
-
-
-
-        registry.addInterceptor(setSSOInterceptor()).excludePathPatterns("/login1.html") ;
-     //   super.addInterceptors(registry);
-
-    }
-
-    /**
-     *  配置拦截器未登陆的挑战
-     * @return
-     */
-    public  SSOSpringInterceptor setSSOInterceptor(){
-         SSOSpringInterceptor interceptor = new SSOSpringInterceptor();
+    @Bean(autowire = Autowire.BY_NAME )
+    public SSOSpringInterceptor ssoInterceptor() {
 
         SSOConfig.getInstance().setLoginUrl(LOGIN_URL);
-
         SSOConfig.getInstance().setLogoutUrl("/logout.html");
-        interceptor.setHandlerInterceptor(new SSOHandlerInterceptor() {
-            @Override
-            public boolean preTokenIsNullAjax(HttpServletRequest request, HttpServletResponse response) {
+
+        SSOSpringInterceptor springSSOInterceptor =  new SSOSpringInterceptor();
+        springSSOInterceptor.setHandlerInterceptor(new SSOHandlerInterceptor() {
+            @Override public boolean preTokenIsNullAjax(HttpServletRequest request, HttpServletResponse response) {
                 try {
                     String rJson = String.format("{\"%s\" : %s , \"%s\" : \"%s\" }" ,  IS_LOGIN , false  , UIModel.LOGIN_URL , LOGIN_URL) ;
                     response.setContentType("application/json");
@@ -61,16 +43,22 @@ public class WebConfig extends WebMvcConfigurerAdapter{
                     // to do nothing
                 }
                 return false;
-
             }
 
-            @Override
-            public boolean preTokenIsNull(HttpServletRequest request, HttpServletResponse response) {
+            @Override public boolean preTokenIsNull(HttpServletRequest request, HttpServletResponse response) {
                 return true;
             }
         });
 
-        return interceptor;
+        return springSSOInterceptor;
+    }
+
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry){
+
+        registry.addInterceptor(ssoInterceptor()).excludePathPatterns("/login") ;
+
     }
 
 

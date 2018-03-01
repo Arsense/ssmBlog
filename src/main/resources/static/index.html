@@ -336,20 +336,20 @@
             <a>近期文章</a>
         </div>
         <ul class="list"  >
-            <li v-for="(blog,index) in blogs">
+            <li  v-for="(blog,index) in blogs">
+
                 <div class="normal">
                     <p class="index">
-                        <span >{{index}}</span>
+                        <span >{{index+1}}</span>
                     </p>
                     <p class="title">
                         <a :href="getpostUrl(blog)" >{{blog.title}}</a>
                     </p>
                 </div>
             </li>
-        </ul>
             <!--<li>-->
                 <!--&lt;!&ndash; TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) &ndash;&gt;-->
-                <!---->
+
                 <!--<div class="preview">-->
                     <!--<p class="index first">-->
                         <!--<span>1</span>-->
@@ -366,6 +366,8 @@
                 <!--</div>-->
 
             <!--</li>-->
+        </ul>
+
 
 
 

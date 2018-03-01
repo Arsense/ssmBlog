@@ -152,16 +152,41 @@ public class ContextService {
 
 
     public Context getPreviousBlog(int uid) {
-        return contextMapper.getPreviousBlog(uid);
+
+
+        Context context =contextMapper.getPreviousBlog(uid);
+        if(context == null){
+            return null;
+        }
+        context.setMonth(TimeTool.getFormatClearToDay(context.getCreated()));
+
+        return context;
     }
 
 
-    public Context getNextBlog(int uid) { return contextMapper.getNextBlog(uid);
+    public Context getNextBlog(int uid) {
+
+
+        Context context =contextMapper.getNextBlog(uid);
+        if(context == null){
+            return null;
+        }
+        context.setMonth(TimeTool.getFormatClearToDay(context.getCreated()));
+
+        return context;
+
     }
 
 
     public Context getBlogById(int id) {
-        return contextMapper.getBlogById(id);
+
+        Context context =contextMapper.getBlogById(id);
+        if(context == null){
+            return null;
+        }
+        context.setMonth(TimeTool.getFormatClearToDay(context.getCreated()));
+
+        return context;
     }
 
 

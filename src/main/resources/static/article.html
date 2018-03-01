@@ -172,16 +172,17 @@
             }
         </style>
         <div class="cube-article">
-            <h1 class="title"></h1>
 
+            <h1 class="title">{{current['title']}}</h1>
             <div class="cube-article-header">
+
                 <div class="cube-article-date">
                     <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-                   {{current['created']}}
+                   {{current['month']}}
                 </div>
                 <div class="cube-article-tags">
                     <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
-                    <a href="/tags/杂谈/">{{blog['tags']}}</a>
+                    <a href="/tags/杂谈/">{{current['tags']}}</a>
 
                 </div>
             </div>

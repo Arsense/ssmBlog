@@ -88,13 +88,13 @@ public interface ContextMapper {
     @Select({"select uid,title,created from t_context where type = 'post' order by created desc limit #{p},20"})
     List<Context> getNewBlogs(@Param("p") int page);
 
-    @Select({"select uid,title,article,md from t_context where uid = #{id} and type = 'post' "})
+    @Select({"select uid,title,article,md,created,tags from t_context where uid = #{id} and type = 'post' "})
     Context getBlogById(@Param("id") int id);
 
-    @Select({"select uid,title from t_context where uid < #{id} where type = 'post'   order by uid desc limit 1"})
+    @Select({"select uid,title,tags,created from t_context where uid < #{id} and type = 'post'   order by uid desc limit 1"})
     Context getPreviousBlog(@Param("id") int id);
 
-    @Select({"select uid,title,article from t_context where uid > #{id} and type = 'post' order by uid asc limit 1"})
+    @Select({"select uid,title,article,tags,created from t_context where uid > #{id} and type = 'post' order by uid asc limit 1"})
     Context getNextBlog(@Param("id") int id);
 
 

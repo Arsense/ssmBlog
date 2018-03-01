@@ -64,10 +64,8 @@ public class ContextService {
 
 
     public  List<Context> getLastestBlogs(){
-        List<Context> lists =contextMapper.getTenBlogs(5);
 
-
-        return  lists;
+        return sortContextDate(contextMapper.getTenBlogs(5));
     }
 
     /**

@@ -19,7 +19,7 @@ public interface ContextMapper {
 
 
 
-    @Select({"select * from t_context order by uid asc limit 1"})
+    @Select({"select * from t_context where type = 'post'  order by uid asc limit 1 "})
     Context getblogId();
 
     /**
@@ -34,7 +34,7 @@ public interface ContextMapper {
      * 得到博客的总数量
       * @return
      */
-    @Select({"select count(*) from t_context"})
+    @Select({"select count(*) from t_context where type = 'post'"})
     int getBlogNumber();
 
     /**
@@ -62,7 +62,7 @@ public interface ContextMapper {
      * @param count
      * @return
      */
-    @Select({"select uid,title,created,tags,article,slug from t_context limit #{count}"})
+    @Select({"select uid,title,created,tags,article,slug from t_context where type = 'post'  limit #{count}"})
     List<Context> getTenBlogs(@Param("count") int count);
 
 
@@ -81,20 +81,20 @@ public interface ContextMapper {
 
 
 
-    @Select({"select uid,title,created,tags from t_context order by created desc limit #{p},12"})
+    @Select({"select uid,title,created,tags from t_context where type = 'post'  order by created desc limit #{p},12"})
     List<Context> selectBlogsByYear(@Param("p") int page);
 
 
     @Select({"select uid,title,created from t_context where type = 'post' order by created desc limit #{p},20"})
     List<Context> getNewBlogs(@Param("p") int page);
 
-    @Select({"select uid,title,article,md from t_context where uid = #{id}"})
+    @Select({"select uid,title,article,md from t_context where uid = #{id} and type = 'post' "})
     Context getBlogById(@Param("id") int id);
 
-    @Select({"select uid,title from t_context where uid < #{id} order by uid desc limit 1"})
+    @Select({"select uid,title from t_context where uid < #{id} where type = 'post'   order by uid desc limit 1"})
     Context getPreviousBlog(@Param("id") int id);
 
-    @Select({"select uid,title,article from t_context where uid > #{id} order by uid asc limit 1"})
+    @Select({"select uid,title,article from t_context where uid > #{id} and type = 'post' order by uid asc limit 1"})
     Context getNextBlog(@Param("id") int id);
 
 

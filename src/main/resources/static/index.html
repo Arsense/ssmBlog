@@ -70,7 +70,7 @@
             </li>
             <li>
                 <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
-                <a href="./article.html">归档</a>
+                <a href="./archive.html">归档</a>
             </li>
 
             <li>
@@ -172,17 +172,20 @@
                     <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
                     {{blog.created}}
                 </div>
-                <div class="cube-excerpt-tags">
+                <div class="cube-excerpt-tags" v-if="blog.tags != null">
                     <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
 
-                    <a href="/tags/Hexo/" class="cube-excerpt-tag-link">#Hexo</a>
+                    <a   href="/tags/Hexo/" class="cube-excerpt-tag-link">{{blog.tags}}</a>
 
                 </div>
             </div>
         </header>
-        <article class="cube-excerpt-entry cube-markdown" lg-uid="lg0">
-           {{blog.article}}
-        </article>
+
+            <article  class="cube-excerpt-entry cube-markdown" lg-uid="lg0" v-html="blog['article']">
+            </article>
+
+
+
         <footer class="cube-excerpt-footer">
             <a class="cube-excerpt-more" :href="getpostUrl(blog)">阅读全文</a>
         </footer>
@@ -516,6 +519,10 @@
 
 
 
+<!-- endinject -->
+<div class="cube-loading out"></div>
+</body>
+
 <script>
 
     //要接收文章 接收文章数量  标签数量  分类数量 近期文章  标签
@@ -525,7 +532,7 @@
             return {
                 blogs:[],
                 tagsCount:0,
-                blogsCount:1,
+                blogsCount:1
 
             }
         },
@@ -553,7 +560,4 @@
     });
     vm.recommend()
 </script>
-<!-- endinject -->
-<div class="cube-loading out"></div>
-</body>
 </html>

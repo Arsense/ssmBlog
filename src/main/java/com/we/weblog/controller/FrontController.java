@@ -28,11 +28,13 @@ public class FrontController {
 
 
     private ContextService contextService;
-    private static int postId = 0;
+    private static int postId ;
     private static String tagName = null;
 
     public FrontController(ContextService blogService){
         this.contextService = blogService;
+        //初始化postID 为第一个 防止单独访问为0 什么都木有
+        postId = contextService.getLastestBlogId();
     }
 
 
@@ -47,6 +49,14 @@ public class FrontController {
 
     }
 
+
+
+    @GetMapping("/tags/{name}")
+    public void getTagDetail(@PathVariable String tagName){
+
+
+
+    }
     /**
      *  先处理好数据 要不然后让所有url 在
      * @param id
@@ -73,6 +83,8 @@ public class FrontController {
         map.put("current", currentContext);
         map.put("next", nextContext);
         map.put("previous", preContext);
+
+
         return map;
 
     }

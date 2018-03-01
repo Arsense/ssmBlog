@@ -10,10 +10,8 @@ import com.we.weblog.tool.StringTool;
 import com.we.weblog.tool.TimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.reflect.generics.tree.TypeSignature;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -32,6 +30,12 @@ public class ContextService {
         this.tagMapper = tagMapper;
         this.contextMapper = contextMapper;
 }
+
+
+    public int getLastestBlogId(){
+        return contextMapper.getblogId().getUid();
+    }
+
     /**
      *  将tags拆分放到数组里
      * @param tagString

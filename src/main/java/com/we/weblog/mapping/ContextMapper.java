@@ -5,6 +5,7 @@ import com.we.weblog.domain.Context;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.StatementType;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -14,6 +15,12 @@ import java.util.List;
 @Repository
 @Mapper
 public interface ContextMapper {
+
+
+
+
+    @Select({"select * from t_context order by uid asc limit 1"})
+    Context getblogId();
 
     /**
      *  查找单个博客
@@ -55,7 +62,7 @@ public interface ContextMapper {
      * @param count
      * @return
      */
-    @Select({"select uid,title,created,tags from t_context limit #{count}"})
+    @Select({"select uid,title,created,tags,article,slug from t_context limit #{count}"})
     List<Context> getTenBlogs(@Param("count") int count);
 
 
@@ -81,13 +88,13 @@ public interface ContextMapper {
     @Select({"select uid,title,created from t_context where type = 'post' order by created desc limit #{p},20"})
     List<Context> getNewBlogs(@Param("p") int page);
 
-    @Select({"select title,article,md from t_context where uid = #{id}"})
+    @Select({"select uid,title,article,md from t_context where uid = #{id}"})
     Context getBlogById(@Param("id") int id);
 
     @Select({"select uid,title from t_context where uid < #{id} order by uid desc limit 1"})
     Context getPreviousBlog(@Param("id") int id);
 
-    @Select({"select uid,title,article from t_context where uid > #{id} order by uid desc limit 1"})
+    @Select({"select uid,title,article from t_context where uid > #{id} order by uid asc limit 1"})
     Context getNextBlog(@Param("id") int id);
 
 

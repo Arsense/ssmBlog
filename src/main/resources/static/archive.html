@@ -177,11 +177,11 @@
             <div class="cube-article-header">
                 <div class="cube-article-date">
                     <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-                   {{current['created']}}
+                    {{current['created']}}
                 </div>
                 <div class="cube-article-tags">
                     <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
-                    <a href="/tags/杂谈/">{{blog['tags']}}</a>
+                    <a href="/tags/杂谈/">{{current.tags}}</a>
 
                 </div>
             </div>
@@ -577,42 +577,38 @@
 <!-- endinject -->
 <div class="cube-loading out"></div>
 </body>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/front-end.min.js"></script>
+<script>
+    var v=new Vue({
+        el: "#main",
+        data: function(){
+            return {
+                blogData:[]
+            }
+        },
+        methods:{
+            recommend:function(){
+                var self = this;
+                $.ajax({
+                    type: "get",
+                    url: "/years_blog_data",
+                    dataType: "json",
+                    success: function(response) {
+                        self.blogData = response
 
-    <script>
-        //要接收文章 接收文章数量  标签数量  分类数量 近期文章  标签
-        var vm=new Vue({
-            el: "#main",
-            data: function(){
-                return {
-                    current:"",
-                    previous:"",
-                    next:""
-                }
-            },
-            methods:{
-                recommend:function(){
-                    var self = this;
-                    $.ajax({
-                        type: "get",
-                        url: "/post",
-                        dataType: "json",
-                        success: function(response) {
-                            self.current = response.current;
-                            self.previous = response.previous;
-                            self.next = response.next;
 
-                        },
-                    });
-
-                },
-                getPostUrl:function (Object) {
-                    return "/post/"+Object.uid;
-                },
+                    },
+                });
 
             },
+            getpostUrl:function (Object) {
+                return "/post/"+Object.uid;
+            }
+        },
 
-        });
-        vm.recommend()
+    });
+    v.recommend()
 
-    </script>>
+</script>
 </html>

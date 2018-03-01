@@ -48,7 +48,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
             @Override public boolean preTokenIsNull(HttpServletRequest request, HttpServletResponse response) {
                 return true;
             }
-        });
+          });
 
         return springSSOInterceptor;
     }
@@ -57,7 +57,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     @Override
     public void addInterceptors(InterceptorRegistry registry){
 
-        registry.addInterceptor(ssoInterceptor()).excludePathPatterns("/login") ;
+        registry.addInterceptor(ssoInterceptor()).addPathPatterns("/admin/**");
 
     }
 

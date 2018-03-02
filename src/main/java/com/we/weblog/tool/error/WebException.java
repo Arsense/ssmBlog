@@ -14,6 +14,7 @@ public class WebException  implements  ErrorController {
     @Override
     public String getErrorPath() {
         //直接返回错误界面吧 先不多做处理
+
         return "redirect:/404.html";
     }
 

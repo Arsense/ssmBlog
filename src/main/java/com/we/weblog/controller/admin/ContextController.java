@@ -1,5 +1,6 @@
 package com.we.weblog.controller.admin;
 
+import com.vue.adminlte4j.model.UIModel;
 import com.we.weblog.controller.BaseController;
 import com.we.weblog.domain.Context;
 import com.we.weblog.domain.Log;
@@ -37,24 +38,48 @@ public class ContextController extends BaseController{
 
     @GetMapping("/delete")
     public  void deleteBlog(@RequestParam int deleteId,HttpServletRequest request) {
+
         int id = deleteId;
         contextService.deleteBlogById(id);
         logService.addLog(new Log(LogActions.DELETE_BLOG,id+" ", IpTool.getIpAddress(request),1));
 
     }
 
-    @GetMapping("/toupdate")
-    public  void updateBlog(@RequestParam int updateId) {
+    @GetMapping("/updateid")
+    public  void updateBlog(@RequestParam int updateId,HttpServletRequest request) {
+
         setUpdateId = updateId;
         //查找博客 md显示 标签还要处理吗？
     }
 
+    /**
+     * 返回需要修改的博客
+      * @return
+     */
      @GetMapping("/update_send_data")
      @ResponseBody
-     public Context updateData(){
+     public Context getTagretUpdateContext(){
          return contextService.getBlogById(setUpdateId);
-
      }
+
+
+    /**
+     * 修改博客
+     * @param context
+     * @return
+     * @throws SQLException
+     * @throws IOException
+     */
+     @PostMapping("/update")
+     @ResponseBody
+     public UIModel updateDate(@RequestBody Context context) throws SQLException {
+
+        contextService.updateBlog(context,setUpdateId);
+
+         return UIModel.success().setMsg("修改成功！");
+     }
+
+
     /**
      * 添加博客的表单控制器
      * @param context 表单中提交的博客信息,包括标题，标签，md页面，和md转成的html页面
@@ -62,9 +87,11 @@ public class ContextController extends BaseController{
      */
     @PostMapping("/send")
     public void postAction(@ModelAttribute("blogFrom")Context context, HttpServletResponse response) throws IOException, SQLException {
+
            context.setType(Types.ARTICLE);
            contextService.addBlog(context);
            response.sendRedirect("/admin/show.html");
+
     }
 
 

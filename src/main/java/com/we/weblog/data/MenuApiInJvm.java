@@ -19,7 +19,7 @@ public class MenuApiInJvm {
         Menu menu2 = createMenu("/admin/add_blog.html" , "新随笔" , "fa fa-edit" , 2) ;
         Menu menu3 = createMenu("/admin/show.html" , "博客管理" , "fa fa-edit" , 2) ;
         Menu menu4 = createMenu("/admin/comments.html" , "评论管理" , "fa  fa-weixin" , 2) ;
-        Menu menu5 = createMenu("/admin/sort_tags.html" , "页面管理" , "fa  fa-pagelines" , 2) ;
+        Menu menu5 = createMenu("/admin/pages.html" , "页面管理" , "fa  fa-pagelines" , 2) ;
         Menu menu6 = createMenu("/admin/category.html" , "分类标签" , "fa fa-tags" , 2) ;
         Menu menu7 = createMenu("/admin/scheme.html" , "主题设置" , "fa fa fa-laptop" , 2) ;
         Menu menu8 = createMenu("/admin/system.html" , "系统设置" , "fa fa-cog" , 2) ;

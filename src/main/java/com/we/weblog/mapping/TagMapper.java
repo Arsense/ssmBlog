@@ -26,7 +26,7 @@ public interface TagMapper {
     int insertBlogTag(@Param("tag") String tag,@Param("id") int id);
 
 
-    @Delete({"delete t_tag where id = #{id}"})
+    @Delete({"delete from t_tag where uid = #{id}"})
     void  deleteTagsById(@Param("id") int id);
 
 

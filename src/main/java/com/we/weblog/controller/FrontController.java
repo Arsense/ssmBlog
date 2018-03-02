@@ -180,7 +180,7 @@ public class FrontController {
      *  获取标签信息
      * @return
      */
-    @GetMapping("/get_tags_data")
+    @GetMapping("/get_pages_data")
     @ResponseBody
     UIModel getTagssdata() {
         UIModel uiModel = new UIModel() ;

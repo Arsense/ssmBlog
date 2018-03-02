@@ -28,7 +28,7 @@
         data : function () {
             return {
                 query : {} ,
-                ajax_url : '/get_tags_data' ,
+                ajax_url : '/get_pages_data' ,
                 send_req : 0 ,
                 operations : [
                     {
@@ -38,7 +38,7 @@
                         method : function(row , $table) {
 
                             var id = row.uid;
-                            axios.get('/admin/toupdate',{
+                            axios.get('/admin/updateid',{
                                 params:{
                                     updateId:id
                                 }

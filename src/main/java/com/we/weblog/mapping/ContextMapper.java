@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.StatementType;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -43,8 +44,8 @@ public interface ContextMapper {
      * @return
      */
     @Insert({"insert into t_context " +
-            "(article,title,created,tags,md,type) " +
-            "values (#{b.article},#{b.title},#{b.created},#{b.tags},#{b.md},#{b.type})"})
+            "(article,title,created,tags,md,type,slug,publish,categories) " +
+            "values (#{b.article},#{b.title},#{b.created},#{b.tags},#{b.md},#{b.type},#{b.slug},#{b.publish},#{b.categories})"})
     @SelectKey(before=false,keyProperty="b.uid",resultType=Integer.class,
             statementType= StatementType.STATEMENT,statement="SELECT LAST_INSERT_ID() AS id")
     int insertBlog(@Param("b") Context context);
@@ -67,12 +68,14 @@ public interface ContextMapper {
 
 
 
-    @Update("{ update t_context " +
+    @Update({" update t_context " +
             " set title = #{b.title}," +
-            "set created = #{b.created}" +
-            "set md = #{b.md}" +
-            "set article=#{b.article}}")
-    void updateBlog(@Param("b") Context context);
+            " md = #{b.md}," +
+            " slug = #{b.slug}," +
+            " categories = #{b.categories},"+
+            " tags = #{b.tags},"+
+            " article=#{b.article} where uid= #{id}"})
+    void updateBlog(@Param("b") Context context, @Param("id") int uid);
 
 
     @Select({"select dinstinct name from t_context"})

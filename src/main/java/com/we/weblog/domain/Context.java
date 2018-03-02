@@ -28,10 +28,12 @@ public class Context {
     private String type;
     //缩略名
     private String slug;
-
+    //用了确认是草稿 还是发布的文章
     private String publish;
     // 分类列表
     private String  categories;
+
+
 
 
     public String getPublish() {

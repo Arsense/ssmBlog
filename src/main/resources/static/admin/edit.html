@@ -42,12 +42,11 @@
                     </div>
                 </div><!-- /.row -->
             </div><!-- /#page-wrapper -->
-                <input type="hidden" name="mdText" id = "mdText" />
+                <input type="hidden" name="mdText" id = "mdText"  />
                 <input type="hidden" name="article" id = "article"/>
 
                 <div class="text-right">
                     <input id = "blogSubmit" type="submit" class="btn btn-success" @click="updateData" value="确认修改"/>
-
                 </div>
         </form>
     </v-app>
@@ -61,21 +60,23 @@
         data : function () {
             return {
                 mdData:Object,
-                mdText:""
+                mdText:"",
+                editor:Object,              //存放md的值
 
             }
         } ,
         methods : {
                 updateData:function(){
-                    var a=document.forms[0];
-                    var b,c;
-                    a.action="/admin/update.action";
-                    a.method="post";
-                    b = testEditor.getMarkdown();
-                    c = testEditor.getHTML();
-                    document.blogFrom.mdText.value=testEditor.getMarkdown();
-                    document.blogFrom.article.value = testEditor.getHTML();
-                    a.submit()
+                    this._data.mdData.mdText = this.editor.getMarkdown();
+                    this._data.mdData.md = this.editor.getMarkdown();
+                    this._data.mdData.article = this.editor.getHTML();
+                    axios.post("/admin/update",this._data.mdData).then(function (response) {
+                        $.alert(response);
+                    }).catch(function (error){
+                        console.log(error);
+                    });
+
+
                }
         } ,
         mounted : function ($vm) {
@@ -114,6 +115,7 @@
                             console.log('onload', this);
                         }
                     });
+                    self.editor = testEditor;
                 });
 
 

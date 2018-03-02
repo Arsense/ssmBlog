@@ -113,17 +113,16 @@ public class ContextService {
     }
 
 
-    public void updateBlog(Context context) throws SQLException {
+    public void updateBlog(Context context,int uid) throws SQLException {
 
 
         try{
-            contextMapper.updateBlog(context);
+            contextMapper.updateBlog(context,uid);
         }catch (Exception e){
             e.printStackTrace();
             throw new SQLException("update fail");
         }
-        updateBlogTag(context.getTags(), context.getUid());
-        updateBlogTag(context.getTags(), context.getUid());
+        updateBlogTag(context.getTags(), uid);
     }
 
     public void deleteBlogById(int id) {

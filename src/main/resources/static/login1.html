@@ -6,8 +6,8 @@
     <title>后台登录| Log in</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./dist/css/AdminLTE.min.css">
+    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/lib/admin-lte/dist/css/AdminLTE.min.css" rel="stylesheet">
 
 </head>
 <body class="hold-transition login-page">
@@ -50,10 +50,10 @@
     <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js">
-</script>
-<script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
 
+</body>
+<script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/lib/jquery/dist/jquery.min.js "></script>
 <script src="//cdn.bootcss.com/blueimp-md5/2.3.1/js/md5.min.js"></script>
 <script src="https://cdn.bootcss.com/iCheck/1.0.2/icheck.min.js"></script>
 <script>
@@ -64,16 +64,15 @@
             increaseArea: '20%' // optional
         });
     });
-    
-     function login() {
-                    var b,a = document.forms[0];
-                    a.action = "/login";
-                    b = document.getElementById("passBefore").value;
-                    document.getElementById("password").value=md5(b);
-                    a.method="post";
-                    a.submit()
+
+    function login() {
+        var b,a = document.forms[0];
+        a.action = "/login";
+        b = document.getElementById("passBefore").value;
+        document.getElementById("password").value=md5(b);
+        a.method="post";
+        a.submit()
 
     }
 </script>
-</body>
 </html>

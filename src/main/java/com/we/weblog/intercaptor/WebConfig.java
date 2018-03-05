@@ -35,10 +35,11 @@ public class WebConfig extends WebMvcConfigurerAdapter{
         springSSOInterceptor.setHandlerInterceptor(new SSOHandlerInterceptor() {
             @Override public boolean preTokenIsNullAjax(HttpServletRequest request, HttpServletResponse response) {
                 try {
-                    String rJson = String.format("{\"%s\" : %s , \"%s\" : \"%s\" }" ,  IS_LOGIN , false  , UIModel.LOGIN_URL , LOGIN_URL) ;
-                    response.setContentType("application/json");
-                    response.getOutputStream().write(rJson.getBytes());
+                    UIModel uiModel = UIModel.success().isLogin(true).setLoginUrl("/login1.html");
 
+                    response.setContentType("application/json");
+
+                    response.getOutputStream().write(uiModel.toJsonString().getBytes());
                 } catch (IOException e) {
                     // to do nothing
                 }

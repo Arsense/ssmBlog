@@ -23,6 +23,10 @@ public interface ContextMapper {
     @Select({"select * from t_context where type = 'post'  order by uid asc limit 1 "})
     Context getblogId();
 
+
+    @Select({"select uid,title,created,article from t_context where title='关于我'"})
+    Context selectAboutMe();
+
     /**
      *  查找单个博客
      * @param id
@@ -86,6 +90,12 @@ public interface ContextMapper {
 
     @Select({"select uid,title,created,tags from t_context where type = 'post'  order by created desc limit #{p},12"})
     List<Context> selectBlogsByYear(@Param("p") int page);
+
+
+    @Select({"select uid,title,created,tags,categories from t_context where type = 'post'  order by tags desc "})
+    List<Context> selectBlogsByCategories();
+
+
 
 
     @Select({"select uid,title,created from t_context where type = 'post' order by created desc limit #{p},20"})

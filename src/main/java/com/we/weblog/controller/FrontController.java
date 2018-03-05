@@ -6,6 +6,7 @@ import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.support.ModelConfigManager;
 import com.we.weblog.data.MenuApiInJvm;
+import com.we.weblog.domain.CategoriesBlog;
 import com.we.weblog.domain.Context;
 import com.we.weblog.domain.YearBlog;
 import com.we.weblog.service.ContextService;
@@ -38,6 +39,32 @@ public class FrontController {
     }
 
 
+
+    @GetMapping("/get_about_me")
+    @ResponseBody
+    public Context getAboutMeData() throws Exception {
+
+        Context context = contextService.getAboutme();
+        return context;
+
+
+    }
+
+
+
+    /**
+     * 标签显示 删除吧 只留分类吧
+     */
+    @GetMapping("/get_kind_blogs")
+    @ResponseBody
+    public List<CategoriesBlog> getBlogsByTag(){
+
+
+        List<CategoriesBlog> lists = contextService.sortBlogsByCategories();
+
+        return lists;
+
+    }
 
 
     @GetMapping("/years_blog_data")

@@ -160,12 +160,23 @@
 
 </div>
 
-<div class ="cube-content" style="visibility: visible;">
+<div class ="cube-content" id = "main" style="visibility: visible;">
     <div class="cube-left">
         <div class="cube-boxs">
 
         </div>
         <div class="cube-archives">
+
+            <div class="cube-archive" style="margin-top: 0;" v-for="cateBlogs in cateData">
+                <h1 class="title">{{cateBlogs.category}}</h1>
+                <ul class="posts" >
+
+                    <li class="post" v-for="cateBlog in cateBlogs.blogs">
+                        <a :href="getPostUrl(cateBlog)">{{cateBlog.title}}</a>
+                    </li>
+                </ul>
+
+            </div>
 
         </div>
     </div>
@@ -195,7 +206,7 @@
                 }
             </style>
 
-            <img src="http://cube-1252774894.cosgz.myqcloud.com/avatar.png" alt="avatar" class="cube-avatar">
+
 
 
             <span>AONOSORA</span>
@@ -535,4 +546,40 @@
 <!-- endinject -->
 <div class="cube-loading out"></div>
 </body>
+<script src="/lib/jquery/dist/jquery.min.js "></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+
+    //要接收文章 接收文章数量  标签数量  分类数量 近期文章  标签
+    var vm=new Vue({
+        el: "#main",
+        data: function(){
+            return {
+                cateData:[],
+
+            }
+        },
+        methods:{
+            recommend:function(){
+                var self = this;
+                $.ajax({
+                    type: "get",
+                    url: "/get_kind_blogs",
+                    dataType: "json",
+                    success: function(response) {
+                        self.cateData = response;
+
+                    },
+                });
+
+            },
+            getPostUrl:function (Object) {
+                return "/post/"+Object.uid;
+            },
+
+        },
+
+    });
+    vm.recommend()
+</script>
 </html>

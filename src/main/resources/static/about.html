@@ -160,28 +160,32 @@
 
 </div>
 
-<div class ="cube-content" style="visibility: visible;">
+<div class ="cube-content" id = "main" style="visibility: visible;">
     <div class="cube-left">
         <div class="cube-article">
-            <h1 class="title">关于我</h1>
 
+            <h1 class="title">{{blog['title']}}</h1>
             <div class="cube-article-header">
-                <div class="cube-article-date page">
+
+                <div class="cube-article-date">
                     <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-                    <!-- moment.js对象 -->
-                    2017-07-30
+                    {{blog['month']}}
+                </div>
+                <div class="cube-article-tags">
+                    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                    <a href="/tags/杂谈/">{{blog['tags']}}</a>
+
                 </div>
             </div>
 
-            <div class="cube-article-content cube-markdown" lg-uid="lg0">
-
-
+            <div v-html="blog['article']" class="cube-article-content cube-markdown" lg-uid="lg0">
             </div>
         </div>
 
 
 
     </div>
+
     <div class ="cube-right">
         <!--作者信息-->
         <div class="cube-author cube-sidebar" id="cube-author">
@@ -208,7 +212,6 @@
                 }
             </style>
 
-            <img src="http://cube-1252774894.cosgz.myqcloud.com/avatar.png" alt="avatar" class="cube-avatar">
 
 
             <span>AONOSORA</span>
@@ -548,4 +551,43 @@
 <!-- endinject -->
 <div class="cube-loading out"></div>
 </body>
+<script src="/lib/jquery/dist/jquery.min.js "></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+
+//要接收文章 接收文章数量  标签数量  分类数量 近期文章  标签
+            var vm=new Vue({
+                 el: "#main",
+                 data: function(){
+            return {
+                blog: Object,
+
+
+            }
+            },
+            methods:{
+                    recommend:function(){
+                    var self = this;
+                    $.ajax({
+                    type: "get",
+                    url: "/get_about_me",
+                    dataType: "json",
+                    success: function(response) {
+                    self.blog = response;
+
+            },
+            });
+
+            },
+            getpostUrl:function (Object) {
+                return "/post/"+Object.uid;
+            },
+
+            },
+
+            });
+            vm.recommend()
+
+
+</script>
 </html>

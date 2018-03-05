@@ -2,6 +2,7 @@ package com.we.weblog.service;
 
 
 import com.we.weblog.domain.Context;
+import com.we.weblog.domain.CategoriesBlog;
 import com.we.weblog.domain.YearBlog;
 import com.we.weblog.domain.modal.Types;
 import com.we.weblog.mapping.ContextMapper;
@@ -32,6 +33,42 @@ public class ContextService {
 }
 
 
+
+    public List<CategoriesBlog> sortBlogsByCategories(){
+        List<Context> contexts = contextMapper.selectBlogsByCategories();
+
+
+        return getBlogsFromTags(contexts);
+
+
+    }
+
+    /**
+     * 根据分类分配到相应的类中
+     * @return
+     */
+    public List<CategoriesBlog>    getBlogsFromTags(List<Context> contexts){
+        List<CategoriesBlog> categoryBlogs = new ArrayList<>();
+        Map<String,CategoriesBlog>  maps = new HashMap<>();
+
+        for(Context context:contexts){
+            if(maps.containsKey(context.getCategories())){
+                //如果已有该标签
+                maps.get(context.getCategories()).getBlogs().add(context);
+            }else{
+
+                CategoriesBlog cBlog = new CategoriesBlog(context.getCategories(),new ArrayList<Context>());
+                maps.put(context.getCategories(),cBlog);
+                cBlog.getBlogs().add(context);
+                categoryBlogs.add(cBlog);
+            }
+
+        }
+        return  categoryBlogs;
+
+
+    }
+
     public int getLastestBlogId(){
         return contextMapper.getblogId().getUid();
     }
@@ -48,6 +85,18 @@ public class ContextService {
             tagList.add(st.nextToken());
         }
         return tagList;
+    }
+
+
+    public Context getAboutme() throws Exception {
+
+       Context context = contextMapper.selectAboutMe();
+       if(context == null){
+           throw new Exception("关于我没创建");
+       }
+       context.setMonth(TimeTool.getFormatClearToDay(context.getCreated()));
+
+        return context;
     }
 
     /**
@@ -195,10 +244,13 @@ public class ContextService {
      * @return
      */
     public List<YearBlog> getYearBlog(int page) throws IOException {
+
         int start = (page-1)*12;
         List<Context> list = contextMapper.selectBlogsByYear(start);
         return sortBlogsByYears(list);
+
     }
+
 
 
     public List<YearBlog> sortBlogsByYears(List<Context> bloglist) throws IOException{

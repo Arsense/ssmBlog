@@ -35,15 +35,7 @@
                         scheme: 'green',
                         icon:'edit',
                         method : function(row , $table) {
-
-                            var id = row.uid;
-                            axios.get('/admin/updateid',{
-                                params:{
-                                    updateId:id
-                                }
-                            });
-                            window.location.href = "http://localhost:8002/admin/edit.html";
-                            $table.fetchData()
+                            window.location.href = "http://localhost:8002/admin/edit.html"+"?id="+row.uid;
                         }
                     } ,
                     {
@@ -51,13 +43,12 @@
                         scheme: 'blue',
                         icon:'trash',
                         method : function(row ,$table) {
-                            var id = row.uid;
-                            axios.get('/admin/delete',{
-                                params:{
-                                    deleteId:id
-                                }
+                            axios.delete('/admin/delete'+row.uid).then(function (response) {
+                                $.alert(response.data)
+                                $table.fetchData()
+
                             });
-                            $table.fetchData()
+
                         }
                     }
                 ]

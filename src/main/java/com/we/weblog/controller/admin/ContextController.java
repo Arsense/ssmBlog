@@ -28,7 +28,7 @@ public class ContextController extends BaseController{
 
     private ContextService contextService;
     private LogService logService;
-    private int setUpdateId = 0;
+    private  int updateId = 0;
 
     @Autowired
     public ContextController(ContextService contextService,LogService  logService){
@@ -46,12 +46,7 @@ public class ContextController extends BaseController{
 
     }
 
-    @GetMapping("/updateid")
-    public  void updateBlog(@RequestParam int updateId,HttpServletRequest request) {
 
-        setUpdateId = updateId;
-        //查找博客 md显示 标签还要处理吗？
-    }
 
     /**
      * 返回需要修改的博客
@@ -59,8 +54,9 @@ public class ContextController extends BaseController{
      */
      @GetMapping("/update_send_data")
      @ResponseBody
-     public Context getTagretUpdateContext(){
-         return contextService.getBlogById(setUpdateId);
+     public Context getTagretUpdateContext(@RequestParam int id){
+         updateId = id;
+         return contextService.getBlogById(updateId);
      }
 
 
@@ -75,7 +71,7 @@ public class ContextController extends BaseController{
      @ResponseBody
      public UIModel updateDate(@RequestBody Context context) throws SQLException {
 
-        contextService.updateBlog(context,setUpdateId);
+        contextService.updateBlog(context,updateId);
 
          return UIModel.success().setMsg("修改成功！");
      }

@@ -54,6 +54,7 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/editormd.js"></script>
 <script src="/lib/lib.js"></script>
+
 <script>
 
     app.main({
@@ -81,7 +82,13 @@
         } ,
         mounted : function ($vm) {
             var self = $vm;
-            axios.get("/admin/update_send_data").then(function (response) {
+            var id = $.getQueryStr("id");
+
+            axios.get("/admin/update_send_data",{
+                params:{
+                    updateId:id
+                }
+            }).then(function (response) {
                 self.mdData = response.data;
                 self.mdText = response.data.mdText;
             }) .catch(function (error) {

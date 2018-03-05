@@ -84,11 +84,7 @@
             var self = $vm;
             var id = $.getQueryStr("id");
 
-            axios.get("/admin/update_send_data",{
-                params:{
-                    updateId:id
-                }
-            }).then(function (response) {
+            axios.get("/admin/update_send_data/"+id).then(function (response) {
                 self.mdData = response.data;
                 self.mdText = response.data.mdText;
             }) .catch(function (error) {

@@ -52,10 +52,10 @@ public class ContextController extends BaseController{
      * 返回需要修改的博客
       * @return
      */
-     @GetMapping("/update_send_data")
+     @GetMapping("/update_send_data/{id}")
      @ResponseBody
-     public Context getTagretUpdateContext(@RequestParam int id){
-         updateId = id;
+     public Context getTagretUpdateContext(@PathVariable int id){
+        updateId = id;
          return contextService.getBlogById(updateId);
      }
 

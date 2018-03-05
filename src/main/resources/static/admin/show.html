@@ -43,7 +43,7 @@
                         scheme: 'blue',
                         icon:'trash',
                         method : function(row ,$table) {
-                            axios.delete('/admin/delete'+row.uid).then(function (response) {
+                            axios.delete('/admin/delete/'+row.uid).then(function (response) {
                                 $.alert(response.data)
                                 $table.fetchData()
 

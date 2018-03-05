@@ -46,7 +46,7 @@
                 <input type="hidden" name="article" id = "article"/>
 
                 <div class="text-right">
-                    <input id = "blogSubmit" type="submit" class="btn btn-success" @click="updateData" value="确认修改"/>
+                    <button id = "blogSubmit" type="button" class="btn btn-success"   @click="updateData"  >确认修改</button>
                 </div>
         </form>
     </v-app>
@@ -72,7 +72,7 @@
                     this._data.mdData.md = this.editor.getMarkdown();
                     this._data.mdData.article = this.editor.getHTML();
                     axios.post("/admin/update",this._data.mdData).then(function (response) {
-                        $.alert(response);
+                        $.alert(response.data);
                     }).catch(function (error){
                         console.log(error);
                     });
@@ -100,7 +100,7 @@
                         height: 640,
                         path : '../lib/',
                         theme : "default",
-                        previewTheme : "default",
+                           previewTheme : "default",
                         editorTheme : "default",
                         markdown : md,
                         codeFold : true,

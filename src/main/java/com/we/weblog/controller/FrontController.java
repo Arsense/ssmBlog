@@ -9,6 +9,7 @@ import com.we.weblog.data.MenuApiInJvm;
 import com.we.weblog.domain.CategoriesBlog;
 import com.we.weblog.domain.Context;
 import com.we.weblog.domain.YearBlog;
+import com.we.weblog.domain.modal.Types;
 import com.we.weblog.service.ContextService;
 import com.we.weblog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -255,37 +257,54 @@ public class FrontController {
         int totalTags = 10;
         //旁边博客展示都需要
         List<Context> blogs = contextService.getLastestBlogs();
-        maps.put("blogs",blogs);
+        maps.put(Types.BLOGS,blogs);
 
-        if(page.equals("category")){
-            List<CategoriesBlog> cBlogs = contextService.sortBlogsByCategories();               maps.put("cateData",cBlogs);
-        }else if(page.equals("article")){
-
-            Context currentContext = contextService.getBlogById(postId);
-            Context preContext = contextService.getPreviousBlog(postId);
-            Context nextContext = contextService.getNextBlog(postId);
-
-            maps.put("current", currentContext);
-            maps.put("next", nextContext);
-            maps.put("previous", preContext);
-
-        }else if(page.equals("archive")){
-            List<YearBlog> yearBlogs = contextService.getYearBlog(1);
-             maps.put("blogData",yearBlogs);
-
-        }else if(page.equals("about")){
-            Context about = contextService.getAboutme();
-            maps.put("blog",about);
-        }
+        sortPagesMap(maps,page);
 
 
-        maps.put("tagsName",tagsName);
-        maps.put("tagsCount",totalTags);
-        maps.put("blogsCount",blogCount);
+        maps.put(Types.TAG_NAME,tagsName);
+        maps.put(Types.TAG_COUNT,totalTags);
+        maps.put(Types.BLOG_COUNT,blogCount);
 
 
         return maps;
 
     }
+
+    /**
+     * 前端数据处理的主要函数
+     * @param maps
+     * @param pageType
+     * @throws Exception
+     */
+    public  void sortPagesMap(Map<String,Object> maps, String pageType) throws Exception {
+
+        if(pageType.equals(Types.PAGE_CATEGORY)){
+
+            List<CategoriesBlog> cBlogs = contextService.sortBlogsByCategories();               maps.put(Types.CATEGORIES,cBlogs);
+
+        }else if(pageType.equals(Types.PAGE_ARTICLE)){
+
+            Context currentContext = contextService.getBlogById(postId);
+            Context preContext = contextService.getPreviousBlog(postId);
+            Context nextContext = contextService.getNextBlog(postId);
+
+            maps.put(Types.CURRENT_BLOG, currentContext);
+            maps.put(Types.NEXT_BLOG, nextContext);
+            maps.put(Types.PREVIOUS_BLOG, preContext);
+
+        }else if(pageType.equals(Types.PAGE_ARCHIVE)){
+
+            List<YearBlog> yearBlogs = contextService.getYearBlog(1);
+            maps.put(Types.BLOGS_DATA,yearBlogs);
+
+        }else if(pageType.equals(Types.PAGE_ABOUT)){
+
+            Context about = contextService.getAboutme();
+            maps.put(Types.BLOG,about);
+        }
+    }
+
+
 
 }

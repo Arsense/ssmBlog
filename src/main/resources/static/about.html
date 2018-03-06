@@ -339,25 +339,7 @@
                         </p>
                     </div>
                 </li>
-                <!--<li>-->
-                <!--&lt;!&ndash; TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) &ndash;&gt;-->
 
-                <!--<div class="preview">-->
-                <!--<p class="index first">-->
-                <!--<span>1</span>-->
-                <!--</p>-->
-                <!--<div class="image" style="background-image: url(http://cube-1252774894.cosgz.myqcloud.com/previews/制作一个不轻量的hexo主题.png);"></div>-->
-                <!--<div class="info">-->
-                <!--<p class="title">-->
-                <!--<a href="/2017/08/15/制作一个不轻量的hexo主题-cube/" title="制作一个不轻量的hexo主题:cube">制作一个不轻量的hexo主题:cube</a>-->
-                <!--</p>-->
-                <!--<p class="date">-->
-                <!--2017-08-15-->
-                <!--</p>-->
-                <!--</div>-->
-                <!--</div>-->
-
-                <!--</li>-->
             </ul>
 
 
@@ -469,16 +451,15 @@
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src="/lib/axios/dist/axios.min.js" ></script>
 <script>
-
-//要接收文章 接收文章数量  标签数量  分类数量 近期文章  标签
-            var vm=new Vue({
+    var vm=new Vue({
                  el: "#main",
                  data: function(){
                     return {
-                            blog: Object,
-                            tagsCount:0,
-                            blogsCount:1,
-                            tagsName:[]
+                        blogs:[],
+                        blog: Object,
+                        tagsCount:0,
+                        blogsCount:1,
+                        tagsName:[]
                     }
             },
             methods:{
@@ -491,7 +472,7 @@
                         });
                     },
 
-                    getpostUrl:function (Object) {
+                getPostUrl:function (Object) {
                         return "/post/"+Object.uid;
                     },
                     getTagLink:function (data) {

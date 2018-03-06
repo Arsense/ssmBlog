@@ -12,10 +12,10 @@ import java.util.List;
 @Service
 public class LogService {
 
-    @Autowired
+
     private LogMapper logMapper;
 
-
+    @Autowired
     LogService(LogMapper logMapper){
         this.logMapper = logMapper;
     }

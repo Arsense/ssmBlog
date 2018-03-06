@@ -10,6 +10,8 @@ import com.we.weblog.domain.CategoriesBlog;
 import com.we.weblog.domain.Context;
 import com.we.weblog.domain.YearBlog;
 import com.we.weblog.service.ContextService;
+import com.we.weblog.service.TagService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +33,12 @@ public class FrontController {
     private ContextService contextService;
     private static int postId ;
     private static String tagName = null;
+    private TagService tagService;
 
-    public FrontController(ContextService blogService){
+
+    @Autowired
+    public FrontController(ContextService blogService,TagService tagService){
+        this.tagService = tagService;
         this.contextService = blogService;
         //初始化postID 为第一个 防止单独访问为0 什么都木有
         postId = contextService.getLastestBlogId();
@@ -44,8 +50,7 @@ public class FrontController {
     @ResponseBody
     public Context getAboutMeData() throws Exception {
 
-        Context context = contextService.getAboutme();
-        return context;
+        return contextService.getAboutme();
 
 
     }
@@ -264,10 +269,12 @@ public class FrontController {
         Map<String,Object> maps = new HashMap<>();
 
         List<Context> blogs = contextService.getLastestBlogs();
+        List<String> tagsName = tagService.getTotalTagsName();
 
         int blogCount = contextService.getTotalBlog();
         int totalTags = 10;
 
+        maps.put("tagsName",tagsName);
         maps.put("tagsCount",totalTags);
         maps.put("blogCount",blogCount);
         maps.put("blogs",blogs);

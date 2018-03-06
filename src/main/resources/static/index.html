@@ -381,54 +381,11 @@
         <div class="cube-boxs">
 
 
-            <div class="cube-box ">
-                <a href="/tags/杂谈/">#杂谈</a>
+            <div class="cube-box " v-for="tagName in tagsName">
+                <a :href="getTagLink(tagName)">#{{tagName}}</a>
             </div>
 
 
-            <div class="cube-box ">
-                <a href="/tags/逆向/">#逆向</a>
-            </div>
-
-
-            <div class="cube-box ">
-                <a href="/tags/博客搭建/">#博客搭建</a>
-            </div>
-
-
-            <div class="cube-box ">
-                <a href="/tags/网络相关/">#网络相关</a>
-            </div>
-
-
-            <div class="cube-box ">
-                <a href="/tags/云服务器/">#云服务器</a>
-            </div>
-
-
-            <div class="cube-box ">
-                <a href="/tags/Hexo/">#Hexo</a>
-            </div>
-
-
-            <div class="cube-box ">
-                <a href="/tags/AngularJS/">#AngularJS</a>
-            </div>
-
-
-            <div class="cube-box ">
-                <a href="/tags/php/">#php</a>
-            </div>
-
-
-            <div class="cube-box-bg ">
-                <a href="/tags/javascript/">#javascript</a>
-            </div>
-
-
-            <div class="cube-box-bg ">
-                <a href="/tags/python/">#python</a>
-            </div>
 
         </div>
     </div>
@@ -524,38 +481,38 @@
 <!-- endinject -->
 <div class="cube-loading out"></div>
 </body>
+<script src="/lib/axios/dist/axios.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script>
 
-    //要接收文章 接收文章数量  标签数量  分类数量 近期文章  标签
     var vm=new Vue({
         el: "#main",
         data: function(){
             return {
                 blogs:[],
                 tagsCount:0,
-                blogsCount:1
+                blogsCount:1,
+                tagsName:[]
 
             }
         },
         methods:{
             recommend:function(){
+
+
                 var self = this;
-                $.ajax({
-                    type: "get",
-                    url: "/get_all_datas",
-                    dataType: "json",
-                    success: function(response) {
-                        self.blogs = response.blogs;
-                        self.tagsCount =response.tagsCount;
-                        self.blogsCount = response.blogCount;
-                    },
+
+                axios.get("/get_all_datas").then(function (response) {
+                    //一行搞定
+                    $.extend(self._data,response.data);
                 });
 
+
             },
-            getpostUrl:function (Object) {
-                return "/post/"+Object.uid;
-            },
+            getTagLink:function (data) {
+                return "/tag/"+data;
+            }
+
 
         },
 

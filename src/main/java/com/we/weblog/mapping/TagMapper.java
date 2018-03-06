@@ -18,7 +18,8 @@ public interface TagMapper {
      */
     @Select({"select distinct tag_name from t_tag "})
     @ResultType(String.class)
-    List<String> showAllTags();
+    List<String> selectAllKindTags();
+
 
 
     @Insert({
@@ -27,12 +28,8 @@ public interface TagMapper {
 
 
     @Delete({"delete from t_tag where uid = #{id}"})
-    void  deleteTagsById(@Param("id") int id);
+    void  deleteTagById(@Param("id") int id);
 
 
 
-    //distinct 不重复的
-    @Select({"select distinct tag_name from t_tag "})
-    @ResultType(String.class)
-    List<String> selectTagkinds();
 }

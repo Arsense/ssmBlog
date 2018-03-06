@@ -9,6 +9,7 @@ import com.we.weblog.domain.modal.LogActions;
 import com.we.weblog.domain.modal.Types;
 import com.we.weblog.service.ContextService;
 import com.we.weblog.service.LogService;
+import com.we.weblog.service.TagService;
 import com.we.weblog.tool.IpTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,10 +29,12 @@ public class ContextController extends BaseController{
 
     private ContextService contextService;
     private LogService logService;
+    private TagService tagService;
     private  int updateId = 0;
 
     @Autowired
-    public ContextController(ContextService contextService,LogService  logService){
+    public ContextController(ContextService contextService,LogService  logService,TagService tagService){
+        this.tagService = tagService;
         this.contextService = contextService;
         this.logService = logService;
     }
@@ -42,6 +45,9 @@ public class ContextController extends BaseController{
 
         int id = deleteId;
         contextService.deleteBlogById(id);
+        tagService.deleteTag(id);
+
+
         logService.addLog(new Log(LogActions.DELETE_BLOG,id+" ", IpTool.getIpAddress(request),1));
 
     }
@@ -83,10 +89,15 @@ public class ContextController extends BaseController{
      * @return
      */
     @PostMapping("/send")
-    public void postAction(@ModelAttribute("blogFrom")Context context, HttpServletResponse response) throws IOException, SQLException {
+    public void postAction(@ModelAttribute("blogFrom")Context context, HttpServletResponse response) throws Exception {
 
            context.setType(Types.ARTICLE);
            contextService.addBlog(context);
+
+        Log loginLog =new Log(LogActions.ADD_BLOG,"admin", IpTool.getIpAddress(request),1);
+        if(logService.addLog(loginLog)<0){
+            throw new Exception("添加博客失败");
+        }
            response.sendRedirect("/admin/show.html");
 
     }

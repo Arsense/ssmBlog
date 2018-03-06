@@ -1,12 +1,12 @@
 package com.we.weblog.service;
 
 
-import com.we.weblog.domain.Context;
-import com.we.weblog.domain.CategoriesBlog;
-import com.we.weblog.domain.YearBlog;
+import com.we.weblog.domain.*;
+import com.we.weblog.domain.modal.LogActions;
 import com.we.weblog.domain.modal.Types;
 import com.we.weblog.mapping.ContextMapper;
 import com.we.weblog.mapping.TagMapper;
+import com.we.weblog.tool.IpTool;
 import com.we.weblog.tool.StringTool;
 import com.we.weblog.tool.TimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +42,10 @@ public class ContextService {
 
 
     }
+
+
+
+
 
     /**
      * 根据分类分配到相应的类中
@@ -123,7 +127,7 @@ public class ContextService {
      * @param id
      */
     public  void updateBlogTag(String tags,int id){
-        tagMapper.deleteTagsById(id);
+        tagMapper.deleteTagById(id);
         List<String> tagList = getTagList(tags);
         for(String tag:tagList){
             tagMapper.insertBlogTag(tag,id);
@@ -153,6 +157,7 @@ public class ContextService {
 
         try{
             addBlogTags(context.getTags(), context.getUid());
+
         }catch (Exception e){
             e.printStackTrace();
             throw new SQLException("addBlog fail");
@@ -278,7 +283,7 @@ public class ContextService {
     }
 
     public List<String> getAllKindTags(){
-        return tagMapper.selectTagkinds();
+        return tagMapper.selectAllKindTags();
     }
 
 

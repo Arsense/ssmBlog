@@ -2,6 +2,7 @@ package com.we.weblog.mapping;
 
 
 import com.we.weblog.domain.Context;
+import com.we.weblog.domain.Tags;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.StatementType;
 import org.springframework.stereotype.Repository;
@@ -20,20 +21,17 @@ public interface ContextMapper {
 
 
 
+
+    /**
+     *
+     * @return
+     */
     @Select({"select * from t_context where type = 'post'  order by uid asc limit 1 "})
     Context getblogId();
 
 
     @Select({"select uid,title,created,article from t_context where title='关于我'"})
     Context selectAboutMe();
-
-    /**
-     *  查找单个博客
-     * @param id
-     * @return
-     */
-    @Select({"select * from t_context where id = #{id}"})
-    Context searchBlogById(@Param("id") int id);
 
     /**
      * 得到博客的总数量
@@ -82,9 +80,6 @@ public interface ContextMapper {
     void updateBlog(@Param("b") Context context, @Param("id") int uid);
 
 
-    @Select({"select dinstinct name from t_context"})
-    @ResultType(String.class)
-    List<String> getAllTags();
 
 
 

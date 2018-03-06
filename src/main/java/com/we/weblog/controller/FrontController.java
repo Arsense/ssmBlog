@@ -46,14 +46,7 @@ public class FrontController {
 
 
 
-    @GetMapping("/get_about_me")
-    @ResponseBody
-    public Context getAboutMeData() throws Exception {
 
-        return contextService.getAboutme();
-
-
-    }
 
 
 
@@ -72,14 +65,6 @@ public class FrontController {
     }
 
 
-    @GetMapping("/years_blog_data")
-    @ResponseBody
-    public List<YearBlog>  getYearBlogs() throws IOException {
-
-        int page = 1;  //先默认为1吧
-        return contextService.getYearBlog(page);
-
-    }
 
 
 
@@ -108,13 +93,7 @@ public class FrontController {
 
         Map<String,Context> map  = new HashMap<>();
 
-        Context currentContext = contextService.getBlogById(postId);
-        Context preContext = contextService.getPreviousBlog(postId);
-        Context nextContext = contextService.getNextBlog(postId);
 
-        map.put("current", currentContext);
-        map.put("next", nextContext);
-        map.put("previous", preContext);
 
 
         return map;
@@ -262,22 +241,48 @@ public class FrontController {
     }
 
 
-    @GetMapping("/get_all_datas")
+    @GetMapping("/get_all_datas/{page}")
     @ResponseBody
-    public Map<String,Object> getFrontData(){
+    public Map<String,Object> getFrontData(@PathVariable String page) throws Exception {
+        //如果是首页
+
 
         Map<String,Object> maps = new HashMap<>();
 
-        List<Context> blogs = contextService.getLastestBlogs();
         List<String> tagsName = tagService.getTotalTagsName();
 
         int blogCount = contextService.getTotalBlog();
         int totalTags = 10;
+        //旁边博客展示都需要
+        List<Context> blogs = contextService.getLastestBlogs();
+        maps.put("blogs",blogs);
+
+        if(page.equals("category")){
+            List<CategoriesBlog> cBlogs = contextService.sortBlogsByCategories();               maps.put("cateData",cBlogs);
+        }else if(page.equals("article")){
+
+            Context currentContext = contextService.getBlogById(postId);
+            Context preContext = contextService.getPreviousBlog(postId);
+            Context nextContext = contextService.getNextBlog(postId);
+
+            maps.put("current", currentContext);
+            maps.put("next", nextContext);
+            maps.put("previous", preContext);
+
+        }else if(page.equals("archive")){
+            List<YearBlog> yearBlogs = contextService.getYearBlog(1);
+             maps.put("blogData",yearBlogs);
+
+        }else if(page.equals("about")){
+            Context about = contextService.getAboutme();
+            maps.put("blog",about);
+        }
+
 
         maps.put("tagsName",tagsName);
         maps.put("tagsCount",totalTags);
-        maps.put("blogCount",blogCount);
-        maps.put("blogs",blogs);
+        maps.put("blogsCount",blogCount);
+
 
         return maps;
 

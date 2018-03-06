@@ -166,7 +166,7 @@
 <div class ="cube-left">
     <div class="cube-excerpt" v-for="blog in blogs">
         <header class="cube-excerpt-header">
-            <h1><a :href="getpostUrl(blog)">{{blog['title']}}</a></h1>
+            <h1><a :href="getPostUrl(blog)">{{blog['title']}}</a></h1>
             <div class="cube-excerpt-header-msg">
                 <div class="cube-excerpt-date">
                     <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
@@ -187,7 +187,7 @@
 
 
         <footer class="cube-excerpt-footer">
-            <a class="cube-excerpt-more" :href="getpostUrl(blog)">阅读全文</a>
+            <a class="cube-excerpt-more" :href="getPostUrl(blog)">阅读全文</a>
         </footer>
     </div>
 </div>
@@ -343,7 +343,7 @@
                         <span >{{index+1}}</span>
                     </p>
                     <p class="title">
-                        <a :href="getpostUrl(blog)" >{{blog.title}}</a>
+                        <a :href="getPostUrl(blog)" >{{blog.title}}</a>
                     </p>
                 </div>
             </li>
@@ -376,7 +376,7 @@
     <!--标签-->
     <div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
         <div class="title">
-            <a href="/tags">标签云</a>
+            <a href="./tags.html">便签大大</a>
         </div>
         <div class="cube-boxs">
 
@@ -471,11 +471,10 @@
     <br>
     Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
 </footer>
+
 <!-- inject:script -->
 <script src="./js/script.js"></script>
-
 <script src="/lib/jquery/dist/jquery.min.js "></script>
-
 
 
 <!-- endinject -->
@@ -484,7 +483,6 @@
 <script src="/lib/axios/dist/axios.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script>
-
     var vm=new Vue({
         el: "#main",
         data: function(){
@@ -498,16 +496,17 @@
         },
         methods:{
             recommend:function(){
-
-
                 var self = this;
-
-                axios.get("/get_all_datas").then(function (response) {
+                var type = "index";
+                axios.get("/get_all_datas/"+type).then(function (response) {
                     //一行搞定
                     $.extend(self._data,response.data);
                 });
 
 
+            },
+            getPostUrl:function (Object) {
+                return "/post/"+Object.uid;
             },
             getTagLink:function (data) {
                 return "/tag/"+data;

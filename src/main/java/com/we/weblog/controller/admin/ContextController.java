@@ -40,8 +40,8 @@ public class ContextController extends BaseController{
     }
 
 
-    @GetMapping("/delete")
-    public  void deleteBlog(@RequestParam int deleteId,HttpServletRequest request) {
+    @GetMapping("/delete/{id}")
+    public  void deleteBlog(@PathVariable("id") int deleteId,HttpServletRequest request) {
 
         int id = deleteId;
         contextService.deleteBlogById(id);

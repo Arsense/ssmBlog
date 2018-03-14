@@ -14,7 +14,7 @@
     <v-app id="app"  :data="data">
         <v-box title="博客列表">
 
-            <v-table :ajax_url="ajax_url" :query="query" :send_req="send_req" :operations="operations" ></v-table>
+            <v-table :ajax_url="ajax_url" :query="query" ref="table" :operations="operations" ></v-table>
 
         </v-box>
 
@@ -35,7 +35,7 @@
                         scheme: 'green',
                         icon:'edit',
                         method : function(row , $table) {
-                            window.location.href = "http://localhost:8002/admin/edit.html"+"?id="+row.uid;
+                            window.location.href = "/admin/edit.html"+"?id="+row.uid;
                         }
                     } ,
                     {
@@ -44,7 +44,7 @@
                         icon:'trash',
                         method : function(row ,$table) {
                             axios.delete('/admin/delete/'+row.uid).then(function (response) {
-                                $.alert(response.data)
+                                $.alert(response.data);
                                 $table.fetchData()
 
                             });

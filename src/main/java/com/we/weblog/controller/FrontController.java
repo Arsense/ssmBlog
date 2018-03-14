@@ -1,11 +1,8 @@
 package com.we.weblog.controller;
 
 
-import com.vue.adminlte4j.model.AppInfo;
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
-import com.vue.adminlte4j.support.ModelConfigManager;
-import com.we.weblog.data.MenuApiInJvm;
 import com.we.weblog.domain.CategoriesBlog;
 import com.we.weblog.domain.Context;
 import com.we.weblog.domain.YearBlog;
@@ -15,11 +12,8 @@ import com.we.weblog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -222,25 +216,8 @@ public class FrontController {
 
 
 
-    @GetMapping("/get_app_data")
-    @ResponseBody
-    AppInfo getAppinfoData() throws IOException {
-
-        return ModelConfigManager.getAppInfo();
-
-    }
 
 
-    @PostMapping("/update_app_data")
-    @ResponseBody
-    com.vue.adminlte4j.model.UIModel updateAppinfo(@RequestBody AppInfo appinfo)  {
-        try {
-            ModelConfigManager.storeAppInfo(appinfo);
-            return com.vue.adminlte4j.model.UIModel.success().setMsg("修改成功！") ;
-        } catch (IOException e) {
-            return com.vue.adminlte4j.model.UIModel.fail().setMsg("修改失败!") ;
-        }
-    }
 
 
     @GetMapping("/get_all_datas/{page}")

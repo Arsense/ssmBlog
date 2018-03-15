@@ -4,7 +4,6 @@ import com.vue.adminlte4j.model.UIModel;
 import com.we.weblog.controller.BaseController;
 import com.we.weblog.domain.Context;
 import com.we.weblog.domain.Log;
-import com.we.weblog.domain.CategoriesBlog;
 import com.we.weblog.domain.modal.LogActions;
 import com.we.weblog.domain.modal.Types;
 import com.we.weblog.service.ContextService;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -41,14 +39,17 @@ public class ContextController extends BaseController{
 
 
     @GetMapping("/delete/{id}")
-    public  void deleteBlog(@PathVariable("id") int deleteId,HttpServletRequest request) {
+    @ResponseBody
+    public UIModel deleteBlog(@PathVariable("id") int deleteId, HttpServletRequest request) {
+        if(deleteId <= 0){
+            return UIModel.fail().setMsg("该博客不存在");
+        }
+        contextService.deleteBlogById(deleteId);
+        tagService.deleteTag(deleteId);
 
-        int id = deleteId;
-        contextService.deleteBlogById(id);
-        tagService.deleteTag(id);
+        logService.addLog(new Log(LogActions.DELETE_BLOG,deleteId+" ", IpTool.getIpAddress(request),1));
 
-
-        logService.addLog(new Log(LogActions.DELETE_BLOG,id+" ", IpTool.getIpAddress(request),1));
+        return UIModel.success().setMsg("删除成功");
 
     }
 
@@ -85,11 +86,12 @@ public class ContextController extends BaseController{
 
     /**
      * 添加博客的表单控制器
-     * @param context 表单中提交的博客信息,包括标题，标签，md页面，和md转成的html页面
+
      * @return
      */
     @PostMapping("/send")
-    public void postAction(@ModelAttribute("blogFrom")Context context, HttpServletResponse response) throws Exception {
+    @ResponseBody
+    public UIModel postAction(@RequestBody Context context) throws Exception {
 
            context.setType(Types.ARTICLE);
            contextService.addBlog(context);
@@ -98,8 +100,8 @@ public class ContextController extends BaseController{
         if(logService.addLog(loginLog)<0){
             throw new Exception("添加博客失败");
         }
-           response.sendRedirect("/admin/show.html");
 
+        return UIModel.success().setMsg("添加博客成功！");
     }
 
 

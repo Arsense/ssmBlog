@@ -19,7 +19,7 @@ public class AdminBlogApiController extends ApiAdminController {
 
         Menu menu1 = new Menu("1", "仪表盘", "/admin/index.html", "fa fa-dashboard", 1);
         Menu menu2 = new Menu("2", "新随笔", "/admin/add_blog.html", "fa fa-edit", 2);
-        Menu menu3 = new Menu("3", "博客管理", "/admin/show.html", "fa fa-edit", 3);
+        Menu menu3 = new Menu("3", "博客管理", "/admin/bloglist.html", "fa fa-edit", 3);
 
         Menu menu4 = new Menu("4", "评论管理", "/admin/comments.html", "fa fa-weixin", 4);
         Menu menu5 = new Menu("5", "页面管理", "/admin/pages.html", "fa fa-pagelines", 5);

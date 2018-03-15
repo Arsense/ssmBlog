@@ -17,7 +17,7 @@ public class MenuApiInJvm {
 
         Menu menu1 = createMenu("/admin/index.html" , "仪表盘" , "fa fa-dashboard" , 1) ;
         Menu menu2 = createMenu("/admin/add_blog.html" , "新随笔" , "fa fa-edit" , 2) ;
-        Menu menu3 = createMenu("/admin/show.html" , "博客管理" , "fa fa-edit" , 2) ;
+        Menu menu3 = createMenu("/admin/bloglist.html" , "博客管理" , "fa fa-edit" , 2) ;
         Menu menu4 = createMenu("/admin/comments.html" , "评论管理" , "fa  fa-weixin" , 2) ;
         Menu menu5 = createMenu("/admin/pages.html" , "页面管理" , "fa  fa-pagelines" , 2) ;
         Menu menu6 = createMenu("/admin/category.html" , "分类标签" , "fa fa-tags" , 2) ;

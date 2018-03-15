@@ -25,6 +25,11 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 
     private String LOGIN_URL = "/login1.html" ;
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry){
+        registry.addInterceptor(ssoInterceptor()).addPathPatterns("/admin/**");
+    }
+
     @Bean(autowire = Autowire.BY_NAME )
     public SSOSpringInterceptor ssoInterceptor() {
 
@@ -35,11 +40,11 @@ public class WebConfig extends WebMvcConfigurerAdapter{
         springSSOInterceptor.setHandlerInterceptor(new SSOHandlerInterceptor() {
             @Override public boolean preTokenIsNullAjax(HttpServletRequest request, HttpServletResponse response) {
                 try {
-                    UIModel uiModel = UIModel.success().isLogin(true).setLoginUrl("/login1.html");
+                    UIModel uiModel = UIModel.success().isLogin(false).setLoginUrl(LOGIN_URL);
+                    response.getWriter().write(uiModel.toJsonString());
+                   /* response.setContentType("application/json");
 
-                    response.setContentType("application/json");
-
-                    response.getOutputStream().write(uiModel.toJsonString().getBytes());
+                    response.getOutputStream().write(uiModel.toJsonString().getBytes());*/
                 } catch (IOException e) {
                     // to do nothing
                 }
@@ -55,12 +60,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     }
 
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry){
 
-        registry.addInterceptor(ssoInterceptor()).addPathPatterns("/admin/**");
-
-    }
 
 
 

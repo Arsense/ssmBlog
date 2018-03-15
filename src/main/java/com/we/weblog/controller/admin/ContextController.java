@@ -92,16 +92,32 @@ public class ContextController extends BaseController{
     @PostMapping("/send")
     @ResponseBody
     public UIModel postAction(@RequestBody Context context) throws Exception {
-
-           context.setType(Types.ARTICLE);
-           contextService.addBlog(context);
-
-        Log loginLog =new Log(LogActions.ADD_BLOG,"admin", IpTool.getIpAddress(request),1);
-        if(logService.addLog(loginLog)<0){
-            throw new Exception("添加博客失败");
+        Boolean inputCheck = false;
+        String  messgae = null;
+        if(context.getTitle().equals("")){
+            messgae = "博客标题不能为空";
+        }else if(context.getTags().equals("")){
+            messgae = "博客标签不能为空";
+        }else if(context.getArticle().equals("")){
+            messgae = "请输入博客的内容";
+        }else{
+            inputCheck = true;
         }
 
-        return UIModel.success().setMsg("添加博客成功！");
+        if(!inputCheck){
+            return UIModel.fail().setMsg(messgae);
+        }
+
+        context.setType(Types.ARTICLE);
+        contextService.addBlog(context);
+        Log loginLog =new Log(LogActions.ADD_BLOG,"admin", IpTool.getIpAddress(request),1);
+        if(logService.addLog(loginLog)<0){
+           messgae = "添加博客失败";
+        }
+
+
+        messgae = "添加博客成功！";
+        return UIModel.success().setMsg(messgae);
     }
 
 

@@ -144,5 +144,13 @@ public class ContextController extends BaseController{
     }
 
 
+    @GetMapping("/categories")
+    @ResponseBody
+    public List<String> getAllKindCategories(){
+       return  contextService.getCategories();
+
+
+    }
+
 
 }

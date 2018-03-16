@@ -44,7 +44,9 @@ public class ContextService {
     }
 
 
-
+    public List<String> getCategories(){
+        return contextMapper.selectAllCategories();
+    }
 
 
     /**

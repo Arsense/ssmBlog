@@ -30,11 +30,8 @@
                 </v-form-item>
 
                 <v-form-item span="5" label="博客分类" class="text-warning">
-                        <!--<select id="multiple-sel" class="select2 form-control" multiple="multiple" data-placeholder="请选择分类...">-->
-                            <!--<option value="默认分类" selected>默认分类</option>-->
-                        <!--</select >-->
 
-                        <v-select2 data="test1">
+                        <v-select2 :data="options">
 
                         </v-select2>
                 </v-form-item>
@@ -70,15 +67,12 @@
 <script src="../js/editormd.js"></script>
 <script src="/lib/lib.js"></script>
 <script type="text/javascript">
-
-
-
-
     app.main({
 
         data : function () {
             return {
                 editor:Object,
+                options:Array,
                 mdData:{
                     mdText:11,
                     article:"",
@@ -112,6 +106,13 @@
         mounted : function ($vm) {
             var testEditor;
             var self=$vm;
+            axios.get("/admin/categories").then(function (response) {
+                options = response.data;
+            }).catch(function (e) {
+                    console.log(e);
+            })
+
+
             $(function() {
 
                 $.get('add.md', function(md){

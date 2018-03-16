@@ -21,6 +21,8 @@ public interface ContextMapper {
 
 
 
+    @Select({"select DISTINCT categories FROM t_context"})
+    List<String> selectAllCategories();
 
     /**
      *

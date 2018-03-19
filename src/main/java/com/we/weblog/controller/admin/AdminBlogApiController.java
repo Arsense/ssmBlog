@@ -1,8 +1,11 @@
 package com.we.weblog.controller.admin;
 
+import com.baomidou.kisso.SSOHelper;
+import com.baomidou.kisso.security.token.SSOToken;
 import com.vue.adminlte4j.model.Menu;
 import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.web.springmvc.ApiAdminController;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
@@ -10,6 +13,12 @@ import java.util.List;
 
 @Controller
 public class AdminBlogApiController extends ApiAdminController {
+
+    public String getUserName(HttpServletRequest request) {
+        SSOToken ssoToken = SSOHelper.getSSOToken(request);
+        return ssoToken.getIssuer();
+    }
+
 
     @Override
     public void configureMenu(UIModel uiModel) {

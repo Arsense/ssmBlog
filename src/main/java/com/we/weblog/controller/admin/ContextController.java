@@ -10,6 +10,7 @@ import com.we.weblog.service.ContextService;
 import com.we.weblog.service.LogService;
 import com.we.weblog.service.TagService;
 import com.we.weblog.tool.IpTool;
+import org.bouncycastle.jcajce.provider.asymmetric.util.DSABase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -144,13 +145,7 @@ public class ContextController extends BaseController{
     }
 
 
-    @GetMapping("/categories")
-    @ResponseBody
-    public List<String> getAllKindCategories(){
-       return  contextService.getCategories();
 
-
-    }
 
 
 }

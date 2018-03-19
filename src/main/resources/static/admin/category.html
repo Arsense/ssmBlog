@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
     <meta charset="utf-8">
     <title>博客后台管理系统</title>
@@ -7,30 +7,48 @@
     <title>ATL - Box </title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link href="../tale/css/style.min.css?v=v1.0" rel="stylesheet" type="text/css">
 </head>
 <body>
 <v-app  :data="data">
+    <!--<v-box title="分类标签">-->
+        <!--<div class="margin">-->
+
+            <!--<div class="btn-group" v-for="cate in categories" >-->
+                <!--<button type="button" class="btn btn-warning">1111</button>-->
+                <!--<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">-->
+                    <!--<span class="caret"></span>-->
+                    <!--<span class="sr-only">Toggle Dropdown</span>-->
+                <!--</button>-->
+                <!--<ul  class="dropdown-menu" role="menu">-->
+                    <!--&lt;!&ndash;<li><a href="javascript:void(0)" mid="${cate}" cname="${cate}" class="edit-category">修改</a>-->
+                    <!--</li>&ndash;&gt;-->
+                    <!--<li><a href="javascript:void(0)" class="del-category">删除</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</v-box>-->
+
+
 
     <div class="col-md-6">
         <div class="panel panel-color panel-primary">
             <div class="panel-heading">
                 <h1 class="panel-title">分类列表</h1>
             </div>
-            <div class="panel-body">
 
-                <div class="btn-group m-b-10">
+            <div class="panel-body margin" >
+                <div class="btn-group m-b-10"  v-for="(cate,index) in categories" >
+                            <button v-if="cate ==='默认分类'"  type="button" class="btn btn-warning  dropdown-toggle waves-effect waves-light"> {{cate}}({{index}})</button>
 
-                    <button type="button" class="btn btn-inverse waves-effect waves-light">
-
-                    </button>
-                    <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light"
-                            data-toggle="dropdown" aria-expanded="false"><span
-                            class="caret"></span></button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="javascript:void(0)" mid="${c.mid}" cname="${c.name}" class="edit-category">修改</a>
-                        </li>
-                        <li><a href="javascript:void(0)" mid="" class="del-category">删除</a></li>
-                    </ul>
+                        <button v-else type="button" :class="randColor()" data-toggle="dropdown" aria-expanded="false"> {{cate}}({{index}})<span
+                                class="caret"></span></button>
+                        <ul v-if="index != 0" class="dropdown-menu" role="menu">
+                            <!--<li><a href="javascript:void(0)" mid="${cate}" cname="${cate}" class="edit-category">修改</a>
+                            </li>-->
+                            <li><a href="javascript:void(0)" class="del-category">删除</a></li>
+                        </ul>
 
                 </div>
 
@@ -39,18 +57,17 @@
     </div>
 
     <div class="col-md-6">
-        <div class="panel  panel-pink">
+        <div class="panel panel-color panel-primary">
             <div class="panel-heading">
                 <h1 class="panel-title">标签列表</h1>
             </div>
-            <div class="panel-body">
-
-                <div class="btn-group m-b-10">
-                    <button type="button" class="btn btn-purple dropdown-toggle waves-effect waves-light"
-                            data-toggle="dropdown" aria-expanded="false"> <span
+            <div class="panel-body" >
+                <div class="btn-group m-b-10" v-for="tag in tags" >
+                    <button type="button"  :class="randColor()"
+                            data-toggle="dropdown" aria-expanded="false"> {{tag}}<span
                             class="caret"></span></button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="javascript:void(0)" mid="" class="del-category">删除</a></li
+                        <li><a href="javascript:void(0)"  class="del-category">删除</a></li>
                     </ul>
                 </div>
 
@@ -66,7 +83,7 @@
                     <div class="form-group">
                         <input type="text" class="form-control" id="cname" placeholder="请输入分类名称">
                     </div>
-                    <button id="save-category-btn" type="button"
+                    <button  type="button" @click="saveKind"
                             class="btn btn-success waves-effect waves-light m-l-10">保存分类
                     </button>
                 </form>
@@ -83,19 +100,39 @@
 
         data : function () {
             return {
-
+                categories:Array,
+                tags:Array
             }
         } ,
         methods : {
+            saveKind:function () {
 
+            },
+            randColor: function() {
+                const color = ["default","primary", "success", "info", "warning", "danger", "inverse", "purple", "pink"];
+                const n1 = Math.floor(Math.random() * 8 + 1);
+                if(0<=n1<=7){
+                    return 'btn btn-'+color[n1]+'  dropdown-toggle waves-effect waves-light';
+                }
 
-
+                return 'btn btn-success  dropdown-toggle waves-effect waves-light';
+            }
         } ,
-        mounted : function () {
+        mounted : function ($vm) {
+            var self = $vm;
+            axios.get("/admin/category/manage").then(function (response) {
+                self.categories = response.data.categories;
+                self.tags = response.data.tags;
+            });
+        },
 
-        }
+
+
+
     });
 
 </script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="../tale/js/jquery.app.js"></script>
 </body>
 </html>

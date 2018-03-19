@@ -1,6 +1,7 @@
 package com.we.weblog.service;
 
 
+import com.vue.adminlte4j.model.UIModel;
 import com.we.weblog.mapping.TagMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,13 @@ public class TagService {
      * @return
      */
     public int clearTagData(String tagName){
-       return tagMapper.deleleFromCategory(tagName);
+
+       int result = tagMapper.deleteTagByName(tagName);
+       if(result > 0){
+           tagMapper.deleleTagFromContext(tagName);
+       }else{
+           return 0;
+       }
+       return 1;
     }
 }

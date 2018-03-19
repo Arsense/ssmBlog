@@ -3,6 +3,7 @@ package com.we.weblog.controller.admin;
 
 import com.vue.adminlte4j.model.UIModel;
 import com.we.weblog.service.ContextService;
+import com.we.weblog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ public class CategoryController {
 
 
     private ContextService contextService;
+    private TagService tagService;
 
     @Autowired
     public CategoryController(ContextService contextService){
@@ -37,6 +39,10 @@ public class CategoryController {
         return  contextService.getCategories();
     }
 
+
+    /**
+     * 删除类别
+     */
     @GetMapping("/delete/{name}")
     @ResponseBody
     public UIModel deleteCategory(@PathVariable("name") String categoryName){
@@ -45,6 +51,7 @@ public class CategoryController {
             return UIModel.fail().setMsg("删除的类别为空");
           }
           int result = contextService.deleteCatories(categoryName);
+
           if(result >=0){
               return UIModel.success().setMsg("删除成功");
           }else{
@@ -56,7 +63,6 @@ public class CategoryController {
 
     /**
      * 分类标签管理页面
-     * @return
      */
     @GetMapping("/manage")
     @ResponseBody

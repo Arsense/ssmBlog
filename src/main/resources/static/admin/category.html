@@ -47,7 +47,7 @@
                             data-toggle="dropdown" aria-expanded="false"> {{tag}}({{index+1}})<span
                             class="caret"></span></button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="javascript:void(0)"  class="del-category">删除</a></li>
+                        <li><a @click="deleteTag(tag)" class="del-category">删除</a></li>
                     </ul>
                 </div>
 
@@ -61,9 +61,9 @@
                 <form id="cform" class="form-inline" role="form">
                     <input type="hidden" id="mid"/>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="cname" placeholder="请输入分类名称">
+                        <input type="text" class="form-control" id="newName" placeholder="请输入分类名称">
                     </div>
-                    <button  type="button" @click="saveKind"
+                    <button  type="button" @click="saveKind()"
                             class="btn btn-success waves-effect waves-light m-l-10">保存分类
                     </button>
                 </form>
@@ -86,12 +86,32 @@
         } ,
         methods : {
             deleteCategory:function (name) {
-                axios.get("/admin/category/delete/"+name).then(function (response) {
-                   $.alert(response.data);
+                //询问
+                layer.confirm('您确定要删除 ？',{
+                    icon: 1,
+                    btn: ['确认','取消'] //按钮
+                }, function(){
+                    axios.get("/admin/category/delete/"+name).then(function (response) {
+                        $.alert(response.data);
+                        window.location.reload();
+                    });
+
+                }, function(){
+
                 });
+
             },
-            deleteTag:function () {
-                axios.get("/admin/tag/manage").then(function (response) {
+            deleteTag:function (tagName) {
+                layer.confirm('您确定要删除 ？',{
+                    icon: 1,
+                    btn: ['确认','取消'] //按钮
+                }, function(){
+                    axios.get("/admin/tags/delete/"+tagName).then(function (response) {
+                        $.alert(response.data);
+                        window.location.reload();
+                    });
+
+                }, function(){
 
                 });
             }

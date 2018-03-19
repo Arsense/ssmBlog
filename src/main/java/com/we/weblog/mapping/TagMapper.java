@@ -29,8 +29,13 @@ public interface TagMapper {
     @Delete({"delete from t_tag where uid = #{id}"})
     void  deleteTagById(@Param("id") int id);
 
-    @Delete({"update t_context set tags =null where tags = #{tag}"})
-    int deleleFromCategory(@Param("tag") String tagName);
+    @Delete({"update t_context set tags = null where tags = #{tag}"})
+    int deleleTagFromContext(@Param("tag") String tagName);
+
+
+
+    @Delete({"delete from t_tag  where tag_name = #{tag}"})
+    int deleteTagByName(@Param("tag") String tagName);
 
 
 }

@@ -32,4 +32,14 @@ public class TagService {
     public void deleteTag(int uid){
         tagMapper.deleteTagById(uid);
     }
+
+
+    /**
+     * 分类管理删除标签
+      * @param tagName
+     * @return
+     */
+    public int clearTagData(String tagName){
+       return tagMapper.deleleFromCategory(tagName);
+    }
 }

@@ -121,4 +121,12 @@ public interface ContextMapper {
 
     @Select({"select * from t_context where type= #{type} order by uid desc"})
     List<Context> getPagesByType(@Param("type")String page);
+
+
+    /**
+     * 标签页面删除相关数据
+     * @param categoryName
+     */
+    @Delete({"update t_context set categories = null where categories = #{cate}"})
+    int deleleCategoryByName(@Param("cate") String categoryName);
 }

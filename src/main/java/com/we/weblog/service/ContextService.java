@@ -321,4 +321,10 @@ public class ContextService {
         return  pages;
     }
 
+
+    public int deleteCatories(String name){
+        return contextMapper.deleleCategoryByName(name);
+
+    }
+
 }

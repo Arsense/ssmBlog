@@ -27,7 +27,7 @@
                         <ul v-if="index != 0" class="dropdown-menu" role="menu">
                             <!--<li><a href="javascript:void(0)" mid="${cate}" cname="${cate}" class="edit-category">修改</a>
                             </li>-->
-                            <li><a href="javascript:void(0)" class="del-category">删除</a></li>
+                            <li><a  class="del-category" @click="deleteCategory(cate)">删除</a></li>
                         </ul>
 
                 </div>
@@ -37,7 +37,7 @@
     </div>
 
     <div class="col-md-6">
-        <div class="panel panel-color panel-primary">
+        <div class="panel   panel-pink">
             <div class="panel-heading">
                 <h1 class="panel-title">标签列表</h1>
             </div>
@@ -85,9 +85,23 @@
             }
         } ,
         methods : {
-            saveKind:function () {
-
+            deleteCategory:function (name) {
+                axios.get("/admin/category/delete/"+name).then(function (response) {
+                   $.alert(response.data);
+                });
             },
+            deleteTag:function () {
+                axios.get("/admin/tag/manage").then(function (response) {
+
+                });
+            }
+            ,
+            saveKind:function () {
+                axios.get("/admin/category/save").then(function (response) {
+
+                });
+            },
+
             randColor: function() {
                 const color = ["default","primary", "success", "info", "warning", "danger", "inverse", "purple", "pink"];
                 const n1 = Math.floor(Math.random() * 8 + 1);

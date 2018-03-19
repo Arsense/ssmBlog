@@ -3,7 +3,6 @@ package com.we.weblog.mapping;
 
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -30,6 +29,8 @@ public interface TagMapper {
     @Delete({"delete from t_tag where uid = #{id}"})
     void  deleteTagById(@Param("id") int id);
 
+    @Delete({"update t_context set tags =null where tags = #{tag}"})
+    int deleleFromCategory(@Param("tag") String tagName);
 
 
 }

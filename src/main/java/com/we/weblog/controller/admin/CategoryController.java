@@ -6,10 +6,8 @@ import com.we.weblog.service.ContextService;
 import com.we.weblog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,12 +84,12 @@ public class CategoryController {
      * 保存新分类
      * @return
      */
-    @GetMapping("/save")
+    @GetMapping("/save/{name}")
     @ResponseBody
-    public void newCategory(){
+    public UIModel newCategory(@PathVariable("name")  String name){
+        String test = name;
 
-
-
+        return UIModel.success().setMsg("测试成功");
     }
 
 }

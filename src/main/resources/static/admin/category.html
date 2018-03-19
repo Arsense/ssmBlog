@@ -61,7 +61,7 @@
                 <form id="cform" class="form-inline" role="form">
                     <input type="hidden" id="mid"/>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="newName" placeholder="请输入分类名称">
+                        <input type="text" class="form-control" id="newCategory" placeholder="请输入分类名称">
                     </div>
                     <button  type="button" @click="saveKind()"
                             class="btn btn-success waves-effect waves-light m-l-10">保存分类
@@ -81,7 +81,8 @@
         data : function () {
             return {
                 categories:Array,
-                tags:Array
+                tags:Array,
+
             }
         } ,
         methods : {
@@ -93,7 +94,9 @@
                 }, function(){
                     axios.get("/admin/category/delete/"+name).then(function (response) {
                         $.alert(response.data);
-                        window.location.reload();
+                        var t=setTimeout("window.location.reload()",1500)
+
+
                     });
 
                 }, function(){
@@ -108,7 +111,7 @@
                 }, function(){
                     axios.get("/admin/tags/delete/"+tagName).then(function (response) {
                         $.alert(response.data);
-                        window.location.reload();
+                        var t=setTimeout("window.location.reload()",1500)
                     });
 
                 }, function(){
@@ -117,8 +120,9 @@
             }
             ,
             saveKind:function () {
-                axios.get("/admin/category/save").then(function (response) {
-
+                var name = $("#newCategory").val();
+                axios.get("/admin/category/save/"+name).then(function (response) {
+                    $.alert(response.data);
                 });
             },
 

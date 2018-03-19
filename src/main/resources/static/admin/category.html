@@ -12,26 +12,6 @@
 </head>
 <body>
 <v-app  :data="data">
-    <!--<v-box title="分类标签">-->
-        <!--<div class="margin">-->
-
-            <!--<div class="btn-group" v-for="cate in categories" >-->
-                <!--<button type="button" class="btn btn-warning">1111</button>-->
-                <!--<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">-->
-                    <!--<span class="caret"></span>-->
-                    <!--<span class="sr-only">Toggle Dropdown</span>-->
-                <!--</button>-->
-                <!--<ul  class="dropdown-menu" role="menu">-->
-                    <!--&lt;!&ndash;<li><a href="javascript:void(0)" mid="${cate}" cname="${cate}" class="edit-category">修改</a>-->
-                    <!--</li>&ndash;&gt;-->
-                    <!--<li><a href="javascript:void(0)" class="del-category">删除</a></li>-->
-                <!--</ul>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</v-box>-->
-
-
-
     <div class="col-md-6">
         <div class="panel panel-color panel-primary">
             <div class="panel-heading">
@@ -62,9 +42,9 @@
                 <h1 class="panel-title">标签列表</h1>
             </div>
             <div class="panel-body" >
-                <div class="btn-group m-b-10" v-for="tag in tags" >
+                <div class="btn-group m-b-10" v-for="(tag,index) in tags" >
                     <button type="button"  :class="randColor()"
-                            data-toggle="dropdown" aria-expanded="false"> {{tag}}<span
+                            data-toggle="dropdown" aria-expanded="false"> {{tag}}({{index+1}})<span
                             class="caret"></span></button>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="javascript:void(0)"  class="del-category">删除</a></li>

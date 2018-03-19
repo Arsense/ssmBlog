@@ -19,9 +19,11 @@ import java.util.List;
 public interface ContextMapper {
 
 
-
-
-    @Select({"select DISTINCT categories FROM t_context"})
+    /**
+     * 分类标签查询 这里 in not null去除空列表
+     * @return
+     */
+    @Select({"select DISTINCT categories FROM t_context  where categories is not null"})
     List<String> selectAllCategories();
 
     /**

@@ -87,6 +87,13 @@ public class CategoryController {
     @GetMapping("/save/{name}")
     @ResponseBody
     public UIModel newCategory(@PathVariable("name")  String name){
+        //这里全是空格 全是数字 null 都要检查
+        if(name.equals("")){
+            return UIModel.fail().setMsg("请输入类别");
+        }else if(name.length()> 25){
+            return  UIModel.fail().setMsg("您输入的类别过长");
+        }
+
         String test = name;
 
         return UIModel.success().setMsg("测试成功");

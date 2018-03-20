@@ -159,28 +159,7 @@ public class FrontController {
         return uiModel ;
     }
 
-    /**
-     * 前端 评论信息
-     * @return
-     */
-    @GetMapping("/admin/get_comment_data")
-    @ResponseBody
-    Map<String,Object> getCommentsdata() {
 
-        UIModel uiModel = new UIModel() ;
-        TableData tableData = new TableData() ;
-
-        tableData.configDisplayColumn(TableData.createColumn("content" , "评论内容") );
-        tableData.configDisplayColumn(TableData.createColumn("author" , "评论人") );
-        tableData.configDisplayColumn(TableData.createColumn("created" , "评论时间" ));
-        tableData.configDisplayColumn(TableData.createColumn("mail" , "评论人邮箱" ));
-        tableData.configDisplayColumn(TableData.createColumn("status" , "评论状态" ));
-
-        //遍历查询数据库
-        tableData.setTotalSize(10);
-        uiModel.tableData(tableData);
-        return uiModel ;
-    }
 
 
     /**

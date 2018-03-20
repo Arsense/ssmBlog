@@ -14,29 +14,21 @@
 
 
 <v-app  id="app" :data="data" >
-
         <form  method="post" id="main" name="blogFrom" >
-
                 <v-form-item span="5" label="博客标题(必须)" class="text-warning">
                     <input id="blogTitle" type="text" class="form-control" name="title" placeholder="请输入博客标题"/>
                 </v-form-item >
-
                 <v-form-item span="5" label="自定义访问路径" class="text-warning">
                     <input  type="text" class="form-control" name="slug" placeholder="自定义访问路径，如：my-first-article  默认为文章id" />
                 </v-form-item>
-
                 <v-form-item span="5" label="博客标签" class="text-warning">
                     <input name="tags"  type="text" class="form-control" placeholder="请填写文章标签" />
                 </v-form-item>
-
                 <v-form-item span="5" label="博客分类" class="text-warning">
-
                         <v-select2 :data="options">
-
                         </v-select2>
                 </v-form-item>
                 <div class="clearfix"></div>
-
                 <div id="page-wrapper">
                     <div class="row">
                         <div class="col-md-12 column">
@@ -48,27 +40,19 @@
                 </div><!-- /#page-wrapper -->
                 <div class="text-right">
                     <button id = "blogSubmit" type="button" class="btn btn-success" @click="getData" >保存修改</button>
-
                 </div>
-
                 <input type="hidden" name="mdText" id = "mdText" />
                 <input type="hidden" name="article" id = "article"/>
         </form>
         <!--这里是编辑器-->
         <!--<div id="test-editormd"></div>-->
-
-
-
-
 </v-app>
-
 </body>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/editormd.js"></script>
 <script src="/lib/lib.js"></script>
 <script type="text/javascript">
     app.main({
-
         data : function () {
             return {
                 editor:Object,
@@ -79,7 +63,6 @@
                     title:"",
                     slug:"",
                     tags:"",
-
                 },
 
             }
@@ -91,7 +74,6 @@
                 this._data.mdData.title = document.blogFrom.title.value;
                 this._data.mdData.slug = document.blogFrom.slug.value;
                 this._data.mdData.tags = document.blogFrom.tags.value;
-
 
                 axios.post("/admin/send",this._data.mdData).then(function (response){
                     $.alert(response.data);
@@ -111,7 +93,6 @@
             }).catch(function (e) {
                     console.log(e);
             })
-
 
             $(function() {
 

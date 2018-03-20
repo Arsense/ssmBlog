@@ -35,6 +35,7 @@ public class ContextService {
 
 
     public List<CategoriesBlog> sortBlogsByCategories(){
+
         List<Context> contexts = contextMapper.selectBlogsByCategories();
 
 

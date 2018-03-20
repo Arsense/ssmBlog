@@ -14,8 +14,11 @@ import java.util.Date;
  */
 public class Comment {
 
+
     //comment主键
     private  int        commentId;
+    //所评论文章的ID
+    private  int        articleId;
     //创建时间
     private  Date       created;
 
@@ -94,5 +97,13 @@ public class Comment {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public int getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(int articleId) {
+        this.articleId = articleId;
     }
 }

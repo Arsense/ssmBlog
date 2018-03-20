@@ -28,16 +28,22 @@
                 send_req : 0 ,
                 operations : [
                     {
-                        name : '编辑' ,
-                        scheme: 'green',
+                        name : '回复' ,
+                        scheme: 'yellow',
                         icon:'edit',
                         method : function(row , $table) {
+                            //prompt层
+                            layer.prompt({title: '输入您要回复的内容', formType: 2}, function(text, index){
+                               layer.close(index);
+                               //这里text发到后端去
+                                layer.msg('您已成功回复'+text);
+                           });
 
                         }
                     } ,
                     {
                         name : '删除'  ,
-                        scheme: 'blue',
+                        scheme: 'red',
                         icon:'trash',
                         method : function(row ,$table) {
 

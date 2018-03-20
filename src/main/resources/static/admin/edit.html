@@ -73,6 +73,7 @@
                     this._data.mdData.article = this.editor.getHTML();
                     axios.post("/admin/update",this._data.mdData).then(function (response) {
                         $.alert(response.data);
+                        var t=setTimeout(" window.location.href = \"/admin/bloglist.html\" ",1500);
                     }).catch(function (error){
                         console.log(error);
                     });

@@ -29,9 +29,14 @@ public class Comment {
     private  String     email;
     //评论者IP
     private  String     ip;
+
+    private String  time;
+
+
+
     //评论内容
-//    @NotEmpty(message = "请输入评论内容")
-//    @Length(max=2000,message = "请输入%d个字符内的评论");
+    @NotEmpty(message = "请输入评论内容")
+    @Length(max=2000,message = "评论过长")
     private  String     content;
 
 
@@ -81,5 +86,13 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

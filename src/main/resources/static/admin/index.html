@@ -45,7 +45,6 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">最新留言</h4>
-
                     </div>
                     <div class="panel-body" >
                         <div v-if = "comments ==null ||comments.length==0" class="btn btn-block btn-warning disabled  ">
@@ -63,8 +62,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -80,18 +77,12 @@
                 </div>
             </div>
         </div>
-
     </v-box>
-
-
-
-
 </v-app>
 
 <script src="/lib/lib.js"></script>
 <script>
     app.main({
-
         data : function () {
             return {
                 blogNumber:"",
@@ -99,7 +90,6 @@
                 logs:[],
                 comments:[],
                 commentNumber:"",
-
             }
         } ,
         methods : {
@@ -110,12 +100,7 @@
         mounted : function ($vm) {
             var self = $vm;
             axios.get("/admin/index/data").then(function (response) {
-                self.blogNumber = response.data.blogNumber;
-                self.contexts   = response.data.contexts;
-                self.logs       = response.data.logs;
-                self.comments   = response.data.comments;
-                self.commentNumber = response.data.commentNumber;
-                // $.extend(self,response.data);
+                $.extend(self,response.data);
             })
 
         }

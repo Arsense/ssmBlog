@@ -16,7 +16,7 @@
         <v-tags v-bind:header="blogNumber" footer="发表了几篇文章">
         </v-tags>
 
-        <v-tags color="green" header="0" footer="收到了几条留言">
+        <v-tags color="green" v-bind:header="commentNumber" footer="收到了几条留言">
 
         </v-tags>
 
@@ -47,11 +47,18 @@
                         <h4 class="panel-title">最新留言</h4>
 
                     </div>
-                    <div class="panel-body">
-                            <div class="btn btn-block btn-warning disabled  ">
+                    <div class="panel-body" >
+                        <div v-if = "comments ==null ||comments.length==0" class="btn btn-block btn-warning disabled  ">
                             还没有收到留言.
                         </div>
+                        <ul v-else class="list-group" v-for="comment in comments">
 
+                            <li class="list-group-item">
+                                {{comment.author}} 于{{comment.time}}留言:<br>
+                                <a href="" target="_blank">{{comment.content}}</a>
+                            </li>
+
+                        </ul>
 
                     </div>
                 </div>
@@ -90,6 +97,8 @@
                 blogNumber:"",
                 contexts:[],
                 logs:[],
+                comments:[],
+                commentNumber:"",
 
             }
         } ,
@@ -100,10 +109,13 @@
         } ,
         mounted : function ($vm) {
             var self = $vm;
-            axios.get("/admin/index_data").then(function (response) {
+            axios.get("/admin/index/data").then(function (response) {
                 self.blogNumber = response.data.blogNumber;
                 self.contexts   = response.data.contexts;
                 self.logs       = response.data.logs;
+                self.comments   = response.data.comments;
+                self.commentNumber = response.data.commentNumber;
+                // $.extend(self,response.data);
             })
 
         }

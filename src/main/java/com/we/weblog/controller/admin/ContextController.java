@@ -2,10 +2,12 @@ package com.we.weblog.controller.admin;
 
 import com.vue.adminlte4j.model.UIModel;
 import com.we.weblog.controller.BaseController;
+import com.we.weblog.domain.Comment;
 import com.we.weblog.domain.Context;
 import com.we.weblog.domain.Log;
 import com.we.weblog.domain.modal.LogActions;
 import com.we.weblog.domain.modal.Types;
+import com.we.weblog.service.CommentSerivce;
 import com.we.weblog.service.ContextService;
 import com.we.weblog.service.LogService;
 import com.we.weblog.service.TagService;
@@ -27,12 +29,14 @@ import java.util.Map;
 public class ContextController extends BaseController{
 
     private ContextService contextService;
+    private CommentSerivce commentSerivce;
     private LogService logService;
     private TagService tagService;
     private  int updateId = 0;
 
     @Autowired
-    public ContextController(ContextService contextService,LogService  logService,TagService tagService){
+    public ContextController(ContextService contextService,LogService  logService,TagService tagService,CommentSerivce commentSerivce){
+        this.commentSerivce = commentSerivce;
         this.tagService = tagService;
         this.contextService = contextService;
         this.logService = logService;
@@ -115,8 +119,6 @@ public class ContextController extends BaseController{
         if(logService.addLog(loginLog)<0){
            messgae = "添加博客失败";
         }
-
-
         messgae = "添加博客成功！";
         return UIModel.success().setMsg(messgae);
     }
@@ -127,19 +129,25 @@ public class ContextController extends BaseController{
      * @param request
      * @return
      */
-    @GetMapping("/index_data")
+    @GetMapping("/index/data")
     @ResponseBody
     public Map<String,Object> index(HttpServletRequest request){
         //获得最新的20条日志  获得最新的文章  后台统计对象
         Map<String,Object> map = new HashMap<>();
         List<Context> contexts = contextService.getRecentBlogs(5);
         int blogCount = contextService.getTotalBlog();
-
+        List<Comment> comments = commentSerivce.getComments();
 
         List<Log> logs = logService.getLogPages(10);
+        int commnetCount = commentSerivce.getCounts();
+
+
         map.put("blogNumber",blogCount);
         map.put("contexts", contexts);
         map.put("logs",logs);
+        map.put("comments",comments);
+        map.put("commentNumber",commnetCount);
+
 
         return map;
     }

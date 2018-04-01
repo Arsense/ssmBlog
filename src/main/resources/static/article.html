@@ -9,6 +9,7 @@
     <title>clayの部落格</title>
     <!-- inject:style -->
     <link href="./css/style.css" rel="stylesheet" type="text/css">
+    <link href="./tale/css/front/style.min.css" rel="stylesheet" type="text/css">
     <!-- endinject -->
     <style>
         .cube-loading {
@@ -169,13 +170,14 @@
             <h1 class="title">{{current['title']}}</h1>
             <div class="cube-article-header">
 
-                <div class="cube-article-date">
-                    <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-                   {{current['month']}}
+                <div class="post-data">
+                    <time datetime="2018-03-19" itemprop="datePublished">发布于  {{current['month']}}</time>
+                    <a href="">默认分类</a> / <a href="#comments">1 条评论</a>
+                    8浏览
                 </div>
+                <br>
                 <div class="cube-article-tags">
-                    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
-                    <a href="/tags/杂谈/">{{current['tags']}}</a>
+                    <p class="post-tags"><a href="/tags/杂谈">{{current['tags']}}</a></p>
 
                 </div>
             </div>
@@ -184,6 +186,50 @@
             </div>
         </div>
 
+        <div  class="comment-container">
+            <div id="comments" class="clearfix">
+                <span class="response"></span>
+
+                <form method="post" id="comment-form" class="comment-form" onsubmit="return TaleComment.subComment();">
+                    <input type="hidden" name="coid" id="coid">
+                    <input type="hidden" name="cid" id="cid" value="1">
+                    <input type="hidden" name="csrf_token" value="HEYEoUQ5HHi7Q0X0KS_1Z0">
+                    <input name="author" maxlength="12" id="author" class="form-control input-control clearfix" placeholder="姓名 (*)" value="" required="">
+                    <input type="email" name="mail" id="mail" class="form-control input-control clearfix" placeholder="邮箱 (*)" value="" required="">
+                    <input type="url" name="url" id="url" class="form-control input-control clearfix" placeholder="网址 (http://)" value="">
+                    <textarea name="content" id="textarea" class="form-control" placeholder="基佬，留下你的评论." required="" minlength="5" maxlength="2000"></textarea>
+                    <button class="submit" id="misubmit">提交</button>
+                </form>
+
+
+                <ol class="comment-list">
+                    <li id="li-comment-5" class="comment-body comment-parent comment-odd">
+                        <div id="comment-5">
+                            <div class="comment-view" onclick="">
+                                <div class="comment-header">
+                                    <img class="avatar" src="https://cn.gravatar.com/avatar/e94656cb82a8f7228e13e1d9d56fb101?s=80&amp;r=G&amp;d=" title="11" width="80" height="80">
+                                    <span class="comment-author">
+                                <a href="" target="_blank" rel="external nofollow">11</a>
+                            </span>
+                                </div>
+                                <div class="comment-content">
+                                    <span class="comment-author-at"></span>
+                                    <p></p><p>评论测试</p>
+                                    <p></p>
+                                </div>
+                                <div class="comment-meta">
+                                    <time class="comment-time">2018-04-01</time>
+                                    <span class="comment-reply">
+                                <a rel="nofollow" onclick="TaleComment.reply('5');">回复</a>
+                            </span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+
+            </div>
+        </div>
 
         <div class="cube-article-nav">
             <ul>
@@ -490,6 +536,7 @@
 <script src="./js/script.js"></script>
 <script src="/lib/axios/dist/axios.min.js" ></script>
 <div class="cube-loading out"></div>
+
 </body>
 
     <script>
@@ -530,5 +577,6 @@
         });
         vm.recommend()
 
-    </script>>
+    </script>
+<script src="./tale/js/jquery.app.js"></script>
 </html>

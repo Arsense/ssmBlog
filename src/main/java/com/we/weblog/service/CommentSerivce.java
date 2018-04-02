@@ -15,6 +15,7 @@ public class CommentSerivce {
 
     private CommentMapper commentMapper;
 
+
     @Autowired
     public CommentSerivce(CommentMapper commentMapper){
         this.commentMapper = commentMapper;
@@ -39,6 +40,12 @@ public class CommentSerivce {
        return commentMapper.getNumberOfComment();
    }
 
+   public Comment getCommentByArticleId(int uid){
+       Comment comment = commentMapper.getArticleById(uid);
+       comment.setTime(TimeTool.getFormatClearToDay(comment.getCreated()));
+
+       return comment;
+   }
 
 
 }

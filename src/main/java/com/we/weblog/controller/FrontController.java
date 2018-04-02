@@ -4,9 +4,11 @@ package com.we.weblog.controller;
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
 import com.we.weblog.domain.CategoriesBlog;
+import com.we.weblog.domain.Comment;
 import com.we.weblog.domain.Context;
 import com.we.weblog.domain.YearBlog;
 import com.we.weblog.domain.modal.Types;
+import com.we.weblog.service.CommentSerivce;
 import com.we.weblog.service.ContextService;
 import com.we.weblog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +29,15 @@ public class FrontController {
 
 
     private ContextService contextService;
+    private CommentSerivce commentSerivce;
     private static int postId ;
     private static String tagName = null;
     private TagService tagService;
 
 
     @Autowired
-    public FrontController(ContextService blogService,TagService tagService){
+    public FrontController(ContextService blogService,TagService tagService,CommentSerivce commentSerivce){
+        this.commentSerivce =commentSerivce;
         this.tagService = tagService;
         this.contextService = blogService;
         //初始化postID 为第一个 防止单独访问为0 什么都木有
@@ -204,7 +208,6 @@ public class FrontController {
     public Map<String,Object> getFrontData(@PathVariable String page) throws Exception {
         //如果是首页
 
-
         Map<String,Object> maps = new HashMap<>();
 
         List<String> tagsName = tagService.getTotalTagsName();
@@ -244,6 +247,14 @@ public class FrontController {
             Context currentContext = contextService.getBlogById(postId);
             Context preContext = contextService.getPreviousBlog(postId);
             Context nextContext = contextService.getNextBlog(postId);
+            int uid = currentContext.getUid();
+
+            //显示评论
+            if(uid >0){
+                Comment comment =  commentSerivce.getCommentByArticleId(uid);
+                maps.put(Types.COMMENT,comment);
+            }
+
 
             maps.put(Types.CURRENT_BLOG, currentContext);
             maps.put(Types.NEXT_BLOG, nextContext);

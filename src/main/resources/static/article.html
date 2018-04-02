@@ -7,10 +7,10 @@
 
     <meta name="description" content="今生今世轮回尽, 来世愿为幻想乡">
     <title>clayの部落格</title>
-    <!-- inject:style -->
+
     <link href="./css/style.css" rel="stylesheet" type="text/css">
     <link href="./tale/css/front/style.min.css" rel="stylesheet" type="text/css">
-    <!-- endinject -->
+
     <style>
         .cube-loading {
             top: 0;
@@ -190,7 +190,7 @@
             <div id="comments" class="clearfix">
                 <span class="response"></span>
 
-                <form method="post" id="comment-form" class="comment-form" onsubmit="return TaleComment.subComment();">
+                <form method="post" id="comment-form" class="comment-form" onsubmit="">
                     <input type="hidden" name="coid" id="coid">
                     <input type="hidden" name="cid" id="cid" value="1">
                     <input type="hidden" name="csrf_token" value="HEYEoUQ5HHi7Q0X0KS_1Z0">
@@ -202,23 +202,23 @@
                 </form>
 
 
-                <ol class="comment-list">
+                <ol class="comment-list" v-if="comment !=null">
                     <li id="li-comment-5" class="comment-body comment-parent comment-odd">
                         <div id="comment-5">
                             <div class="comment-view" onclick="">
                                 <div class="comment-header">
                                     <img class="avatar" src="https://cn.gravatar.com/avatar/e94656cb82a8f7228e13e1d9d56fb101?s=80&amp;r=G&amp;d=" title="11" width="80" height="80">
                                     <span class="comment-author">
-                                <a href="" target="_blank" rel="external nofollow">11</a>
+                                <a href="" target="_blank" rel="external nofollow">{{comment['author']}}</a>
                             </span>
                                 </div>
                                 <div class="comment-content">
                                     <span class="comment-author-at"></span>
-                                    <p></p><p>评论测试</p>
+                                    <p></p><p>{{comment['content']}}</p>
                                     <p></p>
                                 </div>
                                 <div class="comment-meta">
-                                    <time class="comment-time">2018-04-01</time>
+                                    <time class="comment-time">{{comment['time']}}  </time>
                                     <span class="comment-reply">
                                 <a rel="nofollow" onclick="TaleComment.reply('5');">回复</a>
                             </span>
@@ -551,7 +551,8 @@
                     blogs:[],
                     tagsCount:0,
                     blogsCount:1,
-                    tagsName:[]
+                    tagsName:[],
+                    comment:""
                 }
             },
             methods:{
@@ -570,6 +571,9 @@
                 },
                 getTagLink:function (data) {
                     return "/tag/"+data;
+                },
+                repley:function () {
+                    //留言回复
                 }
 
             },

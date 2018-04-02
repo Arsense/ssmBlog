@@ -17,8 +17,10 @@ public class Comment {
 
     //comment主键
     private  int        commentId;
+
+
     //所评论文章的ID
-    private  int        articleId;
+    private  int        article_id;
     //创建时间
     private  Date       created;
 
@@ -99,11 +101,26 @@ public class Comment {
         this.time = time;
     }
 
-    public int getArticleId() {
-        return articleId;
+    public int getArticle_id() {
+        return article_id;
     }
 
-    public void setArticleId(int articleId) {
-        this.articleId = articleId;
+    public void setArticle_id(int article_id) {
+        this.article_id = article_id;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "commentId=" + commentId +
+                ", article_id=" + article_id +
+                ", created=" + created +
+                ", author='" + author + '\'' +
+                ", email='" + email + '\'' +
+                ", ip='" + ip + '\'' +
+                ", time='" + time + '\'' +
+                ", content='" + content + '\'' +
+                '}';
     }
 }

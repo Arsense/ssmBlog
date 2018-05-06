@@ -42,9 +42,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
                 try {
                     UIModel uiModel = UIModel.success().isLogin(false).setLoginUrl(LOGIN_URL);
                     response.getWriter().write(uiModel.toJsonString());
-                   /* response.setContentType("application/json");
 
-                    response.getOutputStream().write(uiModel.toJsonString().getBytes());*/
                 } catch (IOException e) {
                     // to do nothing
                 }

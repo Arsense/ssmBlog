@@ -7,9 +7,7 @@ import com.we.weblog.domain.Comment;
 import com.we.weblog.service.CommentSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -33,6 +31,19 @@ public class CommentController {
         this.commentSerivce = commentSerivce;
     }
 
+
+    /**
+     * 添加评论
+     * @param comment
+     * @return
+     */
+    @PostMapping("/send")
+    @ResponseBody
+    public  UIModel uiModel(@RequestBody Comment comment){
+
+        UIModel uiModel = new UIModel() ;
+        return   uiModel;
+    }
     /**
      * 前端 评论信息
      */
@@ -62,6 +73,9 @@ public class CommentController {
         uiModel.tableData(tableData);
         return uiModel ;
     }
+
+
+
 
 
 }

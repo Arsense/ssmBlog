@@ -193,12 +193,12 @@
                 <form method="post" id="comment-form" class="comment-form" onsubmit="">
                     <input type="hidden" name="coid" id="coid">
                     <input type="hidden" name="cid" id="cid" value="1">
-                    <input type="hidden" name="csrf_token" value="HEYEoUQ5HHi7Q0X0KS_1Z0">
+                    <!--<input type="hidden" name="csrf_token" value="HEYEoUQ5HHi7Q0X0KS_1Z0">-->
                     <input name="author" maxlength="12" id="author" class="form-control input-control clearfix" placeholder="姓名 (*)" value="" required="">
                     <input type="email" name="mail" id="mail" class="form-control input-control clearfix" placeholder="邮箱 (*)" value="" required="">
                     <input type="url" name="url" id="url" class="form-control input-control clearfix" placeholder="网址 (http://)" value="">
                     <textarea name="content" id="textarea" class="form-control" placeholder="基佬，留下你的评论." required="" minlength="5" maxlength="2000"></textarea>
-                    <button class="submit" id="misubmit">提交</button>
+                    <button class="submit" @click="insertComment()">提交</button>
                 </form>
 
 
@@ -574,6 +574,11 @@
                 },
                 repley:function () {
                     //留言回复
+                },
+                insertComment:function () {
+                    axios.get("/admin/comments/send",).then(function (response) {
+
+                    });
                 }
 
             },

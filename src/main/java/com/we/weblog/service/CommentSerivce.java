@@ -42,6 +42,10 @@ public class CommentSerivce {
 
    public Comment getCommentByArticleId(int uid){
        Comment comment = commentMapper.getArticleById(uid);
+       //处理没有评论的情况
+       if(comment == null || comment.getContent() == null){
+           return comment;
+       }
        comment.setTime(TimeTool.getFormatClearToDay(comment.getCreated()));
 
        return comment;

@@ -95,7 +95,6 @@ public class FrontController {
 
 
 
-
         return map;
 
     }

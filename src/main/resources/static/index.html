@@ -223,7 +223,7 @@
         <div class="count" >
             <a class="count articles"><span>{{blogsCount}}</span>文章</a>
             <a class="count tags"><span>{{tagsCount}}</span>标签</a>
-            <a class="count categories"><span>0</span>分类</a>
+            <a class="count categories"><span>{{categoryCount}}</span>分类</a>
         </div>
     </div>
     <!--音乐播放软件-->
@@ -482,7 +482,8 @@
                 blogs:[],
                 tagsCount:0,
                 blogsCount:1,
-                tagsName:[]
+                tagsName:[],
+                categoryCount:0,
 
             }
         },

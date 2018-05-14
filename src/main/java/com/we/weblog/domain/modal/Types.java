@@ -13,6 +13,7 @@ public interface Types {
     String BLOG = "blog";
     String TAG_NAME = "tagsName";
     String TAG_COUNT = "tagsCount";
+    String CATEGORY_COUNT="categoryCount";
     String CATEGORIES = "cateData";
     String CURRENT_BLOG = "current";
     String NEXT_BLOG = "next";

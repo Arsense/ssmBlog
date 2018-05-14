@@ -33,6 +33,15 @@ public class ContextService {
 }
 
 
+    /**
+     * 得到博客数量
+     * @return
+     */
+   public int getCategoryCount(){
+        return  contextMapper.selectAllCategories().size();
+   }
+
+
 
     public List<CategoriesBlog> sortBlogsByCategories(){
 

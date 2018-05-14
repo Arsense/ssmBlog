@@ -210,6 +210,7 @@ public class FrontController {
         List<String> tagsName = tagService.getTotalTagsName();
 
         int blogCount = contextService.getTotalBlog();
+        int categoryCount = contextService.getCategoryCount();
         int totalTags = 10;
         //旁边博客展示都需要
         List<Context> blogs = contextService.getLastestBlogs();
@@ -221,6 +222,7 @@ public class FrontController {
         maps.put(Types.TAG_NAME,tagsName);
         maps.put(Types.TAG_COUNT,totalTags);
         maps.put(Types.BLOG_COUNT,blogCount);
+        maps.put(Types.CATEGORY_COUNT,categoryCount);
 
 
         return maps;

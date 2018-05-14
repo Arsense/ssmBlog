@@ -156,7 +156,7 @@
 
 <div class ="cube-content" id="main" style="visibility: visible;">
 <div class ="cube-left">
-    <div class="cube-excerpt" v-for="blog in blogs">
+    <div class="cube-excerpt" v-for="blog in blogs" >
         <header class="cube-excerpt-header">
             <h1><a :href="getPostUrl(blog)">{{blog['title']}}</a></h1>
             <div class="cube-excerpt-header-msg">
@@ -173,11 +173,12 @@
             </div>
         </header>
 
-            <article  class="cube-excerpt-entry cube-markdown" lg-uid="lg0" v-html="blog['article']">
-            </article>
+            <!--<article   class="cube-excerpt-entry cube-markdown" lg-uid="lg0" v-html="blog['article']">-->
+            <!--</article>-->
 
 
-
+        <article   class="cube-excerpt-entry cube-markdown" lg-uid="lg0" v-html="sortBlogData(blog)">
+        </article>
         <footer class="cube-excerpt-footer">
             <a class="cube-excerpt-more" :href="getPostUrl(blog)">阅读全文</a>
         </footer>
@@ -503,6 +504,12 @@
             },
             getTagLink:function (data) {
                 return "/tag/"+data;
+            },
+            sortBlogData:function (blog) {
+                //阅读部分显示字符截取
+                if (blog.article.length > 500)
+                        blog.article = blog.article.substring(0,500);
+                    return blog.article;
             }
 
 

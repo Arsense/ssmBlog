@@ -93,8 +93,6 @@ public class FrontController {
 
         Map<String,Context> map  = new HashMap<>();
 
-
-
         return map;
 
     }
@@ -250,8 +248,8 @@ public class FrontController {
 
             //显示评论
             if(uid >0){
-                Comment comment =  commentSerivce.getCommentByArticleId(uid);
-                maps.put(Types.COMMENT,comment);
+                List<Comment> comments =  commentSerivce.getCommentByArticleId(uid);
+                maps.put(Types.COMMENTS,comments);
             }
 
 

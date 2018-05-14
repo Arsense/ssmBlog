@@ -3,12 +3,14 @@ package com.we.weblog.controller.admin;
 
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
+import com.we.weblog.controller.BaseController;
 import com.we.weblog.domain.Comment;
 import com.we.weblog.service.CommentSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +20,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admin/comments")
-public class CommentController {
+public class CommentController extends BaseController {
 
 
 
@@ -34,15 +36,22 @@ public class CommentController {
 
     /**
      * 添加评论
-     * @param comment
+     * @param
      * @return
      */
     @PostMapping("/send")
     @ResponseBody
-    public  UIModel uiModel(@RequestBody Comment comment){
+    public UIModel addComment(@RequestBody Comment comment){
 
-        UIModel uiModel = new UIModel() ;
-        return   uiModel;
+
+        if(comment == null || comment.getArticleId() <= 0) return UIModel.fail().setMsg("评论失败,输入信息有误");
+
+
+
+        int result=commentSerivce.addComments(comment,request);
+
+        if(result > 0) return UIModel.success().setMsg("评论成功");
+        else return UIModel.fail().setMsg("评论失败,输入内容有误");
     }
     /**
      * 前端 评论信息

@@ -190,19 +190,19 @@
             <div id="comments" class="clearfix">
                 <span class="response"></span>
 
-                <form method="post" id="comment-form" class="comment-form" onsubmit="">
+                <form method="post" id="comment-form" name="commnentForm" class="comment-form" onsubmit="">
                     <input type="hidden" name="coid" id="coid">
                     <input type="hidden" name="cid" id="cid" value="1">
                     <!--<input type="hidden" name="csrf_token" value="HEYEoUQ5HHi7Q0X0KS_1Z0">-->
                     <input name="author" maxlength="12" id="author" class="form-control input-control clearfix" placeholder="姓名 (*)" value="" required="">
-                    <input type="email" name="mail" id="mail" class="form-control input-control clearfix" placeholder="邮箱 (*)" value="" required="">
-                    <input type="url" name="url" id="url" class="form-control input-control clearfix" placeholder="网址 (http://)" value="">
-                    <textarea name="content" id="textarea" class="form-control" placeholder="基佬，留下你的评论." required="" minlength="5" maxlength="2000"></textarea>
-                    <button class="submit" @click="insertComment()">提交</button>
+                    <input id = "email" type="email" name="mail" id="mail" class="form-control input-control clearfix" placeholder="邮箱 (*)" value="" required="">
+                    <input id= "url" type="url" name="url" id="url" class="form-control input-control clearfix" placeholder="网址 (http://)" value="">
+                    <textarea id="content" name="content" id="textarea" class="form-control" placeholder="基佬，留下你的评论." required="" minlength="5" maxlength="2000"></textarea>
+                    <button class="submit" @click="insertComment">提交</button>
                 </form>
 
 
-                <ol class="comment-list" v-if="comment !=null">
+                <ol class="comment-list" v-for="comment in comments" v-if="comments !=null">
                     <li id="li-comment-5" class="comment-body comment-parent comment-odd">
                         <div id="comment-5">
                             <div class="comment-view" onclick="">
@@ -552,7 +552,14 @@
                     tagsCount:0,
                     blogsCount:1,
                     tagsName:[],
-                    comment:""
+                    comments:"",
+                    newComment:{
+                        author:"",
+                        email:"",
+                        content:"",
+                        url:"",
+                        articleId:""
+                    },
                 }
             },
             methods:{
@@ -576,9 +583,15 @@
                     //留言回复
                 },
                 insertComment:function () {
-                    axios.get("/admin/comments/send",).then(function (response) {
-
-                    });
+                    this._data.newComment.author = document.commnentForm.author.value
+                    this._data.newComment.email  = document.commnentForm.email.value
+                    this._data.newComment.content = document.commnentForm.content.value
+                    this._data.newComment.url = document.commnentForm.url.value
+                    this._data.newComment.articleId = this._data.current.uid
+                    axios.post("/admin/comments/send",this._data.newComment).then(function (response) {
+                       //这里要不要设置回显信息
+                        $.alert(response.data);
+        });
                 }
 
             },

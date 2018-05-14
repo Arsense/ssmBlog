@@ -3,10 +3,13 @@ package com.we.weblog.service;
 
 import com.we.weblog.domain.Comment;
 import com.we.weblog.mapping.CommentMapper;
+import com.we.weblog.tool.IpTool;
 import com.we.weblog.tool.TimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -40,15 +43,26 @@ public class CommentSerivce {
        return commentMapper.getNumberOfComment();
    }
 
-   public Comment getCommentByArticleId(int uid){
-       Comment comment = commentMapper.getArticleById(uid);
-       //处理没有评论的情况
-       if(comment == null || comment.getContent() == null){
-           return comment;
-       }
-       comment.setTime(TimeTool.getFormatClearToDay(comment.getCreated()));
+   public List<Comment> getCommentByArticleId(int uid){
+       List<Comment> comments = commentMapper.getArticleById(uid);
 
-       return comment;
+       if(comments.isEmpty()){
+           return comments;
+       }
+       for(Comment comment:comments){
+           comment.setTime(TimeTool.getFormatClearToDay(comment.getCreated()));
+       }
+
+       return comments;
+   }
+
+   public int addComments(Comment comment, HttpServletRequest request){
+
+       comment.setCreated(new Date(System.currentTimeMillis()));
+       comment.setIp(IpTool.getIpAddress(request));
+
+       int result = commentMapper.insertComment(comment);
+       return result;
    }
 
 

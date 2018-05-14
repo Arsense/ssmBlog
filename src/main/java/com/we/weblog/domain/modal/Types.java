@@ -26,6 +26,6 @@ public interface Types {
     String PAGE_ARTICLE = "article";
     String PAGE_ABOUT = "about";
 
-    String COMMENT = "comment";
+    String COMMENTS = "comments";
 
 }

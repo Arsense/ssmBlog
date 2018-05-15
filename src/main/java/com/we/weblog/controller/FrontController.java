@@ -74,28 +74,7 @@ public class FrontController {
 
 
     }
-    /**
-     *  先处理好数据 要不然后让所有url 在
-     * @param id
-     * @return
-     */
-    @GetMapping("/post/{id}")
-    public void post(@PathVariable String id,HttpServletResponse response ) throws IOException {
 
-        postId = Integer.parseInt(id);
-        response.sendRedirect("/article.html");
-
-    }
-
-    @GetMapping("/post")
-    @ResponseBody
-    public Map<String, Context> postData( ){
-
-        Map<String,Context> map  = new HashMap<>();
-
-        return map;
-
-    }
 
     @GetMapping("/tags_data")
     @ResponseBody
@@ -229,6 +208,8 @@ public class FrontController {
 
     }
 
+
+
     /**
      * 前端数据处理的主要函数
      * @param maps
@@ -237,15 +218,21 @@ public class FrontController {
      */
     public  void sortPagesMap(Map<String,Object> maps, String pageType) throws Exception {
 
+
+
         if(pageType.equals(Types.PAGE_CATEGORY)){
 
             List<CategoriesBlog> cBlogs = contextService.sortBlogsByCategories();               maps.put(Types.CATEGORIES,cBlogs);
 
-        }else if(pageType.equals(Types.PAGE_ARTICLE)){
+        }else if(pageType.contains(Types.PAGE_ARTICLE) ){
 
-            Context currentContext = contextService.getBlogById(postId);
-            Context preContext = contextService.getPreviousBlog(postId);
-            Context nextContext = contextService.getNextBlog(postId);
+            int getId = Integer.parseInt(pageType.substring(7,pageType.length()));
+            if(getId <=0){
+                throw new Exception("GET ARTICLE ID FAIL,CHECK");
+            }
+            Context currentContext = contextService.getBlogById(getId);
+            Context preContext = contextService.getPreviousBlog(getId);
+            Context nextContext = contextService.getNextBlog(getId);
             int uid = currentContext.getUid();
 
             //显示评论

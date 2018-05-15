@@ -23,6 +23,8 @@ public class Context {
     //发布时间
 
 
+
+
     private String month;
     //文章类型
     private String type;
@@ -32,9 +34,8 @@ public class Context {
     private String publish;
     // 分类列表
     private String  categories;
-
-
-
+    //浏览量
+    private int   hits;
 
     public String getPublish() {
         return publish;
@@ -132,6 +133,12 @@ public class Context {
         this.tags = tags;
     }
 
+    public int getHits() {
+        return hits;
+    }
 
+    public void setHits(int hits) {
+        this.hits = hits;
+    }
 
 }

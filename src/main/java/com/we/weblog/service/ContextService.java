@@ -160,6 +160,8 @@ public class ContextService {
         if(StringTool.isBlank(context.getCategories())){
             context.setCategories("默认分类");
         }
+        //初始化访问量是0
+        context.setHits(0);
 
         context.setPublish(Types.PUBLISH);
 

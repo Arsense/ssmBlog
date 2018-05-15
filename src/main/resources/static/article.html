@@ -165,6 +165,24 @@
                 }
             }
         </style>
+        <!--<div class="post-header">-->
+        <!--<h1 class="post-title" itemprop="name headline">-->
+        <!--<a href="#">{{current['title']}}</a>-->
+        <!--</h1>-->
+        <!--<div class="post-data">-->
+        <!--<time datetime="{{current['month']}}" itemprop="datePublished">发布于  {{current['month']}}</time><a href="#comments"></a> 1浏览-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div id="post-content" v-html="current['article']" class="post-content" itemprop="articleBody">-->
+        <!--<p class="post-tags">{{current['tags']}}</p>-->
+
+        <!--<p class="post-info">-->
+        <!--本文由 <a href=""> clay</a> 创作，采用 <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"-->
+        <!--rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为:-->
+        <!--{{current['month']}}-->
+        <!--</p>-->
+        <!--</div>-->
+
         <div class="cube-article">
 
             <h1 class="title">{{current['title']}}</h1>
@@ -176,15 +194,37 @@
                     8浏览
                 </div>
                 <br>
-                <div class="cube-article-tags">
-                    <p class="post-tags"><a href="/tags/杂谈">{{current['tags']}}</a></p>
+
+            </div>
+
+            <div class="cube-article-tags">
+                <p class="post-tags" v-if="current.tags != null"><a href="#">{{current['tags']}}</a></p>
+
+            <div v-html="current['article']" class="cube-article-content cube-markdown" lg-uid="lg0">
+
 
                 </div>
             </div>
-
-            <div v-html="current['article']" class="cube-article-content cube-markdown" lg-uid="lg0">
-            </div>
         </div>
+        <!--<article class="main-content page-page" itemscope itemtype="http://schema.org/Article">-->
+            <!--<div class="post-header">-->
+                <!--<h1 class="post-title" itemprop="name headline">-->
+                    <!--<a href="#">{{current['title']}}</a>-->
+                <!--</h1>-->
+                <!--<div class="post-data">-->
+                    <!--<time datetime="{{current['month']}}" itemprop="datePublished">发布于  {{current['month']}}</time><a href="#comments"></a> 1浏览-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div id="post-content" v-html="current['article']" class="post-content" itemprop="articleBody">-->
+                <!--<p class="post-tags">{{current['tags']}}</p>-->
+
+                <!--<p class="post-info">-->
+                    <!--本文由 <a href=""> clay</a> 创作，采用 <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"-->
+                                                      <!--rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为:-->
+                    <!--{{current['month']}}-->
+                <!--</p>-->
+            <!--</div>-->
+        <!--</article>-->
 
         <div  class="comment-container">
             <div id="comments" class="clearfix">

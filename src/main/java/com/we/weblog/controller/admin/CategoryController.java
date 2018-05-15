@@ -94,9 +94,11 @@ public class CategoryController {
             return  UIModel.fail().setMsg("您输入的类别过长");
         }
 
-        String test = name;
+        int result = tagService.addCategory(name);
 
-        return UIModel.success().setMsg("测试成功");
+        if(result > 0)return UIModel.success().setMsg("添加成功");
+        else return UIModel.fail().setMsg("添加失败");
+
     }
 
 }

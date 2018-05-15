@@ -28,5 +28,6 @@ public interface Types {
     String PAGE_ABOUT = "about";
 
     String COMMENTS = "comments";
+    String MATE_CATEGOTY="category";
 
 }

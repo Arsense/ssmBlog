@@ -1,6 +1,7 @@
 package com.we.weblog.mapping;
 
 
+import com.we.weblog.domain.Metas;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -37,5 +38,6 @@ public interface TagMapper {
     @Delete({"delete from t_tag  where tag_name = #{tag}"})
     int deleteTagByName(@Param("tag") String tagName);
 
-
+    @Insert({"insert into t_mates (name,type) valus (#{m.name},#{m.type})"})
+    int insertCatgory(@Param("m")Metas name);
 }

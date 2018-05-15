@@ -2,11 +2,14 @@ package com.we.weblog.service;
 
 
 import com.vue.adminlte4j.model.UIModel;
+import com.we.weblog.domain.Metas;
+import com.we.weblog.domain.modal.Types;
 import com.we.weblog.mapping.TagMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class TagService {
@@ -49,5 +52,16 @@ public class TagService {
            return 0;
        }
        return 1;
+    }
+
+
+    public int addCategory(String name){
+        if(name == null) return 0;
+
+        Metas category = new Metas();
+        category.setName(name);
+        category.setType(Types.MATE_CATEGOTY);
+        return tagMapper.insertCatgory(category);
+
     }
 }

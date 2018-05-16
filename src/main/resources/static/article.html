@@ -174,8 +174,8 @@
 
                 <div class="post-data">
                     <time datetime="2018-03-19" itemprop="datePublished">发布于  {{current['month']}}</time>
-                    <a href="">默认分类</a> / <a href="#comments">1 条评论</a>
-                    8浏览
+                    <a href="">默认分类</a> / <a href="#comments">{{comments.length}}条评论</a>
+                    {{current['hits']}}浏览
                 </div>
                 <br>
 
@@ -204,7 +204,7 @@
                     <input id = "email" type="email" name="mail" id="mail" class="form-control input-control clearfix" placeholder="邮箱 (*)" value="" required="">
                     <input id= "url" type="url" name="url" id="url" class="form-control input-control clearfix" placeholder="网址 (http://)" value="">
                     <textarea id="content" name="content" id="textarea" class="form-control" placeholder="基佬，留下你的评论." required="" minlength="5" maxlength="2000"></textarea>
-                    <button class="submit" @click="insertComment">提交</button>
+                    <button id="commentFrom" type="button" class="submit" @click="insertComment">提交</button>
                 </form>
 
 
@@ -546,7 +546,6 @@
 </body>
 
     <script>
-        //要接收文章 接收文章数量  标签数量  分类数量 近期文章  标签
         var vm=new Vue({
             el: "#main",
             data: function(){
@@ -567,6 +566,7 @@
                         articleId:""
                     },
                     categoryCount:0,
+
                 }
             },
             methods:{
@@ -597,9 +597,8 @@
                     this._data.newComment.content = document.commnentForm.content.value
                     this._data.newComment.url = document.commnentForm.url.value
                     this._data.newComment.articleId = this._data.current.uid
-                    axios.post("/admin/comments/send",this._data.newComment).then(function (response) {
-                       //这里要不要设置回显信息
-                        $.alert(response.data);
+                    axios.post("/comments/send",this._data.newComment).then(function (response) {
+                        var t=setTimeout("window.location.reload()",1500)
         });
                 },
                 getQueryString:function (key) {

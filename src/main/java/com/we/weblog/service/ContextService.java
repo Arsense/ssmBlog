@@ -339,4 +339,15 @@ public class ContextService {
 
     }
 
+    /**
+     * 访问量增加
+     * @return
+     */
+    public void addOneHits(Context context){
+
+        context.setHits(context.getHits()+1);
+        contextMapper.updateHits(context);
+
+    }
+
 }

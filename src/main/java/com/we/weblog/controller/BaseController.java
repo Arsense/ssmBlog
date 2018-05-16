@@ -19,9 +19,6 @@ public class BaseController {
     @Autowired
     protected HttpServletResponse response;
 
-//    public User user() {
-//        return TaleUtils.getLoginUser();
-//    }
 
 
     protected String redirectTo( String url ) {

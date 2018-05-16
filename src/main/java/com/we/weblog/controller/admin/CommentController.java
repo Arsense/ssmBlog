@@ -34,25 +34,7 @@ public class CommentController extends BaseController {
     }
 
 
-    /**
-     * 添加评论
-     * @param
-     * @return
-     */
-    @PostMapping("/send")
-    @ResponseBody
-    public UIModel addComment(@RequestBody Comment comment){
 
-
-        if(comment == null || comment.getArticleId() <= 0) return UIModel.fail().setMsg("评论失败,输入信息有误");
-
-
-
-        int result=commentSerivce.addComments(comment,request);
-
-        if(result > 0) return UIModel.success().setMsg("评论成功");
-        else return UIModel.fail().setMsg("评论失败,输入内容有误");
-    }
     /**
      * 前端 评论信息
      */

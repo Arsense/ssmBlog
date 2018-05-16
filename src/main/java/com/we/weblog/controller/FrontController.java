@@ -14,6 +14,8 @@ import com.we.weblog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
@@ -25,7 +27,7 @@ import java.util.Map;
  *   前端页面显示的控制器
  */
 @Controller
-public class FrontController {
+public class FrontController extends  BaseController {
 
 
     private ContextService contextService;
@@ -47,7 +49,25 @@ public class FrontController {
 
 
 
+    /**
+     * 添加评论
+     * @param
+     * @return
+     */
+    @PostMapping("/comments/send")
+    @ResponseBody
+    public UIModel addComment(@RequestBody Comment comment ){
 
+
+        if(comment == null || comment.getArticleId() <= 0) return UIModel.fail().setMsg("评论失败,输入信息有误");
+
+
+
+        int result=commentSerivce.addComments(comment,request);
+
+        if(result > 0) return UIModel.success().setMsg("评论成功");
+        else return UIModel.fail().setMsg("评论失败,输入内容有误");
+    }
 
 
     /**
@@ -115,29 +135,6 @@ public class FrontController {
     }
 
 
-    @GetMapping("/admin/get_table_data")
-    @ResponseBody
-    Map<String,Object> get_table_data() {
-
-            UIModel uiModel = new UIModel() ;
-        TableData tableData = new TableData() ;
-
-        tableData.configDisplayColumn(TableData.createColumn("uid" , "博客编号") );
-        tableData.configDisplayColumn(TableData.createColumn("title" , "标题") );
-        tableData.configDisplayColumn(TableData.createColumn("tags" , "标签" ));
-        tableData.configDisplayColumn(TableData.createColumn("month" , "创建日期" ));
-
-        //遍历查询数据库
-        List<Context> tempContexts=contextService.showBlogs(1);;
-
-        for(Context context : tempContexts){
-            tableData.addData(context);
-        }
-
-        tableData.setTotalSize(contextService.getTotalBlog());
-        uiModel.tableData(tableData);
-        return uiModel ;
-    }
 
 
 
@@ -231,6 +228,8 @@ public class FrontController {
                 throw new Exception("GET ARTICLE ID FAIL,CHECK");
             }
             Context currentContext = contextService.getBlogById(getId);
+            //增加一次访问量
+            contextService.addOneHits(currentContext);
             Context preContext = contextService.getPreviousBlog(getId);
             Context nextContext = contextService.getNextBlog(getId);
             int uid = currentContext.getUid();

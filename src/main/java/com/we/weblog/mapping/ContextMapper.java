@@ -72,7 +72,7 @@ public interface ContextMapper {
      * @param count
      * @return
      */
-    @Select({"select uid,title,created,tags,article,slug from t_context where type = 'post'  limit #{count}"})
+    @Select({"select uid,title,created,tags,article,slug,hits from t_context where type = 'post'  limit #{count}"})
     List<Context> getTenBlogs(@Param("count") int count);
 
 
@@ -87,7 +87,8 @@ public interface ContextMapper {
     void updateBlog(@Param("b") Context context, @Param("id") int uid);
 
 
-
+    @Update({"update t_context set hits=#{c.hits} where uid = #{c.uid}"})
+    void updateHits(@Param("c") Context context);
 
 
     @Select({"select uid,title,created,tags from t_context where type = 'post'  order by created desc limit #{p},12"})
@@ -103,7 +104,7 @@ public interface ContextMapper {
     @Select({"select uid,title,created from t_context where type = 'post' order by created desc limit #{p},20"})
     List<Context> getNewBlogs(@Param("p") int page);
 
-    @Select({"select uid,title,article,md,created,tags from t_context where uid = #{id}  "})
+    @Select({"select uid,title,article,md,created,tags,hits from t_context where uid = #{id}  "})
     Context getBlogById(@Param("id") int id);
 
     @Select({"select uid,title,tags,created from t_context where uid < #{id} and type = 'post'   order by uid desc limit 1"})

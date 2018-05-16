@@ -123,6 +123,11 @@
                 var name = $("#newCategory").val();
                 axios.get("/admin/category/save/"+name).then(function (response) {
                     $.alert(response.data);
+                    // 添加成功刷新页面
+                    if(response.data.code == 1){
+                        var t=setTimeout("window.location.reload()",1500)
+                    }
+
                 });
             },
 

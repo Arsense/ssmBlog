@@ -8,6 +8,7 @@ import com.we.weblog.mapping.TagMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -54,7 +55,11 @@ public class TagService {
        return 1;
     }
 
-
+    /**
+     * 添加分类
+     * @param name
+     * @return
+     */
     public int addCategory(String name){
         if(name == null) return 0;
 
@@ -63,5 +68,29 @@ public class TagService {
         category.setType(Types.MATE_CATEGOTY);
         return tagMapper.insertCatgory(category);
 
+    }
+
+
+    public List<String> getMates(){
+        List<String> categories = new ArrayList<>();
+       List<Metas> metas =  tagMapper.selectCategories();
+       for(Metas meta: metas){
+           categories.add(meta.getName());
+       }
+
+       return categories;
+
+    }
+
+
+    /**
+     * 删除category from metas
+     * @param name
+     * @return
+     */
+    public int deleteMetas(String name){
+
+
+        return tagMapper.deleteCategoryByName(name);
     }
 }

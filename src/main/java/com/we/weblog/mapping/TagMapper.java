@@ -38,6 +38,13 @@ public interface TagMapper {
     @Delete({"delete from t_tag  where tag_name = #{tag}"})
     int deleteTagByName(@Param("tag") String tagName);
 
-    @Insert({"insert into t_mates (name,type) valus (#{m.name},#{m.type})"})
+    @Insert({"insert into t_mates (name,type) values (#{m.name},#{m.type})"})
     int insertCatgory(@Param("m")Metas name);
+
+    @Select({"select distinct name from t_mates where type = 'category'"})
+    List<Metas> selectCategories();
+
+
+    @Delete({"delete from t_mates where name= #{name}"})
+    int deleteCategoryByName(@Param("name")String name);
 }

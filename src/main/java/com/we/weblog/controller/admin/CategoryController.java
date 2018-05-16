@@ -25,8 +25,9 @@ public class CategoryController {
     private TagService tagService;
 
     @Autowired
-    public CategoryController(ContextService contextService){
+    public CategoryController(ContextService contextService,TagService tagService){
         this.contextService = contextService;
+        this.tagService = tagService;
     }
 
 
@@ -49,7 +50,7 @@ public class CategoryController {
             return UIModel.fail().setMsg("删除的类别为空");
           }
           int result = contextService.deleteCatories(categoryName);
-
+          tagService.deleteMetas(categoryName);
           if(result >=0){
               return UIModel.success().setMsg("删除成功");
           }else{
@@ -67,7 +68,7 @@ public class CategoryController {
     public Map<String,Object> manageCategoryAndTag(){
 
         Map<String,Object> maps  = new HashMap<>();
-        List<String> cates = contextService.getCategories();
+        List<String> cates = tagService.getMates();
         List<String> tags = contextService.getAllKindTags();
 
         maps.put("categories",cates);
@@ -94,6 +95,11 @@ public class CategoryController {
             return  UIModel.fail().setMsg("您输入的类别过长");
         }
 
+        List<String> tagName = tagService.getMates();
+
+        if(tagName.contains(name)){
+            return UIModel.fail().setMsg("该分类已存在");
+        }
         int result = tagService.addCategory(name);
 
         if(result > 0)return UIModel.success().setMsg("添加成功");

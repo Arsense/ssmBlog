@@ -48,8 +48,6 @@ public class AdminBlogApiController extends ApiAdminController {
         menus.add(menu8);
         menus.add(menu9);
 
-
-
         super.configureMenu(uiModel);
         uiModel.menu(menus);
     }

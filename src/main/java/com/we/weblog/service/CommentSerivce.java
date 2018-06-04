@@ -56,6 +56,12 @@ public class CommentSerivce {
        return comments;
    }
 
+    /**
+     * 添加评论
+     * @param comment
+     * @param request
+     * @return
+     */
    public int addComments(Comment comment, HttpServletRequest request){
 
        comment.setCreated(new Date(System.currentTimeMillis()));
@@ -65,5 +71,14 @@ public class CommentSerivce {
        return result;
    }
 
+    /**
+     * 删除评论
+      * @param cid
+     * @return
+     */
+   public int deleteComment(Integer cid){
+       return commentMapper.deleteCommentById(cid);
+
+   }
 
 }

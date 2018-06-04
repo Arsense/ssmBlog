@@ -45,7 +45,7 @@ public class CommentController extends BaseController {
         UIModel uiModel = new UIModel() ;
         TableData tableData = new TableData() ;
 
-
+        tableData.configDisplayColumn(TableData.createColumn("cid" , "评论id" ));
         tableData.configDisplayColumn(TableData.createColumn("content" , "评论内容" ));
         tableData.configDisplayColumn(TableData.createColumn("author" , "评论人") );
         tableData.configDisplayColumn(TableData.createColumn("time" , "评论时间" ));
@@ -65,7 +65,21 @@ public class CommentController extends BaseController {
         return uiModel ;
     }
 
+    @GetMapping("/delete/{id}")
+    @ResponseBody
+    public  UIModel deleteCommnets(@PathVariable("id") Integer commentId){
 
+        if(commentId <= 0 )
+            return UIModel.fail().setMsg("删除id非法");
+
+        int result  = commentSerivce.deleteComment(commentId);
+
+        if(result > 0){
+            return UIModel.success().setMsg("删除成功");
+        }
+        return UIModel.fail().setMsg("删除失败");
+
+    }
 
 
 

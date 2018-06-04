@@ -16,7 +16,7 @@ public class Comment {
 
 
     //comment主键
-    private  int        commentId;
+    private  int        cid;
 
 
     //所评论文章的ID
@@ -45,12 +45,12 @@ public class Comment {
     private  String     content;
 
 
-    public int getCommentId() {
-        return commentId;
+    public int getCid() {
+        return cid;
     }
 
-    public void setCommentId(int commentId) {
-        this.commentId = commentId;
+    public void setCid(int cid) {
+        this.cid = cid;
     }
 
     public Date getCreated() {

@@ -46,7 +46,11 @@
                         scheme: 'red',
                         icon:'trash',
                         method : function(row ,$table) {
+                            axios.get('/admin/comments/delete/'+row.cid).then(function (response) {
+                                $.alert(response.data);
+                                $table.fetchData()
 
+                            });
                         }
                     }
                 ]

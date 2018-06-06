@@ -57,7 +57,7 @@
 
                             <li class="list-group-item">
                                 {{comment.author}} 于{{comment.time}}留言:<br>
-                                <a href="" target="_blank">{{comment.content}}</a>
+                                <a :href="getpostUrl(comment)" target="_blank">{{comment.content}}</a>
                             </li>
 
                         </ul>

@@ -93,4 +93,9 @@ public class TagService {
 
         return tagMapper.deleteCategoryByName(name);
     }
+
+
+    public List<String> getCategories(){
+        return tagMapper.getAllCategories();
+    }
 }

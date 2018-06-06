@@ -2,15 +2,14 @@ package com.we.weblog.controller.admin;
 
 
 import com.vue.adminlte4j.model.UIModel;
+import com.we.weblog.domain.Select;
 import com.we.weblog.service.ContextService;
 import com.we.weblog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 分类标签控制器
@@ -31,11 +30,26 @@ public class CategoryController {
     }
 
 
-
-    @GetMapping("/")
+    /**
+     *  添加博客分类显示
+     * @return
+     */
+    @GetMapping("/index")
     @ResponseBody
-    public List<String> getAllKindCategories(){
-        return  contextService.getCategories();
+    public List<Select> getAllKindCategories(){
+
+        List<Select> selects = new ArrayList<>();
+        List<String> categories = tagService.getCategories();
+
+        for(String category:categories){
+            Select select = new Select();
+            select.setText(category);
+            select.setValue(category);
+            selects.add(select);
+        }
+
+         return selects;
+
     }
 
 

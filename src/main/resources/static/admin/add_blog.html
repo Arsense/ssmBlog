@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="shortcut icon" href="../icon/snow.ico" type="image/x-icon" />
     <meta charset="utf-8" />
@@ -25,8 +25,8 @@
                     <input name="tags"  type="text" class="form-control" placeholder="请填写文章标签" />
                 </v-form-item>
                 <v-form-item span="5" label="博客分类" class="text-warning">
-                        <v-select2 :data="options">
-                        </v-select2>
+                    <v-select2  name="categories" v-bind:data="options"></v-select2>
+
                 </v-form-item>
                 <div class="clearfix"></div>
                 <div id="page-wrapper">
@@ -56,14 +56,16 @@
         data : function () {
             return {
                 editor:Object,
-                options:Array,
+                options:Object,
                 mdData:{
                     mdText:11,
                     article:"",
                     title:"",
                     slug:"",
                     tags:"",
+                    categories:"",
                 },
+
 
             }
         } ,
@@ -74,11 +76,12 @@
                 this._data.mdData.title = document.blogFrom.title.value;
                 this._data.mdData.slug = document.blogFrom.slug.value;
                 this._data.mdData.tags = document.blogFrom.tags.value;
-
+                this._data.mdData.categories = document.blogFrom.categories.value;
                 axios.post("/admin/send",this._data.mdData).then(function (response){
-                    $.alert(response.data);
 
-                    var t=setTimeout(" window.location.href = \"/admin/bloglist.html\" ",1500);
+                    $.alert(response.data);
+                    if(response.data.code == 1)
+                     var t=setTimeout(" window.location.href = \"/admin/bloglist.html\" ",1500);
                 }).catch(function (e) {
                     console.log(e.valueOf());
                 });
@@ -90,8 +93,9 @@
         mounted : function ($vm) {
             var testEditor;
             var self=$vm;
-            axios.get("/admin/categories").then(function (response) {
-                options = response.data;
+            axios.get("/admin/category/index").then(function (response) {
+                self.options = response.data;
+
             }).catch(function (e) {
                     console.log(e);
             })

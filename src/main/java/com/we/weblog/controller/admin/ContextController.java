@@ -106,7 +106,9 @@ public class ContextController extends BaseController{
             messgae = "博客标签不能为空";
         }else if(context.getArticle().equals("")){
             messgae = "请输入博客的内容";
-        }else{
+        }else if(context.getCategories().equals("")){
+            messgae = "未选择博客分类";
+        } else{
             inputCheck = true;
         }
 

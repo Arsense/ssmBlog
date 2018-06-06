@@ -35,7 +35,8 @@ public class TagController extends BaseController {
             return UIModel.fail().setMsg("删除的标签类别为空");
         }
         int result = tagService.clearTagData(tagName);
-        if(result >=0){
+        int check = contextService.deleteCatories(tagName);
+        if(result >=0 && check >=0){
             return UIModel.success().setMsg("删除成功");
         }else{
             return UIModel.fail().setMsg("删除失败");

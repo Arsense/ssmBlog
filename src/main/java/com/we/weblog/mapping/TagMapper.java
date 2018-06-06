@@ -47,4 +47,8 @@ public interface TagMapper {
 
     @Delete({"delete from t_mates where name= #{name}"})
     int deleteCategoryByName(@Param("name")String name);
+
+
+    @Select({"select name from t_mates  where type ='category'"})
+    List<String> getAllCategories();
 }

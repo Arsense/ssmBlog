@@ -13,7 +13,6 @@ import com.we.weblog.service.ContextService;
 import com.we.weblog.service.LogService;
 import com.we.weblog.service.TagService;
 import com.we.weblog.tool.IpTool;
-import org.bouncycastle.jcajce.provider.asymmetric.util.DSABase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -67,9 +66,21 @@ public class ContextController extends BaseController{
      */
      @GetMapping("/update_send_data/{id}")
      @ResponseBody
-     public Context getTagretUpdateContext(@PathVariable int id){
-        updateId = id;
-         return contextService.getBlogById(updateId);
+     public Map<String, Object> getTagretUpdateContext(@PathVariable int id){
+
+
+         updateId = id;
+         Map<String,Object> maps = new HashMap<>();
+         Context context = contextService.getBlogById(updateId);
+
+
+         maps.put("context",context);
+
+         maps.put("options",tagService.getCategories());
+
+
+
+         return maps;
      }
 
 

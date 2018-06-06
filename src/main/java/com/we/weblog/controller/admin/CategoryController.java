@@ -38,17 +38,7 @@ public class CategoryController {
     @ResponseBody
     public List<Select> getAllKindCategories(){
 
-        List<Select> selects = new ArrayList<>();
-        List<String> categories = tagService.getCategories();
-
-        for(String category:categories){
-            Select select = new Select();
-            select.setText(category);
-            select.setValue(category);
-            selects.add(select);
-        }
-
-         return selects;
+         return tagService.getCategories();
 
     }
 

@@ -1,8 +1,8 @@
 package com.we.weblog.service;
 
 
-import com.vue.adminlte4j.model.UIModel;
 import com.we.weblog.domain.Metas;
+import com.we.weblog.domain.Select;
 import com.we.weblog.domain.modal.Types;
 import com.we.weblog.mapping.TagMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Service
 public class TagService {
@@ -95,7 +94,19 @@ public class TagService {
     }
 
 
-    public List<String> getCategories(){
-        return tagMapper.getAllCategories();
+    public List<Select> getCategories(){
+
+
+        List<Select> selects = new ArrayList<>();
+        List<String> categories = tagMapper.getAllCategories();
+
+        for(String category:categories){
+            Select select = new Select();
+            select.setText(category);
+            select.setValue(category);
+            selects.add(select);
+        }
+
+        return selects;
     }
 }

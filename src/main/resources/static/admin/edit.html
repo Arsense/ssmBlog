@@ -28,9 +28,7 @@
 
 
             <v-form-item span="5" label="博客分类" class="text-warning">
-                <v-select2 data="test1">
-
-                </v-select2>
+                <v-select2  name="categories" v-bind:data="options"></v-select2>
             </v-form-item>
 
 
@@ -65,6 +63,7 @@
                 mdData:Object,
                 mdText:"",
                 editor:Object,              //存放md的值
+                options:Object,
 
             }
         } ,
@@ -88,11 +87,14 @@
             var id = $.getQueryStr("id");
 
             axios.get("/admin/update_send_data/"+id).then(function (response) {
-                self.mdData = response.data;
-                self.mdText = response.data.mdText;
+                self.mdData = response.data.context;
+                self.mdText = response.data.context.mdText;
+                self.options = response.data.options;
             }) .catch(function (error) {
                 console.log(error);
             });
+
+
 
             var testEditor;
             $(function() {

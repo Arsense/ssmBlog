@@ -45,6 +45,23 @@ public class Comment {
     private  String     content;
 
 
+
+    //恢复父id
+    private int parent;
+
+
+
+    public int getParent() {
+        return parent;
+    }
+
+    public void setParent(int parent) {
+        this.parent = parent;
+    }
+
+
+
+
     public int getCid() {
         return cid;
     }

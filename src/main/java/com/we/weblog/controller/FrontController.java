@@ -62,6 +62,8 @@ public class FrontController extends  BaseController {
         if(comment == null || comment.getArticleId() <= 0) return UIModel.fail().setMsg("评论失败,输入信息有误");
 
 
+        //处理XSS
+        comment.setContent(cleanXSS(comment.getContent()));
 
         int result=commentSerivce.addComments(comment,request);
 

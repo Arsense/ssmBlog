@@ -37,7 +37,10 @@
                             layer.prompt({title: '输入您要回复的内容', formType: 2}, function(text, index){
                                layer.close(index);
                                //这里text发到后端去
-                                layer.msg('您已成功回复'+text);
+                                axios.get('/admin/comments/reply/'+row.cid,text).then(function(reponse){
+                                    layer.msg('您已成功回复'+text);
+                                });
+
                            });
 
                         }

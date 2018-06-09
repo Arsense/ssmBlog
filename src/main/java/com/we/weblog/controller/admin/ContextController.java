@@ -73,12 +73,8 @@ public class ContextController extends BaseController{
          Map<String,Object> maps = new HashMap<>();
          Context context = contextService.getBlogById(updateId);
 
-
          maps.put("context",context);
-
          maps.put("options",tagService.getCategories());
-
-
 
          return maps;
      }
@@ -166,6 +162,10 @@ public class ContextController extends BaseController{
         return map;
     }
 
+    /**
+     * BOLGlist
+     * @return
+     */
     @GetMapping("/get_table_data")
     @ResponseBody
     Map<String,Object> get_table_data() {
@@ -186,7 +186,8 @@ public class ContextController extends BaseController{
             tableData.addData(context);
         }
 
-        tableData.setTotalSize(contextService.getTotalBlog());
+     //   tableData.setTotalSize(contextService.getTotalBlog());
+        tableData.setTotalSize(50);
         uiModel.tableData(tableData);
         return uiModel ;
     }

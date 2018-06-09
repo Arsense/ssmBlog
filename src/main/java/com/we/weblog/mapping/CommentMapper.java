@@ -5,6 +5,7 @@ import com.we.weblog.domain.Comment;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.StatementType;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
@@ -38,5 +39,8 @@ public interface CommentMapper {
     @Delete({"delete from t_comments where cid = #{id}"})
     int deleteCommentById(@Param("id")Integer cid);
 
+
+    @Select({"select * from t_comments where cid = #{c}"})
+    Comment selectCommentById(@Param("c") Integer cid);
 
 }

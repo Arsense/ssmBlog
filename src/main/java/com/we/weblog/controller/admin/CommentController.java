@@ -82,5 +82,39 @@ public class CommentController extends BaseController {
     }
 
 
+    /**
+     * 回复 这里需要知道回复文章评论的ID和回复的消息
+     * @param message
+     * @return
+     */
+    @GetMapping("/reply/{cid}")
+    @ResponseBody
+    public  UIModel replyComments(@RequestBody String message,@PathVariable("id") Integer cid){
+
+
+        if(message == null || message.equals("")){
+            return UIModel.fail().setMsg("请输入完成的回复");
+        }else if(message.length() > 2000){
+            return UIModel.fail().setMsg("请输入2000字以内的评论");
+        }
+
+        //查看该评论是否存在
+        Comment comment  = commentSerivce.findComment(cid);
+
+        if(comment== null){
+            return UIModel.fail().setMsg("评论的文章不存在");
+        }
+        //处理XSS
+        message = cleanXSS(message);
+
+       commentSerivce.replyMessage(message,cid);
+
+
+        return UIModel.success().setMsg("回复成功");
+
+
+    }
+
+
 
 }

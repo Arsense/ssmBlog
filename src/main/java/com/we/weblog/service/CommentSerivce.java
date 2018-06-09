@@ -81,4 +81,24 @@ public class CommentSerivce {
 
    }
 
+
+   public void replyMessage(String messgae,Integer cid){
+       Comment comment = new Comment();
+
+       comment.setCreated(new Date(System.currentTimeMillis()));
+       comment.setAuthor("admin");
+       //后面再改吧
+       comment.setEmail("admin@qq.com");
+
+       comment.setParent(cid);
+
+       commentMapper.insertComment(comment);
+   }
+
+
+   public  Comment findComment(Integer cid){
+
+       return commentMapper.selectCommentById(cid);
+   }
+
 }

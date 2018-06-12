@@ -59,7 +59,14 @@ public class FrontController extends  BaseController {
     public UIModel addComment(@RequestBody Comment comment ){
 
 
-        if(comment == null || comment.getArticle_id() <= 0) return UIModel.fail().setMsg("评论失败,输入信息有误");
+        if(comment == null || comment.getArticle_id() <= 0 ) return UIModel.fail().setMsg("评论失败,输入信息有误");
+        else if(comment.getEmail().contains("@") == false){
+            return UIModel.fail().setMsg("邮箱格式不正确");
+        }else if(comment.getContent().length() < 5){
+            return UIModel.fail().setMsg("您的评论太短");
+        }else  if (comment.getContent() == null){
+            return UIModel.fail().setMsg("您的评论不能为空");
+        }
 
 
         //处理XSS
@@ -92,7 +99,6 @@ public class FrontController extends  BaseController {
 
     @GetMapping("/tags/{name}")
     public void getTagDetail(@PathVariable String tagName){
-
 
 
     }

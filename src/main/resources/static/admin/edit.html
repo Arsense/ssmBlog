@@ -72,6 +72,7 @@
                     this._data.mdData.mdText = this.editor.getMarkdown();
                     this._data.mdData.md = this.editor.getMarkdown();
                     this._data.mdData.article = this.editor.getHTML();
+                    this._data.mdData.categories = document.blogFrom.categories.value;
                     axios.post("/admin/update",this._data.mdData).then(function (response) {
                         $.alert(response.data);
                         var t=setTimeout(" window.location.href = \"/admin/bloglist.html\" ",1500);

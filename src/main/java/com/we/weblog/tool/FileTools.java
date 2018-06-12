@@ -41,16 +41,16 @@ public class FileTools {
         String  fileName = String.valueOf(System.currentTimeMillis()+"."+FileTools.getSuffix(files.getOriginalFilename()));
         //然后设置路径
         String  date = TimeTool.getCurrentTime();
-        String    path = getJavaResources().toString();
+        String  path = getJavaResources().toString();
         //图片存储路径为根路径/年月。比如staic/picture/201608
         File filePath = new File(path);
         if(!filePath.exists()){
             filePath.mkdirs();
         }
-        File targetFile = new File(filePath+"\\"+fileName);
+        File targetFile = new File(filePath+"/"+fileName);
         //保存图片
         String requestUrl = getServerRoot(request);
-        String tempPath = requestUrl+"/"+date+"/"+fileName;
+        String tempPath = requestUrl+"/img"+"/"+fileName;
         //保存图片
         files.transferTo(targetFile);
         return tempPath;

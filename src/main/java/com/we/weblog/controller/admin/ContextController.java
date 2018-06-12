@@ -6,12 +6,10 @@ import com.we.weblog.controller.BaseController;
 import com.we.weblog.domain.Comment;
 import com.we.weblog.domain.Context;
 import com.we.weblog.domain.Log;
+import com.we.weblog.domain.UploadPicture;
 import com.we.weblog.domain.modal.LogActions;
 import com.we.weblog.domain.modal.Types;
-import com.we.weblog.service.CommentSerivce;
-import com.we.weblog.service.ContextService;
-import com.we.weblog.service.LogService;
-import com.we.weblog.service.TagService;
+import com.we.weblog.service.*;
 import com.we.weblog.tool.IpTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,13 +31,15 @@ public class ContextController extends BaseController{
     private LogService logService;
     private TagService tagService;
     private  int updateId = 0;
+    private FileService fileService;
 
     @Autowired
-    public ContextController(ContextService contextService,LogService  logService,TagService tagService,CommentSerivce commentSerivce){
+    public ContextController(ContextService contextService,LogService  logService,TagService tagService,CommentSerivce commentSerivce,FileService fileService){
         this.commentSerivce = commentSerivce;
         this.tagService = tagService;
         this.contextService = contextService;
         this.logService = logService;
+        this.fileService = fileService;
     }
 
 
@@ -58,6 +58,14 @@ public class ContextController extends BaseController{
 
     }
 
+
+    @PostMapping("/upload")
+    @ResponseBody
+    public UploadPicture uploadPickture(HttpServletRequest request) throws Exception {
+        UploadPicture picture =  fileService.loadPicture(request);
+
+        return picture;
+    }
 
 
     /**
@@ -115,7 +123,10 @@ public class ContextController extends BaseController{
             messgae = "请输入博客的内容";
         }else if(context.getCategories().equals("")){
             messgae = "未选择博客分类";
-        } else{
+        } else if(context.getArticle().length() < 10){
+            messgae = "请输入长度为5的内容";
+        }
+        else{
             inputCheck = true;
         }
 

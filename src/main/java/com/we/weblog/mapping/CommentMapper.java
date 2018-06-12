@@ -30,8 +30,8 @@ public interface CommentMapper {
     @Select({"select article_id,author,content,created from t_comments where article_id = #{uid} "})
     List<Comment> getArticleById(@Param("uid") int uid);
 
-    @Insert({"insert into t_comments (article_id,created,author,email,ip,content) "+
-    "values (#{c.articleId},#{c.created},#{c.author},#{c.email},#{c.ip},#{c.content})"})
+    @Insert({"insert into t_comments (article_id,created,author,email,ip,content,parent) "+
+    "values (#{c.article_id},#{c.created},#{c.author},#{c.email},#{c.ip},#{c.content},#{c.parent})"})
     int insertComment(@Param("c") Comment comment);
 
 

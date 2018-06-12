@@ -84,17 +84,16 @@ public class CommentController extends BaseController {
 
     /**
      * 回复 这里需要知道回复文章评论的ID和回复的消息
-     * @param message
+     * d
      * @return
      */
-    @GetMapping("/reply/{cid}")
+    @PostMapping("/reply/{id}")
     @ResponseBody
-    public  UIModel replyComments(@RequestBody String message,@PathVariable("id") Integer cid){
+    public  UIModel replyComments(@RequestBody String text,@PathVariable("id") Integer cid){
 
-
-        if(message == null || message.equals("")){
+        if(text == null || text.equals("")){
             return UIModel.fail().setMsg("请输入完成的回复");
-        }else if(message.length() > 2000){
+        }else if(text.length() > 2000){
             return UIModel.fail().setMsg("请输入2000字以内的评论");
         }
 
@@ -105,9 +104,9 @@ public class CommentController extends BaseController {
             return UIModel.fail().setMsg("评论的文章不存在");
         }
         //处理XSS
-        message = cleanXSS(message);
+        text = cleanXSS(text);
 
-       commentSerivce.replyMessage(message,cid);
+       commentSerivce.replyMessage(text,cid,comment);
 
 
         return UIModel.success().setMsg("回复成功");

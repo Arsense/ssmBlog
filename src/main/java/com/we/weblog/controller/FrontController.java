@@ -59,7 +59,7 @@ public class FrontController extends  BaseController {
     public UIModel addComment(@RequestBody Comment comment ){
 
 
-        if(comment == null || comment.getArticleId() <= 0) return UIModel.fail().setMsg("评论失败,输入信息有误");
+        if(comment == null || comment.getArticle_id() <= 0) return UIModel.fail().setMsg("评论失败,输入信息有误");
 
 
         //处理XSS

@@ -2,6 +2,7 @@ package com.we.weblog.service;
 
 
 import com.we.weblog.domain.Comment;
+import com.we.weblog.domain.Log;
 import com.we.weblog.mapping.CommentMapper;
 import com.we.weblog.tool.IpTool;
 import com.we.weblog.tool.TimeTool;
@@ -64,6 +65,7 @@ public class CommentSerivce {
      */
    public int addComments(Comment comment, HttpServletRequest request){
 
+
        comment.setCreated(new Date(System.currentTimeMillis()));
        comment.setIp(IpTool.getIpAddress(request));
 
@@ -82,17 +84,19 @@ public class CommentSerivce {
    }
 
 
-   public void replyMessage(String messgae,Integer cid){
+   public void replyMessage(String messgae,Integer cid,Comment reply){
        Comment comment = new Comment();
 
        comment.setCreated(new Date(System.currentTimeMillis()));
        comment.setAuthor("admin");
        //后面再改吧
        comment.setEmail("admin@qq.com");
-
+       comment.setArticle_id(reply.getArticle_id());
+       comment.setContent("回复@"+reply.getAuthor()+"  "+messgae);
        comment.setParent(cid);
 
        commentMapper.insertComment(comment);
+
    }
 
 

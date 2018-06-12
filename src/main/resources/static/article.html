@@ -578,7 +578,7 @@
                         email:"",
                         content:"",
                         url:"",
-                        articleId:""
+                        article_id:""
                     },
                     categoryCount:0,
 
@@ -611,7 +611,7 @@
                     this._data.newComment.email  = document.commnentForm.email.value
                     this._data.newComment.content = document.commnentForm.content.value
                     this._data.newComment.url = document.commnentForm.url.value
-                    this._data.newComment.articleId = this._data.current.uid
+                    this._data.newComment.article_id = this._data.current.uid
                     axios.post("/comments/send",this._data.newComment).then(function (response) {
                         var t=setTimeout("window.location.reload()",1500)
         });

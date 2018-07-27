@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public class BaseController {
 
-
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
@@ -17,15 +16,11 @@ public class BaseController {
     @Autowired
     protected HttpServletResponse response;
 
-
-
-    protected String redirectTo( String url ) {
+    String redirectTo(String url) {
         StringBuffer rto = new StringBuffer("redirect:");
         rto.append(url);
         return rto.toString();
     }
-
-
 
     public static String cleanXSS(String value){
         //You'll need to remove the spaces from the html entities below

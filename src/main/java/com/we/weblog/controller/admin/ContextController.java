@@ -124,10 +124,9 @@ public class ContextController extends BaseController{
         } else if(context.getArticle().length() < 10){
             messgae = "请输入长度为5的内容";
         }
-        else{
+        else {
             inputCheck = true;
         }
-
         if (!inputCheck)
             return UIModel.fail().setMsg(messgae);
 

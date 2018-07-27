@@ -34,8 +34,8 @@ public class CategoryController {
      */
     @GetMapping("/index")
     @ResponseBody
-    public List<String> getAllKindCategories(){
-        return  contextService.getCategories();
+    public List<Select> getAllKindCategories(){
+        return  tagService.getCategories();
     }
 
     /**

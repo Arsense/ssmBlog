@@ -80,7 +80,7 @@
                 axios.post("/admin/send",this._data.mdData).then(function (response){
 
                     $.alert(response.data);
-                    if(response.data.code == 1)
+                    if(response.data.code === 1)
                      var t=setTimeout(" window.location.href = \"/admin/bloglist.html\" ",1500);
                 }).catch(function (e) {
                     console.log(e.valueOf());
@@ -95,6 +95,7 @@
             var self=$vm;
             axios.get("/admin/category/index").then(function (response) {
                 self.options = response.data;
+                self.options = response.data.options;
 
             }).catch(function (e) {
                     console.log(e);

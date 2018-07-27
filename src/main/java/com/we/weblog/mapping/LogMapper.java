@@ -18,10 +18,8 @@ import java.util.List;
 public interface LogMapper  {
 
 
-
         @Insert({"insert into t_logs (action,data,author_id,ip,created) values (#{l.action},#{l.data},#{l.author_id},#{l.ip},#{l.created})"})
         int addLog(@Param("l") Log log);
-
 
 
         @Select({"select id,action,ip,created from t_logs order by id desc limit #{l}"})

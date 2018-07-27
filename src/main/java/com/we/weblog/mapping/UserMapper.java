@@ -23,7 +23,5 @@ public interface UserMapper {
     @Select({"select count(*) from t_user where username=#{name} and password=#{ps}"})
     int selectByPassAndName(@Param("name") String username,@Param("ps") String password) throws RuntimeException;
 
-
-
     //TODO 修改密码
 }

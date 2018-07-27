@@ -7,7 +7,6 @@ import java.util.Date;
 
 public class Log {
 
-
     private Integer      id;                      //主键
     private String       action;                  //操作是啥
     private String       data;                    //产生的数据
@@ -39,9 +38,6 @@ public class Log {
     public int getId() {
         return id;
     }
-
-
-
 
     public String getData() {
         return data;

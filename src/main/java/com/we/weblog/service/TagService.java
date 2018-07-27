@@ -24,19 +24,15 @@ public class TagService {
     @Autowired
     TagService(TagMapper tagMapper){
         this.tagMapper = tagMapper;
-
     }
-
 
     public List<String> getTotalTagsName(){
         return tagMapper.selectAllKindTags();
     }
 
-
     public void deleteTag(int uid){
         tagMapper.deleteTagById(uid);
     }
-
 
     /**
      * 分类管理删除标签
@@ -46,9 +42,9 @@ public class TagService {
     public int clearTagData(String tagName){
 
        int result = tagMapper.deleteTagByName(tagName);
-       if(result > 0){
+       if (result > 0) {
            tagMapper.deleleTagFromContext(tagName);
-       }else{
+       } else {
            return 0;
        }
        return 1;

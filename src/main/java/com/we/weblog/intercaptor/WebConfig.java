@@ -48,8 +48,8 @@ public class WebConfig extends WebMvcConfigurerAdapter{
                 }
                 return false;
             }
-
-            @Override public boolean preTokenIsNull(HttpServletRequest request, HttpServletResponse response) {
+            @Override public boolean preTokenIsNull(HttpServletRequest request
+                    ,HttpServletResponse response) {
                 return true;
             }
           });

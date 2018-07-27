@@ -8,8 +8,6 @@ public class UploadPicture {
    private  String  message;     //回传消息
    private  String  url;     //上传成功后的路径
 
-
-
    public int getSuccess() {
       return success;
    }
@@ -33,7 +31,6 @@ public class UploadPicture {
    public void setUrl(String url) {
       this.url = url;
    }
-
 
     @Override
     public String toString() {

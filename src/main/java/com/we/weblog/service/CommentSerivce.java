@@ -39,7 +39,6 @@ public class CommentSerivce {
      return  comments;
    }
 
-
    public int getCounts(){
        return commentMapper.getNumberOfComment();
    }
@@ -78,10 +77,10 @@ public class CommentSerivce {
       * @param cid
      * @return
      */
-   public int deleteComment(Integer cid){
+   public int deleteComment(Integer cid) {
        return commentMapper.deleteCommentById(cid);
-
    }
+
 
 
    public void replyMessage(String messgae,Integer cid,Comment reply){

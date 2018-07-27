@@ -14,18 +14,11 @@ import java.util.List;
 @Repository
 public interface CommentMapper {
 
-
-
-
     @Select({"select cid,created,author,email,content from t_comments"})
     List<Comment> selectAllComments();
 
-
-
     @Select({"select count(*) from t_comments"})
     int getNumberOfComment();
-
-
 
     @Select({"select article_id,author,content,created from t_comments where article_id = #{uid} "})
     List<Comment> getArticleById(@Param("uid") int uid);

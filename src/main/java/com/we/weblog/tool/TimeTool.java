@@ -9,12 +9,11 @@ public class TimeTool {
 
     private static final Calendar CALENDAR =  Calendar.getInstance();
 
-
-
     public  static  int  getYear(Date  date)  {
         CALENDAR.setTime(date);
         return  CALENDAR.get(Calendar.YEAR);
     }
+
 
     public static String getEdate(Date date){
         SimpleDateFormat df = new SimpleDateFormat("MMM dd", Locale.UK);
@@ -40,13 +39,13 @@ public class TimeTool {
         long times = date.getTime();//时间戳
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd ");
         return formatter.format(date);
-
     }
+
+
     public static String getFormatClearToSecond(Date date){
         long times = date.getTime();//时间戳
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return formatter.format(date);
-
     }
 
 

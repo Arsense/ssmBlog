@@ -14,10 +14,8 @@ import java.util.Date;
  */
 public class Comment {
 
-
     //comment主键
     private  int        cid;
-
 
     //所评论文章的ID
     private  int        article_id;
@@ -36,8 +34,6 @@ public class Comment {
     private  String     ip;
 
     private String  time;
-
-
 
     //评论内容
     @NotEmpty(message = "请输入评论内容")

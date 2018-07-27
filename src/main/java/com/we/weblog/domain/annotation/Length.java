@@ -16,9 +16,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Documented
 public @interface Length {
+
     String message() default "Length exceeds the limit";
-
     int max() default Integer.MAX_VALUE;
-
     int min() default -1;
+
 }

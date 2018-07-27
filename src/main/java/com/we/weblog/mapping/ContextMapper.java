@@ -29,10 +29,6 @@ public interface ContextMapper {
     @Select({"select DISTINCT categories FROM t_context  where categories is not null"})
     List<String> selectAllCategories();
 
-    /**
-     *
-     * @return
-     */
     @Select({"select * from t_context where type = 'post'  order by uid asc limit 1 "})
     Context getblogId();
 
@@ -74,7 +70,6 @@ public interface ContextMapper {
      */
     @Select({"select uid,title,created,tags,article,slug,hits from t_context where type = 'post'  limit #{count}"})
     List<Context> getTenBlogs(@Param("count") int count);
-
 
 
     @Update({" update t_context " +

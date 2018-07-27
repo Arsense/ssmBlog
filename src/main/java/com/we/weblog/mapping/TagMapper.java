@@ -21,7 +21,6 @@ public interface TagMapper {
     List<String> selectAllKindTags();
 
 
-
     @Insert({
             "insert ignore into t_tag (tag_name,uid) values (#{tag},#{id})"})
     int insertBlogTag(@Param("tag") String tag,@Param("id") int id);
@@ -32,7 +31,6 @@ public interface TagMapper {
 
     @Delete({"update t_context set tags = null where tags = #{tag}"})
     int deleleTagFromContext(@Param("tag") String tagName);
-
 
 
     @Delete({"delete from t_tag  where tag_name = #{tag}"})

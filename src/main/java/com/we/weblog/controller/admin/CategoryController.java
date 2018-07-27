@@ -19,7 +19,6 @@ import java.util.*;
 @RequestMapping("/admin/category")
 public class CategoryController {
 
-
     private ContextService contextService;
     private TagService tagService;
 
@@ -29,19 +28,15 @@ public class CategoryController {
         this.tagService = tagService;
     }
 
-
     /**
      *  添加博客分类显示
      * @return
      */
     @GetMapping("/index")
     @ResponseBody
-    public List<Select> getAllKindCategories(){
-
-         return tagService.getCategories();
-
+    public List<String> getAllKindCategories(){
+        return  contextService.getCategories();
     }
-
 
     /**
      * 删除类别
@@ -49,19 +44,18 @@ public class CategoryController {
     @GetMapping("/delete/{name}")
     @ResponseBody
     public UIModel deleteCategory(@PathVariable("name") String categoryName){
-
-          if(categoryName.equals("")){
+          if (categoryName.equals("")) {
             return UIModel.fail().setMsg("删除的类别为空");
           }
           int result = contextService.deleteCatories(categoryName);
           tagService.deleteMetas(categoryName);
+
           if(result >=0){
               return UIModel.success().setMsg("删除成功");
-          }else{
+          } else {
               return UIModel.fail().setMsg("删除失败");
           }
     }
-
 
 
     /**
@@ -70,20 +64,14 @@ public class CategoryController {
     @GetMapping("/manage")
     @ResponseBody
     public Map<String,Object> manageCategoryAndTag(){
-
         Map<String,Object> maps  = new HashMap<>();
         List<String> cates = tagService.getMates();
         List<String> tags = contextService.getAllKindTags();
 
         maps.put("categories",cates);
         maps.put("tags",tags);
-
         return maps;
-
-
-
     }
-
 
     /**
      * 保存新分类
@@ -93,20 +81,19 @@ public class CategoryController {
     @ResponseBody
     public UIModel newCategory(@PathVariable("name")  String name){
         //这里全是空格 全是数字 null 都要检查
-        if(name.equals("")){
+        if (name.equals("")) {
             return UIModel.fail().setMsg("请输入类别");
-        }else if(name.length()> 25){
+        } else if(name.length()> 25){
             return  UIModel.fail().setMsg("您输入的类别过长");
         }
 
         List<String> tagName = tagService.getMates();
-
-        if(tagName.contains(name)){
+        if (tagName.contains(name)) {
             return UIModel.fail().setMsg("该分类已存在");
         }
         int result = tagService.addCategory(name);
 
-        if(result > 0)return UIModel.success().setMsg("添加成功");
+        if (result > 0) return UIModel.success().setMsg("添加成功");
         else return UIModel.fail().setMsg("添加失败");
 
     }

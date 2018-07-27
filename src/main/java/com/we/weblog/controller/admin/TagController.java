@@ -25,20 +25,17 @@ public class TagController extends BaseController {
         this.tagService = tagService;
     }
 
-
-
     @GetMapping("/delete/{name}")
     @ResponseBody
     public UIModel deleteTags(@PathVariable("name") String tagName){
-
-        if(tagName.equals("")){
+        if (tagName.equals("")) {
             return UIModel.fail().setMsg("删除的标签类别为空");
         }
         int result = tagService.clearTagData(tagName);
         int check = contextService.deleteCatories(tagName);
         if(result >=0 && check >=0){
             return UIModel.success().setMsg("删除成功");
-        }else{
+        } else {
             return UIModel.fail().setMsg("删除失败");
         }
     }

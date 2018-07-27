@@ -19,20 +19,16 @@ public class UserService {
     }
 
 
-
-
-
     public boolean checkLogin(String username,String password) throws Exception {
+
        int result;
        result = userMapper.selectByPassAndName(username,password);
-       if(result > 0){
+       if (result > 0) {
            return  true;
        }
        return false;
 
     }
-
-
 
     /**
      * 返回当前登录用户
@@ -40,7 +36,6 @@ public class UserService {
      * @return
      */
     public static User getLoginUser() {
-
        return new User();
     }
 

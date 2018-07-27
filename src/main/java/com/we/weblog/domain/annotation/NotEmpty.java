@@ -18,4 +18,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface NotEmpty {
 
     String message() default "Object not is empty";
+
 }

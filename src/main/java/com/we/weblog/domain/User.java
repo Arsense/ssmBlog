@@ -15,7 +15,6 @@ public class User {
      */
     private String password ;
 
-
     public int getUserId() {
         return userId;
     }

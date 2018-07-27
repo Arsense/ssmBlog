@@ -32,10 +32,9 @@ public class FrontController extends  BaseController {
 
     private ContextService contextService;
     private CommentSerivce commentSerivce;
-    private static int postId ;
-    private static String tagName = null;
-    private TagService tagService;
-
+    private static int     postId ;
+    private static String  tagName = null;
+    private TagService     tagService;
 
     @Autowired
     public FrontController(ContextService blogService,TagService tagService,CommentSerivce commentSerivce){
@@ -86,22 +85,30 @@ public class FrontController extends  BaseController {
     @ResponseBody
     public List<CategoriesBlog> getBlogsByTag(){
 
-
         List<CategoriesBlog> lists = contextService.sortBlogsByCategories();
-
         return lists;
 
     }
 
-
-
-
-
     @GetMapping("/tags/{name}")
     public void getTagDetail(@PathVariable String tagName){
 
+    }
+
+    /**
+     *  先处理好数据 要不然后让所有url 在
+     * @param id
+     * @return
+     */
+    @GetMapping("/post/{id}")
+    public void post(@PathVariable String id,HttpServletResponse response ) throws IOException {
+
+        postId = Integer.parseInt(id);
+        response.sendRedirect("/article.html");
+
 
     }
+
 
 
     @GetMapping("/tags_data")
@@ -121,12 +128,13 @@ public class FrontController extends  BaseController {
      * @throws IOException
      */
     @GetMapping("/tags/{tag}")
-    public void getTagName(@PathVariable String tag,HttpServletResponse response) throws IOException {
-
+    public void getTagName(@PathVariable String tag,
+                           HttpServletResponse response) throws IOException {
         tagName = tag;
         response.sendRedirect("/tagdetail.html");
 
     }
+
 
     /**
      *  根据tags 展示所有博客
@@ -141,8 +149,6 @@ public class FrontController extends  BaseController {
         return list;
 
     }
-
-
 
 
 
@@ -170,7 +176,6 @@ public class FrontController extends  BaseController {
             tableData.addData(context);
         }
 
-
         //遍历查询数据库
         tableData.setTotalSize(10);
         uiModel.tableData(tableData);
@@ -178,21 +183,12 @@ public class FrontController extends  BaseController {
     }
 
 
-
-
-
-
-
-
     @GetMapping("/get_all_datas/{page}")
     @ResponseBody
     public Map<String,Object> getFrontData(@PathVariable String page) throws Exception {
         //如果是首页
-
         Map<String,Object> maps = new HashMap<>();
-
         List<String> tagsName = tagService.getTotalTagsName();
-
         int blogCount = contextService.getTotalBlog();
         int categoryCount = contextService.getCategoryCount();
         int totalTags = 10;
@@ -202,12 +198,10 @@ public class FrontController extends  BaseController {
 
         sortPagesMap(maps,page);
 
-
         maps.put(Types.TAG_NAME,tagsName);
         maps.put(Types.TAG_COUNT,totalTags);
         maps.put(Types.BLOG_COUNT,blogCount);
         maps.put(Types.CATEGORY_COUNT,categoryCount);
-
 
         return maps;
 
@@ -223,13 +217,11 @@ public class FrontController extends  BaseController {
      */
     public  void sortPagesMap(Map<String,Object> maps, String pageType) throws Exception {
 
-
-
-        if(pageType.equals(Types.PAGE_CATEGORY)){
+        if (pageType.equals(Types.PAGE_CATEGORY)) {
 
             List<CategoriesBlog> cBlogs = contextService.sortBlogsByCategories();               maps.put(Types.CATEGORIES,cBlogs);
 
-        }else if(pageType.contains(Types.PAGE_ARTICLE) ){
+        } else if(pageType.contains(Types.PAGE_ARTICLE)){
 
             int getId = Integer.parseInt(pageType.substring(7,pageType.length()));
             if(getId <=0){
@@ -241,27 +233,25 @@ public class FrontController extends  BaseController {
             Context preContext = contextService.getPreviousBlog(getId);
             Context nextContext = contextService.getNextBlog(getId);
             int uid = currentContext.getUid();
-
             //显示评论
             if(uid >0){
                 List<Comment> comments =  commentSerivce.getCommentByArticleId(uid);
                 maps.put(Types.COMMENTS,comments);
             }
-
-
             maps.put(Types.CURRENT_BLOG, currentContext);
             maps.put(Types.NEXT_BLOG, nextContext);
             maps.put(Types.PREVIOUS_BLOG, preContext);
 
-        }else if(pageType.equals(Types.PAGE_ARCHIVE)){
+        } else if (pageType.equals(Types.PAGE_ARCHIVE)) {
 
             List<YearBlog> yearBlogs = contextService.getYearBlog(1);
             maps.put(Types.BLOGS_DATA,yearBlogs);
 
-        }else if(pageType.equals(Types.PAGE_ABOUT)){
+        } else if (pageType.equals(Types.PAGE_ABOUT)) {
 
             Context about = contextService.getAboutme();
             maps.put(Types.BLOG,about);
+
         }
     }
 

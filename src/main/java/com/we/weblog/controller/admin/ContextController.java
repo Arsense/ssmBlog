@@ -46,12 +46,12 @@ public class ContextController extends BaseController{
     @GetMapping("/delete/{id}")
     @ResponseBody
     public UIModel deleteBlog(@PathVariable("id") int deleteId, HttpServletRequest request) {
-        if(deleteId <= 0){
+        if (deleteId <= 0) {
             return UIModel.fail().setMsg("该博客不存在");
         }
+
         contextService.deleteBlogById(deleteId);
         tagService.deleteTag(deleteId);
-
         logService.addLog(new Log(LogActions.DELETE_BLOG,deleteId+" ", IpTool.getIpAddress(request),1));
 
         return UIModel.success().setMsg("删除成功");
@@ -87,7 +87,6 @@ public class ContextController extends BaseController{
          return maps;
      }
 
-
     /**
      * 修改博客
      * @param context
@@ -98,12 +97,10 @@ public class ContextController extends BaseController{
      @PostMapping("/update")
      @ResponseBody
      public UIModel updateDate(@RequestBody Context context) throws SQLException {
-
         contextService.updateBlog(context,updateId);
-
          return UIModel.success().setMsg("修改成功！");
-     }
 
+     }
 
     /**
      * 添加博客的表单控制器
@@ -115,11 +112,12 @@ public class ContextController extends BaseController{
     public UIModel postAction(@RequestBody Context context) throws Exception {
         Boolean inputCheck = false;
         String  messgae = null;
-        if(context.getTitle().equals("")){
+
+        if (context.getTitle().equals("")) {
             messgae = "博客标题不能为空";
-        }else if(context.getTags().equals("")){
+        } else if (context.getTags().equals("")) {
             messgae = "博客标签不能为空";
-        }else if(context.getArticle().equals("")){
+        } else if (context.getArticle().equals("")) {
             messgae = "请输入博客的内容";
         }else if(context.getCategories().equals("")){
             messgae = "未选择博客分类";
@@ -130,14 +128,13 @@ public class ContextController extends BaseController{
             inputCheck = true;
         }
 
-        if(!inputCheck){
+        if (!inputCheck)
             return UIModel.fail().setMsg(messgae);
-        }
 
         context.setType(Types.ARTICLE);
         contextService.addBlog(context);
         Log loginLog =new Log(LogActions.ADD_BLOG,"admin", IpTool.getIpAddress(request),1);
-        if(logService.addLog(loginLog)<0){
+        if (logService.addLog(loginLog)<0) {
            messgae = "添加博客失败";
         }
         messgae = "添加博客成功！";
@@ -153,15 +150,14 @@ public class ContextController extends BaseController{
     @GetMapping("/index/data")
     @ResponseBody
     public Map<String,Object> index(HttpServletRequest request){
+
         //获得最新的20条日志  获得最新的文章  后台统计对象
         Map<String,Object> map = new HashMap<>();
-        List<Context> contexts = contextService.getRecentBlogs(5);
         int blogCount = contextService.getTotalBlog();
-        List<Comment> comments = commentSerivce.getComments();
-
-        List<Log> logs = logService.getLogPages(10);
         int commnetCount = commentSerivce.getCounts();
-
+        List<Context> contexts = contextService.getRecentBlogs(5);
+        List<Comment> comments = commentSerivce.getComments();
+        List<Log> logs = logService.getLogPages(10);
 
         map.put("blogNumber",blogCount);
         map.put("contexts", contexts);

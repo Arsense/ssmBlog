@@ -15,14 +15,12 @@ public class SysAuthorization implements SSOAuthorization {
 
 	private static List<String> permissionList = new ArrayList<String>();
 
-
 	static {
 		/**
 		 * 正常情况，该部分数据从数据库中加载。
 		 */
 		permissionList.add("1000");
 	}
-
 
 	/**
 	 * 

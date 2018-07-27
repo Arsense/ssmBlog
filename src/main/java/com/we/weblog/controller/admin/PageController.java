@@ -41,22 +41,18 @@ public class PageController extends BaseController{
     }
 
 
-
     @PostMapping("/publish")
     @ResponseBody
     public void createPages(Context context, HttpServletResponse response) throws Exception {
-
         context.setType(Types.PAGE);
         context.setTags("test");  //tags not null
         contextService.addBlog(context);
 
         Log loginLog =new Log(LogActions.ADD_PAGES,"admin", IpTool.getIpAddress(request),1);
-        if(logService.addLog(loginLog)<0){
+        if (logService.addLog(loginLog)<0) {
             throw new Exception("添加新页面失败");
         }
-
         response.sendRedirect("/admin/pages.html");
-
     }
 
 
@@ -64,10 +60,8 @@ public class PageController extends BaseController{
     @GetMapping("/delete/{id}")
     @ResponseBody
     public void deletePages(@PathVariable  int id){
-
         contextService.deleteBlogById(id);
         tagService.deleteTag(id);
-
     }
 
 

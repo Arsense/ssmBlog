@@ -23,16 +23,7 @@ public class LogService {
     }
 
 
-    /**
-     * 添加日志
-     * @param log
-     * @return
-     */
-    public int addLog(Log log){
-
-        return logMapper.addLog(log);
-
-    }
+    public int addLog(Log log){ return logMapper.addLog(log); }
 
     /**
      *  得到最近的操作日志
@@ -40,6 +31,7 @@ public class LogService {
      * @return
      */
     public List<Log> getLogPages(int limit){
+
         if(limit < 0||limit >20) {
          limit = 10;
         }
@@ -47,7 +39,6 @@ public class LogService {
         for(Log log:logs){
             log.setDateFormat(TimeTool.getFormatClearToSecond(log.getCreated()));
         }
-
         return logs;
     }
 

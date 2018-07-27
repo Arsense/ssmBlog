@@ -3,37 +3,40 @@ package com.we.weblog.controller.admin;
 
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
-import com.we.weblog.controller.BaseController;
 import com.we.weblog.domain.Comment;
 import com.we.weblog.service.CommentSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
-
 
 /**
  *  评论管理页面
  */
 @Controller
 @RequestMapping("/admin/comments")
-public class CommentController extends BaseController {
-
-
-
+public class CommentController {
 
     private CommentSerivce commentSerivce;
-
 
     @Autowired
     public CommentController(CommentSerivce commentSerivce){
         this.commentSerivce = commentSerivce;
     }
 
-
+    /**
+     * 添加评论
+     * @param comment
+     * @return
+     */
+    @PostMapping("/send")
+    @ResponseBody
+    public  UIModel uiModel(@RequestBody Comment comment){
+        UIModel uiModel = new UIModel() ;
+        return   uiModel;
+    }
 
     /**
      * 前端 评论信息
@@ -51,17 +54,16 @@ public class CommentController extends BaseController {
         tableData.configDisplayColumn(TableData.createColumn("time" , "评论时间" ));
         tableData.configDisplayColumn(TableData.createColumn("email" , "评论人邮箱" ));
 
-
         //遍历查询数据库
         List<Comment> comments=commentSerivce.getComments();
-
-        for(Comment comment : comments){
+        for (Comment comment : comments) {
             tableData.addData(comment);
         }
 
-       tableData.setTotalSize(commentSerivce.getCounts());
+        tableData.setTotalSize(commentSerivce.getCounts());
         tableData.setTotalSize(10);
         uiModel.tableData(tableData);
+
         return uiModel ;
     }
 
@@ -104,7 +106,7 @@ public class CommentController extends BaseController {
             return UIModel.fail().setMsg("评论的文章不存在");
         }
         //处理XSS
-        text = cleanXSS(text);
+      //  text = cleanXSS(text);
 
        commentSerivce.replyMessage(text,cid,comment);
 

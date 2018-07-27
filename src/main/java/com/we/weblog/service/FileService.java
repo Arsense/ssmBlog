@@ -12,26 +12,27 @@ import javax.servlet.http.HttpServletRequest;
 public class FileService {
 
     public UploadPicture loadPicture(HttpServletRequest request) throws Exception {
+
         String url = "";
-        UploadPicture pic = new UploadPicture();
+        UploadPicture picture = new UploadPicture();
         try {
              url = FileTools.uploadPicture(request);
-        }catch(Exception e){
+        } catch(Exception e) {
             e.printStackTrace();
             throw new Exception("update error");
         }
 
-        if("".equals(url)){
-            pic.setSuccess(0);
-            pic.setUrl("");
-            pic.setMessage("Upload fail");
-            return pic;
+        if ("".equals(url)) {
+            picture.setSuccess(0);
+            picture.setUrl("");
+            picture.setMessage("Upload fail");
+            return picture;
         }
-        pic.setSuccess(1);
-        pic.setUrl(url);
-        pic.setMessage("Upload success");
+        picture.setSuccess(1);
+        picture.setUrl(url);
+        picture.setMessage("Upload success");
 
-        return pic;
+        return picture;
 
     }
 

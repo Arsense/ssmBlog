@@ -5,5 +5,4 @@ public class Tags {
     private  int tagId;
     private  String tagName;
 
-
 }

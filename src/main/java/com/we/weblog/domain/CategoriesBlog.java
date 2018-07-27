@@ -4,7 +4,6 @@ import java.util.List;
 
 public class CategoriesBlog {
 
-
     private  String category;
     private List<Context> blogs;
 

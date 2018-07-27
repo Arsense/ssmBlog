@@ -11,12 +11,8 @@
 - 1月10日 v1.1   加入kisso单点登录 删除自己拦截器
 - 1.11   v1.2   前台能解析mdtext文本，后台的editor.md加入到VUE框架中，后面editor界面BUG修改成功
 - 2.5 后台大更新
-
-- aiticle页面大更新 路径加入ID吧
-
-- 修复了不少BUG  编写博文上传图片又出了问题
 ## 前台 白天版本
-
+- 2018 7月27日 代码排版优化 增加阅读性
 
 ![](https://i.imgur.com/lL7KoN8.jpg)
 ## 前台 夜晚版本
@@ -78,8 +74,3 @@ mvn install:install-file -Dfile=D:\code\blog\ssmBlog\src\vuejar\vue-adminlte4j-1
 ### 联系方式
 
 QQ：1984562796 欢迎交流学习
-
-##problem remains
-page change
-
-reply

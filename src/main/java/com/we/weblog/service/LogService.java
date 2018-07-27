@@ -32,11 +32,11 @@ public class LogService {
      */
     public List<Log> getLogPages(int limit){
 
-        if(limit < 0||limit >20) {
+        if (limit < 0||limit >20) {
          limit = 10;
         }
         List<Log> logs= logMapper.getLogs(limit);
-        for(Log log:logs){
+        for (Log log:logs) {
             log.setDateFormat(TimeTool.getFormatClearToSecond(log.getCreated()));
         }
         return logs;

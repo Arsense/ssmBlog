@@ -71,12 +71,12 @@ public class CommentController extends BaseController {
     @ResponseBody
     public  UIModel deleteCommnets(@PathVariable("id") Integer commentId){
 
-        if(commentId <= 0 )
+        if (commentId <= 0 )
             return UIModel.fail().setMsg("删除id非法");
 
         int result  = commentSerivce.deleteComment(commentId);
 
-        if(result > 0){
+        if (result > 0) {
             return UIModel.success().setMsg("删除成功");
         }
         return UIModel.fail().setMsg("删除失败");
@@ -93,23 +93,19 @@ public class CommentController extends BaseController {
     @ResponseBody
     public  UIModel replyComments(@RequestBody String text,@PathVariable("id") Integer cid){
 
-        if(text == null || text.equals("")){
+        if (text == null || text.equals("")) {
             return UIModel.fail().setMsg("请输入完成的回复");
-        }else if(text.length() > 2000){
+        } else if (text.length() > 2000){
             return UIModel.fail().setMsg("请输入2000字以内的评论");
         }
-
         //查看该评论是否存在
         Comment comment  = commentSerivce.findComment(cid);
-
-        if(comment== null){
+        if (comment== null) {
             return UIModel.fail().setMsg("评论的文章不存在");
         }
         //处理XSS
         text = cleanXSS(text);
-
-       commentSerivce.replyMessage(text,cid,comment);
-
+        commentSerivce.replyMessage(text,cid,comment);
 
         return UIModel.success().setMsg("回复成功");
 

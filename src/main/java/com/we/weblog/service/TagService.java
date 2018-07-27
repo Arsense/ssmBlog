@@ -7,7 +7,6 @@ import com.we.weblog.domain.modal.Types;
 import com.we.weblog.mapping.TagMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +14,8 @@ import java.util.List;
 public class TagService {
 
 
-
-
     private TagMapper tagMapper;
-    /**
-     *  构造函数
-     */
+
     @Autowired
     TagService(TagMapper tagMapper){
         this.tagMapper = tagMapper;
@@ -34,13 +29,17 @@ public class TagService {
         tagMapper.deleteTagById(uid);
     }
 
+     // 删除category from metas
+    public int deleteMetas(String name){ return tagMapper.deleteCategoryByName(name); }
+
+
+
     /**
      * 分类管理删除标签
       * @param tagName
      * @return
      */
-    public int clearTagData(String tagName){
-
+    public int clearTagData(String tagName) {
        int result = tagMapper.deleteTagByName(tagName);
        if (result > 0) {
            tagMapper.deleleTagFromContext(tagName);
@@ -55,9 +54,9 @@ public class TagService {
      * @param name
      * @return
      */
-    public int addCategory(String name){
-        if(name == null) return 0;
-
+    public int addCategory(String name) {
+        if (name == null)
+            return 0;
         Metas category = new Metas();
         category.setName(name);
         category.setType(Types.MATE_CATEGOTY);
@@ -66,37 +65,25 @@ public class TagService {
     }
 
 
-    public List<String> getMates(){
-        List<String> categories = new ArrayList<>();
+    public List<String> getMates() {
+       List<String> categories = new ArrayList<>();
        List<Metas> metas =  tagMapper.selectCategories();
-       for(Metas meta: metas){
+
+       for (Metas meta: metas) {
            categories.add(meta.getName());
        }
-
        return categories;
 
     }
 
 
-    /**
-     * 删除category from metas
-     * @param name
-     * @return
-     */
-    public int deleteMetas(String name){
-
-
-        return tagMapper.deleteCategoryByName(name);
-    }
-
 
     public List<Select> getCategories(){
-
 
         List<Select> selects = new ArrayList<>();
         List<String> categories = tagMapper.getAllCategories();
 
-        for(String category:categories){
+        for (String category:categories) {
             Select select = new Select();
             select.setText(category);
             select.setValue(category);

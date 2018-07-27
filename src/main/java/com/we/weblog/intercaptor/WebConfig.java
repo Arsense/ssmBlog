@@ -53,7 +53,6 @@ public class WebConfig extends WebMvcConfigurerAdapter{
                 return true;
             }
           });
-
         return springSSOInterceptor;
     }
 

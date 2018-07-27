@@ -37,7 +37,6 @@ public class PageController extends BaseController{
         this.logService = logService;
         this.contextService = contextService;
         this.tagService = tagService;
-
     }
 
 

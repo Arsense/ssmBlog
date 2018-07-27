@@ -20,7 +20,6 @@ public class UserService {
 
 
     public boolean checkLogin(String username,String password) throws Exception {
-
        int result;
        result = userMapper.selectByPassAndName(username,password);
        if (result > 0) {

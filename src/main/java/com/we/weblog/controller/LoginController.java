@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 
 
-
-
+/**
+ * 登陆控制界面
+ */
 @Controller
 public class LoginController extends BaseController{
-
 
     private  UserService userService;
     private  LogService  logService;
@@ -45,7 +45,7 @@ public class LoginController extends BaseController{
         /**
          * 生产环境需要过滤sql注入  登陆验证次数校验  返回一个IP
          */
-        WafRequestWrapper req = new WafRequestWrapper(request);
+        WafRequestWrapper wafRequest = new WafRequestWrapper(request);
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
@@ -53,12 +53,10 @@ public class LoginController extends BaseController{
         if (result) {
             //创建日志
             Log loginLog =new Log(LogActions.LOGIN,username, IpTool.getIpAddress(request),1);
-            if (logService.addLog(loginLog)<0)
+            if (logService.addLog(loginLog) < 0)
                 throw  new Exception("loginLog add error");
-
             //这里创建session 防止重复登录
             SSOHelper.setCookie(request, response, SSOToken.create().setIp(request).setId(1000).setIssuer(username), false);
-
             return redirectTo("/admin/index.html");
         } else {
             return   redirectTo("/login1.html");

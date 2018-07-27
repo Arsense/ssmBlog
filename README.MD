@@ -1,4 +1,6 @@
 
+###说在前面的话
+很久没有维护了 好几个朋友的申请也没看见 若没能及时看见 实在抱歉
 ## 基本技术
 
 环境: `Springboot+mysql+admintle+vue.js+mybatis`环境搭建的个博客
@@ -6,13 +8,12 @@
 ### 搭建方法在下面
 
 
-
 - 1月3日  v1.0
 - 1月10日 v1.1   加入kisso单点登录 删除自己拦截器
 - 1.11   v1.2   前台能解析mdtext文本，后台的editor.md加入到VUE框架中，后面editor界面BUG修改成功
 - 2.5 后台大更新
-## 前台 白天版本
 - 2018 7月27日 代码排版优化 增加阅读性
+## 前台 白天版本
 
 ![](https://i.imgur.com/lL7KoN8.jpg)
 ## 前台 夜晚版本
@@ -69,7 +70,8 @@ mvn install:install-file -Dfile=D:\code\blog\ssmBlog\src\vuejar\vue-adminlte4j-1
 待更新....
 
 项目maven package打包成war包 放到相应tomcat工作目录 运行tomcat
-### 默认账号名密码都是 admin admin 
+### 默认账号名密码都是 admin admin  路劲是login1/html 如果想使用请数据库直接修改
+目前还没增加此功能
 
 ### 联系方式
 

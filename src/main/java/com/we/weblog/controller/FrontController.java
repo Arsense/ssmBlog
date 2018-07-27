@@ -219,12 +219,13 @@ public class FrontController extends  BaseController {
 
         if (pageType.equals(Types.PAGE_CATEGORY)) {
 
-            List<CategoriesBlog> cBlogs = contextService.sortBlogsByCategories();               maps.put(Types.CATEGORIES,cBlogs);
+            List<CategoriesBlog> cBlogs = contextService.sortBlogsByCategories();
+            maps.put(Types.CATEGORIES,cBlogs);
 
-        } else if(pageType.contains(Types.PAGE_ARTICLE)){
+        } else if (pageType.contains(Types.PAGE_ARTICLE)) {
 
             int getId = Integer.parseInt(pageType.substring(7,pageType.length()));
-            if(getId <=0){
+            if(getId <= 0){
                 throw new Exception("GET ARTICLE ID FAIL,CHECK");
             }
             Context currentContext = contextService.getBlogById(getId);
@@ -234,7 +235,7 @@ public class FrontController extends  BaseController {
             Context nextContext = contextService.getNextBlog(getId);
             int uid = currentContext.getUid();
             //显示评论
-            if(uid >0){
+            if (uid > 0) {
                 List<Comment> comments =  commentSerivce.getCommentByArticleId(uid);
                 maps.put(Types.COMMENTS,comments);
             }

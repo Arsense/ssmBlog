@@ -37,13 +37,13 @@ public class CategoryController {
     public List<Select> getAllKindCategories(){
         return  tagService.getCategories();
     }
-
     /**
      * 删除类别
      */
     @GetMapping("/delete/{name}")
     @ResponseBody
     public UIModel deleteCategory(@PathVariable("name") String categoryName){
+
           if (categoryName.equals("")) {
             return UIModel.fail().setMsg("删除的类别为空");
           }
@@ -56,7 +56,6 @@ public class CategoryController {
               return UIModel.fail().setMsg("删除失败");
           }
     }
-
 
     /**
      * 分类标签管理页面
@@ -93,8 +92,10 @@ public class CategoryController {
         }
         int result = tagService.addCategory(name);
 
-        if (result > 0) return UIModel.success().setMsg("添加成功");
-        else return UIModel.fail().setMsg("添加失败");
+        if (result > 0)
+            return UIModel.success().setMsg("添加成功");
+        else
+            return UIModel.fail().setMsg("添加失败");
 
     }
 

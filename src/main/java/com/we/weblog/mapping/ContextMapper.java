@@ -2,13 +2,9 @@ package com.we.weblog.mapping;
 
 
 import com.we.weblog.domain.Context;
-import com.we.weblog.domain.Tags;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.StatementType;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-
 import java.util.List;
 
 /**
@@ -17,9 +13,6 @@ import java.util.List;
 @Repository
 @Mapper
 public interface ContextMapper {
-
-
-
 
 
     /**
@@ -81,7 +74,6 @@ public interface ContextMapper {
             " article=#{b.article} where uid= #{id}"})
     void updateBlog(@Param("b") Context context, @Param("id") int uid);
 
-
     @Update({"update t_context set hits=#{c.hits} where uid = #{c.uid}"})
     void updateHits(@Param("c") Context context);
 
@@ -92,7 +84,6 @@ public interface ContextMapper {
 
     @Select({"select uid,title,created,tags,categories from t_context where type = 'post'  order by tags desc "})
     List<Context> selectBlogsByCategories();
-
 
 
 
@@ -110,12 +101,8 @@ public interface ContextMapper {
 
 
 
-
-
     @Select("select * from t_context where tags=#{tag}")
     List<Context> selectBlogByTag(@Param("tag") String tagName);
-
-
 
 
     @Select({"select * from t_context where type= #{type} order by uid desc"})

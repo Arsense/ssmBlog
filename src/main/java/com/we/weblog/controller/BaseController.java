@@ -22,8 +22,10 @@ public class BaseController {
         return rto.toString();
     }
 
+    /*
+        防止XSS攻击
+     */
     public static String cleanXSS(String value){
-        //You'll need to remove the spaces from the html entities below
         value = value.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
         value = value.replaceAll("\\(", "&#40;").replaceAll("\\)", "&#41;");
         value = value.replaceAll("'", "&#39;");

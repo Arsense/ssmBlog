@@ -75,8 +75,6 @@ public class ContextController extends BaseController{
      @GetMapping("/update_send_data/{id}")
      @ResponseBody
      public Map<String, Object> getTagretUpdateContext(@PathVariable int id){
-
-
          updateId = id;
          Map<String,Object> maps = new HashMap<>();
          Context context = contextService.getBlogById(updateId);
@@ -119,9 +117,9 @@ public class ContextController extends BaseController{
             messgae = "博客标签不能为空";
         } else if (context.getArticle().equals("")) {
             messgae = "请输入博客的内容";
-        }else if(context.getCategories().equals("")){
+        }else if (context.getCategories().equals("")){
             messgae = "未选择博客分类";
-        } else if(context.getArticle().length() < 10){
+        } else if (context.getArticle().length() < 10){
             messgae = "请输入长度为5的内容";
         }
         else {

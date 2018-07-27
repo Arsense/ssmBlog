@@ -20,7 +20,6 @@ public interface TagMapper {
     @ResultType(String.class)
     List<String> selectAllKindTags();
 
-
     @Insert({
             "insert ignore into t_tag (tag_name,uid) values (#{tag},#{id})"})
     int insertBlogTag(@Param("tag") String tag,@Param("id") int id);

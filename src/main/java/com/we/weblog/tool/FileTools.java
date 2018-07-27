@@ -2,7 +2,6 @@ package com.we.weblog.tool;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +15,6 @@ public class FileTools {
 
 
      private static Path getJavaResources() {
-
          String userDir = System.getProperty("user.dir") ;
          Path path = Paths.get(userDir  , "src" , "main" , "resources","static","img") ;
          return  path ;
@@ -42,8 +40,6 @@ public class FileTools {
         String  fileName = String.valueOf(System.currentTimeMillis()+"."+FileTools.getSuffix(files.getOriginalFilename()));
         //然后设置路径
         String  date = TimeTool.getCurrentTime();
-
-
         String  path = getJavaResources().toString();
         //图片存储路径为根路径/年月。比如staic/picture/201608
         File filePath = new File(path);
@@ -51,7 +47,6 @@ public class FileTools {
             filePath.mkdirs();
         }
         File targetFile = new File(filePath+"/"+fileName);
-
         //保存图片
         String requestUrl = getServerRoot(request);
         String tempPath = requestUrl+"/img"+"/"+fileName;
@@ -69,7 +64,6 @@ public class FileTools {
      * @return
      */
     private  static MultipartFile getMultipartFile(HttpServletRequest request){
-
         MultipartHttpServletRequest multipartRequest =(MultipartHttpServletRequest) request;
         Iterator<String> fileNames = multipartRequest.getFileNames();
         return multipartRequest.getFile(fileNames.next());

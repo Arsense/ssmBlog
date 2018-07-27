@@ -55,7 +55,6 @@ public class Log {
         this.action = action;
     }
 
-
     public Date getCreated() {
         return created;
     }

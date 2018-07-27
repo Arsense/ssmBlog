@@ -7,7 +7,6 @@ import java.util.Date;
 public class Context {
     //   博客内容md 博客内容的html
 
-
     // 博客id
     private int   uid;
     //创建时间
@@ -22,9 +21,6 @@ public class Context {
     private String  md;
     //发布时间
 
-
-
-
     private String month;
     //文章类型
     private String type;
@@ -36,7 +32,6 @@ public class Context {
     private String  categories;
     //浏览量
     private int   hits;
-
 
 
     public String getPublish() {

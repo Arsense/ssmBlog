@@ -43,7 +43,8 @@ public interface ContextMapper {
      */
     @Insert({"insert into t_context " +
             "(article,title,created,tags,md,type,slug,publish,categories) " +
-            "values (#{b.article},#{b.title},#{b.created},#{b.tags},#{b.md},#{b.type},#{b.slug},#{b.publish},#{b.categories})"})
+            "values (#{b.article},#{b.title},#{b.created},#{b.tags},#{b.md}" +
+            ",#{b.type},#{b.slug},#{b.publish},#{b.categories})"})
     @SelectKey(before=false,keyProperty="b.uid",resultType=Integer.class,
             statementType= StatementType.STATEMENT,statement="SELECT LAST_INSERT_ID() AS id")
     int insertBlog(@Param("b") Context context);
@@ -61,7 +62,8 @@ public interface ContextMapper {
      * @param count
      * @return
      */
-    @Select({"select uid,title,created,tags,article,slug,hits from t_context where type = 'post'  limit #{count}"})
+    @Select({"select uid,title,created,tags,article" +
+            ",slug,hits from t_context where type = 'post'  limit #{count}"})
     List<Context> getTenBlogs(@Param("count") int count);
 
 
@@ -78,27 +80,30 @@ public interface ContextMapper {
     void updateHits(@Param("c") Context context);
 
 
-    @Select({"select uid,title,created,tags from t_context where type = 'post'  order by created desc limit #{p},12"})
+    @Select({"select uid,title,created,tags from t_context " +
+            "where type = 'post'  order by created desc limit #{p},12"})
     List<Context> selectBlogsByYear(@Param("p") int page);
 
 
-    @Select({"select uid,title,created,tags,categories from t_context where type = 'post'  order by tags desc "})
+    @Select({"select uid,title,created,tags,categories from t_context " +
+            "where type = 'post'  order by tags desc "})
     List<Context> selectBlogsByCategories();
 
 
-
-    @Select({"select uid,title,created from t_context where type = 'post' order by created desc limit #{p},20"})
+    @Select({"select uid,title,created from t_context " +
+            "where type = 'post' order by created desc limit #{p},20"})
     List<Context> getNewBlogs(@Param("p") int page);
 
     @Select({"select uid,title,article,md,created,tags,hits from t_context where uid = #{id}  "})
     Context getBlogById(@Param("id") int id);
 
-    @Select({"select uid,title,tags,created from t_context where uid < #{id} and type = 'post'   order by uid desc limit 1"})
+    @Select({"select uid,title,tags,created from t_context " +
+            "where uid < #{id} and type = 'post'   order by uid desc limit 1"})
     Context getPreviousBlog(@Param("id") int id);
 
-    @Select({"select uid,title,article,tags,created from t_context where uid > #{id} and type = 'post' order by uid asc limit 1"})
+    @Select({"select uid,title,article,tags,created " +
+            "from t_context where uid > #{id} and type = 'post' order by uid asc limit 1"})
     Context getNextBlog(@Param("id") int id);
-
 
 
     @Select("select * from t_context where tags=#{tag}")
@@ -107,7 +112,6 @@ public interface ContextMapper {
 
     @Select({"select * from t_context where type= #{type} order by uid desc"})
     List<Context> getPagesByType(@Param("type")String page);
-
 
     /**
      * 标签页面删除相关数据

@@ -18,7 +18,8 @@ import java.util.List;
 public interface LogMapper  {
 
 
-        @Insert({"insert into t_logs (action,data,author_id,ip,created) values (#{l.action},#{l.data},#{l.author_id},#{l.ip},#{l.created})"})
+        @Insert({"insert into t_logs (action,data,author_id,ip,created) " +
+                "values (#{l.action},#{l.data},#{l.author_id},#{l.ip},#{l.created})"})
         int addLog(@Param("l") Log log);
 
 

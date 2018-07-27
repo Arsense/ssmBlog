@@ -19,6 +19,11 @@ public class AdminBlogApiController extends ApiAdminController {
         return ssoToken.getIssuer();
     }
 
+
+    /**
+     * 后台页面最左边任务栏 不可删除
+     * @param uiModel
+     */
     @Override
     public void configureMenu(UIModel uiModel) {
 

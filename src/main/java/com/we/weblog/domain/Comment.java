@@ -1,12 +1,9 @@
 package com.we.weblog.domain;
 
 
-
-
 import com.we.weblog.domain.annotation.Email;
 import com.we.weblog.domain.annotation.Length;
 import com.we.weblog.domain.annotation.NotEmpty;
-
 import java.util.Date;
 
 /**
@@ -41,10 +38,8 @@ public class Comment {
     private  String     content;
 
 
-
     //恢复父id
     private int parent;
-
 
 
     public int getParent() {
@@ -54,8 +49,6 @@ public class Comment {
     public void setParent(int parent) {
         this.parent = parent;
     }
-
-
 
 
     public int getCid() {

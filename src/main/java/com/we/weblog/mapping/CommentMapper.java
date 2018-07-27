@@ -28,7 +28,6 @@ public interface CommentMapper {
     int insertComment(@Param("c") Comment comment);
 
 
-
     @Delete({"delete from t_comments where cid = #{id}"})
     int deleteCommentById(@Param("id")Integer cid);
 

@@ -95,7 +95,6 @@
             var self=$vm;
             axios.get("/admin/category/index").then(function (response) {
                 self.options = response.data;
-                self.options = response.data.options;
 
             }).catch(function (e) {
                     console.log(e);

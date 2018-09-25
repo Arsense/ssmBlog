@@ -177,18 +177,18 @@ public class ContextController extends BaseController{
         UIModel uiModel = new UIModel() ;
         TableData tableData = new TableData() ;
 
-        tableData.configDisplayColumn(TableData.createColumn("uid" , "博客编号") );
-        tableData.configDisplayColumn(TableData.createColumn("title" , "标题") );
-        tableData.configDisplayColumn(TableData.createColumn("tags" , "标签" ));
-        tableData.configDisplayColumn(TableData.createColumn("hits" , "浏览量" ));
-        tableData.configDisplayColumn(TableData.createColumn("month" , "创建日期" ));
-
-        //遍历查询数据库
-        List<Context> tempContexts=contextService.showBlogs(1);;
-
-        for(Context context : tempContexts){
-            tableData.addData(context);
-        }
+//        tableData.configDisplayColumn(TableData.createColumn("uid" , "博客编号") );
+//        tableData.configDisplayColumn(TableData.createColumn("title" , "标题") );
+//        tableData.configDisplayColumn(TableData.createColumn("tags" , "标签" ));
+//        tableData.configDisplayColumn(TableData.createColumn("hits" , "浏览量" ));
+//        tableData.configDisplayColumn(TableData.createColumn("month" , "创建日期" ));
+//
+//        //遍历查询数据库
+//        List<Context> tempContexts=contextService.showBlogs(1);;
+//
+//        for(Context context : tempContexts){
+//            tableData.addData(context);
+//        }
 
      //   tableData.setTotalSize(contextService.getTotalBlog());
         tableData.setTotalSize(50);

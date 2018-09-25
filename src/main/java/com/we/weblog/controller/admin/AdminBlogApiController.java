@@ -7,7 +7,6 @@ import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.web.springmvc.ApiAdminController;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +17,6 @@ public class AdminBlogApiController extends ApiAdminController {
         SSOToken ssoToken = SSOHelper.getSSOToken(request);
         return ssoToken.getIssuer();
     }
-
 
     /**
      * 后台页面最左边任务栏 不可删除

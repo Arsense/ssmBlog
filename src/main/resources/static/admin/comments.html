@@ -1,25 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="shortcut icon" href="../icon/snow.ico" type="image/x-icon" />
-    <meta charset="utf-8">
-    <title>博客后台管理系统</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>ATL - Box </title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-</head>
-<body>
-    <v-app  :data="data">
+<v-box title="评论修改">
+    <v-row>
+        <v-col span="4">
+            <v-form>
+                <v-form-item>
+
+                    <v-form-item label="用户名:" inline="true">
+                        <v-input  placeholder="请输入用户名:" v-model="userName"  ></v-input>
+                    </v-form-item>
+                </v-form-item>
+
+            </v-form>
+
+        </v-col>
+        <v-col span="2">
+            <v-button @click="add">添加</v-button>
+        </v-col>
+    </v-row>
+    <v-row>
+        <v-col span="12">
+            <v-table ajax_url="/permit/list" ref="table" :operations="operations"></v-table>
+        </v-col>
+    </v-row>
+
+</v-box>
 
 
-        <v-table :ajax_url="ajax_url" :query="query" :send_req="send_req" :operations="operations" ></v-table>
-
-
-    </v-app>
-
-<script src="/lib/lib.js"></script>
 <script>
+
+    new Vue({
+        el: '#app',
+        data: {
+            query : {} ,
+            ajax_url : '/admin/comments/table' ,
+            send_req : 0 ,
+        }
+    })
     app.main({
 
         data : function () {

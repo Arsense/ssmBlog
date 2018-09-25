@@ -1,6 +1,5 @@
 
-###说在前面的话
-很久没有维护了 好几个朋友的申请也没看见 若没能及时看见 实在抱歉
+
 ## 基本技术
 
 环境: `Springboot+mysql+admintle+vue.js+mybatis`环境搭建的个博客
@@ -13,7 +12,7 @@
 - 1.11   v1.2   前台能解析mdtext文本，后台的editor.md加入到VUE框架中，后面editor界面BUG修改成功
 - 2.5 后台大更新
 - 2018 7月27日 代码排版优化 增加阅读性
-
+- 9.25 依赖的vue-admintle工程性能各种界面大更新
 
 
 ## 前台首页
@@ -50,7 +49,9 @@
 ![](doc/8.png)
 
 
-### 本地搭建
+### 本地搭建 
+运行成功后访问:http://localhost:8002
+后台是http://localhost:8002/login1.html
 1. 使用IDEA编辑器 打开文件中pom.xml文件
 2. 引入本地jar包依赖
 maven运行编辑 

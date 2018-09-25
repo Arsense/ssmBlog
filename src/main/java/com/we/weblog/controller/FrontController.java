@@ -161,24 +161,24 @@ public class FrontController extends  BaseController {
     @ResponseBody
     UIModel getTagssdata() {
         UIModel uiModel = new UIModel() ;
-        TableData tableData = new TableData() ;
-        tableData.configDisplayColumn(TableData.createColumn("title" , "页面名称") );
-        tableData.configDisplayColumn(TableData.createColumn("slug" , "页面路径") );
-
-        tableData.configDisplayColumn(TableData.createColumn("month" , "发布时间" ));
-        tableData.configDisplayColumn(TableData.createColumn("publish" , "发布状态" ));
-
-
-        //遍历查询数据库
-        List<Context> tempContexts=contextService.getArticlePages();
-
-        for(Context context : tempContexts){
-            tableData.addData(context);
-        }
-
-        //遍历查询数据库
-        tableData.setTotalSize(10);
-        uiModel.tableData(tableData);
+////        TableData tableData = new TableData() ;
+////        tableData.configDisplayColumn(TableData.createColumn("title" , "页面名称") );
+////        tableData.configDisplayColumn(TableData.createColumn("slug" , "页面路径") );
+////
+////        tableData.configDisplayColumn(TableData.createColumn("month" , "发布时间" ));
+////        tableData.configDisplayColumn(TableData.createColumn("publish" , "发布状态" ));
+////
+////
+////        //遍历查询数据库
+////        List<Context> tempContexts=contextService.getArticlePages();
+////
+////        for(Context context : tempContexts){
+////            tableData.addData(context);
+////        }
+//
+//        //遍历查询数据库
+//        tableData.setTotalSize(10);
+//        uiModel.tableData(tableData);
         return uiModel ;
     }
 

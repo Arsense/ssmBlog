@@ -1,6 +1,5 @@
 package com.we.weblog;
 
-
 import com.vue.adminlte4j.support.FileChangeListener;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +17,6 @@ public class ApplicationStarter {
 
     private static void configFileChangeListener() {
         FileChangeListener fileChangeListener = FileChangeListener.getInstance();
-
         Path distLibPath = Paths.get("src" , "main" ,"static" , "dist" , "lib") ;
         Path targetLibPath = Paths.get("target" , "classes" , "META-INF" , "resources" , "lib") ;
         Path vueAdminlteJs = Paths.get("vue-adminlte","dist","js","vue-adminlte.min.js") ;

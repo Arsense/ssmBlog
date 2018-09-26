@@ -30,6 +30,20 @@
             </v-form-item>
         </v-col>
     </v-row>
+
+    <v-row>
+        <v-col span="8">
+            <select id="editormd-theme-select">
+                <option selected="selected" value="">主题选择</option>
+            </select>
+            <select id="editor-area-theme-select">
+                <option selected="selected" value="">编辑主题选择</option>
+            </select>
+            <select id="preview-area-theme-select">
+                <option selected="selected" value="">预览主题选择</option>
+            </select>
+        </v-col>
+    </v-row>
     <!--<v-row>-->
         <!--<v-col span="5">-->
             <!--<v-form-item class="text-warning" label="博客标签(必须)">-->
@@ -51,6 +65,35 @@
 </v-box>
 <script src="../js/editormd.js"></script>
 <script>
+    function themeSelect(id, themes, lsKey, callback)
+    {
+        var select = $("#" + id);
+
+        for (var i = 0, len = themes.length; i < len; i ++)
+        {
+            var theme    = themes[i];
+            var selected = (localStorage[lsKey] == theme) ? " selected=\"selected\"" : "";
+
+            select.append("<option value=\"" + theme + "\"" + selected + ">" + theme + "</option>");
+        }
+
+        select.bind("change", function(){
+            var theme = $(this).val();
+
+            if (theme === "")
+            {
+                alert("theme == \"\"");
+                return false;
+            }
+
+            console.log("lsKey =>", lsKey, theme);
+
+            localStorage[lsKey] = theme;
+            callback(select, theme);
+        });
+
+        return select;
+    }
 
     var vm = new Vue({
         el: '#app',
@@ -93,24 +136,43 @@
                 console.log(e);
             });
 
-            var editor = editormd("editormd", {
-                path : "../lib/",
-                width: "100%",
-                height: 600,
-                theme: "default",
-                previewTheme: "default",
-                editorTheme: "default",
-                markdown: "",
-                codeFold: true,
-                saveHTMLToTextarea: true, // 保存 HTML 到 Textarea
-                htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了
-                imageUpload: true,
-                imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                imageUploadURL: "/admin/upload",
-                onload: function () {
-                         console.log('onload', this);
-                }
+            $(function() {
+
+                var editor = editormd("editormd", {
+                    path : "../lib/",
+                    width: "100%",
+                    height: 600,
+                    theme        : (localStorage.theme) ? localStorage.theme : "dark",
+                    previewTheme : (localStorage.previewTheme) ? localStorage.previewTheme : "dark",
+                    editorTheme  : (localStorage.editorTheme) ? localStorage.editorTheme : "pastel-on-dark",
+                    markdown: "",
+                    codeFold: true,
+                    saveHTMLToTextarea: true, // 保存 HTML 到 Textarea
+                    htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了
+                    imageUpload: true,
+                    imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                    imageUploadURL: "/admin/upload",
+                    onload: function () {
+                        console.log('onload', this);
+                    }
+                });
+
+                themeSelect("editormd-theme-select", editormd.themes, "theme", function($this, theme) {
+                    editor.setTheme(theme);
+                });
+
+                themeSelect("editor-area-theme-select", editormd.editorThemes, "editorTheme", function($this, theme) {
+                    editor.setCodeMirrorTheme(theme);
+                    // or testEditor.setEditorTheme(theme);
+                });
+
+                themeSelect("preview-area-theme-select", editormd.previewThemes, "previewTheme", function($this, theme) {
+                    editor.setPreviewTheme(theme);
+                });
             });
+
+
+
         }
     });
 

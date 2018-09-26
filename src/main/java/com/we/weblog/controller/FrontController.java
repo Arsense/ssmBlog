@@ -47,7 +47,6 @@ public class FrontController extends  BaseController {
 
 
 
-
     /**
      * 添加评论
      * @param
@@ -58,23 +57,22 @@ public class FrontController extends  BaseController {
     public UIModel addComment(@RequestBody Comment comment ){
 
 
-        if(comment == null || comment.getArticle_id() <= 0 ) return UIModel.fail().setMsg("评论失败,输入信息有误");
-        else if(comment.getEmail().contains("@") == false){
-            return UIModel.fail().setMsg("邮箱格式不正确");
+        if (comment == null || comment.getArticle_id() <= 0 ) return UIModel.fail().msg("评论失败,输入信息有误");
+        else if(!comment.getEmail().contains("@")) {
+            return UIModel.fail().msg("邮箱格式不正确");
         }else if(comment.getContent().length() < 5){
-            return UIModel.fail().setMsg("您的评论太短");
+            return UIModel.fail().msg("您的评论太短");
         }else  if (comment.getContent() == null){
-            return UIModel.fail().setMsg("您的评论不能为空");
+            return UIModel.fail().msg("您的评论不能为空");
         }
-
 
         //处理XSS
         comment.setContent(cleanXSS(comment.getContent()));
-
         int result=commentSerivce.addComments(comment,request);
-
-        if(result > 0) return UIModel.success().setMsg("评论成功");
-        else return UIModel.fail().setMsg("评论失败,输入内容有误");
+        if(result > 0)
+            return UIModel.success().msg("评论成功");
+        else
+            return UIModel.fail().msg("评论失败,输入内容有误");
     }
 
 
@@ -94,7 +92,6 @@ public class FrontController extends  BaseController {
     public void getTagDetail(@PathVariable String tagName){
 
     }
-
     /**
      *  先处理好数据 要不然后让所有url 在
      * @param id
@@ -102,23 +99,15 @@ public class FrontController extends  BaseController {
      */
     @GetMapping("/post/{id}")
     public void post(@PathVariable String id,HttpServletResponse response ) throws IOException {
-
         postId = Integer.parseInt(id);
         response.sendRedirect("/article.html");
-
-
     }
-
-
 
     @GetMapping("/tags_data")
     @ResponseBody
     public List<String> getTags(){
-
-        List<String> list;
-        list = contextService.getAllKindTags();
+        List<String> list = contextService.getAllKindTags();
         return list;
-
     }
 
     /**
@@ -135,7 +124,6 @@ public class FrontController extends  BaseController {
 
     }
 
-
     /**
      *  根据tags 展示所有博客
      * @return
@@ -143,11 +131,7 @@ public class FrontController extends  BaseController {
     @GetMapping("/tags_detail_data")
     @ResponseBody
     public  List<Context> tagDetailData(){
-
-        List<Context> list;
-        list = contextService.getBlogsByTag(tagName);
-        return list;
-
+        return  contextService.getBlogsByTag(tagName);
     }
 
 

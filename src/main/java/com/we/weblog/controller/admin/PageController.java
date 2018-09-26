@@ -10,16 +10,10 @@ import com.we.weblog.service.ContextService;
 import com.we.weblog.service.LogService;
 import com.we.weblog.service.TagService;
 import com.we.weblog.tool.IpTool;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
 
 @Controller
 @RequestMapping("/admin/page")

@@ -70,10 +70,8 @@ public class LoginController extends BaseController{
      */
     @GetMapping("/logout")
     public String logout() {
-
         SSOHelper.clearLogin(request, response);
         logService.addLog(new Log(LogActions.LOGOUT,null,IpTool.getIpAddress(request),1));
-
         return redirectTo("/index.html");
 
     }
@@ -87,12 +85,10 @@ public class LoginController extends BaseController{
     @RequestMapping("/login")
     public String login() {
         // 设置登录 COOKIE
-        SSOToken st = SSOHelper.getSSOToken(request);
-        if(st != null) {
-
+        SSOToken ssoToken = SSOHelper.getSSOToken(request);
+        if(ssoToken != null) {
             return redirectTo("/admin/index.html");
         }
-
         return redirectTo("/login1.html");
     }
 

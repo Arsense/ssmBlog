@@ -158,11 +158,11 @@ public class ContextController extends BaseController{
      */
     @GetMapping("/blog/list")
     @ResponseBody
-    public UIModel get_table_data() {
+    public UIModel getBlogList() {
         List<Context> tempContexts=contextService.showBlogs(1);
 
         FormModel formModel = new FormModel();
-        formModel.createFormItem("uid").setHidden(false);
+        formModel.createFormItem("uid").setLabel("111").setHidden(false);
         formModel.createFormItem("title").setHidden(false);
         formModel.createFormItem("tags").setHidden(false);
         formModel.createFormItem("hits").setHidden(false);
@@ -171,7 +171,6 @@ public class ContextController extends BaseController{
         TableData tableData = new TableData() ;
         tableData.setFormItems(formModel.getFormItems());
         tableData.setDataItems(tempContexts);
-        tableData.setTotalSize(50);
         tableData.setTotalSize(commentSerivce.getCounts());
 
         return  UIModel.success().tableData(tableData);

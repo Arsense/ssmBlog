@@ -21,7 +21,6 @@ public class BaseController {
         rto.append(url);
         return rto.toString();
     }
-
     /*
         防止XSS攻击
      */

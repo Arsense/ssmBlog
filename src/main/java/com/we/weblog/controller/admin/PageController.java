@@ -27,7 +27,7 @@ public class PageController extends BaseController{
     //编辑 删除 添加功能
 
     @Autowired
-    public  PageController(LogService logService,ContextService contextService,TagService tagService){
+    public  PageController(LogService logService,ContextService contextService,TagService tagService) {
         this.logService = logService;
         this.contextService = contextService;
         this.tagService = tagService;

@@ -63,7 +63,7 @@ public class CommentController extends BaseController {
 
     @GetMapping("/delete/{id}")
     @ResponseBody
-    public  UIModel deleteCommnets(@PathVariable("id") Integer commentId){
+    public  UIModel deleteCommnets(@PathVariable("id") Integer commentId) {
         if (commentId <= 0 )
             return UIModel.fail().msg("删除id非法");
         int result  = commentSerivce.deleteComment(commentId);
@@ -81,7 +81,7 @@ public class CommentController extends BaseController {
      */
     @PostMapping("/reply/{id}")
     @ResponseBody
-    public  UIModel replyComments(@RequestBody String text,@PathVariable("id") Integer cid){
+    public  UIModel replyComments(@RequestBody String text,@PathVariable("id") Integer cid) {
 
         if (text == null || text.equals("")) {
             return UIModel.fail().msg("请输入完成的回复");

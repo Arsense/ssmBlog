@@ -47,8 +47,7 @@ public class CategoryController {
           }
           int result = contextService.deleteCatories(categoryName);
           tagService.deleteMetas(categoryName);
-
-          if(result >=0){
+          if(result >= 0) {
               return UIModel.success().msg("删除成功");
           } else {
               return UIModel.fail().msg("删除失败");
@@ -60,7 +59,7 @@ public class CategoryController {
      */
     @GetMapping("/manage")
     @ResponseBody
-    public Map<String,Object> manageCategoryAndTag(){
+    public Map<String,Object> manageCategoryAndTag() {
         Map<String,Object> maps  = new HashMap<>();
         List<String> cates = tagService.getMates();
         List<String> tags = contextService.getAllKindTags();
@@ -76,11 +75,11 @@ public class CategoryController {
      */
     @GetMapping("/save/{name}")
     @ResponseBody
-    public UIModel newCategory(@PathVariable("name")  String name){
+    public UIModel newCategory(@PathVariable("name")  String name) {
         //这里全是空格 全是数字 null 都要检查
         if (name.equals("")) {
             return UIModel.fail().msg("请输入类别");
-        } else if(name.length()> 25){
+        } else if(name.length()> 25) {
             return  UIModel.fail().msg("您输入的类别过长");
         }
 

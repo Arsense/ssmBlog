@@ -17,7 +17,6 @@ public class AdminBlogApiController extends ApiAdminController {
         SSOToken ssoToken = SSOHelper.getSSOToken(request);
         return ssoToken.getIssuer();
     }
-
     /**
      *
      * @param uiModel

@@ -11,7 +11,7 @@
             operations : [
                 {
                     name : '编辑' ,
-                    scheme: 'green',
+                    class: 'btn-success',
                     icon:'edit',
                     method : function(row , $table) {
                         window.location.href = "/admin/edit.html"+"?id="+row.uid;
@@ -19,7 +19,7 @@
                 } ,
                 {
                     name : '删除'  ,
-                    scheme: 'blue',
+                    class: 'btn-danger',
                     icon:'trash',
                     method : function(row ,$table) {
                         axios.get('/admin/delete/'+row.uid).then(function (response) {

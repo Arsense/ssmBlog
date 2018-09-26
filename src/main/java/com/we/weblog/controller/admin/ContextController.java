@@ -162,11 +162,11 @@ public class ContextController extends BaseController{
         List<Context> tempContexts=contextService.showBlogs(1);
 
         FormModel formModel = new FormModel();
-        formModel.createFormItem("uid").setLabel("111").setHidden(false);
-        formModel.createFormItem("title").setHidden(false);
-        formModel.createFormItem("tags").setHidden(false);
-        formModel.createFormItem("hits").setHidden(false);
-        formModel.createFormItem("month").setHidden(false);
+        formModel.createFormItem("uid").setHidden(false).setLabel("博客编号");
+        formModel.createFormItem("title").setHidden(false).setLabel("标题");
+        formModel.createFormItem("tags").setHidden(false).setLabel("标签");
+        formModel.createFormItem("hits").setHidden(false).setLabel("访问量");
+        formModel.createFormItem("month").setHidden(false).setLabel("发布时间");
 
         TableData tableData = new TableData() ;
         tableData.setFormItems(formModel.getFormItems());
@@ -190,7 +190,6 @@ public class ContextController extends BaseController{
         } else if (context.getArticle().length() < 10) {
             messgae = "请输入长度为5的内容";
         }
-
         return messgae;
     }
 

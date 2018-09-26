@@ -20,14 +20,14 @@ public class TagController extends BaseController {
     private TagService tagService;
 
     @Autowired
-    public TagController(ContextService contextService,TagService tagService){
+    public TagController(ContextService contextService,TagService tagService) {
         this.contextService = contextService;
         this.tagService = tagService;
     }
 
     @GetMapping("/delete/{name}")
     @ResponseBody
-    public UIModel deleteTags(@PathVariable("name") String tagName){
+    public UIModel deleteTags(@PathVariable("name") String tagName) {
         if (tagName.equals("")) {
             return UIModel.fail().msg("删除的标签类别为空");
         }

@@ -3,6 +3,7 @@ package com.we.weblog.controller;
 
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
+import com.vue.adminlte4j.model.form.FormModel;
 import com.we.weblog.domain.CategoriesBlog;
 import com.we.weblog.domain.Comment;
 import com.we.weblog.domain.Context;
@@ -130,7 +131,7 @@ public class FrontController extends  BaseController {
      */
     @GetMapping("/tags_detail_data")
     @ResponseBody
-    public  List<Context> tagDetailData(){
+    public  List<Context> tagDetailData() {
         return  contextService.getBlogsByTag(tagName);
     }
 
@@ -144,26 +145,21 @@ public class FrontController extends  BaseController {
     @GetMapping("/get_pages_data")
     @ResponseBody
     UIModel getTagssdata() {
-        UIModel uiModel = new UIModel() ;
-////        TableData tableData = new TableData() ;
-////        tableData.configDisplayColumn(TableData.createColumn("title" , "页面名称") );
-////        tableData.configDisplayColumn(TableData.createColumn("slug" , "页面路径") );
-////
-////        tableData.configDisplayColumn(TableData.createColumn("month" , "发布时间" ));
-////        tableData.configDisplayColumn(TableData.createColumn("publish" , "发布状态" ));
-////
-////
-////        //遍历查询数据库
-////        List<Context> tempContexts=contextService.getArticlePages();
-////
-////        for(Context context : tempContexts){
-////            tableData.addData(context);
-////        }
-//
-//        //遍历查询数据库
-//        tableData.setTotalSize(10);
-//        uiModel.tableData(tableData);
-        return uiModel ;
+
+        FormModel formModel = new FormModel();
+        formModel.createFormItem("title").setHidden(false).setLabel("页面名称");
+        formModel.createFormItem("slug").setHidden(false).setLabel("页面路径");
+        formModel.createFormItem("month").setHidden(false).setLabel("发布时间");
+        formModel.createFormItem("publish").setHidden(false).setLabel("发布状态");
+
+        List<Context> tempContexts=contextService.getArticlePages();
+
+        TableData tableData = new TableData() ;
+        tableData.setTotalSize(10);
+        tableData.setDataItems(tempContexts);
+        tableData.setFormItems(formModel.getFormItems());
+
+        return UIModel.success().tableData(tableData) ;
     }
 
 

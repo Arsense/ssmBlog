@@ -1,3 +1,6 @@
+<head>
+    <link href="../tale/css/style.min.css?v=v1.0" rel="stylesheet" type="text/css">
+</head>
 <v-box>
     <div class="col-md-6">
         <div class="panel panel-color panel-primary">
@@ -55,6 +58,7 @@
 <script src="../tale/js/jquery.app.js"></script>
 <script>
     new Vue({
+        el:"#app" ,
         data : {
            categories:Array,
            tags:Array,
@@ -104,8 +108,8 @@
                 return 'btn btn-success  dropdown-toggle waves-effect waves-light';
             }
         } ,
-        mounted : function ($vm) {
-            var self = $vm;
+        mounted : function () {
+            var self = this;
             axios.get("/admin/category/manage").then(function (response) {
                 self.categories = response.data.categories;
                 self.tags = response.data.tags;

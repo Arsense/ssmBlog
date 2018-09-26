@@ -1,6 +1,5 @@
 
 <v-box>
-
     <div class="pull-right">
         <a href="./new.html" class="btn btn-success waves-effect waves-light m-b-5">添加新页面</a>
     </div>
@@ -8,6 +7,7 @@
 </v-box>
 <script>
     new Vue({
+        el:"#app" ,
         data: {
             query : {} ,
             ajax_url : '/get_pages_data' ,

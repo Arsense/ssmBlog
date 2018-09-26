@@ -1,12 +1,8 @@
 <head>
     <link rel="shortcut icon" href="../icon/snow.ico" type="image/x-icon" />
-    <meta charset="utf-8" />
-    <title>博客后台管理系统</title>
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/editormd.css" />
     <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
-    <style>
-    </style>
 </head>
     <v-row>
         <v-col span="6">
@@ -29,9 +25,9 @@
     </div>
 
 <script src="../js/editormd.js"></script>
-<script type="text/javascript">
+<script>
 
-var vm = new Vue({
+    var vm = new Vue({
         el: '#app',
         data:{
             editor:Object,
@@ -54,7 +50,6 @@ var vm = new Vue({
                 this._data.mdData.tags = document.blogFrom.tags.value;
                 this._data.mdData.categories = document.blogFrom.categories.value;
                 axios.post("/admin/send",this._data.mdData).then(function (response){
-
                     $.alert(response.data);
                     if(response.data.code === 1)
                         var t=setTimeout(" window.location.href = \"/admin/bloglist.html\" ",1500);
@@ -62,9 +57,7 @@ var vm = new Vue({
                     console.log(e.valueOf());
                 });
 
-
             }
-
         } ,
         mounted : function () {
             debugger
@@ -74,43 +67,35 @@ var vm = new Vue({
 
             }).catch(function (e) {
                 console.log(e);
-            })
-            //
-            // $(function() {
-            //     var testEditor = editormd("editormd", {
-            //         width: "50%",
-            //         height: 200,
-            //         path : '../lib',
-            //         theme : "default",
-            //         previewTheme : "default",
-            //         editorTheme : "default",
-            //         markdown : "",
-            //         codeFold : true,
-            //         saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
-            //         searchReplace : true,
-            //         htmlDecode : "style,script,iframe|on*",            // 开启 HTML 标签解析，为了
-            //         emoji : true,
-            //         taskList : true,
-            //         tocm            : true,         // Using [TOCM]
-            //         tex : true,                   // 开启科学公式TeX语言支持，默认关闭
-            //         imageUpload : true,
-            //         imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            //         imageUploadURL : "/admin/upload",
-            //         onload : function() {
-            //             console.log('onload', this);
-            //         }
-            //     });
-            //
-            //
-            // });
-            testEditormdView2 = editormd.markdownToHTML("editormd", {
-                htmlDecode      : "style,script,iframe",  // you can filter tags decode
-                emoji           : true,
-                taskList        : true,
-                tex             : true,  // 默认不解析
-                flowChart       : true,  // 默认不解析
-                sequenceDiagram : true,  // 默认不解析
             });
+
+            var testEditor = editormd("editormd", {
+                    width: "50%",
+                    height: 200,
+                    path : '../lib',
+                    theme : "default",
+                    previewTheme : "default",
+                    editorTheme : "default",
+                    markdown : "",
+                    codeFold : true,
+                    saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
+                    searchReplace : true,
+                    htmlDecode : "style,script,iframe|on*",            // 开启 HTML 标签解析，为了
+                    emoji : true,
+                    taskList : true,
+                    tocm            : true,         // Using [TOCM]
+                    tex : true,                   // 开启科学公式TeX语言支持，默认关闭
+                    imageUpload : true,
+                    imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                    imageUploadURL : "/admin/upload",
+                    onload : function() {
+                        console.log('onload', this);
+                    }
+             });
+
+
+
+
 
 
         }

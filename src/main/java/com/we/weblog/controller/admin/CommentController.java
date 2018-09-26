@@ -3,6 +3,7 @@ package com.we.weblog.controller.admin;
 
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
+import com.vue.adminlte4j.model.form.FormModel;
 import com.we.weblog.controller.BaseController;
 import com.we.weblog.domain.Comment;
 import com.we.weblog.service.CommentSerivce;
@@ -41,12 +42,22 @@ public class CommentController extends BaseController {
     /**
      * 前端 评论信息
      */
-    @GetMapping("/table")
+    @RequestMapping("/list")
     @ResponseBody
-    Map<String,Object> getAllComments() {
-
+    public UIModel list() {
         UIModel uiModel = new UIModel() ;
-        TableData tableData = new TableData() ;
+        TableData tableData = new TableData();
+        List<Comment> comments=commentSerivce.getComments();
+        tableData.setDataItems(comments);
+        tableData.setPage(false);
+
+        FormModel formModel = new FormModel();
+        formModel.createFormItem("cid").setHidden(false);
+        formModel.createFormItem("content").setHidden(false);
+        formModel.createFormItem("author").setHidden(false);
+        formModel.createFormItem("time").setHidden(false);
+        formModel.createFormItem("email").setHidden(false);
+        tableData.setFormItems(formModel.getFormItems());
 
 //        tableData.configDisplayColumn(TableData.createColumn("cid" , "评论id" ));
 //        tableData.configDisplayColumn(TableData.createColumn("content" , "评论内容" ));
@@ -62,9 +73,8 @@ public class CommentController extends BaseController {
 
         tableData.setTotalSize(commentSerivce.getCounts());
         tableData.setTotalSize(10);
-        uiModel.tableData(tableData);
 
-        return uiModel ;
+        return  UIModel.success().tableData(tableData);
     }
 
     @GetMapping("/delete/{id}")

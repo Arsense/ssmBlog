@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="zh" xmlns:v-bind="http://www.w3.org/1999/xhtml">
-<head>
-    <link rel="shortcut icon" href="../icon/snow.ico" type="image/x-icon" />
-    <meta charset="utf-8" />
-    <title>博客后台管理系统</title>
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/editormd.css" />
-    <style>
-    </style>
-</head>
-<body>
 
 
 
-<v-app  id="app" :data="data" >
+
+<v-box>
         <form  method="post" id="main" name="blogFrom" >
                 <v-form-item span="5" label="博客标题(必须)" class="text-warning">
                     <input id="blogTitle" type="text" class="form-control" name="title" placeholder="请输入博客标题"/>
@@ -46,29 +35,26 @@
         </form>
         <!--这里是编辑器-->
         <!--<div id="test-editormd"></div>-->
-</v-app>
-</body>
+</v-box>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/editormd.js"></script>
 <script src="/lib/lib.js"></script>
 <script type="text/javascript">
-    app.main({
-        data : function () {
-            return {
-                editor:Object,
-                options:Object,
-                mdData:{
-                    mdText:11,
-                    article:"",
-                    title:"",
-                    slug:"",
-                    tags:"",
-                    categories:"",
-                },
 
-
+    new Vue({
+        el: '#app',
+        data:{
+            editor:Object,
+            options:Object,
+            mdData:{
+                mdText:11,
+                article:"",
+                title:"",
+                slug:"",
+                tags:"",
+                categories:"",
             }
-        } ,
+        },
         methods : {
             getData:function () {
                 this._data.mdData.mdText = this.editor.getMarkdown();
@@ -81,7 +67,7 @@
 
                     $.alert(response.data);
                     if(response.data.code === 1)
-                     var t=setTimeout(" window.location.href = \"/admin/bloglist.html\" ",1500);
+                        var t=setTimeout(" window.location.href = \"/admin/bloglist.html\" ",1500);
                 }).catch(function (e) {
                     console.log(e.valueOf());
                 });
@@ -97,7 +83,7 @@
                 self.options = response.data;
 
             }).catch(function (e) {
-                    console.log(e);
+                console.log(e);
             })
 
             $(function() {
@@ -133,9 +119,7 @@
             });
 
         }
-    })
+    });
+
 
 </script>
-
-
-</html>

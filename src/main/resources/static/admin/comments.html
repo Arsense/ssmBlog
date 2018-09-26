@@ -1,24 +1,24 @@
 <v-box title="评论修改">
-    <v-row>
-        <v-col span="4">
-            <v-form>
-                <v-form-item>
+    <!--<v-row>-->
+        <!--<v-col span="4">-->
+            <!--<v-form>-->
+                <!--<v-form-item>-->
 
-                    <v-form-item label="用户名:" inline="true">
-                        <v-input  placeholder="请输入用户名:" v-model="userName"  ></v-input>
-                    </v-form-item>
-                </v-form-item>
+                    <!--<v-form-item label="用户名:" inline="true">-->
+                        <!--<v-input  placeholder="请输入用户名:" v-model="userName"  ></v-input>-->
+                    <!--</v-form-item>-->
+                <!--</v-form-item>-->
 
-            </v-form>
+            <!--</v-form>-->
 
-        </v-col>
-        <v-col span="2">
-            <v-button @click="add">添加</v-button>
-        </v-col>
-    </v-row>
+        <!--</v-col>-->
+        <!--<v-col span="2">-->
+            <!--<v-button @click="add">添加</v-button>-->
+        <!--</v-col>-->
+    <!--</v-row>-->
     <v-row>
         <v-col span="12">
-            <v-table ajax_url="/permit/list" ref="table" :operations="operations"></v-table>
+            <v-table ajax_url="/admin/comments/list" ref="table" :operations="operations"></v-table>
         </v-col>
     </v-row>
 
@@ -33,59 +33,42 @@
             query : {} ,
             ajax_url : '/admin/comments/table' ,
             send_req : 0 ,
-        }
-    })
-    app.main({
-
-        data : function () {
-            return {
-                query : {} ,
-                ajax_url : '/admin/comments/table' ,
-                send_req : 0 ,
-                operations : [
-                    {
-                        name : '回复' ,
-                        scheme: 'yellow',
-                        icon:'edit',
-                        method : function(row , $table) {
-                            //prompt层
-                            layer.prompt({title: '输入您要回复的内容', formType: 2}, function(text, index){
-                               layer.close(index);
-                               //这里text发到后端去
-                                axios.post('/admin/comments/reply/'+row.cid,text).then(function(reponse){
-                                    if(reponse.data.code == 1)
-                                         layer.msg('您已成功回复'+text);
-                                    else alert(reponse.data);
-                                });
-
-                           });
-
-                        }
-                    } ,
-                    {
-                        name : '删除'  ,
-                        scheme: 'red',
-                        icon:'trash',
-                        method : function(row ,$table) {
-                            axios.get('/admin/comments/delete/'+row.cid).then(function (response) {
-                                $.alert(response.data);
-                                $table.fetchData()
-
+            operations : [
+                {
+                    name : '回复' ,
+                    class: 'btn-info',
+                    icon:'edit',
+                    method : function(row , $table) {
+                        //prompt层
+                        layer.prompt({title: '输入您要回复的内容', formType: 2}, function(text, index){
+                            layer.close(index);
+                            //这里text发到后端去
+                            axios.post('/admin/comments/reply/'+row.cid,text).then(function(reponse){
+                                if(reponse.data.code == 1)
+                                    layer.msg('您已成功回复'+text);
+                                else alert(reponse.data);
                             });
-                        }
+
+                        });
+
                     }
-                ]
-            }
-        } ,
-        methods : {
+                } ,
+                {
+                    name : '删除'  ,
+                    scheme: 'btn-info',
+                    icon:'trash',
+                    method : function(row ,$table) {
+                        axios.get('/admin/comments/delete/'+row.cid).then(function (response) {
+                            $.alert(response.data);
+                            $table.fetchData()
 
-
-
-        } ,
-        mounted : function () {
-
+                        });
+                    }
+                }
+            ],
         }
     });
+
 
 </script>
 </body>

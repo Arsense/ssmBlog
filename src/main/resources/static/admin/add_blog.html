@@ -1,47 +1,28 @@
 
+    <v-row>
+        <v-col span="6">
+            <v-form-item class="text-warning" label="博客标题(必须)">
+                <v-input ></v-input>
+            </v-form-item>
+        </v-col>
+        <v-col span="6">
+            <v-form-item label="自定义访问路径">
+                <v-input ></v-input>
+            </v-form-item>
+        </v-col>
+    </v-row>
 
+    <div class="clearfix"></div>
+    <div id="page-wrapper">
+      <div id="editormd">
+          <textarea style="display:none;">### Hello Editor.md !</textarea>
+      </div>
+    </div>
 
-
-<v-box>
-        <form  method="post" id="main" name="blogFrom" >
-                <v-form-item span="5" label="博客标题(必须)" class="text-warning">
-                    <input id="blogTitle" type="text" class="form-control" name="title" placeholder="请输入博客标题"/>
-                </v-form-item >
-                <v-form-item span="5" label="自定义访问路径" class="text-warning">
-                    <input  type="text" class="form-control" name="slug" placeholder="自定义访问路径，如：my-first-article  默认为文章id" />
-                </v-form-item>
-                <v-form-item span="5" label="博客标签" class="text-warning">
-                    <input name="tags"  type="text" class="form-control" placeholder="请填写文章标签" />
-                </v-form-item>
-                <v-form-item span="5" label="博客分类" class="text-warning">
-                    <v-select2  name="categories" v-bind:data="options"></v-select2>
-
-                </v-form-item>
-                <div class="clearfix"></div>
-                <div id="page-wrapper">
-                    <div class="row">
-                        <div class="col-md-12 column">
-                            <div id="test-editormd">
-                                <textarea style="display:none;"></textarea>
-                            </div>
-                        </div>
-                    </div><!-- /.row -->
-                </div><!-- /#page-wrapper -->
-                <div class="text-right">
-                    <button id = "blogSubmit" type="button" class="btn btn-success" @click="getData" >保存修改</button>
-                </div>
-                <input type="hidden" name="mdText" id = "mdText" />
-                <input type="hidden" name="article" id = "article"/>
-        </form>
-        <!--这里是编辑器-->
-        <!--<div id="test-editormd"></div>-->
-</v-box>
-<script src="../js/jquery.min.js"></script>
 <script src="../js/editormd.js"></script>
-<script src="/lib/lib.js"></script>
 <script type="text/javascript">
 
-    new Vue({
+var vm = new Vue({
         el: '#app',
         data:{
             editor:Object,
@@ -76,47 +57,52 @@
             }
 
         } ,
-        mounted : function ($vm) {
-            var testEditor;
-            var self=$vm;
+        mounted : function () {
+            debugger
+            var self= this;
             axios.get("/admin/category/index").then(function (response) {
                 self.options = response.data;
 
             }).catch(function (e) {
                 console.log(e);
             })
-
-            $(function() {
-
-                $.get('add.md', function(md){
-                    testEditor = editormd("test-editormd", {
-                        width: "98%",
-                        height: 540,
-                        path : '../lib/',
-                        theme : "default",
-                        previewTheme : "default",
-                        editorTheme : "default",
-                        markdown : md,
-                        codeFold : true,
-                        saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
-                        searchReplace : true,
-                        htmlDecode : "style,script,iframe|on*",            // 开启 HTML 标签解析，为了
-                        emoji : true,
-                        taskList : true,
-                        tocm            : true,         // Using [TOCM]
-                        tex : true,                   // 开启科学公式TeX语言支持，默认关闭
-                        imageUpload : true,
-                        imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                        imageUploadURL : "/admin/upload",
-                        onload : function() {
-                            console.log('onload', this);
-                        }
-                    });
-                    self.editor = testEditor;
-                });
-
-
+            //
+            // $(function() {
+            //     var testEditor = editormd("editormd", {
+            //         width: "50%",
+            //         height: 200,
+            //         path : '../lib',
+            //         theme : "default",
+            //         previewTheme : "default",
+            //         editorTheme : "default",
+            //         markdown : "",
+            //         codeFold : true,
+            //         saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
+            //         searchReplace : true,
+            //         htmlDecode : "style,script,iframe|on*",            // 开启 HTML 标签解析，为了
+            //         emoji : true,
+            //         taskList : true,
+            //         tocm            : true,         // Using [TOCM]
+            //         tex : true,                   // 开启科学公式TeX语言支持，默认关闭
+            //         imageUpload : true,
+            //         imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            //         imageUploadURL : "/admin/upload",
+            //         onload : function() {
+            //             console.log('onload', this);
+            //         }
+            //     });
+            //
+            //
+            // });
+            testEditormdView2 = editormd.markdownToHTML("editormd", {
+                htmlDecode      : "style,script,iframe",  // you can filter tags decode
+                emoji           : true,
+                taskList        : true,
+                tex             : true,  // 默认不解析
+                flowChart       : true,  // 默认不解析
+                sequenceDiagram : true,  // 默认不解析
             });
+
 
         }
     });

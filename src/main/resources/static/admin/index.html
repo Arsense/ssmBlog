@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="shortcut icon" href="../icon/snow.ico" type="image/x-icon" />
-    <meta charset="utf-8">
-    <title>博客后台管理系统</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>111111 </title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="icon" href="icon/snow.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="icon/snow.ico" type="image/x-icon" />
-</head>
-<body class="hold-transition skin-blue sidebar-mini">
 
-<v-app id="app" :data="data">
     <v-box>
 
         <v-tags v-bind:header="blogNumber" footer="发表了几篇文章">
@@ -81,34 +66,34 @@
             </div>
         </div>
     </v-box>
-</v-app>
 
-<script src="/lib/lib.js"></script>
+
 <script>
-    app.main({
-        data : function () {
-            return {
-                blogNumber:"",
-                contexts:[],
-                logs:[],
-                comments:[],
-                commentNumber:"",
-            }
+    new Vue({
+
+        el:"#app" ,
+        data : {
+            blogNumber:"",
+            contexts:[],
+            logs:[],
+            comments:[],
+            commentNumber:"",
         } ,
         methods : {
             getpostUrl:function (Object) {
+                debugger
                 return "../article.html?id="+Object.uid;
             },
 
         } ,
-        mounted : function ($vm) {
-            var self = $vm;
+        mounted : function () {
+            debugger
+            var self = this;
             axios.get("/admin/index/data").then(function (response) {
                 $.extend(self,response.data);
             })
 
         }
-    });
+    })
+
 </script>
-</body>
-</html>

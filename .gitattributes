@@ -17,5 +17,4 @@
 *.RTF	 diff=astextplain
 
 
-
 *.js linguist-language=java

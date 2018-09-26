@@ -1,50 +1,24 @@
-<!DOCTYPE html>
-<html>
-<html xmlns:th=http://www.thymeleaf.org xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="ttp://www.thymeleaf.or "></html>
-<head>
-    <link rel="shortcut icon" href="../icon/snow.ico" type="image/x-icon" />
-    <meta charset="utf-8">
-    <title>博客后台管理系统</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 </title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
-</head>
-
 <body>
-<v-app  id="app" :data="data" >
-    <!-- /.content-wrapper -->
-
     <v-callout type="success" title="111" text="222">
     </v-callout>
-
     <v-callout type="info" title="I am an info callout!" text="Follow the steps to continue to payment.">
     </v-callout>
-
-
-</v-app>
 <script src="/lib/lib.js"></script>
 
 <script>
-    app.main({
-
-        data : function () {
-            return {
-                query : {name : 'test'} ,
-                ajax_url : '/admin/get_table_data'
-
-            }
+    new Vue({
+        data: {
+            query : {name : 'test'} ,
+            ajax_url : '/admin/get_table_data'
         } ,
-        methods : {
+        methods: {
             re_query : function () {
                 console.log('re_query')
                 this.ajax_url = '/admin/get_table_data?'  + 'name=' + this.query.name
             }
         } ,
-        mounted : function () {}
-    })
+        mounted : function () {
+
+        }
+    });
 </script>
-</body>
-</html>

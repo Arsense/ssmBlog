@@ -1,24 +1,9 @@
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-    <link rel="shortcut icon" href="../icon/snow.ico" type="image/x-icon" />
-    <meta charset="utf-8">
-    <title>博客后台管理系统</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>ATL - Box </title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
-    <link href="../tale/css/style.min.css?v=v1.0" rel="stylesheet" type="text/css">
-</head>
-<body>
-<v-app  :data="data">
+<v-box>
     <div class="col-md-6">
         <div class="panel panel-color panel-primary">
             <div class="panel-heading">
                 <h1 class="panel-title">分类列表</h1>
             </div>
-
             <div class="panel-body margin" >
                 <div class="btn-group m-b-10"  v-for="(cate,index) in categories" >
                             <button v-if="cate ==='默认分类'"  type="button" class="btn btn-warning  dropdown-toggle waves-effect waves-light"> {{cate}}({{index}})</button>
@@ -26,17 +11,12 @@
                         <button v-else type="button" :class="randColor()" data-toggle="dropdown" aria-expanded="false"> {{cate}}({{index}})<span
                                 class="caret"></span></button>
                         <ul v-if="index != 0" class="dropdown-menu" role="menu">
-                            <!--<li><a href="javascript:void(0)" mid="${cate}" cname="${cate}" class="edit-category">修改</a>
-                            </li>-->
                             <li><a  class="del-category" @click="deleteCategory(cate)">删除</a></li>
                         </ul>
-
                 </div>
-
             </div>
         </div>
     </div>
-
     <div class="col-md-6">
         <div class="panel   panel-pink">
             <div class="panel-heading">
@@ -55,7 +35,6 @@
             </div>
         </div>
     </div>
-
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-body">
@@ -71,20 +50,14 @@
             </div>
         </div>
     </div>
-
-
-</v-app>
-
-<script src="/lib/lib.js"></script>
+</v-box>
+<!--<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+<script src="../tale/js/jquery.app.js"></script>
 <script>
-    app.main({
-
-        data : function () {
-            return {
-                categories:Array,
-                tags:Array,
-
-            }
+    new Vue({
+        data : {
+           categories:Array,
+           tags:Array,
         } ,
         methods : {
             deleteCategory:function (name) {
@@ -96,14 +69,9 @@
                     axios.get("/admin/category/delete/"+name).then(function (response) {
                         $.alert(response.data);
                         var t=setTimeout("window.location.reload()",1500)
-
-
                     });
-
                 }, function(){
-
                 });
-
             },
             deleteTag:function (tagName) {
                 layer.confirm('您确定要删除 ？',{
@@ -114,12 +82,9 @@
                         $.alert(response.data);
                         var t=setTimeout("window.location.reload()",1500)
                     });
-
                 }, function(){
-
                 });
-            }
-            ,
+            },
             saveKind:function () {
                 var name = $("#newCategory").val();
                 axios.get("/admin/category/save/"+name).then(function (response) {
@@ -128,10 +93,8 @@
                     if(response.data.code == 1){
                         var t=setTimeout("window.location.reload()",1500)
                     }
-
                 });
             },
-
             randColor: function() {
                 const color = ["default","primary", "success", "info", "warning", "danger", "inverse", "purple", "pink"];
                 const n1 = Math.floor(Math.random() * 8 + 1);
@@ -148,14 +111,6 @@
                 self.tags = response.data.tags;
             });
         },
-
-
-
-
-    });
-
+    })
 </script>
-<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<script src="../tale/js/jquery.app.js"></script>
-</body>
-</html>
+

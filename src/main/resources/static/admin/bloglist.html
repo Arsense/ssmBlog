@@ -1,68 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="shortcut icon" href="../icon/snow.ico" type="image/x-icon" />
-    <meta charset="utf-8">
-    <title>博客后台管理系统</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>博客系统 </title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>here is test</title>
-</head>
-<body>
+<v-box title="博客列表">
+    <v-table :ajax_url="ajax_url" :query="query" ref="table" :operations="operations" ></v-table>
+</v-box>
 
-    <v-app id="app"  :data="data">
-        <v-box title="博客列表">
-
-            <v-table :ajax_url="ajax_url" :query="query" ref="table" :operations="operations" ></v-table>
-
-        </v-box>
-
-    </v-app>
-
-<script src="/lib/lib.js"></script>
 <script>
-    app.main({
-
-        data : function () {
-            return {
-                query : {} ,
-                ajax_url : '/admin/get_table_data' ,
-                send_req : 0 ,
-                operations : [
-                    {
-                        name : '编辑' ,
-                        scheme: 'green',
-                        icon:'edit',
-                        method : function(row , $table) {
-                            window.location.href = "/admin/edit.html"+"?id="+row.uid;
-                        }
-                    } ,
-                    {
-                        name : '删除'  ,
-                        scheme: 'blue',
-                        icon:'trash',
-                        method : function(row ,$table) {
-                            axios.get('/admin/delete/'+row.uid).then(function (response) {
-                                $.alert(response.data);
-                                $table.fetchData()
-
-                            });
-
-                        }
+    new Vue({
+        data: {
+            query : {} ,
+            ajax_url : '/admin/get_table_data' ,
+            send_req : 0 ,
+            operations : [
+                {
+                    name : '编辑' ,
+                    scheme: 'green',
+                    icon:'edit',
+                    method : function(row , $table) {
+                        window.location.href = "/admin/edit.html"+"?id="+row.uid;
                     }
-                ]
-            }
+                } ,
+                {
+                    name : '删除'  ,
+                    scheme: 'blue',
+                    icon:'trash',
+                    method : function(row ,$table) {
+                        axios.get('/admin/delete/'+row.uid).then(function (response) {
+                            $.alert(response.data);
+                            $table.fetchData()
+
+                        });
+
+                    }
+                }
+            ]
         } ,
-        methods : {
+        methods: {
             re_query : function () {
                 this.send_req++
             }
         } ,
-        mounted : function () {}
-    })
-</script>
-</body>
+    });
 
-</html>
+</script>

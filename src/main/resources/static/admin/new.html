@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="zh">
 <head>
     <link rel="shortcut icon" href="../icon/snow.ico" type="image/x-icon" />
     <meta charset="utf-8" />
@@ -12,7 +10,6 @@
 </head>
 <body>
 
-<v-app  id="app" :data="data" >
     <!-- /.content-wrapper -->
     <v-box>
 
@@ -51,27 +48,18 @@
         </form>
         <!--这里是编辑器-->
         <!--<div id="test-editormd"></div>-->
-
     </v-box>
 
 
-</v-app>
-
-</body>
-<script src="../js/jquery.min.js"></script>
 <script src="../js/editormd.js"></script>
-<script src="/lib/lib.js"></script>
 <script type="text/javascript">
 
-    app.main({
 
-        data : function () {
-            return {
-                editor:Object
-
-            }
+    new Vue({
+        data: {
+            editor:Object,
         } ,
-        methods : {
+        methods: {
             getData:function () {
                 //这里可以更换为axios
                 var a=document.forms[0];
@@ -85,10 +73,11 @@
                 a.submit()
             }
 
+
         } ,
-        mounted : function ($vm) {
+        mounted : function () {
             var testEditor;
-            var self=$vm;
+            var self=this;
             $(function() {
 
                 $.get('add.md', function(md){
@@ -120,11 +109,7 @@
 
 
             });
-
         }
-    })
-
+    });
 </script>
 
-
-</html>

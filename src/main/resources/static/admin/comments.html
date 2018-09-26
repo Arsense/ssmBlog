@@ -1,35 +1,27 @@
 <v-box title="评论修改">
-    <!--<v-row>-->
-        <!--<v-col span="4">-->
-            <!--<v-form>-->
-                <!--<v-form-item>-->
-
-                    <!--<v-form-item label="用户名:" inline="true">-->
-                        <!--<v-input  placeholder="请输入用户名:" v-model="userName"  ></v-input>-->
-                    <!--</v-form-item>-->
-                <!--</v-form-item>-->
-
-            <!--</v-form>-->
-
-        <!--</v-col>-->
-        <!--<v-col span="2">-->
-            <!--<v-button @click="add">添加</v-button>-->
-        <!--</v-col>-->
-    <!--</v-row>-->
     <v-row>
+        <v-col span="4">
+            <v-form>
+                <v-form-item>
+                    <v-form-item label="用户名:" inline="true">
+                        <v-input placeholder="请输入用户名:" v-model="userName"></v-input>
+                    </v-form-item>
+                </v-form-item>
+            </v-form>
+        </v-col>
+        <v-col span="2">
+            <v-button @click="add">查找</v-button>
+        </v-col>
         <v-col span="12">
             <v-table ajax_url="/admin/comments/list" ref="table" :operations="operations"></v-table>
         </v-col>
     </v-row>
-
 </v-box>
-
-
 <script>
-
     new Vue({
         el: '#app',
         data: {
+            userName:'',
             query : {} ,
             ajax_url : '/admin/comments/table' ,
             send_req : 0 ,
@@ -50,12 +42,11 @@
                             });
 
                         });
-
                     }
                 } ,
                 {
                     name : '删除'  ,
-                    scheme: 'btn-info',
+                    class: 'btn-success',
                     icon:'trash',
                     method : function(row ,$table) {
                         axios.get('/admin/comments/delete/'+row.cid).then(function (response) {
@@ -66,10 +57,12 @@
                     }
                 }
             ],
+        },
+        methods:{
+            add:function () {
+
+            },
         }
     });
 
-
 </script>
-</body>
-</html>

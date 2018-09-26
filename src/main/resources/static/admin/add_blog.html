@@ -18,7 +18,7 @@
         </v-col>
     </v-row>
 
-    <v-row>
+    <v-row >
         <v-col span="5">
             <v-form-item class="text-warning" label="博客标签(必须)">
                 <v-input></v-input>
@@ -31,16 +31,16 @@
         </v-col>
     </v-row>
 
-    <v-row>
+    <v-row >
         <v-col span="8">
             <select id="editormd-theme-select">
-                <option selected="selected" value="">主题选择</option>
+                <option selected="selected" value=""></option>
             </select>
             <select id="editor-area-theme-select">
-                <option selected="selected" value="">编辑主题选择</option>
+                <option selected="selected" value=""></option>
             </select>
             <select id="preview-area-theme-select">
-                <option selected="selected" value="">预览主题选择</option>
+                <option selected="selected" value=""></option>
             </select>
         </v-col>
     </v-row>
@@ -163,7 +163,6 @@
 
                 themeSelect("editor-area-theme-select", editormd.editorThemes, "editorTheme", function($this, theme) {
                     editor.setCodeMirrorTheme(theme);
-                    // or testEditor.setEditorTheme(theme);
                 });
 
                 themeSelect("preview-area-theme-select", editormd.previewThemes, "previewTheme", function($this, theme) {

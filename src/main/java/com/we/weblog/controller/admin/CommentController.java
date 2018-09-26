@@ -59,18 +59,6 @@ public class CommentController extends BaseController {
         formModel.createFormItem("email").setHidden(false);
         tableData.setFormItems(formModel.getFormItems());
 
-//        tableData.configDisplayColumn(TableData.createColumn("cid" , "评论id" ));
-//        tableData.configDisplayColumn(TableData.createColumn("content" , "评论内容" ));
-//        tableData.configDisplayColumn(TableData.createColumn("author" , "评论人") );
-//        tableData.configDisplayColumn(TableData.createColumn("time" , "评论时间" ));
-//        tableData.configDisplayColumn(TableData.createColumn("email" , "评论人邮箱" ));
-//
-//        //遍历查询数据库
-//        List<Comment> comments=commentSerivce.getComments();
-//        for (Comment comment : comments) {
-//            tableData.addData(comment);
-//        }
-
         tableData.setTotalSize(commentSerivce.getCounts());
         tableData.setTotalSize(10);
 

@@ -1,14 +1,13 @@
 <v-box title="博客列表">
-    <v-table :ajax_url="ajax_url" :query="query" ref="table" :operations="operations" ></v-table>
+    <v-col span="12">
+        <v-table ajax_url="/admin/blog/list" ref="table" :operations="operations"></v-table>
+    </v-col>
 </v-box>
 
 <script>
     new Vue({
         el:"#app" ,
         data: {
-            query : {} ,
-            ajax_url : '/admin/get_table_data' ,
-            send_req : 0 ,
             operations : [
                 {
                     name : '编辑' ,
@@ -26,7 +25,6 @@
                         axios.get('/admin/delete/'+row.uid).then(function (response) {
                             $.alert(response.data);
                             $table.fetchData()
-
                         });
 
                     }

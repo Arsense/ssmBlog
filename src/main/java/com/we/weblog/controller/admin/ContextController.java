@@ -2,6 +2,7 @@ package com.we.weblog.controller.admin;
 
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
+import com.vue.adminlte4j.model.form.FormModel;
 import com.we.weblog.controller.BaseController;
 import com.we.weblog.domain.Comment;
 import com.we.weblog.domain.Context;
@@ -13,6 +14,7 @@ import com.we.weblog.service.*;
 import com.we.weblog.tool.IpTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -47,14 +49,14 @@ public class ContextController extends BaseController{
     @ResponseBody
     public UIModel deleteBlog(@PathVariable("id") int deleteId, HttpServletRequest request) {
         if (deleteId <= 0) {
-            return UIModel.fail().setMsg("该博客不存在");
+            return UIModel.fail().msg("该博客不存在");
         }
 
         contextService.deleteBlogById(deleteId);
         tagService.deleteTag(deleteId);
         logService.addLog(new Log(LogActions.DELETE_BLOG,deleteId+" ", IpTool.getIpAddress(request),1));
 
-        return UIModel.success().setMsg("删除成功");
+        return UIModel.success().msg("删除成功");
 
     }
 
@@ -96,7 +98,7 @@ public class ContextController extends BaseController{
      @ResponseBody
      public UIModel updateDate(@RequestBody Context context) throws SQLException {
         contextService.updateBlog(context,updateId);
-         return UIModel.success().setMsg("修改成功！");
+         return UIModel.success().msg("修改成功！");
 
      }
 
@@ -108,25 +110,10 @@ public class ContextController extends BaseController{
     @PostMapping("/send")
     @ResponseBody
     public UIModel postAction(@RequestBody Context context) throws Exception {
-        Boolean inputCheck = false;
-        String  messgae = null;
+        String messgae = validateContext(context);
 
-        if (context.getTitle().equals("")) {
-            messgae = "博客标题不能为空";
-        } else if (context.getTags().equals("")) {
-            messgae = "博客标签不能为空";
-        } else if (context.getArticle().equals("")) {
-            messgae = "请输入博客的内容";
-        }else if (context.getCategories().equals("")){
-            messgae = "未选择博客分类";
-        } else if (context.getArticle().length() < 10){
-            messgae = "请输入长度为5的内容";
-        }
-        else {
-            inputCheck = true;
-        }
-        if (!inputCheck)
-            return UIModel.fail().setMsg(messgae);
+        if (messgae.length() > 0)
+            return UIModel.fail().msg(messgae);
 
         context.setType(Types.ARTICLE);
         contextService.addBlog(context);
@@ -135,12 +122,12 @@ public class ContextController extends BaseController{
            messgae = "添加博客失败";
         }
         messgae = "添加博客成功！";
-        return UIModel.success().setMsg(messgae);
+        return UIModel.success().msg(messgae);
     }
 
 
     /**
-     *  仪表盘
+     *  前端仪表盘
      * @param request
      * @return
      */
@@ -162,38 +149,50 @@ public class ContextController extends BaseController{
         map.put("comments",comments);
         map.put("commentNumber",commnetCount);
 
-
         return map;
     }
 
     /**
-     * BOLGlist
+     * 显示后台博客列表
      * @return
      */
-    @GetMapping("/get_table_data")
+    @GetMapping("/blog/list")
     @ResponseBody
-    Map<String,Object> get_table_data() {
+    public UIModel get_table_data() {
+        List<Context> tempContexts=contextService.showBlogs(1);
 
-        UIModel uiModel = new UIModel() ;
+        FormModel formModel = new FormModel();
+        formModel.createFormItem("uid").setHidden(false);
+        formModel.createFormItem("title").setHidden(false);
+        formModel.createFormItem("tags").setHidden(false);
+        formModel.createFormItem("hits").setHidden(false);
+        formModel.createFormItem("month").setHidden(false);
+
         TableData tableData = new TableData() ;
-
-//        tableData.configDisplayColumn(TableData.createColumn("uid" , "博客编号") );
-//        tableData.configDisplayColumn(TableData.createColumn("title" , "标题") );
-//        tableData.configDisplayColumn(TableData.createColumn("tags" , "标签" ));
-//        tableData.configDisplayColumn(TableData.createColumn("hits" , "浏览量" ));
-//        tableData.configDisplayColumn(TableData.createColumn("month" , "创建日期" ));
-//
-//        //遍历查询数据库
-//        List<Context> tempContexts=contextService.showBlogs(1);;
-//
-//        for(Context context : tempContexts){
-//            tableData.addData(context);
-//        }
-
-     //   tableData.setTotalSize(contextService.getTotalBlog());
+        tableData.setFormItems(formModel.getFormItems());
+        tableData.setDataItems(tempContexts);
         tableData.setTotalSize(50);
-        uiModel.tableData(tableData);
-        return uiModel ;
+        tableData.setTotalSize(commentSerivce.getCounts());
+
+        return  UIModel.success().tableData(tableData);
+
+    }
+
+    private String validateContext(Context context) {
+        String messgae = null;
+        if (StringUtils.isEmpty(context.getTitle())) {
+            messgae = "博客标题不能为空";
+        } else if (context.getTags().equals("")) {
+            messgae = "博客标签不能为空";
+        } else if (context.getArticle().equals("")) {
+            messgae = "请输入博客的内容";
+        } else if (context.getCategories().equals("")) {
+            messgae = "未选择博客分类";
+        } else if (context.getArticle().length() < 10) {
+            messgae = "请输入长度为5的内容";
+        }
+
+        return messgae;
     }
 
 

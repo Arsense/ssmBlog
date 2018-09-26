@@ -29,14 +29,14 @@ public class TagController extends BaseController {
     @ResponseBody
     public UIModel deleteTags(@PathVariable("name") String tagName){
         if (tagName.equals("")) {
-            return UIModel.fail().setMsg("删除的标签类别为空");
+            return UIModel.fail().msg("删除的标签类别为空");
         }
         int result = tagService.clearTagData(tagName);
         int check = contextService.deleteCatories(tagName);
         if(result >=0 && check >=0){
-            return UIModel.success().setMsg("删除成功");
+            return UIModel.success().msg("删除成功");
         } else {
-            return UIModel.fail().setMsg("删除失败");
+            return UIModel.fail().msg("删除失败");
         }
     }
 }

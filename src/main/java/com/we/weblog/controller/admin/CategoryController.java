@@ -43,15 +43,15 @@ public class CategoryController {
     public UIModel deleteCategory(@PathVariable("name") String categoryName){
 
           if (categoryName.equals("")) {
-            return UIModel.fail().setMsg("删除的类别为空");
+            return UIModel.fail().msg("删除的类别为空");
           }
           int result = contextService.deleteCatories(categoryName);
           tagService.deleteMetas(categoryName);
 
           if(result >=0){
-              return UIModel.success().setMsg("删除成功");
+              return UIModel.success().msg("删除成功");
           } else {
-              return UIModel.fail().setMsg("删除失败");
+              return UIModel.fail().msg("删除失败");
           }
     }
 
@@ -79,21 +79,21 @@ public class CategoryController {
     public UIModel newCategory(@PathVariable("name")  String name){
         //这里全是空格 全是数字 null 都要检查
         if (name.equals("")) {
-            return UIModel.fail().setMsg("请输入类别");
+            return UIModel.fail().msg("请输入类别");
         } else if(name.length()> 25){
-            return  UIModel.fail().setMsg("您输入的类别过长");
+            return  UIModel.fail().msg("您输入的类别过长");
         }
 
         List<String> tagName = tagService.getMates();
         if (tagName.contains(name)) {
-            return UIModel.fail().setMsg("该分类已存在");
+            return UIModel.fail().msg("该分类已存在");
         }
         int result = tagService.addCategory(name);
 
         if (result > 0)
-            return UIModel.success().setMsg("添加成功");
+            return UIModel.success().msg("添加成功");
         else
-            return UIModel.fail().setMsg("添加失败");
+            return UIModel.fail().msg("添加失败");
 
     }
 

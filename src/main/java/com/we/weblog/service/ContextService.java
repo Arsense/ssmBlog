@@ -344,10 +344,8 @@ public class ContextService {
      * @return
      */
     public void addOneHits(Context context){
-
         context.setHits(context.getHits()+1);
         contextMapper.updateHits(context);
-
     }
 
 }

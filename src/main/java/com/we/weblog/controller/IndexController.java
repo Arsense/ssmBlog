@@ -184,6 +184,14 @@ public class IndexController extends  BaseController {
 
     }
 
+    /**
+     * todo 根据标签名显示分类
+     * @param tagName
+     */
+    @GetMapping("/tags/{name}")
+    public void getTagDetail(@PathVariable String tagName){
+    }
+
 
     /**
      * 前端数据处理的主要函数
@@ -232,13 +240,7 @@ public class IndexController extends  BaseController {
         }
     }
 
-    /**
-     * todo 根据标签名显示分类
-     * @param tagName
-     */
-    @GetMapping("/tags/{name}")
-    public void getTagDetail(@PathVariable String tagName){
-    }
+
 
 
 }

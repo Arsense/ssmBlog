@@ -14,6 +14,7 @@ import com.we.weblog.service.ContextService;
 import com.we.weblog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,10 +26,11 @@ import java.util.Map;
 
 
 /**
+ * 首页、归档、分类、评论
  *   前端页面显示的控制器
  */
 @Controller
-public class FrontController extends  BaseController {
+public class IndexController extends  BaseController {
 
 
     private ContextService contextService;
@@ -38,7 +40,7 @@ public class FrontController extends  BaseController {
     private TagService     tagService;
 
     @Autowired
-    public FrontController(ContextService blogService,TagService tagService,CommentSerivce commentSerivce){
+    public IndexController(ContextService blogService, TagService tagService, CommentSerivce commentSerivce){
         this.commentSerivce =commentSerivce;
         this.tagService = tagService;
         this.contextService = blogService;
@@ -58,7 +60,7 @@ public class FrontController extends  BaseController {
     public UIModel addComment(@RequestBody Comment comment ){
 
 
-        if (comment == null || comment.getArticle_id() <= 0 ) return UIModel.fail().msg("评论失败,输入信息有误");
+        if (StringUtils.isEmpty(comment) || comment.getArticle_id() <= 0 ) return UIModel.fail().msg("评论失败,输入信息有误");
         else if(!comment.getEmail().contains("@")) {
             return UIModel.fail().msg("邮箱格式不正确");
         }else if(comment.getContent().length() < 5){
@@ -83,16 +85,11 @@ public class FrontController extends  BaseController {
     @GetMapping("/get_kind_blogs")
     @ResponseBody
     public List<CategoriesBlog> getBlogsByTag(){
-
         List<CategoriesBlog> lists = contextService.sortBlogsByCategories();
         return lists;
-
     }
 
-    @GetMapping("/tags/{name}")
-    public void getTagDetail(@PathVariable String tagName){
 
-    }
     /**
      *  先处理好数据 要不然后让所有url 在
      * @param id
@@ -188,7 +185,6 @@ public class FrontController extends  BaseController {
     }
 
 
-
     /**
      * 前端数据处理的主要函数
      * @param maps
@@ -236,6 +232,13 @@ public class FrontController extends  BaseController {
         }
     }
 
+    /**
+     * todo 根据标签名显示分类
+     * @param tagName
+     */
+    @GetMapping("/tags/{name}")
+    public void getTagDetail(@PathVariable String tagName){
+    }
 
 
 }

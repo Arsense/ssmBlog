@@ -27,7 +27,7 @@ public class CommentController extends BaseController {
     }
 
     /**
-     * 添加评论
+     * 后台回复添加评论
      * @param comment
      * @return
      */

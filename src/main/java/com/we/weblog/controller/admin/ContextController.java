@@ -48,6 +48,7 @@ public class ContextController extends BaseController{
     @GetMapping("/delete/{id}")
     @ResponseBody
     public UIModel deleteBlog(@PathVariable("id") int deleteId, HttpServletRequest request) {
+        //todo 删除文章 相关的评论什么的都得删除
         if (deleteId <= 0) {
             return UIModel.fail().msg("该博客不存在");
         }
@@ -65,7 +66,6 @@ public class ContextController extends BaseController{
     @ResponseBody
     public UploadPicture uploadPickture(HttpServletRequest request) throws Exception {
         UploadPicture picture =  fileService.loadPicture(request);
-
         return picture;
     }
 

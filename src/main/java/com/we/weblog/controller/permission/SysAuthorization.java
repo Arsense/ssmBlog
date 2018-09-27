@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ *  目前没有用到 SSO配置相关的 可自行研究
  * 系统权限授权实现类
  *
  */

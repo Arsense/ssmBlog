@@ -57,7 +57,7 @@ public class LoginController extends BaseController{
                 throw  new Exception("loginLog add error");
             //这里创建session 防止重复登录
             SSOHelper.setCookie(request, response, SSOToken.create().setIp(request).setId(1000).setIssuer(username), false);
-            return redirectTo("/admin/home.html");
+            return redirectTo("admin/index.html#/admin/home.html");
         } else {
             return   redirectTo("/login1.html");
         }

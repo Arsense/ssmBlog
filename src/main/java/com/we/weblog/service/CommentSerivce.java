@@ -2,17 +2,19 @@ package com.we.weblog.service;
 
 
 import com.we.weblog.domain.Comment;
-import com.we.weblog.domain.Log;
 import com.we.weblog.mapping.CommentMapper;
 import com.we.weblog.tool.IpTool;
 import com.we.weblog.tool.TimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
+
+/**
+ * 评论管理Service
+ */
 @Service
 public class CommentSerivce {
 
@@ -63,8 +65,6 @@ public class CommentSerivce {
      * @return
      */
    public int addComments(Comment comment, HttpServletRequest request){
-
-
        comment.setCreated(new Date(System.currentTimeMillis()));
        comment.setIp(IpTool.getIpAddress(request));
 

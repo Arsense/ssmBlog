@@ -48,13 +48,17 @@ public class ContextController extends BaseController{
     @GetMapping("/delete/{id}")
     @ResponseBody
     public UIModel deleteBlog(@PathVariable("id") int deleteId, HttpServletRequest request) {
-        //todo 删除文章 相关的评论什么的都得删除
         if (deleteId <= 0) {
-            return UIModel.fail().msg("该博客不存在");
+            return UIModel.fail().msg("删除文章非法");
         }
 
+        Context context = contextService.getBlogById(deleteId);
+        if(StringUtils.isEmpty(context)) {
+            return UIModel.fail().msg("该博客不存在");
+        }
         contextService.deleteBlogById(deleteId);
         tagService.deleteTag(deleteId);
+        commentSerivce.deleteComment(deleteId);
         logService.addLog(new Log(LogActions.DELETE_BLOG,deleteId+" ", IpTool.getIpAddress(request),1));
 
         return UIModel.success().msg("删除成功");
@@ -65,8 +69,7 @@ public class ContextController extends BaseController{
     @PostMapping("/upload")
     @ResponseBody
     public UploadPicture uploadPickture(HttpServletRequest request) throws Exception {
-        UploadPicture picture =  fileService.loadPicture(request);
-        return picture;
+        return  fileService.loadPicture(request);
     }
 
 
@@ -118,7 +121,7 @@ public class ContextController extends BaseController{
         context.setType(Types.ARTICLE);
         contextService.addBlog(context);
         Log loginLog =new Log(LogActions.ADD_BLOG,"admin", IpTool.getIpAddress(request),1);
-        if (logService.addLog(loginLog)<0) {
+        if (logService.addLog(loginLog) < 0) {
            messgae = "添加博客失败";
         }
         messgae = "添加博客成功！";

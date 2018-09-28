@@ -15,6 +15,10 @@ public class ApplicationStarter {
         SpringApplication.run(ApplicationStarter.class,args);
     }
 
+
+    /**
+     * 页面自动更新前端资源 改完代码后刷新即可
+     */
     private static void configFileChangeListener() {
         FileChangeListener fileChangeListener = FileChangeListener.getInstance();
         Path distLibPath = Paths.get("src" , "main" ,"static" , "dist" , "lib") ;

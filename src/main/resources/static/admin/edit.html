@@ -48,20 +48,33 @@
     var vm = new Vue({
         el: '#app',
         data:{
-            mdData:Object,
+            items : [
+                {code:'1' ,  label:'默认分类' ,checked:false},
+                {code:'2' ,   label:'name',checked:false},
+                {code:'3' ,    label:'hello',checked:false}
+            ],
+            mdData:{
+                mdText:11,
+                article:"",
+                title:"",
+                slug:"",
+                tags:"",
+                categories:"",
+            },
             mdText:"",
             editor:Object,              //存放md的值
             options:Object,
         },
         methods : {
             updateData : function(){
+                debugger
                 vm.mdData.mdText = vm.editor.getMarkdown();
                 vm.mdData.md = vm.editor.getMarkdown();
-                vm.mdData.article = this.editor.getHTML();
-                vm.mdData.categories = document.blogFrom.categories.value;
+                vm.mdData.article = vm.editor.getHTML();
+                // vm.mdData.categories = document.getElementsByName("categories")[0].value;
                 axios.post("/admin/update",this.mdData).then(function (response) {
                     $.alert(response.data);
-                    var t=setTimeout(" window.location.href = \"/admin/bloglist.html\" ",1500);
+                    var t=setTimeout(" window.location.href = \"/admin/index.html#/admin/bloglist.html\" ",1500);
                 }).catch(function (error){
                     console.log(error);
                 });
@@ -83,7 +96,7 @@
             var testEditor = editormd("editormd", {
                     path : "../lib/",
                     width: "85%",
-                    height: 410,
+                    height: 110,
                     theme        : (localStorage.theme) ? localStorage.theme : "dark",
                     previewTheme : (localStorage.previewTheme) ? localStorage.previewTheme : "dark",
                     editorTheme  : (localStorage.editorTheme) ? localStorage.editorTheme : "pastel-on-dark",

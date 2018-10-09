@@ -2,7 +2,7 @@ package com.we.weblog.intercaptor;
 
 import com.baomidou.kisso.SSOConfig;
 
-public class    WebKissoConfigurer {
+public class WebKissoConfigurer {
 
     private SSOConfig ssoConfig;
 

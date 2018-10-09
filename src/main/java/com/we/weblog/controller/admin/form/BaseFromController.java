@@ -1,4 +1,4 @@
-package com.we.weblog.controller.admin;
+package com.we.weblog.controller.admin.form;
 
 import com.vue.adminlte4j.model.UIModel;
 import com.we.weblog.controller.admin.form.SystemFromInfo;

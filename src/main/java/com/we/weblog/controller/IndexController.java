@@ -1,6 +1,5 @@
 package com.we.weblog.controller;
 
-
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.model.form.FormModel;
@@ -46,8 +45,6 @@ public class IndexController extends  BaseController {
         postId = contextService.getLastestBlogId();
     }
 
-
-
     /**
      * 添加评论
      * @param
@@ -56,17 +53,15 @@ public class IndexController extends  BaseController {
     @PostMapping("/comments/send")
     @ResponseBody
     public UIModel addComment(@RequestBody Comment comment ){
-
-
-        if (StringUtils.isEmpty(comment) || comment.getArticle_id() <= 0 ) return UIModel.fail().msg("评论失败,输入信息有误");
-        else if(!comment.getEmail().contains("@")) {
+        if (StringUtils.isEmpty(comment) || comment.getArticle_id() <= 0 ) {
+            return UIModel.fail().msg("评论失败,输入信息有误");
+        } else if (!comment.getEmail().contains("@")) {
             return UIModel.fail().msg("邮箱格式不正确");
-        }else if(comment.getContent().length() < 5){
+        } else if (comment.getContent().length() < 5) {
             return UIModel.fail().msg("您的评论太短");
-        }else  if (comment.getContent() == null){
+        } else if (comment.getContent() == null) {
             return UIModel.fail().msg("您的评论不能为空");
         }
-
         //处理XSS
         comment.setContent(cleanXSS(comment.getContent()));
         int result=commentSerivce.addComments(comment,request);
@@ -75,7 +70,6 @@ public class IndexController extends  BaseController {
         else
             return UIModel.fail().msg("评论失败,输入内容有误");
     }
-
 
     /**
      * 标签显示 删除吧 只留分类吧
@@ -86,7 +80,6 @@ public class IndexController extends  BaseController {
         List<CategoriesBlog> lists = contextService.sortBlogsByCategories();
         return lists;
     }
-
 
     /**
      *  先处理好数据 要不然后让所有url 在
@@ -101,7 +94,7 @@ public class IndexController extends  BaseController {
 
     @GetMapping("/tags_data")
     @ResponseBody
-    public List<String> getTags(){
+    public List<String> getAllTags(){
         List<String> list = contextService.getAllKindTags();
         return list;
     }
@@ -117,7 +110,6 @@ public class IndexController extends  BaseController {
                            HttpServletResponse response) throws IOException {
         tagName = tag;
         response.sendRedirect("/tagdetail.html");
-
     }
 
     /**
@@ -131,16 +123,13 @@ public class IndexController extends  BaseController {
     }
 
 
-
-
     /**
      *  获取标签信息
      * @return
      */
     @GetMapping("/get_pages_data")
     @ResponseBody
-    UIModel getTagssdata() {
-
+    UIModel getTags() {
         FormModel formModel = new FormModel();
         formModel.createFormItem("title").setHidden(false).setLabel("页面名称");
         formModel.createFormItem("slug").setHidden(false).setLabel("页面路径");
@@ -160,7 +149,7 @@ public class IndexController extends  BaseController {
 
     @GetMapping("/get_all_datas/{page}")
     @ResponseBody
-    public Map<String,Object> getFrontData(@PathVariable String page) throws Exception {
+    public Map<String,Object> getIndexData(@PathVariable String page) throws Exception {
         //如果是首页
         Map<String,Object> maps = new HashMap<>();
         List<String> tagsName = tagService.getTotalTagsName();
@@ -172,14 +161,12 @@ public class IndexController extends  BaseController {
         maps.put(Types.BLOGS,blogs);
 
         sortPagesMap(maps,page);
-
         maps.put(Types.TAG_NAME,tagsName);
         maps.put(Types.TAG_COUNT,totalTags);
         maps.put(Types.BLOG_COUNT,blogCount);
         maps.put(Types.CATEGORY_COUNT,categoryCount);
 
         return maps;
-
     }
 
     /**
@@ -198,12 +185,9 @@ public class IndexController extends  BaseController {
      * @throws Exception
      */
     public  void sortPagesMap(Map<String,Object> maps, String pageType) throws Exception {
-
         if (pageType.equals(Types.PAGE_CATEGORY)) {
-
             List<CategoriesBlog> cBlogs = contextService.sortBlogsByCategories();
             maps.put(Types.CATEGORIES,cBlogs);
-
         } else if (pageType.contains(Types.PAGE_ARTICLE)) {
 
             int getId = Integer.parseInt(pageType.substring(7,pageType.length()));

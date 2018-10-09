@@ -3,18 +3,14 @@ package com.we.weblog.mapping;
 
 import com.we.weblog.domain.Comment;
 import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.mapping.StatementType;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 @Mapper
 @Repository
 public interface CommentMapper {
 
-    @Select({"select cid,created,author,email,content from t_comments"})
+    @Select({"select cid,article_id,created,author,email,content from t_comments"})
     List<Comment> selectAllComments();
 
     @Select({"select count(*) from t_comments"})

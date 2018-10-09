@@ -7,13 +7,13 @@
 <v-box>
     <v-row>
         <v-col span="5">
-            <v-form-item class="text-warning" label="博客标题(必须)">
-                <v-input></v-input>
+            <v-form-item  class="text-warning" label="博客标题(必须)">
+                <v-input span="5" name="title"></v-input>
             </v-form-item>
         </v-col>
         <v-col span="5">
             <v-form-item class="text-warning" label="自定义访问路径">
-                <v-input></v-input>
+                <v-input span="5" name="slug"></v-input>
             </v-form-item>
         </v-col>
     </v-row>
@@ -21,39 +21,39 @@
     <v-row >
         <v-col span="5">
             <v-form-item class="text-warning" label="博客标签(必须)">
-                <v-input></v-input>
+                <v-input span="5" name="tags"></v-input>
             </v-form-item>
         </v-col>
         <v-col span="5">
             <v-form-item class="text-warning" label="博客分类">
-                <v-input></v-input>
+                <v-input span="5" name="categories"></v-input>
             </v-form-item>
         </v-col>
     </v-row>
 
-    <v-row >
-        <v-col span="1">
-            <v-form-item class="text-warning" label="主题选择">
-                <select id="editormd-theme-select"  >
-                    <option selected="selected" value=""></option>
-                </select>
-            </v-form-item>
-        </v-col>
-        <v-col span="1" >
-            <v-form-item class="text-warning" label="编辑主题">
-                <select id="editor-area-theme-select">
-                    <option selected="selected" value=""></option>
-                </select>
-            </v-form-item>
-        </v-col>
-        <v-col span="1" >
-            <v-form-item class="text-warning"  label="预览主题">
-                <select id="preview-area-theme-select">
-                    <option selected="selected" value=""></option>
-                </select>
-            </v-form-item>
-        </v-col>
-    </v-row>
+    <!--<v-row >-->
+        <!--<v-col span="1">-->
+            <!--<v-form-item class="text-warning" label="主题选择">-->
+                <!--<select id="editormd-theme-select"  >-->
+                    <!--<option selected="selected" value=""></option>-->
+                <!--</select>-->
+            <!--</v-form-item>-->
+        <!--</v-col>-->
+        <!--<v-col span="1" >-->
+            <!--<v-form-item class="text-warning" label="编辑主题">-->
+                <!--<select id="editor-area-theme-select">-->
+                    <!--<option selected="selected" value=""></option>-->
+                <!--</select>-->
+            <!--</v-form-item>-->
+        <!--</v-col>-->
+        <!--<v-col span="1" >-->
+            <!--<v-form-item class="text-warning"  label="预览主题">-->
+                <!--<select id="preview-area-theme-select">-->
+                    <!--<option selected="selected" value=""></option>-->
+                <!--</select>-->
+            <!--</v-form-item>-->
+        <!--</v-col>-->
+    <!--</v-row>-->
 
     <div class="clearfix"></div>
     <div id="page-wrapper">
@@ -105,16 +105,17 @@
         },
         methods : {
             getData:function () {
-                this._data.mdData.mdText = this.editor.getMarkdown();
-                this._data.mdData.article = this.editor.getHTML();
-                this._data.mdData.title = document.blogFrom.title.value;
-                this._data.mdData.slug = document.blogFrom.slug.value;
-                this._data.mdData.tags = document.blogFrom.tags.value;
-                this._data.mdData.categories = document.blogFrom.categories.value;
-                axios.post("/admin/send",this._data.mdData).then(function (response){
+                debugger
+                vm.mdData.mdText = vm.editor.getMarkdown();
+                vm.mdData.article = vm.editor.getHTML();
+                vm.mdData.title = document.getElementsByName("title")[0].value;
+                vm.mdData.slug = document.getElementsByName("slug")[0].value;
+                vm.mdData.tags = document.getElementsByName("tags")[0].value;
+                vm.mdData.categories = document.getElementsByName("categories")[0].value;
+                axios.post("/admin/send",this.mdData).then(function (response){
                     $.alert(response.data);
                     if(response.data.code === 1)
-                        var t=setTimeout(" window.location.href = \"/admin/bloglist.html\" ",1500);
+                        var t=setTimeout(" window.location.href = \"/admin/index.html#/admin/bloglist.html\" ",1500);
                 }).catch(function (e) {
                     console.log(e.valueOf());
                 });
@@ -122,18 +123,18 @@
             }
         } ,
         mounted : function () {
-            var self= this;
+            debugger
             axios.get("/admin/category/index").then(function (response) {
-                self.options = response.data;
+                vm.options = response.data;
 
             }).catch(function (e) {
                 console.log(e);
             });
             $(function() {
-                var editor = editormd("editormd", {
+                var md = editormd("editormd", {
                     path : "../lib/",
-                    width: "80%",
-                    height: 300,
+                    width: "100%",
+                    height: 100,
                     theme        : (localStorage.theme) ? localStorage.theme : "dark",
                     previewTheme : (localStorage.previewTheme) ? localStorage.previewTheme : "dark",
                     editorTheme  : (localStorage.editorTheme) ? localStorage.editorTheme : "pastel-on-dark",
@@ -151,17 +152,19 @@
                     onload: function () {
                         console.log('onload', this);
                     }
+
                 });
-                themeSelect("editormd-theme-select", editormd.themes, "theme", function($this, theme) {
-                    editor.setTheme(theme);
+                vm.editor = md;
+                themeSelect("editormd-theme-select", md.themes, "theme", function($this, theme) {
+                    md.setTheme(theme);
                 });
 
-                themeSelect("editor-area-theme-select", editormd.editorThemes, "editorTheme", function($this, theme) {
-                    editor.setCodeMirrorTheme(theme);
+                themeSelect("editor-area-theme-select", md.editorThemes, "editorTheme", function($this, theme) {
+                    editormd.setCodeMirrorTheme(theme);
                 });
 
-                themeSelect("preview-area-theme-select", editormd.previewThemes, "previewTheme", function($this, theme) {
-                    editor.setPreviewTheme(theme);
+                themeSelect("preview-area-theme-select", md.previewThemes, "previewTheme", function($this, theme) {
+                    md.setPreviewTheme(theme);
                 });
             });
 

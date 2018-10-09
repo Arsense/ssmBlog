@@ -4,7 +4,6 @@ package com.we.weblog.mapping;
 import com.we.weblog.domain.Metas;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository

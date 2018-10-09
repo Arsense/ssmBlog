@@ -101,7 +101,6 @@
             var testEditor;
             $(function() {
                 $.get('add.md', function(md){
-                    md = self.mdText;
                     testEditor = editormd("test-editormd", {
                         width: "90%",
                         height: 640,
@@ -109,7 +108,7 @@
                         theme : "default",
                         previewTheme : "default",
                         editorTheme : "default",
-                        markdown : md,
+                        markdown : self.mdText,
                         codeFold : true,
                         saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
                         searchReplace : true,

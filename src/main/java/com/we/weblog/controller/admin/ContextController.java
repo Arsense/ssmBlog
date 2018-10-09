@@ -113,19 +113,19 @@ public class ContextController extends BaseController{
     @PostMapping("/send")
     @ResponseBody
     public UIModel postAction(@RequestBody Context context) throws Exception {
-        String messgae = validateContext(context);
+        String message = validateContext(context);
 
-        if (messgae.length() > 0)
-            return UIModel.fail().msg(messgae);
+        if (!StringUtils.isEmpty(message))
+            return UIModel.fail().msg(message);
 
         context.setType(Types.ARTICLE);
         contextService.addBlog(context);
         Log loginLog =new Log(LogActions.ADD_BLOG,"admin", IpTool.getIpAddress(request),1);
         if (logService.addLog(loginLog) < 0) {
-           messgae = "添加博客失败";
+            message = "添加博客失败";
         }
-        messgae = "添加博客成功！";
-        return UIModel.success().msg(messgae);
+        message = "添加博客成功！";
+        return UIModel.success().msg(message);
     }
 
 

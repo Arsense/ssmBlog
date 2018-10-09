@@ -32,7 +32,7 @@ public class TagController extends BaseController {
         }
         int result = tagService.clearTagData(tagName);
         int check = contextService.deleteCatories(tagName);
-        if(result >=0 && check >=0){
+        if (result >= 0 && check >= 0) {
             return UIModel.success().msg("删除成功");
         } else {
             return UIModel.fail().msg("删除失败");

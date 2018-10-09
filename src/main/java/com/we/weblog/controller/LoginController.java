@@ -70,7 +70,6 @@ public class LoginController extends BaseController{
         SSOHelper.clearLogin(request, response);
         logService.addLog(new Log(LogActions.LOGOUT,null,IpTool.getIpAddress(request),1));
         return redirectTo("/home.html");
-
     }
 
 

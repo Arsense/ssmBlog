@@ -362,11 +362,6 @@
 
             <!--</li>-->
         </ul>
-
-
-
-
-
     </div>
     <!--标签-->
     <div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
@@ -374,13 +369,9 @@
             <a href="./tags.html">便签大大</a>
         </div>
         <div class="cube-boxs">
-
-
             <div class="cube-box " v-for="tagName in tagsName">
                 <a :href="getTagLink(tagName)">#{{tagName}}</a>
             </div>
-
-
 
         </div>
     </div>
@@ -478,7 +469,7 @@
 <script src="/lib/axios/dist/axios.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script>
-    var vm=new Vue({
+    var vm = new Vue({
         el: "#main",
         data: function(){
             return {
@@ -487,7 +478,6 @@
                 blogsCount:1,
                 tagsName:[],
                 categoryCount:0,
-
             }
         },
         methods:{
@@ -498,8 +488,6 @@
                     //一行搞定
                     $.extend(self._data,response.data);
                 });
-
-
             },
             getPostUrl:function (Object) {
                 return "article.html?id="+Object.uid;
@@ -514,8 +502,6 @@
                         blog.article = blog.article.substring(0,500);
                     return blog.article;
             }
-
-
         },
 
     });

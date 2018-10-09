@@ -434,10 +434,6 @@
                 <!--</li>-->
             </ul>
 
-
-
-
-
         </div>
         <!--标签-->
         <div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
@@ -445,14 +441,9 @@
                 <a href="./tags.html">便签大大</a>
             </div>
             <div class="cube-boxs">
-
-
                 <div class="cube-box " v-for="tagName in tagsName">
                     <a :href="getTagLink(tagName)">#{{tagName}}</a>
                 </div>
-
-
-
             </div>
         </div>
         <!--友情链接-->
@@ -461,56 +452,37 @@
                 <a>个人链接</a>
             </div>
             <ul class="list">
-
                 <li>
-
-
                     <img src="http://cube-1252774894.cosgz.myqcloud.com/links/GitHub.png">
 
                     <a href="https://github.com/ZEROKISEKI" target="_blank">GitHub</a>
                 </li>
-
                 <li>
-
-
                     <img src="http://cube-1252774894.cosgz.myqcloud.com/links/Coding.png">
 
                     <a href="https://coding.net/u/SORA1" target="_blank">Coding</a>
                 </li>
-
                 <li>
-
-
                     <img src="http://cube-1252774894.cosgz.myqcloud.com/links/SF.png">
-
                     <a href="https://segmentfault.com/u/aonosora" target="_blank">SF社区</a>
                 </li>
-
                 <li>
-
-
                     <img src="http://cube-1252774894.cosgz.myqcloud.com/links/开发者头条.png">
-
                     <a href="https://toutiao.io/u/148070" target="_blank">开发者头条</a>
                 </li>
-
             </ul>
         </div>
-
-
 
         <div class="cube-friend-links cube-sidebar" id="cube-friend-links">
             <div class="title">
                 <a>友情链接</a>
             </div>
             <ul class="list">
-
                 <li>
                     <!-- TODO change avatar.png to friend.png-->
                     <img src="http://cube-1252774894.cosgz.myqcloud.com/friend_links/micblo.png">
                     <a href="https://blog.micblo.com/" target="_blank">罗大佬</a>
                 </li>
-
                 <li>
                     <!-- TODO change avatar.png to friend.png-->
                     <img src="http://cube-1252774894.cosgz.myqcloud.com/friend_links/DIYgod.jpg">
@@ -541,27 +513,22 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <footer class="cube-footer">
-
     © 2017 AONOSORA
-
     <br>
     Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
 </footer>
 <!-- inject:script -->
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="/lib/jquery/dist/jquery.min.js "></script>
 <script src="./js/script.js"></script>
 <script src="/lib/axios/dist/axios.min.js" ></script>
 <div class="cube-loading out"></div>
-
 </body>
-
     <script>
-        var vm=new Vue({
+        var vm = new Vue({
             el: "#main",
             data: function(){
                 return {
@@ -639,18 +606,11 @@
 
                 }
 
-
-
-
         },
 
         });
         vm.recommend()
-
-
-
-
-    </script>
+</script>
 <script src="./tale/js/jquery.app.js"></script>
 <script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>
 >

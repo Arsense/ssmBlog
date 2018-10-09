@@ -1,5 +1,7 @@
 package com.we.weblog.controller.admin;
 
+import com.baomidou.kisso.SSOHelper;
+import com.baomidou.kisso.security.token.SSOToken;
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.model.form.FormModel;
@@ -24,9 +26,13 @@ import java.util.List;
 import java.util.Map;
 
 
+/**
+ * 文章控制管理器
+ * created by clay
+ */
 @Controller
 @RequestMapping("/admin")
-public class ContextController extends BaseController{
+public class ArticleController extends BaseController{
 
     private ContextService contextService;
     private CommentSerivce commentSerivce;
@@ -36,7 +42,7 @@ public class ContextController extends BaseController{
     private FileService fileService;
 
     @Autowired
-    public ContextController(ContextService contextService,LogService  logService,TagService tagService,CommentSerivce commentSerivce,FileService fileService){
+    public ArticleController(ContextService contextService, LogService  logService, TagService tagService, CommentSerivce commentSerivce, FileService fileService){
         this.commentSerivce = commentSerivce;
         this.tagService = tagService;
         this.contextService = contextService;
@@ -45,6 +51,12 @@ public class ContextController extends BaseController{
     }
 
 
+    /**
+     * 删除文章
+     * @param deleteId
+     * @param request
+     * @return
+     */
     @GetMapping("/delete/{id}")
     @ResponseBody
     public UIModel deleteBlog(@PathVariable("id") int deleteId, HttpServletRequest request) {
@@ -66,6 +78,12 @@ public class ContextController extends BaseController{
     }
 
 
+    /**
+     * 更新文章
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/upload")
     @ResponseBody
     public UploadPicture uploadPickture(HttpServletRequest request) throws Exception {
@@ -102,12 +120,10 @@ public class ContextController extends BaseController{
      public UIModel updateDate(@RequestBody Context context) throws SQLException {
         contextService.updateBlog(context,updateId);
          return UIModel.success().msg("修改成功！");
-
      }
 
     /**
-     * 添加博客的表单控制器
-
+     * 发布文章
      * @return
      */
     @PostMapping("/send")
@@ -162,7 +178,7 @@ public class ContextController extends BaseController{
     @GetMapping("/blog/list")
     @ResponseBody
     public UIModel getBlogList() {
-        List<Context> tempContexts=contextService.showBlogs(1);
+        List<Context> tempContexts = contextService.showBlogs(1);
 
         FormModel formModel = new FormModel();
         formModel.createFormItem("uid").setHidden(false).setLabel("博客编号");
@@ -192,6 +208,15 @@ public class ContextController extends BaseController{
             messgae = "未选择博客分类";
         } else if (context.getArticle().length() < 10) {
             messgae = "请输入长度为5的内容";
+        }
+        int length = context.article.length();
+        if (length > 20000) {
+            throw new RuntimeException("文章内容最多可以输入" + 20000 + "个字符");
+        }
+
+        SSOToken ssoToken = SSOHelper.getSSOToken(request);
+        if(ssoToken == null) {
+            throw new RuntimeException("请登录后发布文章");
         }
         return messgae;
     }

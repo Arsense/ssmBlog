@@ -35,7 +35,6 @@ public class CategoryController {
     public List<Select> getAllKindCategories(){
 //        {code:'1' ,  label:'男' ,checked:false},
         List<Select> lists = tagService.getCategories();
-
         return  lists;
     }
     /**

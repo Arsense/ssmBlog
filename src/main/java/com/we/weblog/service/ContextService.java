@@ -153,20 +153,14 @@ public class ContextService {
      * @param context
      */
     public void addBlog(Context context) throws SQLException {
-
-
-
         //默认没有分类则创建分类
         if(StringTool.isBlank(context.getCategories())){
             context.setCategories("默认分类");
         }
         //初始化访问量是0
         context.setHits(0);
-
         context.setPublish(Types.PUBLISH);
-
         context.setCreated(new Date(System.currentTimeMillis()));
-
         contextMapper.insertBlog(context);
 
         try{

@@ -76,7 +76,7 @@
                 self.mdData = response.data.context;
                 self.mdText = response.data.context.mdText;
                 self.options = response.data.options;
-                testEditor.markdown = self.mdText
+                testEditor.markdownTextarea[0].value = self.mdText
             }) .catch(function (error) {
                 console.log(error);
             });
@@ -103,10 +103,6 @@
                     }
                  });
             self.editor = testEditor;
-
-
-
-
         }
     });
 

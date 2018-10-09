@@ -24,7 +24,7 @@
         </v-col>
         <v-col span="5">
             <v-form-item class="text-warning" label="博客分类">
-                <v-input span="5" v-model="mdData['categories']" name="categories"></v-input>
+                <v-select name="categories"   :items="items" value="1" placeholder="请选择"></v-select>
             </v-form-item>
         </v-col>
     </v-row>
@@ -49,7 +49,7 @@
         el: '#app',
         data:{
             mdData:Object,
-            mdText:"111",
+            mdText:"",
             editor:Object,              //存放md的值
             options:Object,
         },

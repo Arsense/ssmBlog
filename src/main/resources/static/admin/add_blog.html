@@ -26,7 +26,7 @@
         </v-col>
         <v-col span="5">
             <v-form-item class="text-warning" label="博客分类">
-                <v-input span="5" name="categories"></v-input>
+                <v-select name="categories"   :items="items" value="1" placeholder="请选择"></v-select>
             </v-form-item>
         </v-col>
     </v-row>
@@ -58,7 +58,7 @@
     <div class="clearfix"></div>
     <div id="page-wrapper">
       <div id="editormd">
-          <textarea style="display:none;">### Hello Editor.md !</textarea>
+          <textarea style="display:none;"></textarea>
       </div>
     </div>
     <div class="text-right">
@@ -92,8 +92,13 @@
     var vm = new Vue({
         el: '#app',
         data:{
+            items : [
+                {code:'1' ,  label:'默认分类' ,checked:false},
+                {code:'2' ,   label:'name',checked:false},
+                {code:'3' ,    label:'hello',checked:false}
+            ],
             editor:Object,
-            options:Object,
+            options:[],
             mdData:{
                 mdText:11,
                 article:"",
@@ -119,13 +124,13 @@
                 }).catch(function (e) {
                     console.log(e.valueOf());
                 });
-
             }
         } ,
         mounted : function () {
+            var self = this
             debugger
             axios.get("/admin/category/index").then(function (response) {
-                vm.options = response.data;
+                self.options = response.data;
 
             }).catch(function (e) {
                 console.log(e);
@@ -154,7 +159,7 @@
                     }
 
                 });
-                vm.editor = md;
+                self.editor = md;
                 themeSelect("editormd-theme-select", md.themes, "theme", function($this, theme) {
                     md.setTheme(theme);
                 });

@@ -1,6 +1,5 @@
 package com.we.weblog.service;
 
-
 import com.we.weblog.domain.Metas;
 import com.we.weblog.domain.Select;
 import com.we.weblog.domain.modal.Types;
@@ -60,35 +59,32 @@ public class TagService {
         category.setName(name);
         category.setType(Types.MATE_CATEGOTY);
         return tagMapper.insertCatgory(category);
-
     }
 
 
     public List<String> getMates() {
        List<String> categories = new ArrayList<>();
        List<Metas> metas =  tagMapper.selectCategories();
-
        for (Metas meta: metas) {
            categories.add(meta.getName());
        }
        return categories;
-
     }
 
 
 
     public List<Select> getCategories(){
-
         List<Select> selects = new ArrayList<>();
         List<String> categories = tagMapper.getAllCategories();
 
-        for (String category:categories) {
+        int codeId = 1;
+        for (String category : categories) {
             Select select = new Select();
-            select.setText(category);
-            select.setValue(category);
+            select.setCode(String.valueOf(codeId++));
+            select.setLabel(category);
+            select.setChecked(false);
             selects.add(select);
         }
-
         return selects;
     }
 }

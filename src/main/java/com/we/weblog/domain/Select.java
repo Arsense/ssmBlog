@@ -2,25 +2,35 @@ package com.we.weblog.domain;
 
 public class Select {
 
+//   格式 {code:'1' ,  label:'男' ,checked:false},
 
+    private String code;
     //select选项的内容
-    private String text;
+    private String label;
     //select的值
-    private String value;
+    private boolean checked = false;
 
-    public String getText() {
-        return text;
+    public String getCode() {
+        return code;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getValue() {
-        return value;
+    public String getLabel() {
+        return label;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 }

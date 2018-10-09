@@ -33,7 +33,10 @@ public class CategoryController {
     @GetMapping("/index")
     @ResponseBody
     public List<Select> getAllKindCategories(){
-        return  tagService.getCategories();
+//        {code:'1' ,  label:'男' ,checked:false},
+        List<Select> lists = tagService.getCategories();
+
+        return  lists;
     }
     /**
      * 删除类别

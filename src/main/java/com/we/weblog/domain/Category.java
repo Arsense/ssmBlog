@@ -2,21 +2,22 @@ package com.we.weblog.domain;
 
 import java.util.List;
 
-public class CategoriesBlog {
+public class Category {
 
     private  String category;
-    private List<Context> blogs;
 
-    public CategoriesBlog(String category, List<Context> blogs) {
+    private List<Post> blogs;
+
+    public Category(String category, List<Post> blogs) {
         this.category = category;
         this.blogs = blogs;
     }
 
-    public List<Context> getBlogs() {
+    public List<Post> getBlogs() {
         return blogs;
     }
 
-    public void setBlogs(List<Context> blogs) {
+    public void setBlogs(List<Post> blogs) {
         this.blogs = blogs;
     }
 

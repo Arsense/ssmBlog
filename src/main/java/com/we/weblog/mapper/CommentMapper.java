@@ -1,6 +1,5 @@
 package com.we.weblog.mapper;
 
-
 import com.we.weblog.domain.Comment;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;

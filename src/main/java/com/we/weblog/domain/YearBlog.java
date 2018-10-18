@@ -7,9 +7,9 @@ public class YearBlog {
 
 
     private int year;
-    private List<Context> yearContexts;
+    private List<Post> yearContexts;
 
-    public YearBlog(int year, ArrayList<Context> contexts) {
+    public YearBlog(int year, ArrayList<Post> contexts) {
         this.year = year;
         this.yearContexts = contexts;
     }
@@ -22,7 +22,7 @@ public class YearBlog {
         this.year = year;
     }
 
-    public List<Context> getYearContexts() {
+    public List<Post> getYearContexts() {
         return yearContexts;
     }
 

@@ -13,12 +13,12 @@ import java.util.Iterator;
 
 public class FileTools {
 
-
      private static Path getJavaResources() {
          String userDir = System.getProperty("user.dir") ;
          Path path = Paths.get(userDir  , "src" , "main" , "resources","static","img") ;
          return  path ;
      }
+
     /**
      *  获得文件前缀
      * @param fileName

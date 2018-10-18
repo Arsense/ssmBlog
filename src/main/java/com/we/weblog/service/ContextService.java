@@ -5,11 +5,10 @@ import com.we.weblog.domain.*;
 import com.we.weblog.domain.modal.Types;
 import com.we.weblog.mapper.ContextMapper;
 import com.we.weblog.mapper.TagMapper;
-import com.we.weblog.tool.StringTool;
 import com.we.weblog.tool.TimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.util.StringUtils;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
@@ -41,9 +40,9 @@ public class ContextService {
 
 
 
-    public List<CategoriesBlog> sortBlogsByCategories(){
+    public List<Category> sortBlogsByCategories(){
 
-        List<Context> contexts = contextMapper.selectBlogsByCategories();
+        List<Post> contexts = contextMapper.selectBlogsByCategories();
 
 
         return getBlogsFromTags(contexts);
@@ -61,17 +60,17 @@ public class ContextService {
      * 根据分类分配到相应的类中
      * @return
      */
-    public List<CategoriesBlog>    getBlogsFromTags(List<Context> contexts){
-        List<CategoriesBlog> categoryBlogs = new ArrayList<>();
-        Map<String,CategoriesBlog>  maps = new HashMap<>();
+    public List<Category>    getBlogsFromTags(List<Post> contexts){
+        List<Category> categoryBlogs = new ArrayList<>();
+        Map<String,Category>  maps = new HashMap<>();
 
-        for(Context context:contexts){
+        for(Post context:contexts){
             if(maps.containsKey(context.getCategories())){
                 //如果已有该标签
                 maps.get(context.getCategories()).getBlogs().add(context);
             }else{
 
-                CategoriesBlog cBlog = new CategoriesBlog(context.getCategories(),new ArrayList<Context>());
+                Category cBlog = new Category(context.getCategories(),new ArrayList<Post>());
                 maps.put(context.getCategories(),cBlog);
                 cBlog.getBlogs().add(context);
                 categoryBlogs.add(cBlog);
@@ -102,9 +101,9 @@ public class ContextService {
     }
 
 
-    public Context getAboutme() throws Exception {
+    public Post getAboutme() throws Exception {
 
-       Context context = contextMapper.selectAboutMe();
+       Post context = contextMapper.selectAboutMe();
        if(context == null){
            throw new Exception("关于我没创建");
        }
@@ -126,7 +125,7 @@ public class ContextService {
     }
 
 
-    public  List<Context> getLastestBlogs(){
+    public  List<Post> getLastestBlogs(){
 
         return sortContextDate(contextMapper.getTenBlogs(6));
     }
@@ -150,9 +149,9 @@ public class ContextService {
      * 添加博客 同时把tags添加进去
      * @param context
      */
-    public void addBlog(Context context) throws SQLException {
+    public void addBlog(Post context) throws SQLException {
         //默认没有分类则创建分类
-        if(StringTool.isBlank(context.getCategories())){
+        if(StringUtils.isEmpty(context.getCategories())){
             context.setCategories("默认分类");
         }
         //初始化访问量是0
@@ -173,7 +172,7 @@ public class ContextService {
     }
 
 
-    public void updateBlog(Context context,int uid) throws SQLException {
+    public void updateBlog(Post context, int uid) throws SQLException {
 
 
         try{
@@ -194,7 +193,7 @@ public class ContextService {
      * @param page
      * @return
      */
-    public List<Context> showBlogs(int page) {
+    public List<Post> showBlogs(int page) {
         if(page <0 || page >10)
             page=1;
         page = page*10;
@@ -204,16 +203,16 @@ public class ContextService {
 
 
 
-    public List<Context> getBlogsByTag(String tagName) {
+    public List<Post> getBlogsByTag(String tagName) {
         return contextMapper.selectBlogByTag(tagName);
     }
 
 
 
-    public Context getPreviousBlog(int uid) {
+    public Post getPreviousBlog(int uid) {
 
 
-        Context context =contextMapper.getPreviousBlog(uid);
+        Post context =contextMapper.getPreviousBlog(uid);
         if(context == null){
             return null;
         }
@@ -223,10 +222,10 @@ public class ContextService {
     }
 
 
-    public Context getNextBlog(int uid) {
+    public Post getNextBlog(int uid) {
 
 
-        Context context =contextMapper.getNextBlog(uid);
+        Post context =contextMapper.getNextBlog(uid);
         if(context == null){
             return null;
         }
@@ -237,9 +236,9 @@ public class ContextService {
     }
 
 
-    public Context getBlogById(int id) {
+    public Post getBlogById(int id) {
 
-        Context context =contextMapper.getBlogById(id);
+        Post context =contextMapper.getBlogById(id);
         if(context == null){
             return null;
         }
@@ -257,7 +256,7 @@ public class ContextService {
     public List<YearBlog> getYearBlog(int page) throws IOException {
 
         int start = (page-1)*12;
-        List<Context> list = contextMapper.selectBlogsByYear(start);
+        List<Post> list = contextMapper.selectBlogsByYear(start);
         return sortBlogsByYears(list);
 
     }
@@ -266,17 +265,17 @@ public class ContextService {
 
 
 
-    public List<YearBlog> sortBlogsByYears(List<Context> bloglist) throws IOException{
+    public List<YearBlog> sortBlogsByYears(List<Post> bloglist) throws IOException{
         List<YearBlog> yearBlogs = new ArrayList<>();
         Map<Integer,YearBlog> yearMap = new HashMap<>();
-        for(Context context : bloglist){
+        for(Post context : bloglist){
             Date date= context.getCreated();
             context.setMonth(TimeTool.getEdate(date));
             int year = TimeTool.getYear(date);
             if(yearMap.containsKey(year)){
                 yearMap.get(year).getYearContexts().add(context);
             }else{
-                YearBlog yearBlog = new YearBlog(year,new ArrayList<Context>());
+                YearBlog yearBlog = new YearBlog(year,new ArrayList<Post>());
                 yearMap.put(year,yearBlog);
                 yearBlog.getYearContexts().add(context);
                 yearBlogs.add(yearBlog);
@@ -296,7 +295,7 @@ public class ContextService {
 
 
 
-    public List<Context> getRecentBlogs(int limit){
+    public List<Post> getRecentBlogs(int limit){
         if(limit < 0 || limit >20){
             limit = 10;
         }
@@ -308,7 +307,7 @@ public class ContextService {
      * 得到页面管理的信息
      * @return
      */
-    public  List<Context> getArticlePages(){
+    public  List<Post> getArticlePages(){
         return sortContextDate(contextMapper.getPagesByType(Types.PAGE));
     }
 
@@ -317,8 +316,8 @@ public class ContextService {
      * @param pages
      * @return
      */
-    public  List<Context> sortContextDate(List<Context> pages){
-        for(Context page:pages){
+    public  List<Post> sortContextDate(List<Post> pages){
+        for(Post page:pages){
             String time = TimeTool.getFormatClearToDay(page.getCreated());
             page.setMonth(time);
         }
@@ -335,7 +334,7 @@ public class ContextService {
      * 访问量增加
      * @return
      */
-    public void addOneHits(Context context){
+    public void addOneHits(Post context){
         context.setHits(context.getHits()+1);
         contextMapper.updateHits(context);
     }

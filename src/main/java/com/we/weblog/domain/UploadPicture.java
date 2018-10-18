@@ -2,11 +2,27 @@ package com.we.weblog.domain;
 
 
 
+/**
+ * @author tangwei
+ * @date 2018/8/18 14:59
+ */
 public class UploadPicture {
 
-   private int success;//0 表示上传失败，1 表示上传成功
-   private  String  message;     //回传消息
-   private  String  url;     //上传成功后的路径
+   /**
+    *  0 表示上传失败，1 表示上传成功
+    */
+   private int success;
+   /**
+    * 回传消息
+    */
+   private  String  message;
+   /**
+    *  上传成功后的路径
+    */
+   private  String  url;
+
+
+
 
    public int getSuccess() {
       return success;

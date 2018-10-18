@@ -1,7 +1,7 @@
 package com.we.weblog.mapper;
 
 
-import com.we.weblog.domain.Context;
+import com.we.weblog.domain.Post;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.StatementType;
 import org.springframework.stereotype.Repository;
@@ -23,11 +23,11 @@ public interface ContextMapper {
     List<String> selectAllCategories();
 
     @Select({"select * from t_context where type = 'post'  order by uid asc limit 1 "})
-    Context getblogId();
+    Post getblogId();
 
 
     @Select({"select uid,title,created,article from t_context where title='关于我'"})
-    Context selectAboutMe();
+    Post selectAboutMe();
 
     /**
      * 得到博客的总数量
@@ -47,7 +47,7 @@ public interface ContextMapper {
             ",#{b.type},#{b.slug},#{b.publish},#{b.categories})"})
     @SelectKey(before=false,keyProperty="b.uid",resultType=Integer.class,
             statementType= StatementType.STATEMENT,statement="SELECT LAST_INSERT_ID() AS id")
-    int insertBlog(@Param("b") Context context);
+    int insertBlog(@Param("b") Post context);
 
     /**
      *  删除博客
@@ -64,7 +64,7 @@ public interface ContextMapper {
      */
     @Select({"select uid,title,created,tags,article" +
             ",slug,hits from t_context where type = 'post'  limit #{count}"})
-    List<Context> getTenBlogs(@Param("count") int count);
+    List<Post> getTenBlogs(@Param("count") int count);
 
 
     @Update({" update t_context " +
@@ -74,44 +74,44 @@ public interface ContextMapper {
             " categories = #{b.categories},"+
             " tags = #{b.tags},"+
             " article=#{b.article} where uid= #{id}"})
-    void updateBlog(@Param("b") Context context, @Param("id") int uid);
+    void updateBlog(@Param("b") Post context, @Param("id") int uid);
 
     @Update({"update t_context set hits=#{c.hits} where uid = #{c.uid}"})
-    void updateHits(@Param("c") Context context);
+    void updateHits(@Param("c") Post context);
 
 
     @Select({"select uid,title,created,tags from t_context " +
             "where type = 'post'  order by created desc limit #{p},12"})
-    List<Context> selectBlogsByYear(@Param("p") int page);
+    List<Post> selectBlogsByYear(@Param("p") int page);
 
 
     @Select({"select uid,title,created,tags,categories from t_context " +
             "where type = 'post'  order by tags desc "})
-    List<Context> selectBlogsByCategories();
+    List<Post> selectBlogsByCategories();
 
 
     @Select({"select uid,title,created from t_context " +
             "where type = 'post' order by created desc limit #{p},20"})
-    List<Context> getNewBlogs(@Param("p") int page);
+    List<Post> getNewBlogs(@Param("p") int page);
 
     @Select({"select uid,title,article,md,created,tags,hits from t_context where uid = #{id}  "})
-    Context getBlogById(@Param("id") int id);
+    Post getBlogById(@Param("id") int id);
 
     @Select({"select uid,title,tags,created from t_context " +
             "where uid < #{id} and type = 'post'   order by uid desc limit 1"})
-    Context getPreviousBlog(@Param("id") int id);
+    Post getPreviousBlog(@Param("id") int id);
 
     @Select({"select uid,title,article,tags,created " +
             "from t_context where uid > #{id} and type = 'post' order by uid asc limit 1"})
-    Context getNextBlog(@Param("id") int id);
+    Post getNextBlog(@Param("id") int id);
 
 
     @Select("select * from t_context where tags=#{tag}")
-    List<Context> selectBlogByTag(@Param("tag") String tagName);
+    List<Post> selectBlogByTag(@Param("tag") String tagName);
 
 
     @Select({"select * from t_context where type= #{type} order by uid desc"})
-    List<Context> getPagesByType(@Param("type")String page);
+    List<Post> getPagesByType(@Param("type")String page);
 
     /**
      * 标签页面删除相关数据

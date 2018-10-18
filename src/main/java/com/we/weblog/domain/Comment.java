@@ -1,6 +1,5 @@
 package com.we.weblog.domain;
 
-
 import com.we.weblog.domain.annotation.Email;
 import com.we.weblog.domain.annotation.Length;
 import com.we.weblog.domain.annotation.NotEmpty;
@@ -10,36 +9,53 @@ import java.util.Date;
  * 评论
  */
 public class Comment {
-
-    //comment主键
-    private  int        cid;
-
-    //所评论文章的ID
-    private  int        article_id;
-    //创建时间
-    private  Date       created;
-
-    //评论作者
+    /**
+     * comment主键
+     */
+    private int cid;
+    /**
+     * 所评论文章的ID
+     */
+    private int article_id;
+    /**
+     * 创建时间
+     */
+    private Date created;
+    /**
+     * 评论作者
+     */
     @NotEmpty(message = "请输入评论作者")
     @Length(max = 30,message = "姓名过长")
-    private  String     author;
-    //评论者邮箱
+    private String author;
+
+    /**
+     * 评论者邮箱
+     */
     @NotEmpty(message = "请输入电子邮箱")
     @Email(message = "请输入正确的邮箱格式")
-    private  String     email;
-    //评论者IP
-    private  String     ip;
+    private  String  email;
+    /**
+     * 评论者IP
+     */
+    private  String  ip;
+    /**
+     * 评论作者
+     */
+    private String time;
 
-    private String  time;
-
-    //评论内容
+    /**
+     * 评论内容
+     */
     @NotEmpty(message = "请输入评论内容")
     @Length(max=2000,message = "评论过长")
-    private  String     content;
+    private  String  content;
 
-
-    //恢复父id
+    /**
+     * 恢复父id
+     */
     private int parent;
+
+
 
 
     public int getParent() {
@@ -49,7 +65,6 @@ public class Comment {
     public void setParent(int parent) {
         this.parent = parent;
     }
-
 
     public int getCid() {
         return cid;

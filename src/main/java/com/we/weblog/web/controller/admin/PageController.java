@@ -2,7 +2,7 @@ package com.we.weblog.web.controller.admin;
 
 
 import com.we.weblog.web.controller.BaseController;
-import com.we.weblog.domain.Context;
+import com.we.weblog.domain.Post;
 import com.we.weblog.domain.Log;
 import com.we.weblog.domain.modal.LogActions;
 import com.we.weblog.domain.modal.Types;
@@ -36,7 +36,7 @@ public class PageController extends BaseController{
 
     @PostMapping("/publish")
     @ResponseBody
-    public void createPages(Context context, HttpServletResponse response) throws Exception {
+    public void createPages(Post context, HttpServletResponse response) throws Exception {
         context.setType(Types.PAGE);
         context.setTags("test");  //tags not null
         contextService.addBlog(context);

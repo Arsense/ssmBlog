@@ -7,7 +7,7 @@ import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.model.form.FormModel;
 import com.we.weblog.web.controller.BaseController;
 import com.we.weblog.domain.Comment;
-import com.we.weblog.domain.Context;
+import com.we.weblog.domain.Post;
 import com.we.weblog.domain.Log;
 import com.we.weblog.domain.UploadPicture;
 import com.we.weblog.domain.modal.LogActions;
@@ -64,7 +64,7 @@ public class ArticleController extends BaseController{
             return UIModel.fail().msg("删除文章非法");
         }
 
-        Context context = contextService.getBlogById(deleteId);
+        Post context = contextService.getBlogById(deleteId);
         if(StringUtils.isEmpty(context)) {
             return UIModel.fail().msg("该博客不存在");
         }
@@ -100,7 +100,7 @@ public class ArticleController extends BaseController{
      public Map<String, Object> getTagretUpdateContext(@PathVariable int id){
          updateId = id;
          Map<String,Object> maps = new HashMap<>();
-         Context context = contextService.getBlogById(updateId);
+         Post context = contextService.getBlogById(updateId);
 
          maps.put("context",context);
          maps.put("options",tagService.getCategories());
@@ -117,7 +117,7 @@ public class ArticleController extends BaseController{
      */
      @PostMapping("/update")
      @ResponseBody
-     public UIModel updateDate(@RequestBody Context context) throws SQLException {
+     public UIModel updateDate(@RequestBody Post context) throws SQLException {
         contextService.updateBlog(context,updateId);
          return UIModel.success().msg("修改成功！");
      }
@@ -128,7 +128,7 @@ public class ArticleController extends BaseController{
      */
     @PostMapping("/send")
     @ResponseBody
-    public UIModel postAction(@RequestBody Context context) throws Exception {
+    public UIModel postAction(@RequestBody Post context) throws Exception {
         String message = validateContext(context);
 
         if (!StringUtils.isEmpty(message))
@@ -158,7 +158,7 @@ public class ArticleController extends BaseController{
         Map<String,Object> map = new HashMap<>();
         int blogCount = contextService.getTotalBlog();
         int commnetCount = commentSerivce.getCounts();
-        List<Context> contexts = contextService.getRecentBlogs(5);
+        List<Post> contexts = contextService.getRecentBlogs(5);
         List<Comment> comments = commentSerivce.getComments();
         List<Log> logs = logService.getLogPages(10);
 
@@ -178,7 +178,7 @@ public class ArticleController extends BaseController{
     @GetMapping("/blog/list")
     @ResponseBody
     public UIModel getBlogList() {
-        List<Context> tempContexts = contextService.showBlogs(1);
+        List<Post> tempContexts = contextService.showBlogs(1);
 
         FormModel formModel = new FormModel();
         formModel.createFormItem("uid").setHidden(false).setLabel("博客编号");
@@ -196,7 +196,7 @@ public class ArticleController extends BaseController{
 
     }
 
-    private String validateContext(Context context) {
+    private String validateContext(Post context) {
         String messgae = null;
         if (StringUtils.isEmpty(context.getTitle())) {
             messgae = "博客标题不能为空";

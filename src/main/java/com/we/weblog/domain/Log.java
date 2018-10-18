@@ -1,19 +1,42 @@
 package com.we.weblog.domain;
 
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
-import java.time.Instant;
 import java.util.Date;
 
 public class Log {
+    /**
+     * 编号 主键
+     */
+    private Integer  id;
+    /**
+     * 操作
+     */
+    private String   action;
+    /**
+     * 产生的数据
+     */
+    private String   data;
+    /**
+     * 操作的ID
+     */
+    private Integer  author_id;
+    /**
+     * 编号 主键
+     */
+    private String  ip;
+    /**
+     * 日志创建的IP
+     */
+    private Date  created;
+    /**
+     * 操作的时间
+     */
+    private String  dateFormat;
 
-    private Integer      id;                      //主键
-    private String       action;                  //操作是啥
-    private String       data;                    //产生的数据
-    private Integer      author_id;               //操作的ID
-    private String       ip;                      //日志创建的IP
-    private Date      created;                 //操作的时间
-    private String       dateFormat;
+
+
+
+
 
     public String getDateFormat() {
         return dateFormat;

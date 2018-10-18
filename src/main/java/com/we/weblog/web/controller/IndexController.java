@@ -3,9 +3,9 @@ package com.we.weblog.web.controller;
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.model.form.FormModel;
-import com.we.weblog.domain.CategoriesBlog;
+import com.we.weblog.domain.Category;
 import com.we.weblog.domain.Comment;
-import com.we.weblog.domain.Context;
+import com.we.weblog.domain.Post;
 import com.we.weblog.domain.YearBlog;
 import com.we.weblog.domain.modal.Types;
 import com.we.weblog.service.CommentSerivce;
@@ -76,8 +76,8 @@ public class IndexController extends  BaseController {
      */
     @GetMapping("/get_kind_blogs")
     @ResponseBody
-    public List<CategoriesBlog> getBlogsByTag(){
-        List<CategoriesBlog> lists = contextService.sortBlogsByCategories();
+    public List<Category> getBlogsByTag(){
+        List<Category> lists = contextService.sortBlogsByCategories();
         return lists;
     }
 
@@ -118,7 +118,7 @@ public class IndexController extends  BaseController {
      */
     @GetMapping("/tags_detail_data")
     @ResponseBody
-    public  List<Context> tagDetailData() {
+    public  List<Post> tagDetailData() {
         return  contextService.getBlogsByTag(tagName);
     }
 
@@ -136,7 +136,7 @@ public class IndexController extends  BaseController {
         formModel.createFormItem("month").setHidden(false).setLabel("发布时间");
         formModel.createFormItem("publish").setHidden(false).setLabel("发布状态");
 
-        List<Context> tempContexts=contextService.getArticlePages();
+        List<Post> tempContexts=contextService.getArticlePages();
 
         TableData tableData = new TableData() ;
         tableData.setTotalSize(10);
@@ -157,7 +157,7 @@ public class IndexController extends  BaseController {
         int categoryCount = contextService.getCategoryCount();
         int totalTags = 10;
         //旁边博客展示都需要
-        List<Context> blogs = contextService.getLastestBlogs();
+        List<Post> blogs = contextService.getLastestBlogs();
         maps.put(Types.BLOGS,blogs);
 
         sortPagesMap(maps,page);
@@ -186,7 +186,7 @@ public class IndexController extends  BaseController {
      */
     public  void sortPagesMap(Map<String,Object> maps, String pageType) throws Exception {
         if (pageType.equals(Types.PAGE_CATEGORY)) {
-            List<CategoriesBlog> cBlogs = contextService.sortBlogsByCategories();
+            List<Category> cBlogs = contextService.sortBlogsByCategories();
             maps.put(Types.CATEGORIES,cBlogs);
         } else if (pageType.contains(Types.PAGE_ARTICLE)) {
 
@@ -194,11 +194,11 @@ public class IndexController extends  BaseController {
             if(getId <= 0){
                 throw new Exception("GET ARTICLE ID FAIL,CHECK");
             }
-            Context currentContext = contextService.getBlogById(getId);
+            Post currentContext = contextService.getBlogById(getId);
             //增加一次访问量
             contextService.addOneHits(currentContext);
-            Context preContext = contextService.getPreviousBlog(getId);
-            Context nextContext = contextService.getNextBlog(getId);
+            Post preContext = contextService.getPreviousBlog(getId);
+            Post nextContext = contextService.getNextBlog(getId);
             int uid = currentContext.getUid();
             //显示评论
             if (uid > 0) {
@@ -216,7 +216,7 @@ public class IndexController extends  BaseController {
 
         } else if (pageType.equals(Types.PAGE_ABOUT)) {
 
-            Context about = contextService.getAboutme();
+            Post about = contextService.getAboutme();
             maps.put(Types.BLOG,about);
 
         }

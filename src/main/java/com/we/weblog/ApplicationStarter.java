@@ -1,18 +1,27 @@
 package com.we.weblog;
 
 import com.vue.adminlte4j.support.FileChangeListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @SpringBootApplication
 public class ApplicationStarter {
+    private final static Logger LOG =  LoggerFactory.getLogger(ApplicationStarter.class);
 
     public static void main(String[] args) {
         //动态自动更新 每一秒更新一次
         configFileChangeListener();
-        SpringApplication.run(ApplicationStarter.class,args);
+
+        ApplicationContext context = SpringApplication.run(ApplicationStarter.class,args);
+        String serverPort = context.getEnvironment().getProperty("server.port");
+        //输入访问链接
+        LOG.info("Clay started at http://localhost:" + serverPort);
     }
 
 

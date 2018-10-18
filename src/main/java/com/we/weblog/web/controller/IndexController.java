@@ -1,4 +1,4 @@
-package com.we.weblog.controller;
+package com.we.weblog.web.controller;
 
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;

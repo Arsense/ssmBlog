@@ -3,8 +3,6 @@ package com.we.weblog.service;
 import com.we.weblog.domain.UploadPicture;
 import com.we.weblog.tool.FileTools;
 import org.springframework.stereotype.Service;
-
-
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -12,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 public class FileService {
 
     public UploadPicture loadPicture(HttpServletRequest request) throws Exception {
-
         String url = "";
         UploadPicture picture = new UploadPicture();
         try {
@@ -21,7 +18,6 @@ public class FileService {
             e.printStackTrace();
             throw new Exception("update error");
         }
-
         if ("".equals(url)) {
             picture.setSuccess(0);
             picture.setUrl("");
@@ -31,9 +27,7 @@ public class FileService {
         picture.setSuccess(1);
         picture.setUrl(url);
         picture.setMessage("Upload success");
-
         return picture;
-
     }
 
 

@@ -1,4 +1,4 @@
-package com.we.weblog.mapping;
+package com.we.weblog.mapper;
 
 
 import com.we.weblog.domain.Metas;

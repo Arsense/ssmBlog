@@ -1,4 +1,4 @@
-package com.we.weblog.tool.error;
+package com.we.weblog.web.controller.code;
 
 
 import org.springframework.boot.autoconfigure.web.ErrorController;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/error")
-public class WebException  implements  ErrorController {
+public class ErrorPageController implements  ErrorController {
     @Override
     public String getErrorPath() {
         //直接返回错误界面吧 先不多做处理

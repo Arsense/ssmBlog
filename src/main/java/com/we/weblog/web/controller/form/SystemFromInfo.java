@@ -1,4 +1,4 @@
-package com.we.weblog.controller.admin.form;
+package com.we.weblog.web.controller.form;
 
 import com.vue.adminlte4j.annotation.UIFormItem;
 import java.io.Serializable;

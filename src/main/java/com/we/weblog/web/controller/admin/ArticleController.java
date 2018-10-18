@@ -1,11 +1,11 @@
-package com.we.weblog.controller.admin;
+package com.we.weblog.web.controller.admin;
 
 import com.baomidou.kisso.SSOHelper;
 import com.baomidou.kisso.security.token.SSOToken;
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.model.form.FormModel;
-import com.we.weblog.controller.BaseController;
+import com.we.weblog.web.controller.BaseController;
 import com.we.weblog.domain.Comment;
 import com.we.weblog.domain.Context;
 import com.we.weblog.domain.Log;

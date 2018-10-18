@@ -1,7 +1,7 @@
-package com.we.weblog.controller.admin;
+package com.we.weblog.web.controller.admin;
 
 
-import com.we.weblog.controller.BaseController;
+import com.we.weblog.web.controller.BaseController;
 import com.we.weblog.domain.Context;
 import com.we.weblog.domain.Log;
 import com.we.weblog.domain.modal.LogActions;

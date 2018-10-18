@@ -1,4 +1,4 @@
-package com.we.weblog.intercaptor;
+package com.we.weblog.web.intercaptor;
 
 import com.baomidou.kisso.SSOConfig;
 import com.baomidou.kisso.web.handler.SSOHandlerInterceptor;
@@ -13,8 +13,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
-import static com.vue.adminlte4j.model.UIModel.IS_LOGIN;
 
 /**
  * web页面配置类，拦截器地址在此注册

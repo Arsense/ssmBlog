@@ -1,4 +1,4 @@
-package com.we.weblog.intercaptor;
+package com.we.weblog.config;
 
 import com.baomidou.kisso.SSOConfig;
 

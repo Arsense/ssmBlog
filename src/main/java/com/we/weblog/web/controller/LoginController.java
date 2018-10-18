@@ -1,4 +1,4 @@
-package com.we.weblog.controller;
+package com.we.weblog.web.controller;
 
 import com.baomidou.kisso.SSOHelper;
 import com.baomidou.kisso.annotation.Action;

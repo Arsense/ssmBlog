@@ -2,7 +2,7 @@ package com.we.weblog.service;
 
 
 import com.we.weblog.domain.User;
-import com.we.weblog.mapping.UserMapper;
+import com.we.weblog.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

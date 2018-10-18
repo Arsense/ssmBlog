@@ -1,10 +1,8 @@
-package com.we.weblog.controller.admin.form;
+package com.we.weblog.web.controller.form;
 
 import com.vue.adminlte4j.model.UIModel;
-import com.we.weblog.controller.admin.form.SystemFromInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 

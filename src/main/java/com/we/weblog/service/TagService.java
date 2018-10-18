@@ -3,7 +3,7 @@ package com.we.weblog.service;
 import com.we.weblog.domain.Metas;
 import com.we.weblog.domain.Select;
 import com.we.weblog.domain.modal.Types;
-import com.we.weblog.mapping.TagMapper;
+import com.we.weblog.mapper.TagMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;

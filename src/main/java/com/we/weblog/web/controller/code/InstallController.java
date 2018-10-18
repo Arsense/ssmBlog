@@ -1,4 +1,4 @@
-package com.we.weblog.controller;
+package com.we.weblog.web.controller.code;
 
 
 import org.springframework.stereotype.Controller;

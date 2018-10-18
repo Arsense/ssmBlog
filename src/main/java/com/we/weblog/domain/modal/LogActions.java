@@ -2,8 +2,6 @@ package com.we.weblog.domain.modal;
 
 public interface LogActions {
 
-
-
     String LOGIN="登陆后台";
 
     String ADD_BLOG="添加新博客";

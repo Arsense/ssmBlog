@@ -1,4 +1,4 @@
-package com.we.weblog.mapping;
+package com.we.weblog.mapper;
 
 
 import org.apache.ibatis.annotations.Mapper;

@@ -8,10 +8,9 @@ spring:
       sql-script-encoding: UTF-8
       driverClassName: com.mysql.jdbc.Driver
 mybatis:
-    type-aliases-package: com.we.weblog.mapping
+    type-aliases-package: com.we.weblog.mapper
     config-location: classpath:mybatis-config.xml
     #配置类型别名称
-
 
     # 单点信息配置，全部可无
 kisso:

@@ -1,10 +1,10 @@
-package com.we.weblog.controller.admin;
+package com.we.weblog.web.controller.admin;
 
 
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.model.form.FormModel;
-import com.we.weblog.controller.BaseController;
+import com.we.weblog.web.controller.BaseController;
 import com.we.weblog.domain.Comment;
 import com.we.weblog.service.CommentSerivce;
 import org.springframework.beans.factory.annotation.Autowired;

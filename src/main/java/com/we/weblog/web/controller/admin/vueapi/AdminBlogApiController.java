@@ -1,4 +1,4 @@
-package com.we.weblog.controller.admin.vueapi;
+package com.we.weblog.web.controller.admin.vueapi;
 
 import com.baomidou.kisso.SSOHelper;
 import com.baomidou.kisso.security.token.SSOToken;

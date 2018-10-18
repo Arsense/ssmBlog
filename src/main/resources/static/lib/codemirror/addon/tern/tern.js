@@ -10,7 +10,7 @@
 //
 // Options supported (all optional):
 // * defs: An array of JSON definition data structures.
-// * plugins: An object mapping plugin names to configuration
+// * plugins: An object mapper plugin names to configuration
 //   options.
 // * getFile: A function(name, c) that can be used to access files in
 //   the project that haven't been loaded yet. Simply do c(null) to

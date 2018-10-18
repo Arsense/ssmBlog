@@ -2,7 +2,7 @@ package com.we.weblog.service;
 
 
 import com.we.weblog.domain.Comment;
-import com.we.weblog.mapping.CommentMapper;
+import com.we.weblog.mapper.CommentMapper;
 import com.we.weblog.tool.IpTool;
 import com.we.weblog.tool.TimeTool;
 import org.springframework.beans.factory.annotation.Autowired;

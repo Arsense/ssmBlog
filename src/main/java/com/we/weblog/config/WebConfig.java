@@ -1,4 +1,4 @@
-package com.we.weblog.web.intercaptor;
+package com.we.weblog.config;
 
 import com.baomidou.kisso.SSOConfig;
 import com.baomidou.kisso.web.handler.SSOHandlerInterceptor;

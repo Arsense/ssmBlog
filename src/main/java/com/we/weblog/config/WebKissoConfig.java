@@ -2,7 +2,7 @@ package com.we.weblog.config;
 
 import com.baomidou.kisso.SSOConfig;
 
-public class WebKissoConfigurer {
+public class WebKissoConfig {
 
     private SSOConfig ssoConfig;
 

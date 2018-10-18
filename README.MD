@@ -3,6 +3,8 @@
 ## 基本技术
 
 环境: `Springboot+mysql+admintle+vue.js+mybatis`环境搭建的个博客
+- springboot 2.0
+- 日志 logback
 
 ### 搭建方法在下面
 
@@ -13,6 +15,7 @@
 - 2.5 后台大更新
 - 2018 7月27日 代码排版优化 增加阅读性
 - 9.25 依赖的vue-admintle工程性能各种界面大更新 jar包依賴不斷更新中
+- 10.18 目录结构优化 logback添加
 - 更新中...
 后台菜单自主配置需要在 vmOptions中添加:-Dadmin.src.dir=D:\code\ssmBlog  
 dir后面是你的项目路径
@@ -90,6 +93,7 @@ pom.xml引入:
 项目maven package打包成war包 放到相应tomcat工作目录 运行tomcat
 ### 默认账号名密码都是 admin admin  路劲是login1/html 如果想使用请数据库直接修改
 目前还没增加此功能
+
 
 ### 联系方式
 

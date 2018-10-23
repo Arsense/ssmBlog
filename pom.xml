@@ -75,9 +75,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.vue.adminlte4j</groupId>
-			<artifactId>adminlte4j</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
+            <groupId>com.jd.adminlte4j</groupId>
+            <artifactId>adminlte4j</artifactId>
+            <version>1.0.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>

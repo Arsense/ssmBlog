@@ -91,7 +91,7 @@
     <orderEntry type="library" name="Maven: org.bouncycastle:bcpkix-jdk15on:1.56" level="project" />
     <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.56" level="project" />
     <orderEntry type="library" name="Maven: io.jsonwebtoken:jjwt:0.7.0" level="project" />
-    <orderEntry type="library" name="Maven: com.vue.adminlte4j:adminlte4j:1.0.2-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: com.jd.adminlte4j:adminlte4j:1.0.2-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet:javax.servlet-api:3.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.21" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.1.7" level="project" />

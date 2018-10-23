@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -17,7 +16,6 @@ public class ApplicationStarter {
     public static void main(String[] args) {
         //动态自动更新 每一秒更新一次
         configFileChangeListener();
-
         ApplicationContext context = SpringApplication.run(ApplicationStarter.class,args);
         String serverPort = context.getEnvironment().getProperty("server.port");
         //输入访问链接

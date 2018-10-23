@@ -27,7 +27,6 @@ public class Comment {
     @NotEmpty(message = "请输入评论作者")
     @Length(max = 30,message = "姓名过长")
     private String author;
-
     /**
      * 评论者邮箱
      */

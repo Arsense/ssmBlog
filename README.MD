@@ -1,5 +1,5 @@
 
-
+### jar包更新ing 请maven clean后重新导入
 ## 基本技术
 
 环境: `Springboot+mysql+admintle+vue.js+mybatis`环境搭建的个博客

@@ -5,6 +5,7 @@ import com.baomidou.kisso.security.token.SSOToken;
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.model.form.FormModel;
+import com.we.weblog.service.*;
 import com.we.weblog.web.controller.BaseController;
 import com.we.weblog.domain.Comment;
 import com.we.weblog.domain.Post;
@@ -12,12 +13,13 @@ import com.we.weblog.domain.Log;
 import com.we.weblog.domain.UploadPicture;
 import com.we.weblog.domain.modal.LogActions;
 import com.we.weblog.domain.modal.Types;
-import com.we.weblog.service.*;
 import com.we.weblog.tool.IpTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,21 +36,23 @@ import java.util.Map;
 @RequestMapping("/admin")
 public class ArticleController extends BaseController{
 
-    private ContextService contextService;
-    private CommentSerivce commentSerivce;
-    private LogService logService;
+    @Resource
+    private PostService postService;
+
+    @Resource
+    private CommentService commentSerivce;
+
+    @Resource
+    private LogsService logService;
+
+    @Resource
     private TagService tagService;
-    private  int updateId = 0;
+
+    @Resource
     private FileService fileService;
 
-    @Autowired
-    public ArticleController(ContextService contextService, LogService  logService, TagService tagService, CommentSerivce commentSerivce, FileService fileService){
-        this.commentSerivce = commentSerivce;
-        this.tagService = tagService;
-        this.contextService = contextService;
-        this.logService = logService;
-        this.fileService = fileService;
-    }
+    private int updateId = 0;
+
 
 
     /**
@@ -63,15 +67,15 @@ public class ArticleController extends BaseController{
         if (deleteId <= 0) {
             return UIModel.fail().msg("删除文章非法");
         }
-
-        Post context = contextService.getBlogById(deleteId);
+        Post context = postService.findByPostId(deleteId);
         if(StringUtils.isEmpty(context)) {
             return UIModel.fail().msg("该博客不存在");
         }
-        contextService.deleteBlogById(deleteId);
+        postService.removeByPostId(deleteId);
         tagService.deleteTag(deleteId);
-        commentSerivce.deleteComment(deleteId);
-        logService.addLog(new Log(LogActions.DELETE_BLOG,deleteId+" ", IpTool.getIpAddress(request),1));
+
+        commentSerivce.removeByCommentId(deleteId);
+        logService.saveByLogs(new Log(LogActions.DELETE_BLOG,deleteId+" ", IpTool.getIpAddress(request),1));
 
         return UIModel.success().msg("删除成功");
 
@@ -100,7 +104,7 @@ public class ArticleController extends BaseController{
      public Map<String, Object> getTagretUpdateContext(@PathVariable int id){
          updateId = id;
          Map<String,Object> maps = new HashMap<>();
-         Post context = contextService.getBlogById(updateId);
+         Post context = postService.findByPostId(updateId);
 
          maps.put("context",context);
          maps.put("options",tagService.getCategories());
@@ -118,7 +122,7 @@ public class ArticleController extends BaseController{
      @PostMapping("/update")
      @ResponseBody
      public UIModel updateDate(@RequestBody Post context) throws SQLException {
-        contextService.updateBlog(context,updateId);
+        postService.updateBlog(context,updateId);
          return UIModel.success().msg("修改成功！");
      }
 
@@ -135,9 +139,9 @@ public class ArticleController extends BaseController{
             return UIModel.fail().msg(message);
 
         context.setType(Types.ARTICLE);
-        contextService.addBlog(context);
+        postService.saveByPost(context);
         Log loginLog =new Log(LogActions.ADD_BLOG,"admin", IpTool.getIpAddress(request),1);
-        if (logService.addLog(loginLog) < 0) {
+        if (logService.saveByLogs(loginLog) < 0) {
             message = "添加博客失败";
         }
         message = "添加博客成功！";
@@ -156,11 +160,11 @@ public class ArticleController extends BaseController{
 
         //获得最新的20条日志  获得最新的文章  后台统计对象
         Map<String,Object> map = new HashMap<>();
-        int blogCount = contextService.getTotalBlog();
-        int commnetCount = commentSerivce.getCounts();
-        List<Post> contexts = contextService.getRecentBlogs(5);
-        List<Comment> comments = commentSerivce.getComments();
-        List<Log> logs = logService.getLogPages(10);
+        int blogCount = postService.getTotalBlog();
+        int commnetCount = commentSerivce.getCommentCount();
+        List<Post> contexts = postService.getRecentBlogs(5);
+        List<Comment> comments = commentSerivce.getAllComments();
+        List<Log> logs = logService.findLastestTenLogs(10);
 
         map.put("blogNumber",blogCount);
         map.put("contexts", contexts);
@@ -178,7 +182,7 @@ public class ArticleController extends BaseController{
     @GetMapping("/blog/list")
     @ResponseBody
     public UIModel getBlogList() {
-        List<Post> tempContexts = contextService.showBlogs(1);
+        List<Post> tempContexts = postService.showBlogs(1);
 
         FormModel formModel = new FormModel();
         formModel.createFormItem("uid").setHidden(false).setLabel("博客编号");
@@ -190,7 +194,7 @@ public class ArticleController extends BaseController{
         TableData tableData = new TableData() ;
         tableData.setFormItems(formModel.getFormItems());
         tableData.setDataItems(tempContexts);
-        tableData.setTotalSize(commentSerivce.getCounts());
+        tableData.setTotalSize(commentSerivce.getCommentCount());
 
         return  UIModel.success().tableData(tableData);
 

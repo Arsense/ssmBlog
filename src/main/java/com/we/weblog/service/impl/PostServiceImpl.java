@@ -1,75 +1,59 @@
-package com.we.weblog.service;
+package com.we.weblog.service.impl;
 
 
 import com.we.weblog.domain.*;
 import com.we.weblog.domain.modal.Types;
 import com.we.weblog.mapper.ContextMapper;
 import com.we.weblog.mapper.TagMapper;
+import com.we.weblog.service.PostService;
 import com.we.weblog.tool.TimeTool;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 
-
 @Service
-public class ContextService {
+public class PostServiceImpl implements PostService {
+
+    @Resource
     private ContextMapper contextMapper;
+
+    @Resource
     private TagMapper tagMapper;
 
-    /**
-     * 构造函数
-     * @param contextMapper
-     */
-    @Autowired
-    public ContextService(ContextMapper contextMapper, TagMapper tagMapper) {
-        this.tagMapper = tagMapper;
-        this.contextMapper = contextMapper;
-}
 
 
-    /**
-     * 得到博客数量
-     * @return
-     */
    public int getCategoryCount(){
-        return  contextMapper.selectAllCategories().size();
+       return  contextMapper.selectAllCategories().size();
    }
 
 
-
     public List<Category> sortBlogsByCategories(){
-
         List<Post> contexts = contextMapper.selectBlogsByCategories();
-
-
         return getBlogsFromTags(contexts);
-
-
     }
 
 
     public List<String> getCategories(){
-        return contextMapper.selectAllCategories();
+       return contextMapper.selectAllCategories();
     }
-
 
     /**
      * 根据分类分配到相应的类中
      * @return
      */
-    public List<Category>    getBlogsFromTags(List<Post> contexts){
+    public List<Category>  getBlogsFromTags(List<Post> contexts){
+
         List<Category> categoryBlogs = new ArrayList<>();
-        Map<String,Category>  maps = new HashMap<>();
+        Map<String, Category>  maps = new HashMap<>();
 
         for(Post context:contexts){
             if(maps.containsKey(context.getCategories())){
                 //如果已有该标签
                 maps.get(context.getCategories()).getBlogs().add(context);
             }else{
-
                 Category cBlog = new Category(context.getCategories(),new ArrayList<Post>());
                 maps.put(context.getCategories(),cBlog);
                 cBlog.getBlogs().add(context);
@@ -78,8 +62,6 @@ public class ContextService {
 
         }
         return  categoryBlogs;
-
-
     }
 
     public int getLastestBlogId(){
@@ -145,36 +127,9 @@ public class ContextService {
     }
 
 
-    /**
-     * 添加博客 同时把tags添加进去
-     * @param context
-     */
-    public void addBlog(Post context) throws SQLException {
-        //默认没有分类则创建分类
-        if(StringUtils.isEmpty(context.getCategories())){
-            context.setCategories("默认分类");
-        }
-        //初始化访问量是0
-        context.setHits(0);
-        context.setPublish(Types.PUBLISH);
-        context.setCreated(new Date(System.currentTimeMillis()));
-        contextMapper.insertBlog(context);
-
-        try{
-            addBlogTags(context.getTags(), context.getUid());
-
-        }catch (Exception e){
-            e.printStackTrace();
-            throw new SQLException("addBlog fail");
-        }
-
-
-    }
 
 
     public void updateBlog(Post context, int uid) throws SQLException {
-
-
         try{
             contextMapper.updateBlog(context,uid);
         }catch (Exception e){
@@ -184,9 +139,6 @@ public class ContextService {
         updateBlogTag(context.getTags(), uid);
     }
 
-    public void deleteBlogById(int id) {
-        int result = contextMapper.deleteBlogById(id);
-    }
 
     /**
      *  批量查询博客
@@ -194,19 +146,18 @@ public class ContextService {
      * @return
      */
     public List<Post> showBlogs(int page) {
-        if(page <0 || page >10)
-            page=1;
-        page = page*10;
+        if (page < 0 || page > 10){
+            page = 1;
+        }
+        page = page * 10;
         return sortContextDate(contextMapper.getTenBlogs(page));
     }
-
 
 
 
     public List<Post> getBlogsByTag(String tagName) {
         return contextMapper.selectBlogByTag(tagName);
     }
-
 
 
     public Post getPreviousBlog(int uid) {
@@ -223,10 +174,8 @@ public class ContextService {
 
 
     public Post getNextBlog(int uid) {
-
-
-        Post context =contextMapper.getNextBlog(uid);
-        if(context == null){
+        Post context = contextMapper.getNextBlog(uid);
+        if (context == null) {
             return null;
         }
         context.setMonth(TimeTool.getFormatClearToDay(context.getCreated()));
@@ -234,19 +183,6 @@ public class ContextService {
         return context;
 
     }
-
-
-    public Post getBlogById(int id) {
-
-        Post context =contextMapper.getBlogById(id);
-        if(context == null){
-            return null;
-        }
-        context.setMonth(TimeTool.getFormatClearToDay(context.getCreated()));
-
-        return context;
-    }
-
 
     /**
      * 根据页码显示每个年份的博客
@@ -254,8 +190,7 @@ public class ContextService {
      * @return
      */
     public List<YearBlog> getYearBlog(int page) throws IOException {
-
-        int start = (page-1)*12;
+        int start = (page - 1) * 12;
         List<Post> list = contextMapper.selectBlogsByYear(start);
         return sortBlogsByYears(list);
 
@@ -263,24 +198,24 @@ public class ContextService {
 
 
 
-
-
     public List<YearBlog> sortBlogsByYears(List<Post> bloglist) throws IOException{
         List<YearBlog> yearBlogs = new ArrayList<>();
+
         Map<Integer,YearBlog> yearMap = new HashMap<>();
+
         for(Post context : bloglist){
-            Date date= context.getCreated();
+            Date date = context.getCreated();
             context.setMonth(TimeTool.getEdate(date));
             int year = TimeTool.getYear(date);
             if(yearMap.containsKey(year)){
                 yearMap.get(year).getYearContexts().add(context);
-            }else{
+            } else {
                 YearBlog yearBlog = new YearBlog(year,new ArrayList<Post>());
                 yearMap.put(year,yearBlog);
                 yearBlog.getYearContexts().add(context);
                 yearBlogs.add(yearBlog);
-            }
-    }
+             }
+         }
         return yearBlogs;
     }
 
@@ -294,7 +229,6 @@ public class ContextService {
     }
 
 
-
     public List<Post> getRecentBlogs(int limit){
         if(limit < 0 || limit >20){
             limit = 10;
@@ -302,7 +236,6 @@ public class ContextService {
         return  sortContextDate(contextMapper.getNewBlogs(limit));
 
     }
-
     /**
      * 得到页面管理的信息
      * @return
@@ -324,10 +257,8 @@ public class ContextService {
         return  pages;
     }
 
-
     public int deleteCatories(String name){
         return contextMapper.deleleCategoryByName(name);
-
     }
 
     /**
@@ -339,4 +270,71 @@ public class ContextService {
         contextMapper.updateHits(context);
     }
 
+    /**
+     * 新增文章
+     *
+     * @param post Post
+     * @return Post
+     */
+    @Override
+    public void saveByPost(Post post) throws SQLException {
+        //默认没有分类则创建分类
+        if(StringUtils.isEmpty(post.getCategories())){
+            post.setCategories("默认分类");
+        }
+        //初始化访问量是0
+        post.setHits(0);
+        post.setPublish(Types.PUBLISH);
+        post.setCreated(new Date(System.currentTimeMillis()));
+        contextMapper.insertBlog(post);
+
+        try{
+            addBlogTags(post.getTags(), post.getUid());
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new SQLException("addBlog fail");
+        }
+
+    }
+
+    /**
+     * 根据编号删除文章
+     *
+     * @param postId postId
+     * @return Post
+     */
+    @Override
+    public Integer removeByPostId(Integer postId) {
+        return contextMapper.removeByPostId(postId);
+    }
+
+    @Override
+    public Post updatePostStatus(Long postId, Integer status) {
+        return null;
+    }
+
+    @Override
+    public List<Post> findAllPosts(String postType) {
+        return null;
+    }
+
+    @Override
+    public List<Post> searchPosts(String keyWord) {
+        return null;
+    }
+
+    @Override
+    public Post findByPostId(int postId) {
+        Post context = contextMapper.getBlogById(postId);
+        if(context == null){
+            return null;
+        }
+        context.setMonth(TimeTool.getFormatClearToDay(context.getCreated()));
+        return context;
+    }
+
+    @Override
+    public List<Post> findLastestPost() {
+        return null;
+    }
 }

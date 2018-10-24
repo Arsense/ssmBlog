@@ -1,90 +1,39 @@
 package com.we.weblog.service;
 
-import com.we.weblog.domain.Metas;
 import com.we.weblog.domain.Select;
-import com.we.weblog.domain.modal.Types;
-import com.we.weblog.mapper.TagMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.List;
 
-@Service
-public class TagService {
+/**
+ * @author tangwei
+ * @date 2018/10/23 19:35
+ */
+public interface TagService {
 
+     List<String> getTotalTagsName();
 
-    private TagMapper tagMapper;
+     void deleteTag(int uid);
 
-    @Autowired
-    TagService(TagMapper tagMapper){
-        this.tagMapper = tagMapper;
-    }
-
-    public List<String> getTotalTagsName(){
-        return tagMapper.selectAllKindTags();
-    }
-
-    public void deleteTag(int uid){
-        tagMapper.deleteTagById(uid);
-    }
-
-     // 删除category from metas
-    public int deleteMetas(String name){ return tagMapper.deleteCategoryByName(name); }
+    // 删除category from metas
+    int deleteMetas(String name);
 
 
     /**
      * 分类管理删除标签
-      * @param tagName
+     * @param tagName
      * @return
      */
-    public int clearTagData(String tagName) {
-       int result = tagMapper.deleteTagByName(tagName);
-       if (result > 0) {
-           tagMapper.deleleTagFromContext(tagName);
-       } else {
-           return 0;
-       }
-       return 1;
-    }
-
+    int clearTagData(String tagName);
     /**
      * 添加分类
      * @param name
      * @return
      */
-    public int addCategory(String name) {
-        if (name == null)
-            return 0;
-        Metas category = new Metas();
-        category.setName(name);
-        category.setType(Types.MATE_CATEGOTY);
-        return tagMapper.insertCatgory(category);
-    }
+    int addCategory(String name);
 
-
-    public List<String> getMates() {
-       List<String> categories = new ArrayList<>();
-       List<Metas> metas =  tagMapper.selectCategories();
-       for (Metas meta: metas) {
-           categories.add(meta.getName());
-       }
-       return categories;
-    }
+    List<String> getMates();
 
 
 
-    public List<Select> getCategories(){
-        List<Select> selects = new ArrayList<>();
-        List<String> categories = tagMapper.getAllCategories();
+    List<Select> getCategories();
 
-        int codeId = 1;
-        for (String category : categories) {
-            Select select = new Select();
-            select.setCode(String.valueOf(codeId++));
-            select.setLabel(category);
-            select.setChecked(false);
-            selects.add(select);
-        }
-        return selects;
-    }
 }

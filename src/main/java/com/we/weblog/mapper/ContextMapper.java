@@ -55,7 +55,7 @@ public interface ContextMapper {
      * @return
      */
     @Delete({"delete from t_context where uid = #{id}"})
-    int deleteBlogById(@Param("id") int id);
+    int removeByPostId(@Param("id") int id);
 
     /**
      * 批量查询博客  目前10个一次

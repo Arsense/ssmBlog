@@ -17,12 +17,11 @@ import java.util.List;
 @Mapper
 public interface LogMapper  {
 
+    @Insert({"insert into t_logs (action,data,author_id,ip,created) " +
+            "values (#{l.action},#{l.data},#{l.author_id},#{l.ip},#{l.created})"})
+    int addLog(@Param("l") Log log);
 
-        @Insert({"insert into t_logs (action,data,author_id,ip,created) " +
-                "values (#{l.action},#{l.data},#{l.author_id},#{l.ip},#{l.created})"})
-        int addLog(@Param("l") Log log);
 
-
-        @Select({"select id,action,ip,created from t_logs order by id desc limit #{l}"})
-        List<Log> getLogs(@Param("l") int limit);
+    @Select({"select id,action,ip,created from t_logs order by id desc limit #{l}"})
+    List<Log> getLogs(@Param("l") int limit);
 }

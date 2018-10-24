@@ -2,7 +2,7 @@ package com.we.weblog.web.controller.admin;
 
 import com.vue.adminlte4j.model.UIModel;
 import com.we.weblog.domain.Select;
-import com.we.weblog.service.ContextService;
+import com.we.weblog.service.PostService;
 import com.we.weblog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,12 +17,12 @@ import java.util.*;
 @RequestMapping("/admin/category")
 public class CategoryController {
 
-    private ContextService contextService;
+    private PostService postService;
     private TagService tagService;
 
     @Autowired
-    public CategoryController(ContextService contextService,TagService tagService){
-        this.contextService = contextService;
+    public CategoryController(PostService postService,TagService tagService){
+        this.postService = postService;
         this.tagService = tagService;
     }
 
@@ -47,7 +47,7 @@ public class CategoryController {
           if (categoryName.equals("")) {
             return UIModel.fail().msg("删除的类别为空");
           }
-          int result = contextService.deleteCatories(categoryName);
+          int result = postService.deleteCatories(categoryName);
           tagService.deleteMetas(categoryName);
           if(result >= 0) {
               return UIModel.success().msg("删除成功");
@@ -64,7 +64,7 @@ public class CategoryController {
     public Map<String,Object> manageCategoryAndTag() {
         Map<String,Object> maps  = new HashMap<>();
         List<String> cates = tagService.getMates();
-        List<String> tags = contextService.getAllKindTags();
+        List<String> tags = postService.getAllKindTags();
 
         maps.put("categories",cates);
         maps.put("tags",tags);

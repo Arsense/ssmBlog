@@ -7,7 +7,7 @@ import com.baomidou.kisso.security.token.SSOToken;
 import com.baomidou.kisso.web.waf.request.WafRequestWrapper;
 import com.we.weblog.domain.Log;
 import com.we.weblog.domain.modal.LogActions;
-import com.we.weblog.service.LogService;
+import com.we.weblog.service.LogsService;
 import com.we.weblog.service.UserService;
 import com.we.weblog.tool.IpTool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +24,11 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class LoginController extends BaseController{
 
-    private  UserService userService;
-    private  LogService  logService;
+    private UserService userService;
+    private LogsService logService;
 
-    @Autowired
-     LoginController(UserService userService,LogService logService) {
+     @Autowired
+     LoginController(UserService userService,LogsService logService) {
         this.userService = userService;
         this.logService = logService;
     }
@@ -50,11 +50,11 @@ public class LoginController extends BaseController{
         if (result) {
             //创建日志
             Log loginLog =new Log(LogActions.LOGIN,username, IpTool.getIpAddress(request),1);
-            if (logService.addLog(loginLog) < 0)
+            if (logService.saveByLogs(loginLog) < 0)
                 throw  new Exception("loginLog add error");
             //这里创建session 防止重复登录
             SSOHelper.setCookie(request, response, SSOToken.create().setIp(request).setId(1000).setIssuer(username), false);
-            return redirectTo("admin/index.html#/admin/home.html");
+            return redirectTo("/index.html#/admin/index.html");
         } else {
             return redirectTo("/login1.html");
         }
@@ -68,8 +68,8 @@ public class LoginController extends BaseController{
     @GetMapping("/logout")
     public String logout() {
         SSOHelper.clearLogin(request, response);
-        logService.addLog(new Log(LogActions.LOGOUT,null,IpTool.getIpAddress(request),1));
-        return redirectTo("/home.html");
+        logService.saveByLogs(new Log(LogActions.LOGOUT,null,IpTool.getIpAddress(request),1));
+        return redirectTo("/index.html");
     }
 
 
@@ -83,7 +83,7 @@ public class LoginController extends BaseController{
         // 设置登录 COOKIE
         SSOToken ssoToken = SSOHelper.getSSOToken(request);
         if(ssoToken != null) {
-            return redirectTo("/admin/home.html");
+            return redirectTo("/admin/index.html");
         }
         return redirectTo("/login1.html");
     }

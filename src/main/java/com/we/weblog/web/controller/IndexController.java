@@ -8,21 +8,25 @@ import com.we.weblog.domain.Comment;
 import com.we.weblog.domain.Post;
 import com.we.weblog.domain.YearBlog;
 import com.we.weblog.domain.modal.Types;
-import com.we.weblog.service.CommentSerivce;
-import com.we.weblog.service.ContextService;
+import com.we.weblog.service.CommentService;
+import com.we.weblog.service.PostService;
 import com.we.weblog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
+ * <pre>
+ *     拦截器，资源路径配置
+ * </pre>
  * 首页、归档、分类、评论
  *   前端页面显示的控制器
  */
@@ -30,19 +34,28 @@ import java.util.Map;
 public class IndexController extends  BaseController {
 
 
-    private ContextService contextService;
-    private CommentSerivce commentSerivce;
-    private static int     postId ;
+    private PostService postService;
+    private CommentService commentSerivce;
+    private static int  postId ;
     private static String  tagName = null;
-    private TagService     tagService;
+    private TagService tagService;
 
     @Autowired
-    public IndexController(ContextService blogService, TagService tagService, CommentSerivce commentSerivce){
-        this.commentSerivce =commentSerivce;
+    public IndexController(PostService postService, TagService tagService, CommentService commentSerivce){
+        this.commentSerivce = commentSerivce;
         this.tagService = tagService;
-        this.contextService = blogService;
+        this.postService = postService;
         //初始化postID 为第一个 防止单独访问为0 什么都木有
-        postId = contextService.getLastestBlogId();
+        postId = postService.getLastestBlogId();
+    }
+
+    /**
+     * 首页视图
+     * @return
+     */
+    @GetMapping("/")
+    public ModelAndView index(){
+        return new ModelAndView("index");
     }
 
     /**
@@ -64,7 +77,7 @@ public class IndexController extends  BaseController {
         }
         //处理XSS
         comment.setContent(cleanXSS(comment.getContent()));
-        int result=commentSerivce.addComments(comment,request);
+        int result = commentSerivce.saveComment(comment,request);
         if(result > 0)
             return UIModel.success().msg("评论成功");
         else
@@ -77,7 +90,7 @@ public class IndexController extends  BaseController {
     @GetMapping("/get_kind_blogs")
     @ResponseBody
     public List<Category> getBlogsByTag(){
-        List<Category> lists = contextService.sortBlogsByCategories();
+        List<Category> lists = postService.sortBlogsByCategories();
         return lists;
     }
 
@@ -95,7 +108,7 @@ public class IndexController extends  BaseController {
     @GetMapping("/tags_data")
     @ResponseBody
     public List<String> getAllTags(){
-        List<String> list = contextService.getAllKindTags();
+        List<String> list = postService.getAllKindTags();
         return list;
     }
 
@@ -119,7 +132,7 @@ public class IndexController extends  BaseController {
     @GetMapping("/tags_detail_data")
     @ResponseBody
     public  List<Post> tagDetailData() {
-        return  contextService.getBlogsByTag(tagName);
+        return  postService.getBlogsByTag(tagName);
     }
 
 
@@ -136,7 +149,7 @@ public class IndexController extends  BaseController {
         formModel.createFormItem("month").setHidden(false).setLabel("发布时间");
         formModel.createFormItem("publish").setHidden(false).setLabel("发布状态");
 
-        List<Post> tempContexts=contextService.getArticlePages();
+        List<Post> tempContexts = postService.getArticlePages();
 
         TableData tableData = new TableData() ;
         tableData.setTotalSize(10);
@@ -153,11 +166,11 @@ public class IndexController extends  BaseController {
         //如果是首页
         Map<String,Object> maps = new HashMap<>();
         List<String> tagsName = tagService.getTotalTagsName();
-        int blogCount = contextService.getTotalBlog();
-        int categoryCount = contextService.getCategoryCount();
+        int blogCount = postService.getTotalBlog();
+        int categoryCount = postService.getCategoryCount();
         int totalTags = 10;
         //旁边博客展示都需要
-        List<Post> blogs = contextService.getLastestBlogs();
+        List<Post> blogs = postService.getLastestBlogs();
         maps.put(Types.BLOGS,blogs);
 
         sortPagesMap(maps,page);
@@ -175,6 +188,7 @@ public class IndexController extends  BaseController {
      */
     @GetMapping("/tags/{name}")
     public void getTagDetail(@PathVariable String tagName){
+
     }
 
 
@@ -186,7 +200,7 @@ public class IndexController extends  BaseController {
      */
     public  void sortPagesMap(Map<String,Object> maps, String pageType) throws Exception {
         if (pageType.equals(Types.PAGE_CATEGORY)) {
-            List<Category> cBlogs = contextService.sortBlogsByCategories();
+            List<Category> cBlogs = postService.sortBlogsByCategories();
             maps.put(Types.CATEGORIES,cBlogs);
         } else if (pageType.contains(Types.PAGE_ARTICLE)) {
 
@@ -194,15 +208,15 @@ public class IndexController extends  BaseController {
             if(getId <= 0){
                 throw new Exception("GET ARTICLE ID FAIL,CHECK");
             }
-            Post currentContext = contextService.getBlogById(getId);
+            Post currentContext = postService.findByPostId(getId);
             //增加一次访问量
-            contextService.addOneHits(currentContext);
-            Post preContext = contextService.getPreviousBlog(getId);
-            Post nextContext = contextService.getNextBlog(getId);
+            postService.addOneHits(currentContext);
+            Post preContext = postService.getPreviousBlog(getId);
+            Post nextContext = postService.getNextBlog(getId);
             int uid = currentContext.getUid();
             //显示评论
             if (uid > 0) {
-                List<Comment> comments =  commentSerivce.getCommentByArticleId(uid);
+                List<Comment> comments =  commentSerivce.findCommentByUid(uid);
                 maps.put(Types.COMMENTS,comments);
             }
             maps.put(Types.CURRENT_BLOG, currentContext);
@@ -211,12 +225,12 @@ public class IndexController extends  BaseController {
 
         } else if (pageType.equals(Types.PAGE_ARCHIVE)) {
 
-            List<YearBlog> yearBlogs = contextService.getYearBlog(1);
+            List<YearBlog> yearBlogs = postService.getYearBlog(1);
             maps.put(Types.BLOGS_DATA,yearBlogs);
 
         } else if (pageType.equals(Types.PAGE_ABOUT)) {
 
-            Post about = contextService.getAboutme();
+            Post about = postService.getAboutme();
             maps.put(Types.BLOG,about);
 
         }

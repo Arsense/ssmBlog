@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="shortcut icon" href="../icon/snow.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="../static/icon/snow.ico" type="image/x-icon" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="author" content="AONOSORA">
@@ -9,7 +9,7 @@
     <meta name="description" content="今生今世轮回尽, 来世愿为幻想乡">
     <title>clayの部落格</title>
     <!-- inject:style -->
-    <link href="./css/style.css" rel="stylesheet" type="text/css">
+    <link href="../static/css/style.css" rel="stylesheet" type="text/css">
     <!-- endinject -->
     <style>
         .cube-loading {
@@ -17,7 +17,7 @@
             position: fixed;
             width: 100%;
             height: 100%;
-            background: url('./images/lg/loading.gif') no-repeat center center;
+            background: url('../static/images/lg/loading.gif') no-repeat center center;
             background-color: rgba(0,0,0,.7);
         }
 
@@ -54,33 +54,29 @@
 
 </head>
 <body>
-
 <div class="cube-body">
     <nav id="cube-top-memu" class="cube-menu">
         <ul class="cube-menu-collapse">
 
             <li>
                 <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
-                <a href="./index.html">首页</a>
-            </li>
-            <li>
-                <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
-                <a href="./login1.html">admin</a>
+                <a href="../static/index.html">首页</a>
             </li>
             <li>
                 <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
-                <a href="./archive.html">归档</a>
+                <a href="archive.html">归档</a>
             </li>
 
             <li>
                 <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
-                <a href="./categories.html">分类</a>
+                <a href="category.html">分类</a>
             </li>
+
 
 
             <li>
                 <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
-                <a href="./about.html">关于我</a>
+                <a href="../static/about.html">关于我</a>
             </li>
 
         </ul>
@@ -106,7 +102,6 @@
         </div>
 
     </header>
-
     <style>
         nav.cube-menu:before {
             content: '';
@@ -154,215 +149,32 @@
 
         })(window)
     </script>
-
 </div>
-
-<div class ="cube-content" style="visibility: visible;">
+<div class ="cube-content" style="visibility: visible;" id="main">
     <div class="cube-left">
-        <div class="cube-boxs">
-
-
-            <div class="cube-box-bg ">
-                <a href="/tags/杂谈/">杂谈</a>
-            </div>
-
-
-            <div class="cube-box ">
-                <a href="/tags/逆向/">逆向</a>
-            </div>
-
-
-            <div class="cube-box ">
-                <a href="/tags/博客搭建/">博客搭建</a>
-            </div>
-
-
-            <div class="cube-box-bg ">
-                <a href="/tags/网络相关/">网络相关</a>
-            </div>
-
-
-            <div class="cube-box ">
-                <a href="/tags/云服务器/">云服务器</a>
-            </div>
-
-
-            <div class="cube-box ">
-                <a href="/tags/Hexo/">Hexo</a>
-            </div>
-
-
-            <div class="cube-box ">
-                <a href="/tags/AngularJS/">AngularJS</a>
-            </div>
-
-
-            <div class="cube-box ">
-                <a href="/tags/php/">php</a>
-            </div>
-
-
-            <div class="cube-box ">
-                <a href="/tags/javascript/">javascript</a>
-            </div>
-
-
-            <div class="cube-box-bg ">
-                <a href="/tags/python/">python</a>
-            </div>
-
-        </div>
+        <style>
+            @media(max-width: 768px) {
+                body {
+                    background-color: #fff!important;
+                }
+            }
+        </style>
         <div class="cube-archives">
 
-            <div class="cube-archive">
-                <h1 class="title">杂谈</h1>
+            <div class="cube-archive" style="margin-top: 0;" v-for="yearBlogs in blogData">
+                <h1 class="title">{{yearBlogs.year}}</h1>
+                <ul class="posts" >
 
-                <ul class="posts">
-
-                    <li class="post">
-                        <a href="/2016/03/09/HEXO解决Google字库链接缓慢问题/">HEXO解决Google字库链接缓慢问题</a>
+                    <li class="post" v-for="yearBlog in yearBlogs.yearContexts">
+                        <a :href="getPostUrl(yearBlog)">{{yearBlog.title}}</a>
                     </li>
-
-                    <li class="post">
-                        <a href="/2017/03/04/博客搬迁/">博客搬迁</a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-            <div class="cube-archive">
-                <h1 class="title">逆向</h1>
-
-                <ul class="posts">
-
-                    <li class="post">
-                        <a href="/2016/10/31/脱壳练习1/">记一次小软件脱壳</a>
-                    </li>
-
-                    <li class="post">
-                        <a href="/2016/11/07/某crackme破解/">某crackme破解</a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-            <div class="cube-archive">
-                <h1 class="title">博客搭建</h1>
-
-                <ul class="posts">
-
-                    <li class="post">
-                        <a href="/2015/12/20/用hexo搭建博客/">用hexo搭建博客</a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-            <div class="cube-archive">
-                <h1 class="title">网络相关</h1>
-
-                <ul class="posts">
-
-                    <li class="post">
-                        <a href="/2016/03/03/浅析SSL协议/">浅析SSL协议</a>
-                    </li>
-
-                    <li class="post">
-                        <a href="/2016/03/04/信息安全小知识/">信息安全小知识</a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-            <div class="cube-archive">
-                <h1 class="title">云服务器</h1>
-
-                <ul class="posts">
-
-                    <li class="post">
-                        <a href="/2016/04/08/新手玩云服务器/">新手玩云服务器</a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-            <div class="cube-archive">
-                <h1 class="title">Hexo</h1>
-
-                <ul class="posts">
-
-                    <li class="post">
-                        <a href="/2017/08/15/制作一个不轻量的hexo主题-cube/">制作一个不轻量的hexo主题:cube</a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-            <div class="cube-archive">
-                <h1 class="title">AngularJS</h1>
-
-                <ul class="posts">
-
-                    <li class="post">
-                        <a href="/2016/05/16/《AngularJS深度剖析与最佳实践》学习笔记（二）/">《AngularJS深度剖析与最佳实践》学习笔记（二）</a>
-                    </li>
-
-                    <li class="post">
-                        <a href="/2016/05/12/《AngularJS深度剖析与最佳实践》学习笔记（一）/">《AngularJS深度剖析与最佳实践》学习笔记（一）</a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-            <div class="cube-archive">
-                <h1 class="title">php</h1>
-
-                <ul class="posts">
-
-                    <li class="post">
-                        <a href="/2017/01/11/xampp-phpstorm的简单配置/">xampp + phpstorm的简单配置</a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-            <div class="cube-archive">
-                <h1 class="title">javascript</h1>
-
-                <ul class="posts">
-
-                    <li class="post">
-                        <a href="/2016/06/07/javascript函数化构造器/">javascript函数化构造器</a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-            <div class="cube-archive">
-                <h1 class="title">python</h1>
-
-                <ul class="posts">
-
-                    <li class="post">
-                        <a href="/2016/03/08/Python之Tkinter/">Python文档之Tkinter</a>
-                    </li>
-
                 </ul>
 
             </div>
 
         </div>
     </div>
-    <div class ="cube-right">
+    <div class ="cube-right"  >
         <!--作者信息-->
         <div class="cube-author cube-sidebar" id="cube-author">
 
@@ -382,13 +194,16 @@
                 }
                 @media(min-width: 1120px) {
                     .cube-author img {
-                        width: 160px;
+                        width: 100px;
                         height: 160px;
                     }
                 }
+
+
             </style>
 
-            <img src="http://cube-1252774894.cosgz.myqcloud.com/avatar.png" alt="avatar" class="cube-avatar">
+
+
 
 
             <span>AONOSORA</span>
@@ -396,10 +211,10 @@
 
             <a title="今生今世轮回尽, 来世愿为幻想乡">今生今世轮回尽, 来世愿为幻想乡</a>
 
-            <div class="count">
-                <a class="count articles"><span>14</span>文章</a>
-                <a class="count tags"><span>10</span>标签</a>
-                <a class="count categories"><span>0</span>分类</a>
+            <div class="count" >
+                <a class="count articles"><span>{{blogsCount}}</span>文章</a>
+                <a class="count tags"><span>{{tagsCount}}</span>标签</a>
+                <a class="count categories"><span>{{categoryCount}}</span>分类</a>
             </div>
         </div>
         <!--音乐播放软件-->
@@ -503,141 +318,57 @@
             <div class="title">
                 <a>近期文章</a>
             </div>
-            <ul class="list">
+            <ul class="list"  >
+                <li  v-for="(blog,index) in blogs">
 
-
-                <li>
-                    <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
-
-
-                    <div class="preview">
-                        <p class="index first">
-                            <span>1</span>
-                        </p>
-                        <div class="image" style="background-image: url(http://cube-1252774894.cosgz.myqcloud.com/previews/制作一个不轻量的hexo主题.png);"></div>
-                        <div class="info">
-                            <p class="title">
-                                <a href="/2017/08/15/制作一个不轻量的hexo主题-cube/" title="制作一个不轻量的hexo主题:cube">制作一个不轻量的hexo主题:cube</a>
-                            </p>
-                            <p class="date">
-                                2017-08-15
-                            </p>
-                        </div>
-                    </div>
-
-                </li>
-
-
-
-                <li>
                     <div class="normal">
                         <p class="index">
-                            <span>2</span>
+                            <span >{{index+1}}</span>
                         </p>
                         <p class="title">
-                            <a href="/2017/03/04/博客搬迁/" title="博客搬迁">博客搬迁</a>
+                            <a :href="getPostUrl(blog)" >{{blog.title}}</a>
                         </p>
                     </div>
                 </li>
+                <!--<li>-->
+                <!--&lt;!&ndash; TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) &ndash;&gt;-->
 
+                <!--<div class="preview">-->
+                <!--<p class="index first">-->
+                <!--<span>1</span>-->
+                <!--</p>-->
+                <!--<div class="image" style="background-image: url(http://cube-1252774894.cosgz.myqcloud.com/previews/制作一个不轻量的hexo主题.png);"></div>-->
+                <!--<div class="info">-->
+                <!--<p class="title">-->
+                <!--<a href="/2017/08/15/制作一个不轻量的hexo主题-cube/" title="制作一个不轻量的hexo主题:cube">制作一个不轻量的hexo主题:cube</a>-->
+                <!--</p>-->
+                <!--<p class="date">-->
+                <!--2017-08-15-->
+                <!--</p>-->
+                <!--</div>-->
+                <!--</div>-->
 
-
-                <li>
-                    <div class="normal">
-                        <p class="index">
-                            <span>3</span>
-                        </p>
-                        <p class="title">
-                            <a href="/2017/01/11/xampp-phpstorm的简单配置/" title="xampp + phpstorm的简单配置">xampp + phpstorm的简单配置</a>
-                        </p>
-                    </div>
-                </li>
-
-
-
-                <li>
-                    <div class="normal">
-                        <p class="index">
-                            <span>4</span>
-                        </p>
-                        <p class="title">
-                            <a href="/2016/11/07/某crackme破解/" title="某crackme破解">某crackme破解</a>
-                        </p>
-                    </div>
-                </li>
-
-
-
-                <li>
-                    <div class="normal">
-                        <p class="index">
-                            <span>5</span>
-                        </p>
-                        <p class="title">
-                            <a href="/2016/10/31/脱壳练习1/" title="记一次小软件脱壳">记一次小软件脱壳</a>
-                        </p>
-                    </div>
-                </li>
-
-
+                <!--</li>-->
             </ul>
+
+
+
+
+
         </div>
         <!--标签-->
         <div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
             <div class="title">
-                <a href="/tags">标签云</a>
+                <a href="tags.html">便签大大</a>
             </div>
             <div class="cube-boxs">
 
 
-                <div class="cube-box ">
-                    <a href="/tags/杂谈/">#杂谈</a>
+                <div class="cube-box " v-for="tagName in tagsName">
+                    <a :href="getTagLink(tagName)">#{{tagName}}</a>
                 </div>
 
 
-                <div class="cube-box ">
-                    <a href="/tags/逆向/">#逆向</a>
-                </div>
-
-
-                <div class="cube-box ">
-                    <a href="/tags/博客搭建/">#博客搭建</a>
-                </div>
-
-
-                <div class="cube-box ">
-                    <a href="/tags/网络相关/">#网络相关</a>
-                </div>
-
-
-                <div class="cube-box ">
-                    <a href="/tags/云服务器/">#云服务器</a>
-                </div>
-
-
-                <div class="cube-box ">
-                    <a href="/tags/Hexo/">#Hexo</a>
-                </div>
-
-
-                <div class="cube-box ">
-                    <a href="/tags/AngularJS/">#AngularJS</a>
-                </div>
-
-
-                <div class="cube-box ">
-                    <a href="/tags/php/">#php</a>
-                </div>
-
-
-                <div class="cube-box-bg ">
-                    <a href="/tags/javascript/">#javascript</a>
-                </div>
-
-
-                <div class="cube-box-bg ">
-                    <a href="/tags/python/">#python</a>
-                </div>
 
             </div>
         </div>
@@ -705,7 +436,7 @@
 
                 <li>
                     <!-- TODO change avatar.png to friend.png-->
-                    <img src="./images/friend_links.jpg ">
+                    <img src="../static/images/friend_links.jpg ">
                     <a href="https://aonosora.com/" target="_blank">咪西西の部落格</a>
                 </li>
 
@@ -724,8 +455,49 @@
     Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
 </footer>
 <!-- inject:script -->
-<script src="./js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="../static/js/script.js"></script>
 <!-- endinject -->
 <div class="cube-loading out"></div>
 </body>
+<script src="/lib/axios/dist/axios.min.js" ></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="../static/js/front-end.min.js"></script>
+<script>
+    var v=new Vue({
+        el: "#main",
+        data: function(){
+            return {
+                blogData:[],
+                blogs:[],
+                tagsCount:0,
+                blogsCount:1,
+                tagsName:[],
+                categoryCount:0,
+            }
+        },
+        methods:{
+            recommend:function(){
+                var self = this;
+
+                var type = "archive";
+                axios.get("/get_all_datas/"+type).then(function (response) {
+                    //一行搞定
+                    $.extend(self._data,response.data);
+                });
+
+            },
+            getPostUrl:function (Object) {
+                return "article.html?id="+Object.uid;
+            },
+            getTagLink:function (data) {
+                return "/tag/"+data;
+            }
+        },
+
+    });
+    v.recommend()
+
+</script>
 </html>

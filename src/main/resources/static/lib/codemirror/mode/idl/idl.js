@@ -56,7 +56,7 @@
     'dialog_message', 'dialog_pickfile', 'dialog_printersetup',
     'dialog_printjob', 'dialog_read_image',
     'dialog_write_image', 'dictionary', 'digital_filter', 'dilate', 'dindgen',
-    'dissolve', 'dist', 'distance_measure', 'dlm_load', 'dlm_register',
+    'dissolve', 'jequery', 'distance_measure', 'dlm_load', 'dlm_register',
     'doc_library', 'double', 'draw_roi', 'edge_dog', 'efont',
     'eigenql', 'eigenvec', 'ellipse', 'elmhes', 'emboss',
     'empty', 'enable_sysrtn', 'eof', 'eos', 'erase',

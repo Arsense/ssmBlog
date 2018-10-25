@@ -30,10 +30,10 @@ public class ApplicationStarter {
      */
     private static void configFileChangeListener() {
         FileChangeListener fileChangeListener = FileChangeListener.getInstance();
-        Path distLibPath = Paths.get("src" , "main" ,"static" , "dist" , "lib") ;
+        Path distLibPath = Paths.get("src" , "main" ,"static" , "jequery" , "lib") ;
         Path targetLibPath = Paths.get("target" , "classes" , "META-INF" , "resources" , "lib") ;
-        Path vueAdminlteJs = Paths.get("vue-adminlte","dist","js","vue-adminlte.min.js") ;
-        Path baseCss = Paths.get("vue-adminlte","dist","css","base.css") ;
+        Path vueAdminlteJs = Paths.get("vue-adminlte","jequery","js","vue-adminlte.min.js") ;
+        Path baseCss = Paths.get("vue-adminlte","jequery","css","base.css") ;
 
         fileChangeListener.listen(distLibPath , "base.js").to(targetLibPath , "base.js") ;
         fileChangeListener.listen(distLibPath , "adminlte.js").to(targetLibPath , "adminlte.js") ;

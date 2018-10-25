@@ -54,6 +54,7 @@
 
 </head>
 <body>
+
 <div class="cube-body">
     <nav id="cube-top-memu" class="cube-menu">
         <ul class="cube-menu-collapse">
@@ -62,6 +63,7 @@
                 <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
                 <a href="./index.html">首页</a>
             </li>
+
             <li>
                 <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
                 <a href="./archive.html">归档</a>
@@ -69,9 +71,8 @@
 
             <li>
                 <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
-                <a href="./categories.html">分类</a>
+                <a href="./category.html">分类</a>
             </li>
-
 
 
             <li>
@@ -102,6 +103,7 @@
         </div>
 
     </header>
+
     <style>
         nav.cube-menu:before {
             content: '';
@@ -149,30 +151,31 @@
 
         })(window)
     </script>
+
 </div>
-<div class ="cube-content" style="visibility: visible;" id="main">
+
+<div class ="cube-content" id = "main" style="visibility: visible;">
     <div class="cube-left">
-        <style>
-            @media(max-width: 768px) {
-                body {
-                    background-color: #fff!important;
-                }
-            }
-        </style>
-        <div class="cube-archives">
+        <div class="cube-article">
 
-            <div class="cube-archive" style="margin-top: 0;" v-for="yearBlogs in blogData">
-                <h1 class="title">{{yearBlogs.year}}</h1>
-                <ul class="posts" >
+            <h1 class="title">{{blog['title']}}</h1>
+            <div class="cube-article-header">
 
-                    <li class="post" v-for="yearBlog in yearBlogs.yearContexts">
-                        <a :href="getPostUrl(yearBlog)">{{yearBlog.title}}</a>
-                    </li>
-                </ul>
+                <div class="cube-article-date">
+                    <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                    {{blog['month']}}
+                </div>
+                <div class="cube-article-tags">
+                    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                    <a href="/tags/杂谈/">{{blog['tags']}}</a>
 
+                </div>
             </div>
 
+            <div v-html="blog['article']" class="cube-article-content cube-markdown" lg-uid="lg0">
+            </div>
         </div>
+
     </div>
     <div class ="cube-right"  >
         <!--作者信息-->
@@ -203,7 +206,7 @@
             </style>
 
 
-
+            <!--<img src="./images/font.jpg" alt="avatar"  class="cube-avatar">-->
 
 
             <span>AONOSORA</span>
@@ -330,25 +333,7 @@
                         </p>
                     </div>
                 </li>
-                <!--<li>-->
-                <!--&lt;!&ndash; TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) &ndash;&gt;-->
 
-                <!--<div class="preview">-->
-                <!--<p class="index first">-->
-                <!--<span>1</span>-->
-                <!--</p>-->
-                <!--<div class="image" style="background-image: url(http://cube-1252774894.cosgz.myqcloud.com/previews/制作一个不轻量的hexo主题.png);"></div>-->
-                <!--<div class="info">-->
-                <!--<p class="title">-->
-                <!--<a href="/2017/08/15/制作一个不轻量的hexo主题-cube/" title="制作一个不轻量的hexo主题:cube">制作一个不轻量的hexo主题:cube</a>-->
-                <!--</p>-->
-                <!--<p class="date">-->
-                <!--2017-08-15-->
-                <!--</p>-->
-                <!--</div>-->
-                <!--</div>-->
-
-                <!--</li>-->
             </ul>
 
 
@@ -444,7 +429,6 @@
         </div>
     </div>
 
-
 </div>
 
 <footer class="cube-footer">
@@ -454,50 +438,49 @@
     <br>
     Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
 </footer>
-<!-- inject:script -->
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 <script src="./js/script.js"></script>
-<!-- endinject -->
 <div class="cube-loading out"></div>
 </body>
+<script src="/lib/jquery/dist/jquery.min.js "></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src="/lib/axios/dist/axios.min.js" ></script>
-<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="js/front-end.min.js"></script>
 <script>
-    var v=new Vue({
-        el: "#main",
-        data: function(){
-            return {
-                blogData:[],
-                blogs:[],
-                tagsCount:0,
-                blogsCount:1,
-                tagsName:[],
-                categoryCount:0,
-            }
-        },
-        methods:{
-            recommend:function(){
-                var self = this;
-
-                var type = "archive";
-                axios.get("/get_all_datas/"+type).then(function (response) {
-                    //一行搞定
-                    $.extend(self._data,response.data);
-                });
-
+    var vm=new Vue({
+                 el: "#main",
+                 data: function(){
+                    return {
+                        blogs:[],
+                        blog: Object,
+                        tagsCount:0,
+                        blogsCount:1,
+                        tagsName:[],
+                        categoryCount:0,
+                    }
             },
-            getPostUrl:function (Object) {
-                return "article.html?id="+Object.uid;
-            },
-            getTagLink:function (data) {
-                return "/tag/"+data;
-            }
-        },
+            methods:{
+                    recommend:function(){
+                        var self = this;
+                        var type = "about";
+                        axios.get("/get_all_datas/"+type).then(function (response) {
+                            //一行搞定
+                            $.extend(self._data,response.data);
+                        });
+                    },
 
-    });
-    v.recommend()
+                getPostUrl:function (Object) {
+                        return "/post/"+Object.uid;
+                    },
+                    getTagLink:function (data) {
+                        return "/tag/"+data;
+                    }
+
+             },
+
+            });
+
+
+            vm.recommend()
+
 
 </script>
 </html>

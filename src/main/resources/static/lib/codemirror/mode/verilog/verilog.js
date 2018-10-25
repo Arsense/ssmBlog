@@ -33,7 +33,7 @@ CodeMirror.defineMode("verilog", function(config, parserConfig) {
     "accept_on alias always always_comb always_ff always_latch and assert assign assume automatic before begin bind " +
     "bins binsof bit break buf bufif0 bufif1 byte case casex casez cell chandle checker class clocking cmos config " +
     "const constraint context continue cover covergroup coverpoint cross deassign default defparam design disable " +
-    "dist do edge else end endcase endchecker endclass endclocking endconfig endfunction endgenerate endgroup " +
+    "jequery do edge else end endcase endchecker endclass endclocking endconfig endfunction endgenerate endgroup " +
     "endinterface endmodule endpackage endprimitive endprogram endproperty endspecify endsequence endtable endtask " +
     "enum event eventually expect export extends extern final first_match for force foreach forever fork forkjoin " +
     "function generate genvar global highz0 highz1 if iff ifnone ignore_bins illegal_bins implements implies import " +

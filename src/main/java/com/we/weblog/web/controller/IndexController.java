@@ -15,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
@@ -33,7 +31,6 @@ import java.util.Map;
 @Controller
 public class IndexController extends  BaseController {
 
-
     private PostService postService;
     private CommentService commentSerivce;
     private static int  postId ;
@@ -49,14 +46,7 @@ public class IndexController extends  BaseController {
         postId = postService.getLastestBlogId();
     }
 
-    /**
-     * 首页视图
-     * @return
-     */
-    @GetMapping("/")
-    public ModelAndView index(){
-        return new ModelAndView("index");
-    }
+
 
     /**
      * 添加评论

@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.config.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,7 +22,7 @@ import java.io.IOException;
  *  <pre>
  *     拦截器，资源路径配置
  * </pre>
- *
+ *总结：大家在使用2.0版本的springboot的时候 使用WebMvcConfigurationSupport类配置拦截器时一定要重写addResourceHandlers来实现静态资源的映射,不要使用application.properties中添加配置来实现映射，不然资源会映射不成功导致打开页面资源一直加载不到。会出现下面这种奇怪的问题
  * @author tangwei
  * @date 2018/10/18 17:13
  */
@@ -29,28 +30,28 @@ import java.io.IOException;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.we.weblog.web.controller")
 @PropertySource(value = "classpath:application.yml", ignoreResourceNotFound = true, encoding = "UTF-8")
-public class WebMainConig extends WebMvcConfigurationSupport {
+public class WebMainConig implements WebMvcConfigurer {
 
     @Resource
     private InstallInterceptor installInterceptor;
 
     private String LOGIN_URL = "/login1.html" ;
 
-    /**ser
-     * 注册拦截器
-     * @param registry
-     */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(installInterceptor)
-                .addPathPatterns("/admin/**")
-                .excludePathPatterns("/index")
-                .excludePathPatterns("/static/**")
-                .excludePathPatterns("/install");
-
-        //单点登录拦截器
-        registry.addInterceptor(ssoInterceptor()).addPathPatterns("/admin/**");
-    }
+//    /**ser
+//     * 注册拦截器
+//     * @param registry
+//     */
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry){
+////        registry.addInterceptor(installInterceptor)
+////                .addPathPatterns("/admin/**")
+////                .excludePathPatterns("/index")
+////                .excludePathPatterns("/static/**")
+////                .excludePathPatterns("/install");
+//
+////        //单点登录拦截器
+////        registry.addInterceptor(ssoInterceptor()).addPathPatterns("/admin/**");
+//    }
 
 
     /**
@@ -63,6 +64,16 @@ public class WebMainConig extends WebMvcConfigurationSupport {
         //不加的话无法加载静态资源
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/lib/**")
+                .addResourceLocations("classpath:/lib/");
+        registry.addResourceHandler("/fonts")
+                .addResourceLocations("classpath:/static/fonts/");
+        registry.addResourceHandler("/loading.png")
+                .addResourceLocations("classpath:/static/images/loading.png");
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/templates/source/");
+
+
     }
 
 

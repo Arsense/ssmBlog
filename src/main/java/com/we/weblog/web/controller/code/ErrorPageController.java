@@ -16,20 +16,20 @@ public class ErrorPageController implements ErrorController {
     @Override
     public String getErrorPath() {
         //直接返回错误界面吧 先不多做处理
-        return "redirect:/404";
+        return "404";
     }
 
     @RequestMapping
     public String error() {
         return getErrorPath();
     }
-    /**
-     * 渲染404页面
-     *
-     * @return String
-     */
-    @GetMapping(value = "/404")
-    public String fourZeroFour() {
-        return "404";
-    }
+//    /**
+//     * 渲染404页面
+//     *
+//     * @return String
+//     */
+//    @GetMapping(value = "/404")
+//    public String fourZeroFour() {
+//        return "404";
+//    }
 }

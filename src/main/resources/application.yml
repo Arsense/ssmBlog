@@ -1,8 +1,12 @@
 server:
   port: 8002
 spring:
-#    thymeleaf:
-#        prefix: classpath:/templates/
+    thymeleaf:
+        prefix: classpath:/templates/
+    mvc:
+      view:
+        prefix: /
+        suffix: .html
     datasource:
       username: root
       password:

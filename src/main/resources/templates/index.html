@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="shortcut icon" href="./icon/snow.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="../static/icon/snow.ico" type="image/x-icon" />
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -10,7 +10,7 @@
     <meta name="description" content="今生今世轮回尽, 来世愿为幻想乡">
     <title>clayの部落格</title>
     <!-- inject:style -->
-    <link href="./css/style.css" rel="stylesheet" type="text/css">
+    <link href="../static/css/style.css" rel="stylesheet" type="text/css">
     <!-- endinject -->
     <style>
         .cube-loading {
@@ -18,7 +18,7 @@
             position: fixed;
             width: 100%;
             height: 100%;
-            background: url('./images/lg/loading.gif') no-repeat center center;
+            background: url('../static/images/lg/loading.gif') no-repeat center center;
             background-color: rgba(0,0,0,.7);
         }
 
@@ -64,7 +64,7 @@
 
             <li>
                 <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
-                <a href="./index.html">首页</a>
+                <a href="/">首页</a>
             </li>
             <li>
                 <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
@@ -73,7 +73,7 @@
 
             <li>
                 <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
-                <a href="./categories.html">分类</a>
+                <a href="./category.html">分类</a>
             </li>
 
 
@@ -439,7 +439,7 @@
 
             <li>
                 <!-- TODO change avatar.png to friend.png-->
-                <img src="./images/friend_links.jpg ">
+                <img src="../static/images/friend_links.jpg ">
                 <a href="https://aonosora.com/" target="_blank">咪西西の部落格</a>
             </li>
 
@@ -459,14 +459,15 @@
 </footer>
 
 <!-- inject:script -->
-<script src="./js/script.js"></script>
-<script src="/lib/jquery/dist/jquery.min.js "></script>
+<script src="../static/js/script.js"></script>
+
 
 
 <!-- endinject -->
 <div class="cube-loading out"></div>
 </body>
-<script src="/lib/axios/dist/axios.min.js" ></script>
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/axios.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script>
     var vm = new Vue({

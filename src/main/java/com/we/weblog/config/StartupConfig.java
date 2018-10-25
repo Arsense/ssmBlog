@@ -39,9 +39,12 @@ public class StartupConfig  implements ApplicationListener<ApplicationStartedEve
         this.loadOptions();
     }
 
+
     private void loadCurrenTheme(){
         //TODO 这里加载主题吧
     }
+
+
 
     /**
      * 加载设置选项

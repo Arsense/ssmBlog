@@ -35,7 +35,7 @@ public class WebMainConig implements WebMvcConfigurer {
     @Resource
     private InstallInterceptor installInterceptor;
 
-    private String LOGIN_URL = "/login1.html" ;
+    private String LOGIN_URL = "/login.html" ;
 
 //    /**ser
 //     * 注册拦截器
@@ -64,14 +64,16 @@ public class WebMainConig implements WebMvcConfigurer {
         //不加的话无法加载静态资源
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/static/");
-        registry.addResourceHandler("/lib/**")
-                .addResourceLocations("classpath:/lib/");
         registry.addResourceHandler("/fonts")
                 .addResourceLocations("classpath:/static/fonts/");
         registry.addResourceHandler("/loading.png")
                 .addResourceLocations("classpath:/static/images/loading.png");
         registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/templates/source/");
+
+//
+//        registry.addResourceHandler("/META-INF/resources/lib/**")
+//                .addResourceLocations("classpath:/lib/");
 
 
     }

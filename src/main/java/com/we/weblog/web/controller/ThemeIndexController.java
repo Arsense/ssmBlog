@@ -27,9 +27,9 @@ public class ThemeIndexController extends BaseController {
      * 首页视图
      * @return
      */
-    @GetMapping("/login1")
+    @GetMapping("/login")
     public String login(){
-        return "/login1";
+        return "/login";
     }
 
     /**

@@ -56,7 +56,7 @@ public class LoginController extends BaseController{
             SSOHelper.setCookie(request, response, SSOToken.create().setIp(request).setId(1000).setIssuer(username), false);
             return redirectTo("/index.html#/admin/index.html");
         } else {
-            return redirectTo("/login1.html");
+            return redirectTo("/login.html");
         }
     }
 
@@ -85,7 +85,7 @@ public class LoginController extends BaseController{
         if(ssoToken != null) {
             return redirectTo("/admin/index.html");
         }
-        return redirectTo("/login1.html");
+        return redirectTo("/login.html");
     }
 
 

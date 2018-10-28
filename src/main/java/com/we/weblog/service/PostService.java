@@ -1,6 +1,5 @@
 package com.we.weblog.service;
 
-import com.we.weblog.domain.Category;
 import com.we.weblog.domain.Post;
 import com.we.weblog.domain.YearBlog;
 import java.io.IOException;
@@ -13,26 +12,47 @@ import java.util.*;
  */
 public interface PostService {
 
-    int getCategoryCount();
-    List<Category> sortBlogsByCategories();
-    List<String> getCategories();
-    List<Category>  getBlogsFromTags(List<Post> contexts);
-    int getLastestBlogId();
-    List<String> getTagList(String tagString);
-    Post getAboutme() throws Exception;
-    void addBlogTags(String tags,int id);
-    List<Post> getLastestBlogs();
-    void updateBlogTag(String tags,int id);
-    void updateBlog(Post context, int uid) throws SQLException;
-    List<Post> showBlogs(int page);
-    List<Post> getBlogsByTag(String tagName);
-    Post getPreviousBlog(int uid);
-    Post getNextBlog(int uid);
-    List<YearBlog> getYearBlog(int page) throws IOException;
-    List<YearBlog> sortBlogsByYears(List<Post> bloglist) throws IOException;
-    int getTotalBlog();
-    List<String> getAllKindTags();
-    List<Post> getRecentBlogs(int limit);
+    /***
+     * 查询关于我
+     * @return
+     * @throws Exception
+     */
+    Post findAuthor() throws Exception;
+
+    /**
+     * 更新博客
+     * @param context
+     * @param uid
+     * @throws SQLException
+     */
+    void updatePost(Post context, int uid) throws SQLException;
+
+    /**
+     * 一页一页查询博客
+     * @param page
+     * @return
+     */
+    List<Post> findPostByPage(int page);
+
+    /**
+     * 根据标签名查询博客
+     * @param tagName
+     * @return
+     */
+    List<Post> findPostsByTagName(String tagName);
+
+    /**
+     * 根据年份和月份查询文章
+     *
+     * @return List
+     */
+    List<YearBlog> findPostByYearAndMonth(int page) throws IOException;
+
+    /**
+     * 获取博客总数量
+     * @return
+     */
+    int findPostCount();
 
 
     /**
@@ -42,13 +62,17 @@ public interface PostService {
     List<Post> getArticlePages();
 
     /**
-     * 将Date变成年月份
-     * @param pages
+     * 清楚博客里面分类字段
+     * @param name
      * @return
      */
-    List<Post> sortContextDate(List<Post> pages);
-     int deleteCatories(String name);
-     void addOneHits(Post context);
+     int removePostCategory(String name);
+
+    /**
+     * 修改文章阅读量
+     * @param context
+     */
+    void updatePostView(Post context);
 
     /**
      * 新增文章
@@ -59,14 +83,25 @@ public interface PostService {
     void saveByPost(Post post) throws SQLException;
 
     /**
+     * 查询Id之后的一篇文章
+     *
+     * @return List
+     */
+    Post findNextPost(int uid);
+
+    /**
+     * 查询Id之前的一篇文章
+     *
+     * @return List
+     */
+    Post findPreviousPost(int uid);
+    /**
      * 根据编号删除文章
      *
      * @param postId postId
      * @return Post
      */
     Integer removeByPostId(Integer postId);
-
-
     /**
      * 修改文章状态
      *
@@ -75,7 +110,6 @@ public interface PostService {
      * @return Post
      */
     Post updatePostStatus(Long postId, Integer status);
-
     /**
      * 获取文章列表 不分页
      *
@@ -83,8 +117,6 @@ public interface PostService {
      * @return List
      */
     List<Post> findAllPosts(String postType);
-
-
     /**
      * 模糊查询文章
      *
@@ -106,5 +138,5 @@ public interface PostService {
      *
      * @return List
      */
-    List<Post> findLastestPost();
+    List<Post> findLastestPost(int limit);
 }

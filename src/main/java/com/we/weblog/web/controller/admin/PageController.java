@@ -13,6 +13,8 @@ import com.we.weblog.tool.IpTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
@@ -20,18 +22,12 @@ import javax.servlet.http.HttpServletResponse;
 public class PageController extends BaseController{
 
 
+    @Resource
     private PostService postService;
+    @Resource
     private TagService tagService;
+    @Resource
     private LogsService logService;
-
-    //编辑 删除 添加功能
-
-    @Autowired
-    public  PageController(LogsService logService,PostService postService,TagService tagService) {
-        this.logService = logService;
-        this.postService = postService;
-        this.tagService = tagService;
-    }
 
 
     @PostMapping("/publish")
@@ -47,7 +43,6 @@ public class PageController extends BaseController{
         }
         response.sendRedirect("/admin/pages.html");
     }
-
 
 
     @GetMapping("/delete/{id}")

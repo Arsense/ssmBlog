@@ -3,6 +3,8 @@ package com.we.weblog.web.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,9 +13,9 @@ public class BaseController {
 
     protected Logger LOG = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
+    @Resource
     protected HttpServletRequest request;
-    @Autowired
+    @Resource
     protected HttpServletResponse response;
 
     String redirectTo(String url) {

@@ -7,6 +7,8 @@ import com.we.weblog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -17,14 +19,11 @@ import java.util.*;
 @RequestMapping("/admin/category")
 public class CategoryController {
 
+    @Resource
     private PostService postService;
+    @Resource
     private TagService tagService;
 
-    @Autowired
-    public CategoryController(PostService postService,TagService tagService){
-        this.postService = postService;
-        this.tagService = tagService;
-    }
 
     /**
      *  添加博客分类显示
@@ -47,7 +46,8 @@ public class CategoryController {
           if (categoryName.equals("")) {
             return UIModel.fail().msg("删除的类别为空");
           }
-          int result = postService.deleteCatories(categoryName);
+//          int result = postService.deleteCatories(categoryName);
+            int result = 0;
           tagService.deleteMetas(categoryName);
           if(result >= 0) {
               return UIModel.success().msg("删除成功");
@@ -64,8 +64,8 @@ public class CategoryController {
     public Map<String,Object> manageCategoryAndTag() {
         Map<String,Object> maps  = new HashMap<>();
         List<String> cates = tagService.getMates();
-        List<String> tags = postService.getAllKindTags();
-
+//        List<String> tags = postService.getAllKindTags();
+        List<String> tags = new ArrayList<>();
         maps.put("categories",cates);
         maps.put("tags",tags);
         return maps;

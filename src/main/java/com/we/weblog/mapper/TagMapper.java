@@ -10,14 +10,13 @@ import java.util.List;
 @Mapper
 public interface TagMapper {
 
-
     /**
      *  显示所有的tags
      * @return
      */
     @Select({"select distinct tag_name from t_tag "})
     @ResultType(String.class)
-    List<String> selectAllKindTags();
+    List<String> findAll();
 
     @Insert({
             "insert ignore into t_tag (tag_name,uid) values (#{tag},#{id})"})

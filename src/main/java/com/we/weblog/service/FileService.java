@@ -5,6 +5,10 @@ import com.we.weblog.domain.UploadPicture;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ *  <pre>
+ *     附件文件管理接口
+ * </pre>
+ *
  * @author tangwei
  * @date 2018/10/23 19:34
  */

@@ -19,7 +19,6 @@ public class Post {
     //md内容
     private String  md;
     //发布时间
-
     private String month;
     //文章类型
     private String type;

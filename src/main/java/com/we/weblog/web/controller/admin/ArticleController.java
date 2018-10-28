@@ -122,7 +122,7 @@ public class ArticleController extends BaseController{
      @PostMapping("/update")
      @ResponseBody
      public UIModel updateDate(@RequestBody Post context) throws SQLException {
-        postService.updateBlog(context,updateId);
+        postService.updatePost(context,updateId);
          return UIModel.success().msg("修改成功！");
      }
 
@@ -160,9 +160,9 @@ public class ArticleController extends BaseController{
 
         //获得最新的20条日志  获得最新的文章  后台统计对象
         Map<String,Object> map = new HashMap<>();
-        int blogCount = postService.getTotalBlog();
+        int blogCount = postService.findPostCount();
         int commnetCount = commentSerivce.getCommentCount();
-        List<Post> contexts = postService.getRecentBlogs(5);
+        List<Post> contexts = postService.findLastestPost(5);
         List<Comment> comments = commentSerivce.getAllComments();
         List<Log> logs = logService.findLastestTenLogs(10);
 
@@ -182,7 +182,7 @@ public class ArticleController extends BaseController{
     @GetMapping("/blog/list")
     @ResponseBody
     public UIModel getBlogList() {
-        List<Post> tempContexts = postService.showBlogs(1);
+        List<Post> tempContexts = postService.findLastestPost(1);
 
         FormModel formModel = new FormModel();
         formModel.createFormItem("uid").setHidden(false).setLabel("博客编号");

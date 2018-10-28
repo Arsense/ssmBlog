@@ -37,21 +37,21 @@ public class WebMainConig implements WebMvcConfigurer {
 
     private String LOGIN_URL = "/login.html" ;
 
-//    /**ser
-//     * 注册拦截器
-//     * @param registry
-//     */
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry){
+    /**ser
+     * 注册拦截器
+     * @param registry
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry){
 ////        registry.addInterceptor(installInterceptor)
 ////                .addPathPatterns("/admin/**")
 ////                .excludePathPatterns("/index")
 ////                .excludePathPatterns("/static/**")
 ////                .excludePathPatterns("/install");
 //
-////        //单点登录拦截器
-////        registry.addInterceptor(ssoInterceptor()).addPathPatterns("/admin/**");
-//    }
+        //单点登录拦截器
+        registry.addInterceptor(ssoInterceptor()).addPathPatterns("/admin/**");
+   }
 
 
     /**
@@ -70,10 +70,9 @@ public class WebMainConig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/static/images/loading.png");
         registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/templates/source/");
-
-//
-//        registry.addResourceHandler("/META-INF/resources/lib/**")
-//                .addResourceLocations("classpath:/lib/");
+        //添加jar包中静态资源的方法
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
 
 
     }

@@ -1,6 +1,8 @@
 package com.we.weblog.service;
 
 import com.we.weblog.domain.Select;
+import com.we.weblog.domain.Tags;
+
 import java.util.List;
 
 /**
@@ -9,11 +11,26 @@ import java.util.List;
  */
 public interface TagService {
 
+    /**
+     * 获取所有标签
+     *
+     * @return List
+     */
      List<String> getTotalTagsName();
 
+    /**
+     * 获取所有标签
+     *
+     * @return List
+     */
      void deleteTag(int uid);
 
-    // 删除category from metas
+
+    /**
+     * 获取所有标签
+     *
+     * @return List
+     */
     int deleteMetas(String name);
 
 
@@ -23,6 +40,7 @@ public interface TagService {
      * @return
      */
     int clearTagData(String tagName);
+
     /**
      * 添加分类
      * @param name
@@ -30,10 +48,43 @@ public interface TagService {
      */
     int addCategory(String name);
 
+    /**
+     * 获取所有标签
+     *
+     * @return List
+     */
     List<String> getMates();
 
 
-
+    /**
+     * 获取所有标签
+     *
+     * @return List
+     */
     List<Select> getCategories();
+
+    /**
+     * 获取所有标签
+     *
+     * @return List
+     */
+    void updateBlogTag(String tags,int id);
+
+    /**
+     * 获取所有标签
+     *
+     * @return List
+     */
+    List<String> findAllTags();
+
+
+    /**
+     * 获取所有标签
+     *
+     * @return List
+     */
+    void addBlogTags(String tags,int id);
+
+
 
 }

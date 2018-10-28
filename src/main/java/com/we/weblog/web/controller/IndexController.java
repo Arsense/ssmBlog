@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ import java.util.Map;
  *   前端页面显示的控制器
  */
 @Controller
-public class IndexController extends  BaseController {
+public class IndexController extends BaseController {
 
     private PostService postService;
     private CommentService commentSerivce;
@@ -43,9 +44,9 @@ public class IndexController extends  BaseController {
         this.tagService = tagService;
         this.postService = postService;
         //初始化postID 为第一个 防止单独访问为0 什么都木有
-        postId = postService.getLastestBlogId();
+//        postId = postService.getLastestBlogId();
+        postId = 0;
     }
-
 
 
     /**
@@ -80,9 +81,11 @@ public class IndexController extends  BaseController {
     @GetMapping("/get_kind_blogs")
     @ResponseBody
     public List<Category> getBlogsByTag(){
-        List<Category> lists = postService.sortBlogsByCategories();
-        return lists;
+//        List<Category> lists = postService.sortBlogsByCategories();
+//        return lists;
+        return null;
     }
+
 
     /**
      *  先处理好数据 要不然后让所有url 在
@@ -98,8 +101,10 @@ public class IndexController extends  BaseController {
     @GetMapping("/tags_data")
     @ResponseBody
     public List<String> getAllTags(){
-        List<String> list = postService.getAllKindTags();
-        return list;
+//        List<String> list = postService.getAllKindTags();
+//        return list;
+
+        return null;
     }
 
     /**
@@ -122,7 +127,8 @@ public class IndexController extends  BaseController {
     @GetMapping("/tags_detail_data")
     @ResponseBody
     public  List<Post> tagDetailData() {
-        return  postService.getBlogsByTag(tagName);
+//        return  postService.getBlogsByTag(tagName);
+        return null;
     }
 
 
@@ -156,11 +162,13 @@ public class IndexController extends  BaseController {
         //如果是首页
         Map<String,Object> maps = new HashMap<>();
         List<String> tagsName = tagService.getTotalTagsName();
-        int blogCount = postService.getTotalBlog();
-        int categoryCount = postService.getCategoryCount();
+//        int blogCount = postService.findAllPosts();
+//        int categoryCount = postService.getCategoryCount();
         int totalTags = 10;
+        int blogCount = 0;
+        int categoryCount = 0;
         //旁边博客展示都需要
-        List<Post> blogs = postService.getLastestBlogs();
+        List<Post> blogs = postService.findLastestPost(1);
         maps.put(Types.BLOGS,blogs);
 
         sortPagesMap(maps,page);
@@ -190,7 +198,8 @@ public class IndexController extends  BaseController {
      */
     public  void sortPagesMap(Map<String,Object> maps, String pageType) throws Exception {
         if (pageType.equals(Types.PAGE_CATEGORY)) {
-            List<Category> cBlogs = postService.sortBlogsByCategories();
+//            List<Category> cBlogs = postService.sortBlogsByCategories();
+            List<Category> cBlogs = new ArrayList<>();
             maps.put(Types.CATEGORIES,cBlogs);
         } else if (pageType.contains(Types.PAGE_ARTICLE)) {
 
@@ -200,9 +209,9 @@ public class IndexController extends  BaseController {
             }
             Post currentContext = postService.findByPostId(getId);
             //增加一次访问量
-            postService.addOneHits(currentContext);
-            Post preContext = postService.getPreviousBlog(getId);
-            Post nextContext = postService.getNextBlog(getId);
+//            postService.addOneHits(currentContext);
+            Post preContext = postService.findPreviousPost(getId);
+            Post nextContext = postService.findNextPost(getId);
             int uid = currentContext.getUid();
             //显示评论
             if (uid > 0) {
@@ -214,13 +223,11 @@ public class IndexController extends  BaseController {
             maps.put(Types.PREVIOUS_BLOG, preContext);
 
         } else if (pageType.equals(Types.PAGE_ARCHIVE)) {
-
-            List<YearBlog> yearBlogs = postService.getYearBlog(1);
+            List<YearBlog> yearBlogs = postService.findPostByYearAndMonth(1);
             maps.put(Types.BLOGS_DATA,yearBlogs);
 
         } else if (pageType.equals(Types.PAGE_ABOUT)) {
-
-            Post about = postService.getAboutme();
+            Post about = postService.findAuthor();
             maps.put(Types.BLOG,about);
 
         }

@@ -11,18 +11,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
+
 @Controller
 @RequestMapping("/admin/tags")
 public class TagController extends BaseController {
 
+    @Resource
     private PostService postService;
+    @Resource
     private TagService tagService;
 
-    @Autowired
-    public TagController(PostService postService,TagService tagService) {
-        this.postService = postService;
-        this.tagService = tagService;
-    }
 
     @GetMapping("/delete/{name}")
     @ResponseBody
@@ -31,7 +30,8 @@ public class TagController extends BaseController {
             return UIModel.fail().msg("删除的标签类别为空");
         }
         int result = tagService.clearTagData(tagName);
-        int check = postService.deleteCatories(tagName);
+//        int check = postService.deleteCatories(tagName);
+        int check = 0;
         if (result >= 0 && check >= 0) {
             return UIModel.success().msg("删除成功");
         } else {

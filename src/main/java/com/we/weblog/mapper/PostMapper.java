@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Repository
 @Mapper
-public interface ContextMapper {
+public interface PostMapper {
 
 
     /**

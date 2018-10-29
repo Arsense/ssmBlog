@@ -20,12 +20,11 @@ public class InstallInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //TODO 先不拦截吧
         return true;
-//        if (StringUtils.equals("true", BaseConfigUtil.OPTIONS.get(BaseBlogEnum.IS_INSTALL.getProp()))) {
+//        if(StringUtils.equals("true", BaseConfigUtil.OPTIONS.get(BaseBlogEnum.IS_INSTALL.getProp()))) {
 //            return true;
 //        }
-//
-//        response.sendRedirect("/install");
-//        return false;
+//       response.sendRedirect("/install");
+//       return false;
     }
 
     @Override

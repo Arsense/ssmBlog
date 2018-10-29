@@ -53,7 +53,6 @@ public class WebMainConig implements WebMvcConfigurer {
         registry.addInterceptor(ssoInterceptor()).addPathPatterns("/admin/**");
    }
 
-
     /**
      * 配置静态资源路径
      *
@@ -64,16 +63,23 @@ public class WebMainConig implements WebMvcConfigurer {
         //不加的话无法加载静态资源
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/static/");
+
         registry.addResourceHandler("/fonts")
                 .addResourceLocations("classpath:/static/fonts/");
+
         registry.addResourceHandler("/loading.png")
                 .addResourceLocations("classpath:/static/images/loading.png");
+
+        registry.addResourceHandler("/font.jpg")
+                .addResourceLocations("classpath:/templates/source/images/font.jpg");
+        registry.addResourceHandler("/friend_links.jpg")
+                .addResourceLocations("classpath:/templates/source/images/friend_links.jpg");
+
         registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/templates/source/");
         //添加jar包中静态资源的方法
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-
+        registry.addResourceHandler("/lib/**")
+                .addResourceLocations("classpath:/META-INF/resources/lib/");
 
     }
 

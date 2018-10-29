@@ -14,7 +14,6 @@ import com.we.weblog.domain.UploadPicture;
 import com.we.weblog.domain.modal.LogActions;
 import com.we.weblog.domain.modal.Types;
 import com.we.weblog.tool.IpTool;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;

@@ -90,7 +90,7 @@ public interface PostMapper {
     List<Post> selectBlogsByCategories();
 
 
-    @Select({"select uid,title,created from t_context " +
+    @Select({"select uid,title,article,created from t_context " +
             "where type = 'post' order by created desc limit #{p},20"})
     List<Post> getNewBlogs(@Param("p") int page);
 

@@ -70,11 +70,6 @@ public class WebMainConig implements WebMvcConfigurer {
         registry.addResourceHandler("/loading.png")
                 .addResourceLocations("classpath:/static/images/loading.png");
 
-        registry.addResourceHandler("/font.jpg")
-                .addResourceLocations("classpath:/templates/source/images/font.jpg");
-        registry.addResourceHandler("/friend_links.jpg")
-                .addResourceLocations("classpath:/templates/source/images/friend_links.jpg");
-
         registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/templates/source/");
         //添加jar包中静态资源的方法

@@ -1,4 +1,4 @@
-package com.we.weblog.tool;
+package com.we.weblog.util;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Iterator;
 
-public class FileTools {
+public class FileUtil {
 
      private static Path getJavaResources() {
          String userDir = System.getProperty("user.dir") ;
@@ -37,9 +37,9 @@ public class FileTools {
     public  static String uploadPicture(HttpServletRequest request) throws IOException {
         MultipartFile   files = getMultipartFile(request);
         //设置图片名称为currentTimeMillis+文件后缀
-        String  fileName = String.valueOf(System.currentTimeMillis()+"."+FileTools.getSuffix(files.getOriginalFilename()));
+        String  fileName = String.valueOf(System.currentTimeMillis()+"."+ FileUtil.getSuffix(files.getOriginalFilename()));
         //然后设置路径
-        String  date = TimeTool.getCurrentTime();
+        String  date = TimeUtil.getCurrentTime();
         String  path = getJavaResources().toString();
         //图片存储路径为根路径/年月。比如staic/picture/201608
         File filePath = new File(path);

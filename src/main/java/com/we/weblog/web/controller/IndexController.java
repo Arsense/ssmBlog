@@ -44,7 +44,7 @@ public class IndexController extends BaseController {
         this.tagService = tagService;
         this.postService = postService;
         //初始化postID 为第一个 防止单独访问为0 什么都木有
-//        postId = postService.getLastestBlogId();
+        postId = postService.getLastestBlogId();
         postId = 0;
     }
 
@@ -81,9 +81,8 @@ public class IndexController extends BaseController {
     @GetMapping("/get_kind_blogs")
     @ResponseBody
     public List<Category> getBlogsByTag(){
-//        List<Category> lists = postService.sortBlogsByCategories();
-//        return lists;
-        return null;
+        List<Category> lists = postService.sortBlogsByCategories();
+        return lists;
     }
 
 
@@ -101,10 +100,8 @@ public class IndexController extends BaseController {
     @GetMapping("/tags_data")
     @ResponseBody
     public List<String> getAllTags(){
-//        List<String> list = postService.getAllKindTags();
-//        return list;
-
-        return null;
+        List<String> list = tagService.findAllTags();
+        return list;
     }
 
     /**
@@ -127,8 +124,7 @@ public class IndexController extends BaseController {
     @GetMapping("/tags_detail_data")
     @ResponseBody
     public  List<Post> tagDetailData() {
-//        return  postService.getBlogsByTag(tagName);
-        return null;
+        return  postService.findPostsByTagName(tagName);
     }
 
 
@@ -162,11 +158,10 @@ public class IndexController extends BaseController {
         //如果是首页
         Map<String,Object> maps = new HashMap<>();
         List<String> tagsName = tagService.getTotalTagsName();
-//        int blogCount = postService.findAllPosts();
-//        int categoryCount = postService.getCategoryCount();
+        int postCount = postService.findPostCount();
+        int categoryCount = postService.getCategoryCount();
         int totalTags = 10;
-        int blogCount = 0;
-        int categoryCount = 0;
+
         //旁边博客展示都需要
         List<Post> blogs = postService.findLastestPost(1);
         maps.put(Types.BLOGS,blogs);
@@ -174,7 +169,7 @@ public class IndexController extends BaseController {
         sortPagesMap(maps,page);
         maps.put(Types.TAG_NAME,tagsName);
         maps.put(Types.TAG_COUNT,totalTags);
-        maps.put(Types.BLOG_COUNT,blogCount);
+        maps.put(Types.BLOG_COUNT,postCount);
         maps.put(Types.CATEGORY_COUNT,categoryCount);
 
         return maps;
@@ -198,8 +193,7 @@ public class IndexController extends BaseController {
      */
     public  void sortPagesMap(Map<String,Object> maps, String pageType) throws Exception {
         if (pageType.equals(Types.PAGE_CATEGORY)) {
-//            List<Category> cBlogs = postService.sortBlogsByCategories();
-            List<Category> cBlogs = new ArrayList<>();
+            List<Category> cBlogs = postService.sortBlogsByCategories();
             maps.put(Types.CATEGORIES,cBlogs);
         } else if (pageType.contains(Types.PAGE_ARTICLE)) {
 
@@ -209,7 +203,7 @@ public class IndexController extends BaseController {
             }
             Post currentContext = postService.findByPostId(getId);
             //增加一次访问量
-//            postService.addOneHits(currentContext);
+            postService.updatePostVisit(currentContext);
             Post preContext = postService.findPreviousPost(getId);
             Post nextContext = postService.findNextPost(getId);
             int uid = currentContext.getUid();

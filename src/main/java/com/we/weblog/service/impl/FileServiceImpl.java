@@ -2,7 +2,7 @@ package com.we.weblog.service.impl;
 
 import com.we.weblog.domain.UploadPicture;
 import com.we.weblog.service.FileService;
-import com.we.weblog.tool.FileTools;
+import com.we.weblog.util.FileUtil;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,7 +21,7 @@ public class FileServiceImpl implements FileService {
         String url;
         UploadPicture picture = new UploadPicture();
         try {
-             url = FileTools.uploadPicture(request);
+             url = FileUtil.uploadPicture(request);
         } catch(Exception e) {
             e.printStackTrace();
             throw new Exception("loadPicture() error , load picture error");

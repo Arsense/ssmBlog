@@ -1,5 +1,6 @@
 package com.we.weblog.service;
 
+import com.we.weblog.domain.Category;
 import com.we.weblog.domain.Post;
 import com.we.weblog.domain.YearBlog;
 import java.io.IOException;
@@ -11,6 +12,31 @@ import java.util.*;
  * @date 2018/10/23 19:24
  */
 public interface PostService {
+    /**
+     * 更新博客访问量
+     *
+     * @param context
+     */
+    void updatePostVisit(Post context);
+    /**
+     * 得到分类总数
+     *
+     * @return
+     */
+    int getCategoryCount();
+
+    /**
+     * 获取最新博客Id
+     * @return
+     */
+    int getLastestBlogId();
+
+    /**
+     * 根据分类查询整理博客
+     *
+     * @return
+     */
+    List<Category> sortBlogsByCategories();
 
     /***
      * 查询关于我
@@ -68,11 +94,6 @@ public interface PostService {
      */
      int removePostCategory(String name);
 
-    /**
-     * 修改文章阅读量
-     * @param context
-     */
-    void updatePostView(Post context);
 
     /**
      * 新增文章
@@ -113,10 +134,10 @@ public interface PostService {
     /**
      * 获取文章列表 不分页
      *
-     * @param postType post or page
+     * @param page post or page
      * @return List
      */
-    List<Post> findAllPosts(String postType);
+    List<Post> findAllPosts(int page);
     /**
      * 模糊查询文章
      *

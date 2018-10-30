@@ -3,7 +3,7 @@ package com.we.weblog.service.impl;
 import com.we.weblog.domain.Log;
 import com.we.weblog.mapper.LogMapper;
 import com.we.weblog.service.LogsService;
-import com.we.weblog.tool.TimeTool;
+import com.we.weblog.util.TimeUtil;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
@@ -37,7 +37,7 @@ public class LogsServicesImpl implements LogsService {
         }
         List<Log> logs= logMapper.getLogs(limit);
         for (Log log:logs) {
-            log.setDateFormat(TimeTool.getFormatClearToSecond(log.getCreated()));
+            log.setDateFormat(TimeUtil.getFormatClearToSecond(log.getCreated()));
         }
         return logs;
     }

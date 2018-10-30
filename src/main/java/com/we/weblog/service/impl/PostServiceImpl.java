@@ -4,7 +4,8 @@ import com.we.weblog.domain.*;
 import com.we.weblog.domain.modal.Types;
 import com.we.weblog.mapper.PostMapper;
 import com.we.weblog.service.PostService;
-import com.we.weblog.tool.TimeTool;
+import com.we.weblog.service.TagService;
+import com.we.weblog.util.TimeUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
@@ -18,18 +19,30 @@ public class PostServiceImpl implements PostService {
     @Resource
     private PostMapper postMapper;
 
+    @Resource
+    private TagService tagService;
 
+    /**
+     * 得到分类总数
+     *
+     * @return
+     */
+    @Override
    public int getCategoryCount(){
-       return postMapper.selectAllCategories().size();
+        return postMapper.selectAllCategories().size();
    }
 
-
+    @Override
     public List<Category> sortBlogsByCategories(){
         List<Post> contexts = postMapper.selectBlogsByCategories();
         return getBlogsFromTags(contexts);
     }
 
-
+    /**
+     * 得到所有分类名
+     *
+     * @return
+     */
     public List<String> getCategories(){
        return postMapper.selectAllCategories();
     }
@@ -54,29 +67,21 @@ public class PostServiceImpl implements PostService {
         }
         return  categoryBlogs;
     }
+
+    /**
+     * 获取最新博客Id
+     *
+     * @return
+     */
+    @Override
     public int getLastestBlogId(){
         return postMapper.getblogId().getUid();
     }
 
 
-
-    public Post getAboutme() throws Exception {
-       Post context = postMapper.selectAboutMe();
-       if(context == null){
-           throw new Exception("关于我没创建");
-       }
-       context.setMonth(TimeTool.getFormatClearToDay(context.getCreated()));
-
-        return context;
-    }
-
-
-
     public  List<Post> getLastestBlogs(){
         return sortPostDate(postMapper.getTenBlogs(6));
     }
-
-
 
     public void updateBlog(Post context, int uid) throws SQLException {
         try{
@@ -85,27 +90,7 @@ public class PostServiceImpl implements PostService {
             e.printStackTrace();
             throw new SQLException("update fail");
         }
-//        updateBlogTag(context.getTags(), uid);
-    }
-
-
-    /**
-     *  批量查询博客
-     * @param page
-     * @return
-     */
-    public List<Post> showBlogs(int page) {
-        if (page < 0 || page > 10){
-            page = 1;
-        }
-        page = page * 10;
-        return sortPostDate(postMapper.getTenBlogs(page));
-    }
-
-
-
-    public List<Post> getBlogsByTag(String tagName) {
-        return postMapper.selectBlogByTag(tagName);
+        tagService.updateBlogTag(context.getTags(), uid);
     }
 
 
@@ -121,7 +106,7 @@ public class PostServiceImpl implements PostService {
         if(context == null){
             return null;
         }
-        context.setMonth(TimeTool.getFormatClearToDay(context.getCreated()));
+        context.setMonth(TimeUtil.getFormatClearToDay(context.getCreated()));
 
         return context;
     }
@@ -137,7 +122,7 @@ public class PostServiceImpl implements PostService {
         if (context == null) {
             return null;
         }
-        context.setMonth(TimeTool.getFormatClearToDay(context.getCreated()));
+        context.setMonth(TimeUtil.getFormatClearToDay(context.getCreated()));
 
         return context;
 
@@ -145,22 +130,19 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post findAuthor() throws Exception {
-        return null;
+        Post context = postMapper.selectAboutMe();
+        if(context == null){
+            throw new Exception("关于我没创建");
+        }
+        context.setMonth(TimeUtil.getFormatClearToDay(context.getCreated()));
+
+        return context;
     }
 
-    @Override
-    public void updatePost(Post context, int uid) throws SQLException {
-
-    }
-
-    @Override
-    public List<Post> findPostByPage(int page) {
-        return null;
-    }
 
     @Override
     public List<Post> findPostsByTagName(String tagName) {
-        return null;
+        return postMapper.selectBlogByTag(tagName);
     }
 
     /**
@@ -175,30 +157,13 @@ public class PostServiceImpl implements PostService {
 
     }
 
+    /**
+     * 得到博客总数
+     * @return
+     */
     @Override
     public int findPostCount() {
         return postMapper.getBlogNumber();
-    }
-
-    public List<YearBlog> sortBlogsByYears(List<Post> bloglist) throws IOException{
-        List<YearBlog> yearBlogs = new ArrayList<>();
-
-        Map<Integer,YearBlog> yearMap = new HashMap<>();
-
-        for(Post context : bloglist){
-            Date date = context.getCreated();
-            context.setMonth(TimeTool.getEdate(date));
-            int year = TimeTool.getYear(date);
-            if(yearMap.containsKey(year)){
-                yearMap.get(year).getYearContexts().add(context);
-            } else {
-                YearBlog yearBlog = new YearBlog(year,new ArrayList<Post>());
-                yearMap.put(year,yearBlog);
-                yearBlog.getYearContexts().add(context);
-                yearBlogs.add(yearBlog);
-             }
-         }
-        return yearBlogs;
     }
 
 
@@ -215,10 +180,6 @@ public class PostServiceImpl implements PostService {
         return 0;
     }
 
-    @Override
-    public void updatePostView(Post context) {
-
-    }
 
 
     public int deleteCatories(String name){
@@ -227,9 +188,11 @@ public class PostServiceImpl implements PostService {
 
     /**
      * 访问量增加
+     *
      * @return
      */
-    public void addOneHits(Post context){
+    @Override
+    public void updatePostVisit(Post context){
         context.setHits(context.getHits() + 1);
         postMapper.updateHits(context);
     }
@@ -253,12 +216,11 @@ public class PostServiceImpl implements PostService {
         postMapper.insertBlog(post);
 
         try{
-//            addBlogTags(post.getTags(), post.getUid());
+            tagService.addBlogTags(post.getTags(), post.getUid());
         }catch (Exception e){
             e.printStackTrace();
             throw new SQLException("addBlog fail");
         }
-
     }
 
     /**
@@ -269,23 +231,7 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     public Integer removeByPostId(Integer postId) {
-
         return postMapper.removeByPostId(postId);
-    }
-
-    @Override
-    public Post updatePostStatus(Long postId, Integer status) {
-        return null;
-    }
-
-    @Override
-    public List<Post> findAllPosts(String postType) {
-        return null;
-    }
-
-    @Override
-    public List<Post> searchPosts(String keyWord) {
-        return null;
     }
 
     @Override
@@ -294,7 +240,7 @@ public class PostServiceImpl implements PostService {
         if(context == null){
             return null;
         }
-        context.setMonth(TimeTool.getFormatClearToDay(context.getCreated()));
+        context.setMonth(TimeUtil.getFormatClearToDay(context.getCreated()));
         return context;
     }
 
@@ -312,6 +258,37 @@ public class PostServiceImpl implements PostService {
     }
 
 
+    @Override
+    public Post updatePostStatus(Long postId, Integer status) {
+        return null;
+    }
+
+    @Override
+    public List<Post> findAllPosts(int page) {
+        if (page < 0 || page > 10){
+            page = 1;
+        }
+        page = page * 10;
+        return sortPostDate(postMapper.getTenBlogs(page));
+    }
+
+    @Override
+    public List<Post> searchPosts(String keyWord) {
+        return null;
+    }
+
+
+    @Override
+    public void updatePost(Post context, int uid) throws SQLException {
+
+    }
+
+    @Override
+    public List<Post> findPostByPage(int page) {
+        return null;
+    }
+
+
     /**
      * 将Date变成年月份
      * @param pages
@@ -319,9 +296,31 @@ public class PostServiceImpl implements PostService {
      */
     private  List<Post> sortPostDate(List<Post> pages) {
         for(Post page : pages){
-            String time = TimeTool.getFormatClearToDay(page.getCreated());
+            String time = TimeUtil.getFormatClearToDay(page.getCreated());
             page.setMonth(time);
         }
         return  pages;
+    }
+
+
+    public List<YearBlog> sortBlogsByYears(List<Post> bloglist) throws IOException{
+        List<YearBlog> yearBlogs = new ArrayList<>();
+        Map<Integer,YearBlog> yearMap = new HashMap<>();
+
+        for (Post context : bloglist) {
+            Date date = context.getCreated();
+            context.setMonth(TimeUtil.getEdate(date));
+            int year = TimeUtil.getYear(date);
+
+            if (yearMap.containsKey(year)) {
+                yearMap.get(year).getYearContexts().add(context);
+            } else {
+                YearBlog yearBlog = new YearBlog(year,new ArrayList<Post>());
+                yearMap.put(year,yearBlog);
+                yearBlog.getYearContexts().add(context);
+                yearBlogs.add(yearBlog);
+            }
+        }
+        return yearBlogs;
     }
 }

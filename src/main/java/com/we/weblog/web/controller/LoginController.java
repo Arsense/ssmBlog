@@ -9,7 +9,7 @@ import com.we.weblog.domain.Log;
 import com.we.weblog.domain.modal.LogActions;
 import com.we.weblog.service.LogsService;
 import com.we.weblog.service.UserService;
-import com.we.weblog.tool.IpTool;
+import com.we.weblog.util.AddressUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,12 +49,12 @@ public class LoginController extends BaseController{
         boolean result = userService.checkLogin(username, password);
         if (result) {
             //创建日志
-            Log loginLog =new Log(LogActions.LOGIN,username, IpTool.getIpAddress(request),1);
+            Log loginLog =new Log(LogActions.LOGIN,username, AddressUtil.getIpAddress(request),1);
             if (logService.saveByLogs(loginLog) < 0)
                 throw  new Exception("loginLog add error");
             //这里创建session 防止重复登录
             SSOHelper.setCookie(request, response, SSOToken.create().setIp(request).setId(1000).setIssuer(username), false);
-            return "/admin/index.html";
+            return "/index.html/#/admin/index.html";
         } else {
             return "/login";
         }
@@ -68,7 +68,7 @@ public class LoginController extends BaseController{
     @GetMapping("/logout")
     public String logout() {
         SSOHelper.clearLogin(request, response);
-        logService.saveByLogs(new Log(LogActions.LOGOUT,null,IpTool.getIpAddress(request),1));
+        logService.saveByLogs(new Log(LogActions.LOGOUT,null, AddressUtil.getIpAddress(request),1));
         return redirectTo("/index.html");
     }
 

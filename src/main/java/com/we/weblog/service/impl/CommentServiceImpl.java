@@ -4,8 +4,8 @@ package com.we.weblog.service.impl;
 import com.we.weblog.domain.Comment;
 import com.we.weblog.mapper.CommentMapper;
 import com.we.weblog.service.CommentService;
-import com.we.weblog.tool.IpTool;
-import com.we.weblog.tool.TimeTool;
+import com.we.weblog.util.AddressUtil;
+import com.we.weblog.util.TimeUtil;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +33,7 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> getAllComments() {
         List<Comment> comments = commentMapper.selectAllComments();
         for (Comment comment:comments){
-            comment.setTime(TimeTool.getFormatClearToSecond(comment.getCreated()));
+            comment.setTime(TimeUtil.getFormatClearToSecond(comment.getCreated()));
         }
         return  comments;
     }
@@ -47,7 +47,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Integer saveComment(Comment comment , HttpServletRequest request) {
         comment.setCreated(new Date(System.currentTimeMillis()));
-        comment.setIp(IpTool.getIpAddress(request));
+        comment.setIp(AddressUtil.getIpAddress(request));
         return commentMapper.insertComment(comment);
     }
 
@@ -63,7 +63,7 @@ public class CommentServiceImpl implements CommentService {
             return comments;
         }
         for(Comment comment:comments){
-            comment.setTime(TimeTool.getFormatClearToDay(comment.getCreated()));
+            comment.setTime(TimeUtil.getFormatClearToDay(comment.getCreated()));
         }
         return comments;
     }

@@ -1,9 +1,9 @@
-package com.we.weblog.tool;
+package com.we.weblog.util;
 
 import javax.servlet.http.HttpServletRequest;
 
 //处理IP的头信息 不然前端的框架是不会让拦截器拦截的
-public class IpTool {
+public class AddressUtil {
 
 
     public static String getIpAddress(HttpServletRequest request) {

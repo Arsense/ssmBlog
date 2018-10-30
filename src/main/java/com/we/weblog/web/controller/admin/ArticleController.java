@@ -13,7 +13,7 @@ import com.we.weblog.domain.Log;
 import com.we.weblog.domain.UploadPicture;
 import com.we.weblog.domain.modal.LogActions;
 import com.we.weblog.domain.modal.Types;
-import com.we.weblog.tool.IpTool;
+import com.we.weblog.util.AddressUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -74,7 +74,7 @@ public class ArticleController extends BaseController{
         tagService.deleteTag(deleteId);
 
         commentSerivce.removeByCommentId(deleteId);
-        logService.saveByLogs(new Log(LogActions.DELETE_BLOG,deleteId+" ", IpTool.getIpAddress(request),1));
+        logService.saveByLogs(new Log(LogActions.DELETE_BLOG,deleteId+" ", AddressUtil.getIpAddress(request),1));
 
         return UIModel.success().msg("删除成功");
 
@@ -139,7 +139,7 @@ public class ArticleController extends BaseController{
 
         context.setType(Types.ARTICLE);
         postService.saveByPost(context);
-        Log loginLog =new Log(LogActions.ADD_BLOG,"admin", IpTool.getIpAddress(request),1);
+        Log loginLog =new Log(LogActions.ADD_BLOG,"admin", AddressUtil.getIpAddress(request),1);
         if (logService.saveByLogs(loginLog) < 0) {
             message = "添加博客失败";
         }

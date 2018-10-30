@@ -1,11 +1,11 @@
-package com.we.weblog.tool;
+package com.we.weblog.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class TimeTool {
+public class TimeUtil {
 
     private static final Calendar CALENDAR =  Calendar.getInstance();
 

@@ -29,12 +29,12 @@ public class PostServiceImpl implements PostService {
      */
     @Override
    public int getCategoryCount(){
-        return postMapper.selectAllCategories().size();
+        return postMapper.findAllCategory().size();
    }
 
     @Override
     public List<Category> sortBlogsByCategories(){
-        List<Post> contexts = postMapper.selectBlogsByCategories();
+        List<Post> contexts = postMapper.findPostsByCategory();
         return getBlogsFromTags(contexts);
     }
 
@@ -44,7 +44,7 @@ public class PostServiceImpl implements PostService {
      * @return
      */
     public List<String> getCategories(){
-       return postMapper.selectAllCategories();
+       return postMapper.findAllCategory();
     }
 
     /**
@@ -75,17 +75,17 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     public int getLastestBlogId(){
-        return postMapper.getblogId().getUid();
+        return postMapper.findLastestPost().getUid();
     }
 
 
     public  List<Post> getLastestBlogs(){
-        return sortPostDate(postMapper.getTenBlogs(6));
+        return sortPostDate(postMapper.findRecent10Posts(6));
     }
 
     public void updateBlog(Post context, int uid) throws SQLException {
         try{
-            postMapper.updateBlog(context,uid);
+            postMapper.updatePostByUid(context,uid);
         }catch (Exception e){
             e.printStackTrace();
             throw new SQLException("update fail");
@@ -102,7 +102,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post findPreviousPost(int uid) {
 
-        Post context =postMapper.getPreviousBlog(uid);
+        Post context =postMapper.findPreviousPost(uid);
         if(context == null){
             return null;
         }
@@ -118,7 +118,7 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     public Post findNextPost(int uid) {
-        Post context = postMapper.getNextBlog(uid);
+        Post context = postMapper.findNextPost(uid);
         if (context == null) {
             return null;
         }
@@ -130,19 +130,18 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post findAuthor() throws Exception {
-        Post context = postMapper.selectAboutMe();
-        if(context == null){
+        Post context = postMapper.findAuthor();
+        if (context == null) {
             throw new Exception("关于我没创建");
         }
         context.setMonth(TimeUtil.getFormatClearToDay(context.getCreated()));
-
         return context;
     }
 
 
     @Override
     public List<Post> findPostsByTagName(String tagName) {
-        return postMapper.selectBlogByTag(tagName);
+        return postMapper.findPostByTagName(tagName);
     }
 
     /**
@@ -152,7 +151,7 @@ public class PostServiceImpl implements PostService {
      */
     public List<YearBlog> findPostByYearAndMonth(int page) throws IOException {
         int start = (page - 1) * 12;
-        List<Post> list = postMapper.selectBlogsByYear(start);
+        List<Post> list = postMapper.findPostByYearAndMonth(start);
         return sortBlogsByYears(list);
 
     }
@@ -163,7 +162,7 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     public int findPostCount() {
-        return postMapper.getBlogNumber();
+        return postMapper.findPostNumber();
     }
 
 
@@ -172,19 +171,14 @@ public class PostServiceImpl implements PostService {
      * @return
      */
     public List<Post> getArticlePages(){
-        return sortPostDate(postMapper.getPagesByType(Types.PAGE));
+        return sortPostDate(postMapper.findPostByPageType(Types.PAGE));
     }
 
     @Override
     public int removePostCategory(String name) {
-        return 0;
+        return postMapper.removePostCategory(name);
     }
 
-
-
-    public int deleteCatories(String name){
-        return postMapper.deleleCategoryByName(name);
-    }
 
     /**
      * 访问量增加
@@ -194,7 +188,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public void updatePostVisit(Post context){
         context.setHits(context.getHits() + 1);
-        postMapper.updateHits(context);
+        postMapper.updateOnePostVisit(context);
     }
 
     /**
@@ -213,7 +207,7 @@ public class PostServiceImpl implements PostService {
         post.setHits(0);
         post.setPublish(Types.PUBLISH);
         post.setCreated(new Date(System.currentTimeMillis()));
-        postMapper.insertBlog(post);
+        postMapper.savePost(post);
 
         try{
             tagService.addBlogTags(post.getTags(), post.getUid());
@@ -236,7 +230,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post findByPostId(int postId) {
-        Post context = postMapper.getBlogById(postId);
+        Post context = postMapper.findPostById(postId);
         if(context == null){
             return null;
         }
@@ -254,7 +248,7 @@ public class PostServiceImpl implements PostService {
         if(limit < 0 || limit >20){
             limit = 10;
         }
-        return  sortPostDate(postMapper.getNewBlogs(limit));
+        return  sortPostDate(postMapper.findLastPostsByPage(limit));
     }
 
 
@@ -269,7 +263,7 @@ public class PostServiceImpl implements PostService {
             page = 1;
         }
         page = page * 10;
-        return sortPostDate(postMapper.getTenBlogs(page));
+        return sortPostDate(postMapper.findRecent10Posts(page));
     }
 
     @Override

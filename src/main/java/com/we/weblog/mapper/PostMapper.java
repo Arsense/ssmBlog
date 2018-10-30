@@ -14,31 +14,30 @@ import java.util.List;
 @Mapper
 public interface PostMapper {
 
-
     /**
      * 分类标签查询 这里 in not null去除空列表
      * @return
      */
     @Select({"select DISTINCT categories FROM t_context  where categories is not null"})
-    List<String> selectAllCategories();
+    List<String> findAllCategory();
 
-    @Select({"select * from t_context where type = 'post'  order by uid asc limit 1 "})
-    Post getblogId();
+    @Select({"select * from t_context where type = 'post' order by uid asc limit 1 "})
+    Post findLastestPost();
 
 
     @Select({"select uid,title,created,article from t_context where title='关于我'"})
-    Post selectAboutMe();
+    Post findAuthor();
 
     /**
      * 得到博客的总数量
       * @return
      */
     @Select({"select count(*) from t_context where type = 'post'"})
-    int getBlogNumber();
+    int findPostNumber();
 
     /**
      *  插入博客 用于增加博客内容吧
-     * @param context
+     * @param post
      * @return
      */
     @Insert({"insert into t_context " +
@@ -47,7 +46,7 @@ public interface PostMapper {
             ",#{b.type},#{b.slug},#{b.publish},#{b.categories})"})
     @SelectKey(before=false,keyProperty="b.uid",resultType=Integer.class,
             statementType= StatementType.STATEMENT,statement="SELECT LAST_INSERT_ID() AS id")
-    int insertBlog(@Param("b") Post context);
+    int savePost(@Param("b") Post post);
 
     /**
      *  删除博客
@@ -64,7 +63,7 @@ public interface PostMapper {
      */
     @Select({"select uid,title,created,tags,article" +
             ",slug,hits from t_context where type = 'post'  limit #{count}"})
-    List<Post> getTenBlogs(@Param("count") int count);
+    List<Post> findRecent10Posts(@Param("count") int count);
 
 
     @Update({" update t_context " +
@@ -74,49 +73,49 @@ public interface PostMapper {
             " categories = #{b.categories},"+
             " tags = #{b.tags},"+
             " article=#{b.article} where uid= #{id}"})
-    void updateBlog(@Param("b") Post context, @Param("id") int uid);
+    void updatePostByUid(@Param("b") Post context, @Param("id") int uid);
 
     @Update({"update t_context set hits=#{c.hits} where uid = #{c.uid}"})
-    void updateHits(@Param("c") Post context);
+    void updateOnePostVisit(@Param("c") Post context);
 
 
     @Select({"select uid,title,created,tags from t_context " +
             "where type = 'post'  order by created desc limit #{p},12"})
-    List<Post> selectBlogsByYear(@Param("p") int page);
+    List<Post> findPostByYearAndMonth(@Param("p") int page);
 
 
     @Select({"select uid,title,created,tags,categories from t_context " +
             "where type = 'post'  order by tags desc "})
-    List<Post> selectBlogsByCategories();
+    List<Post> findPostsByCategory();
 
 
     @Select({"select uid,title,article,created from t_context " +
             "where type = 'post' order by created desc limit #{p},20"})
-    List<Post> getNewBlogs(@Param("p") int page);
+    List<Post> findLastPostsByPage(@Param("p") int page);
 
     @Select({"select uid,title,article,md,created,tags,hits from t_context where uid = #{id}  "})
-    Post getBlogById(@Param("id") int id);
+    Post findPostById(@Param("id") int id);
 
     @Select({"select uid,title,tags,created from t_context " +
             "where uid < #{id} and type = 'post'   order by uid desc limit 1"})
-    Post getPreviousBlog(@Param("id") int id);
+    Post findPreviousPost(@Param("id") int id);
 
     @Select({"select uid,title,article,tags,created " +
             "from t_context where uid > #{id} and type = 'post' order by uid asc limit 1"})
-    Post getNextBlog(@Param("id") int id);
+    Post findNextPost(@Param("id") int id);
 
 
     @Select("select * from t_context where tags=#{tag}")
-    List<Post> selectBlogByTag(@Param("tag") String tagName);
+    List<Post> findPostByTagName(@Param("tag") String tagName);
 
 
     @Select({"select * from t_context where type= #{type} order by uid desc"})
-    List<Post> getPagesByType(@Param("type")String page);
+    List<Post> findPostByPageType(@Param("type")String page);
 
     /**
      * 标签页面删除相关数据
      * @param categoryName
      */
     @Delete({"update t_context set categories = null where categories = #{cate}"})
-    int deleleCategoryByName(@Param("cate") String categoryName);
+    int removePostCategory(@Param("cate") String categoryName);
 }

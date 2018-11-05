@@ -1,4 +1,4 @@
-package com.we.weblog.web.controller.code;
+package com.we.weblog.web.controller.core;
 
 
 import org.springframework.boot.web.servlet.error.ErrorController;

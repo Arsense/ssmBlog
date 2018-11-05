@@ -1,4 +1,4 @@
-package com.we.weblog.web.controller.vueapi.form;
+package com.we.weblog.web.controller.api.vue.form;
 
 import com.vue.adminlte4j.model.UIModel;
 import org.springframework.stereotype.Controller;

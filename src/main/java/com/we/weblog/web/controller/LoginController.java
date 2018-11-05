@@ -19,7 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
- * 登陆控制界面
+ * <pre>
+ *     登陆控制界面
+ * </pre>
+ *
  */
 @Controller
 public class LoginController extends BaseController{

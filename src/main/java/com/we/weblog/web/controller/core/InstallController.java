@@ -1,4 +1,4 @@
-package com.we.weblog.web.controller.code;
+package com.we.weblog.web.controller.core;
 
 
 import com.we.weblog.enums.BaseBlogEnum;

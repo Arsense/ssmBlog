@@ -24,7 +24,6 @@ public class CategoryController {
     @Resource
     private TagService tagService;
 
-
     /**
      *  添加博客分类显示
      * @return
@@ -46,8 +45,7 @@ public class CategoryController {
           if (categoryName.equals("")) {
             return UIModel.fail().msg("删除的类别为空");
           }
-//          int result = postService.deleteCatories(categoryName);
-            int result = 0;
+          int result = postService.removePostCategory(categoryName);
           tagService.deleteMetas(categoryName);
           if(result >= 0) {
               return UIModel.success().msg("删除成功");
@@ -64,8 +62,7 @@ public class CategoryController {
     public Map<String,Object> manageCategoryAndTag() {
         Map<String,Object> maps  = new HashMap<>();
         List<String> cates = tagService.getMates();
-//        List<String> tags = postService.getAllKindTags();
-        List<String> tags = new ArrayList<>();
+        List<String> tags = tagService.findAllTags();
         maps.put("categories",cates);
         maps.put("tags",tags);
         return maps;

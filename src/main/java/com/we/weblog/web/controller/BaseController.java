@@ -2,13 +2,17 @@ package com.we.weblog.web.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+/**
+ * <pre>
+ *     前台文章归档控制器
+ * </pre>
+ */
 public class BaseController {
 
     protected Logger LOG = LoggerFactory.getLogger(this.getClass());

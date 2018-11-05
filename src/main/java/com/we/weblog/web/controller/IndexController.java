@@ -11,13 +11,13 @@ import com.we.weblog.domain.modal.Types;
 import com.we.weblog.service.CommentService;
 import com.we.weblog.service.PostService;
 import com.we.weblog.service.TagService;
+import com.we.weblog.web.controller.core.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +48,19 @@ public class IndexController extends BaseController {
         postId = 0;
     }
 
+
+    /**
+     * 首页视图
+     * @return
+     */
+    @GetMapping("/")
+    public String index(){
+        return "/index";
+    }
+    @GetMapping("/about")
+    public String about(){
+        return "/about";
+    }
 
     /**
      * 添加评论

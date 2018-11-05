@@ -6,7 +6,7 @@ import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.model.form.FormModel;
 import com.we.weblog.service.*;
-import com.we.weblog.web.controller.BaseController;
+import com.we.weblog.web.controller.core.BaseController;
 import com.we.weblog.domain.Comment;
 import com.we.weblog.domain.Post;
 import com.we.weblog.domain.Log;

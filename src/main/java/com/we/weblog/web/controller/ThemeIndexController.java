@@ -1,5 +1,6 @@
 package com.we.weblog.web.controller;
 
+import com.we.weblog.web.controller.core.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -14,66 +15,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ThemeIndexController extends BaseController {
 
-    /**
-     * 首页视图
-     * @return
-     */
-    @GetMapping("/")
-    public String index(){
-        return "/index";
-    }
-
-    /**
-     * 首页视图
-     * @return
-     */
-    @GetMapping("/login")
-    public String login(){
-        return "/login";
-    }
-
-    /**
-     * 首页视图
-     * @return
-     */
-    @GetMapping("/article")
-    public String article(){
-        return "/article";
-    }
-
-    /**
-     * 首页视图
-     * @return
-     */
-    @GetMapping("/tags")
-    public String tags(){
-        return "/tags";
-    }
 
 
-    @GetMapping("/about")
-    public String about(){
-        return "/about";
-    }
 
 
-    /**
-     * 首页视图
-     * @return
-     */
-    @GetMapping("/archive")
-    public String archive(){
-        return "/archive";
-    }
 
-    /**
-     * 首页视图
-     * @return
-     */
-    @GetMapping("/category")
-    public String category(){
-        return "/category";
-    }
+
+
+
+
+
+
+
 
 
 }

@@ -4,7 +4,7 @@ package com.we.weblog.web.controller.admin;
 import com.we.weblog.service.LogsService;
 import com.we.weblog.service.PostService;
 import com.we.weblog.service.TagService;
-import com.we.weblog.web.controller.BaseController;
+import com.we.weblog.web.controller.core.BaseController;
 import com.we.weblog.domain.Post;
 import com.we.weblog.domain.Log;
 import com.we.weblog.domain.modal.LogActions;

@@ -1,6 +1,7 @@
 package com.we.weblog.web.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * <pre>
@@ -12,5 +13,13 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class TagController {
+    /**
+     * 首页视图
+     * @return
+     */
+    @GetMapping("/tags")
+    public String tags(){
+        return "/tags";
+    }
 
 }

@@ -10,6 +10,7 @@ import com.we.weblog.domain.modal.LogActions;
 import com.we.weblog.service.LogsService;
 import com.we.weblog.service.UserService;
 import com.we.weblog.util.AddressUtil;
+import com.we.weblog.web.controller.core.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  */
 @Controller
-public class LoginController extends BaseController{
+public class LoginController extends BaseController {
 
     private UserService userService;
     private LogsService logService;
@@ -36,11 +37,22 @@ public class LoginController extends BaseController{
         this.logService = logService;
     }
 
+
+    /**
+     * 首页视图
+     * @return
+     */
+    @GetMapping("/login")
+    public String login1(){
+        return "/login";
+    }
+
+
     /**
      * 登录 （注解跳过权限验证）
      */
   //  @Login(action = Action.Skip)
-    @PostMapping("/login")
+    @PostMapping("/dologin")
     public String doLogin(HttpServletRequest request) throws Exception {
         /**
          * 生产环境需要过滤sql注入  登陆验证次数校验  返回一个IP
@@ -72,24 +84,24 @@ public class LoginController extends BaseController{
     public String logout() {
         SSOHelper.clearLogin(request, response);
         logService.saveByLogs(new Log(LogActions.LOGOUT,null, AddressUtil.getIpAddress(request),1));
-        return redirectTo("/index.html");
+        return "/index";
     }
 
 
-
-     /**
-     * 登录 （注解跳过权限验证）
-     */
-    @Login(action = Action.Skip)
-    @RequestMapping("/login")
-    public String login() {
-        // 设置登录 COOKIE
-        SSOToken ssoToken = SSOHelper.getSSOToken(request);
-        if(ssoToken != null) {
-            return redirectTo("/admin/index.html");
-        }
-        return redirectTo("/login.html");
-    }
+//
+//     /**
+//     * 登录 （注解跳过权限验证）
+//     */
+//    @Login(action = Action.Skip)
+//    @RequestMapping("/login")
+//    public String login() {
+//        // 设置登录 COOKIE
+//        SSOToken ssoToken = SSOHelper.getSSOToken(request);
+//        if(ssoToken != null) {
+//            return redirectTo("/admin/index.html");
+//        }
+//        return redirectTo("/login.html");
+//    }
 
 
 

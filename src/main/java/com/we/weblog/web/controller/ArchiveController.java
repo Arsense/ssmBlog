@@ -1,6 +1,7 @@
 package com.we.weblog.web.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * <pre>
@@ -13,6 +14,22 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class ArchiveController {
+    /**
+     * 首页视图
+     * @return
+     */
+    @GetMapping("/article")
+    public String article(){
+        return "/article";
+    }
 
 
+    /**
+     * 首页视图
+     * @return
+     */
+    @GetMapping("/archive")
+    public String archive(){
+        return "/archive";
+    }
 }

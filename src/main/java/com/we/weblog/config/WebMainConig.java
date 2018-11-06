@@ -50,7 +50,7 @@ public class WebMainConig implements WebMvcConfigurer {
 ////                .excludePathPatterns("/install");
 //
         //单点登录拦截器
-        registry.addInterceptor(ssoInterceptor()).addPathPatterns("/admin1/**");
+        registry.addInterceptor(ssoInterceptor()).addPathPatterns("/admin/**");
    }
 
     /**

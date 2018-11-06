@@ -36,11 +36,11 @@ public class PageAdminController extends BaseController{
         context.setTags("test");  //tags not null
         postService.saveByPost(context);
 
-        Log loginLog =new Log(LogActions.ADD_PAGES,"admin1", AddressUtil.getIpAddress(request),1);
+        Log loginLog =new Log(LogActions.ADD_PAGES,"admin", AddressUtil.getIpAddress(request),1);
         if (logService.saveByLogs(loginLog)<0) {
             throw new Exception("添加新页面失败");
         }
-        response.sendRedirect("/admin1/pages.html");
+        response.sendRedirect("/admin/pages.html");
     }
 
 

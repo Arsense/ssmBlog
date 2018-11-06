@@ -48,7 +48,6 @@ public class IndexController extends BaseController {
         postId = 0;
     }
 
-
     /**
      * 首页视图
      * @return

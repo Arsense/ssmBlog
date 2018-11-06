@@ -79,9 +79,9 @@ public class CommentServiceImpl implements CommentService {
     public Integer replyComment(String messgae, Integer cid, Comment reply) {
         Comment comment = new Comment();
         comment.setCreated(new Date(System.currentTimeMillis()));
-        comment.setAuthor("admin");
+        comment.setAuthor("admin1");
         //后面再改吧
-        comment.setEmail("admin@qq.com");
+        comment.setEmail("admin1@qq.com");
         comment.setArticle_id(reply.getArticle_id());
         comment.setContent("回复@"+reply.getAuthor()+"  "+messgae);
         comment.setParent(cid);

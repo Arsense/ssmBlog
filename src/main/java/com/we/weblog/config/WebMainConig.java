@@ -44,13 +44,13 @@ public class WebMainConig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
 ////        registry.addInterceptor(installInterceptor)
-////                .addPathPatterns("/admin/**")
+////                .addPathPatterns("/admin1/**")
 ////                .excludePathPatterns("/index")
 ////                .excludePathPatterns("/static/**")
 ////                .excludePathPatterns("/install");
 //
         //单点登录拦截器
-        registry.addInterceptor(ssoInterceptor()).addPathPatterns("/admin/**");
+        registry.addInterceptor(ssoInterceptor()).addPathPatterns("/admin1/**");
    }
 
     /**

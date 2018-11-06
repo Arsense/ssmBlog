@@ -17,7 +17,7 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/admin/category")
-public class CategoryController {
+public class CategoryAdminController {
 
     @Resource
     private PostService postService;

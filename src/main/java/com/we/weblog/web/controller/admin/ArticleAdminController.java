@@ -33,7 +33,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admin")
-public class ArticleController extends BaseController{
+public class ArticleAdminController extends BaseController{
 
     @Resource
     private PostService postService;

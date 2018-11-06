@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/admin/page")
-public class PageController extends BaseController{
+public class PageAdminController extends BaseController{
 
 
     @Resource

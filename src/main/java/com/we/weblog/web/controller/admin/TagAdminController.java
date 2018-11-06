@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 
 @Controller
 @RequestMapping("/admin/tags")
-public class TagController extends BaseController {
+public class TagAdminController extends BaseController {
 
     @Resource
     private PostService postService;

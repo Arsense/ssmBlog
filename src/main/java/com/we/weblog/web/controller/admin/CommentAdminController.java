@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/admin/comments")
-public class CommentController extends BaseController {
+public class CommentAdminController extends BaseController {
 
     @Resource
     private CommentService commentSerivce;

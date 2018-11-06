@@ -42,11 +42,11 @@ public class LoginController extends BaseController {
      * 首页视图
      * @return
      */
-    @GetMapping("/login")
+   /* @GetMapping("/login")
     public String login1(){
         return redirectTo("/login");
     }
-
+*/
 
     /**
      * 登录 （注解跳过权限验证）

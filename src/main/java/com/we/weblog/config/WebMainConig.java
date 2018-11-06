@@ -61,8 +61,8 @@ public class WebMainConig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //不加的话无法加载静态资源
-        registry.addResourceHandler("/static/**")
-                .addResourceLocations("classpath:/static/");
+        /*registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/static/");*/
 
         registry.addResourceHandler("/fonts")
                 .addResourceLocations("classpath:/static/fonts/");
@@ -71,10 +71,11 @@ public class WebMainConig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/static/images/loading.png");
 
         registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/templates/source/");
+                .addResourceLocations("classpath:/templates/source/" , "classpath:/META-INF/resources/","classpath:/static/");
         //添加jar包中静态资源的方法
-        registry.addResourceHandler("/lib/**")
-                .addResourceLocations("classpath:/META-INF/resources/lib/");
+       /* registry.addResourceHandler("/lib/**")
+                .addResourceLocations("classpath:/META-INF/resources/lib/");*/
+
 
     }
 
@@ -92,6 +93,8 @@ public class WebMainConig implements WebMvcConfigurer {
         SSOSpringInterceptor springSSOInterceptor =  new SSOSpringInterceptor();
         springSSOInterceptor.setHandlerInterceptor(new SSOHandlerInterceptor() {
             @Override public boolean preTokenIsNullAjax(HttpServletRequest request, HttpServletResponse response) {
+                /*response.setHeader("location" , LOGIN_URL);
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);*/
                 try {
                     UIModel uiModel = UIModel.success().isLogin(false).setLoginUrl(LOGIN_URL);
                     response.getWriter().write(uiModel.toJsonString());

@@ -1,0 +1,86 @@
+    <v-box>
+        <v-tags v-bind:header="blogNumber" footer="发表了几篇文章"></v-tags>
+        <v-tags color="green" v-bind:header="commentNumber" footer="收到了几条留言"></v-tags>
+        <v-tags color="yellow" header="0" footer="上传了几个附件"></v-tags>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">最新文章</h4>
+                    </div>
+                    <div  class="panel-body">
+                        <ul  class="list-group" >
+                            <li v-for="context in contexts" class="list-group-item">
+                                <span class="badge badge-primary" title="0条评论">0</span>
+                                <a target="_blank" :href="getpostUrl(context)">{{context['title']}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">最新留言</h4>
+                    </div>
+                    <div class="panel-body" >
+                        <div v-if = "comments ==null ||comments.length==0" class="btn btn-block btn-warning disabled  ">
+                            还没有收到留言.
+                        </div>
+                        <ul v-else class="list-group" v-for="comment in comments">
+
+                            <li class="list-group-item">
+                                {{comment.author}} 于{{comment.time}}留言:<br>
+                                <a :href="getArticleId(comment)" target="_blank">{{comment.content}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">系统日志</h4>
+                    </div>
+                    <div class="panel-body" >
+                        <ul class="list-group">
+                            <li class="list-group-item" v-for="log in logs">
+                                <span>{{log.dateFormat}}--> {{log.action}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </v-box>
+<script>
+    new Vue({
+        el:"#app" ,
+        data : {
+            blogNumber:"",
+            contexts:[],
+            logs:[],
+            comments:[],
+            commentNumber:"",
+        } ,
+        methods : {
+            getpostUrl:function (Object) {
+                return "../article.html?id="+Object.uid;
+            },
+            getArticleId:function (Object) {
+                return "../article.html?id="+Object.article_id;
+            }
+
+        } ,
+        mounted : function () {
+            debugger
+            var self = this;
+            axios.get("/admin/index/data").then(function (response) {
+                $.extend(self,response.data);
+            })
+
+        }
+    })
+
+</script>

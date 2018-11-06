@@ -1,5 +1,6 @@
 package com.we.weblog.web.controller;
 
+import com.we.weblog.web.controller.core.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 
 @Controller
-public class ArchiveController {
+public class ArchiveController extends BaseController{
     /**
      * 首页视图
      * @return

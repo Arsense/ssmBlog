@@ -22,13 +22,39 @@ public class BaseController {
     @Resource
     protected HttpServletResponse response;
 
+    public static String THEME = "hexo";
+
+
+    /**
+     * 根据主题名查找主题
+     *
+     * @param url
+     * @return
+     */
     String redirectTo(String url) {
-        StringBuffer rto = new StringBuffer("redirect:");
-        rto.append(url);
-        return rto.toString();
+        StringBuffer themeString = new StringBuffer("themes/");
+        themeString.append(THEME).append("/").append(url);
+        return themeString.toString();
     }
-    /*
-        防止XSS攻击
+
+
+
+    /**
+     * 渲染404页面
+     *
+     * @return redirect:/404
+     */
+    public String pageNotFound() {
+        return "redirect:/404";
+    }
+
+
+    /**
+     * 防止XSS过滤
+
+     *
+      * @param value
+     * @return
      */
     public static String cleanXSS(String value){
         value = value.replaceAll("<", "&lt;").replaceAll(">", "&gt;");

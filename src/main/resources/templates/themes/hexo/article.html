@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="shortcut icon" href="../static/icon/snow.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="../../../static/icon/snow.ico" type="image/x-icon" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="author" content="AONOSORA">
 
     <meta name="description" content="今生今世轮回尽, 来世愿为幻想乡">
     <title>clayの部落格</title>
-    <!-- inject:style -->
-    <link href="../static/css/style.css" rel="stylesheet" type="text/css">
-    <!-- endinject -->
+
+    <link href="../../../static/css/style.css" rel="stylesheet" type="text/css">
+    <link href="../../../static/tale/css/front/style.min.css" rel="stylesheet" type="text/css">
+
     <style>
         .cube-loading {
             top: 0;
             position: fixed;
             width: 100%;
             height: 100%;
-            background: url('../static/images/lg/loading.gif') no-repeat center center;
+            background: url('../../../static/images/lg/loading.gif') no-repeat center center;
             background-color: rgba(0,0,0,.7);
         }
 
@@ -63,6 +64,7 @@
                 <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
                 <a href="/">首页</a>
             </li>
+
             <li>
                 <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
                 <a href="/archive">归档</a>
@@ -153,24 +155,106 @@
 
 </div>
 
-<div class ="cube-content" id = "main" style="visibility: visible;">
+
+
+<div class ="cube-content" style="visibility: visible;" id="main">
     <div class="cube-left">
-        <div class="cube-boxs">
+        <style>
+            @media(max-width: 768px) {
+                body {
+                    background-color: #fff!important;
+                }
+            }
+        </style>
 
-        </div>
-        <div class="cube-archives">
 
-            <div class="cube-archive" style="margin-top: 0;" v-for="cateBlogs in cateData">
-                <h1 class="title">{{cateBlogs.category}}</h1>
-                <ul class="posts" >
+        <div class="cube-article">
 
-                    <li class="post" v-for="cateBlog in cateBlogs.blogs">
-                        <a :href="getPostUrl(cateBlog)">{{cateBlog.title}}</a>
-                    </li>
-                </ul>
+            <h1 class="title">{{current['title']}}</h1>
+            <div class="cube-article-header">
+
+                <div class="post-data">
+                    <time datetime="2018-03-19" itemprop="datePublished">发布于  {{current['month']}}/</time>
+                    <a href="">默认分类</a> / <a href="#comments">{{comments.length}}条评论</a>
+                   /{{current['hits']}}浏览
+                </div>
+                <br>
 
             </div>
 
+            <div class="cube-article-tags">
+                <p class="post-tags" v-if="current.tags != null"><a href="#">{{current['tags']}}</a></p>
+
+            <div v-html="current['article']" class="cube-article-content cube-markdown" lg-uid="lg0">
+
+
+                </div>
+            </div>
+        </div>
+
+
+        <div  class="comment-container">
+            <div id="comments" class="clearfix">
+                <span class="response"></span>
+
+                <form method="post" id="comment-form" name="commnentForm" class="comment-form" onsubmit="">
+                    <input type="hidden" name="coid" id="coid">
+                    <input type="hidden" name="cid" id="cid" value="1">
+                    <!--<input type="hidden" name="csrf_token" value="HEYEoUQ5HHi7Q0X0KS_1Z0">-->
+                    <input name="author" maxlength="12" id="author" class="form-control input-control clearfix" placeholder="姓名 (*)" value="" required="">
+                    <input id = "email" type="email" name="mail" id="mail" class="form-control input-control clearfix" placeholder="邮箱 (*)" value="" required="">
+                    <input id= "url" type="url" name="url" id="url" class="form-control input-control clearfix" placeholder="网址 (http://)" value="">
+                    <textarea id="content" name="content" id="textarea" class="form-control" placeholder="基佬，留下你的评论." required="" minlength="5" maxlength="2000"></textarea>
+                    <button id="commentFrom" type="button" class="submit" @click="insertComment">提交</button>
+                </form>
+
+
+                <ol class="comment-list" v-for="comment in comments" v-if="comments !=null">
+                    <li id="li-comment-5" class="comment-body comment-parent comment-odd">
+                        <div id="comment-5">
+                            <div class="comment-view" onclick="">
+                                <div class="comment-header">
+                                    <img class="avatar" src="https://cn.gravatar.com/avatar/e94656cb82a8f7228e13e1d9d56fb101?s=80&amp;r=G&amp;d=" title="11" width="80" height="80">
+                                    <span class="comment-author">
+                                <a href="" target="_blank" rel="external nofollow">{{comment['author']}}</a>
+                            </span>
+                                </div>
+                                <div class="comment-content">
+                                    <span class="comment-author-at"></span>
+                                    <p></p><p>{{comment['content']}}</p>
+                                    <p></p>
+                                </div>
+                                <div class="comment-meta">
+                                    <time class="comment-time">{{comment['time']}}  </time>
+                                    <span class="comment-reply">
+                                <a rel="nofollow" onclick="TaleComment.reply('5');">回复</a>
+                            </span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+
+            </div>
+        </div>
+
+        <div class="cube-article-nav">
+            <ul>
+
+                <li class="prev" v-if="previous != null">
+                    <a :href="getPostUrl(previous)">
+                        <i class="cube-icon cube-prev" aria-hidden="true"></i>
+                        {{previous.title}}
+                    </a>
+                </li>
+
+                <li class="next" v-if="next != null">
+                    <a :href="getPostUrl(next)">
+                        {{next.title}}
+                        <i class="cube-icon cube-next" aria-hidden="true"></i>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
     <div class ="cube-right"  >
@@ -350,10 +434,6 @@
                 <!--</li>-->
             </ul>
 
-
-
-
-
         </div>
         <!--标签-->
         <div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
@@ -361,14 +441,9 @@
                 <a href="tags.html">便签大大</a>
             </div>
             <div class="cube-boxs">
-
-
                 <div class="cube-box " v-for="tagName in tagsName">
                     <a :href="getTagLink(tagName)">#{{tagName}}</a>
                 </div>
-
-
-
             </div>
         </div>
         <!--友情链接-->
@@ -377,56 +452,37 @@
                 <a>个人链接</a>
             </div>
             <ul class="list">
-
                 <li>
-
-
                     <img src="http://cube-1252774894.cosgz.myqcloud.com/links/GitHub.png">
 
                     <a href="https://github.com/ZEROKISEKI" target="_blank">GitHub</a>
                 </li>
-
                 <li>
-
-
                     <img src="http://cube-1252774894.cosgz.myqcloud.com/links/Coding.png">
 
                     <a href="https://coding.net/u/SORA1" target="_blank">Coding</a>
                 </li>
-
                 <li>
-
-
                     <img src="http://cube-1252774894.cosgz.myqcloud.com/links/SF.png">
-
                     <a href="https://segmentfault.com/u/aonosora" target="_blank">SF社区</a>
                 </li>
-
                 <li>
-
-
                     <img src="http://cube-1252774894.cosgz.myqcloud.com/links/开发者头条.png">
-
                     <a href="https://toutiao.io/u/148070" target="_blank">开发者头条</a>
                 </li>
-
             </ul>
         </div>
-
-
 
         <div class="cube-friend-links cube-sidebar" id="cube-friend-links">
             <div class="title">
                 <a>友情链接</a>
             </div>
             <ul class="list">
-
                 <li>
                     <!-- TODO change avatar.png to friend.png-->
                     <img src="http://cube-1252774894.cosgz.myqcloud.com/friend_links/micblo.png">
                     <a href="https://blog.micblo.com/" target="_blank">罗大佬</a>
                 </li>
-
                 <li>
                     <!-- TODO change avatar.png to friend.png-->
                     <img src="http://cube-1252774894.cosgz.myqcloud.com/friend_links/DIYgod.jpg">
@@ -435,70 +491,127 @@
 
                 <li>
                     <!-- TODO change avatar.png to friend.png-->
-                    <img src="/static/images/friend_links.jpg ">
+                    <img src="./images/friend_links.jpg ">
                     <a href="https://aonosora.com/" target="_blank">咪西西の部落格</a>
                 </li>
 
             </ul>
         </div>
     </div>
-
-
+    <div id="post-bottom-bar" class="post-bottom-bar">
+        <div class="bottom-bar-inner">
+            <div class="bottom-bar-items social-share left">
+                <span class="bottom-bar-item">Share : </span>
+                <span class="bottom-bar-item bottom-bar-facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=${permalink()}" target="_blank" title="${title()}" rel="nofollow">facebook</a></span>
+                <span class="bottom-bar-item bottom-bar-twitter"><a href="https://twitter.com/intent/tweet?url=${permalink()}&text=${title()}" target="_blank" title="${title()}" rel="nofollow">Twitter</a></span>
+                <span class="bottom-bar-item bottom-bar-weibo"><a :href="getSharUrl()" target="_blank" title="${title()}" rel="nofollow">Weibo</a></span>
+                <span class="bottom-bar-item bottom-bar-qrcode"><a href="//pan.baidu.com/share/qrcode?w=300&amp;h=300&amp;url=${permalink()}" target="_blank" rel="nofollow">QRcode</a></span>
+            </div>
+            <div class="bottom-bar-items right">
+                <span class="bottom-bar-item"><a href="#footer">↓</a></span>
+                <span class="bottom-bar-item"><a href="#">↑</a></span>
+            </div>
+        </div>
+    </div>
 </div>
 
 <footer class="cube-footer">
-
     © 2017 AONOSORA
-
     <br>
     Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
 </footer>
 <!-- inject:script -->
-<script src="/static/js/script.js"></script>
-<!-- endinject -->
-<div class="cube-loading out"></div>
-</body>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-
+<script src="../../../static/js/script.js"></script>
 <script src="/lib/jquery/dist/jquery.min.js"></script>
 <script src="/lib/axios/dist/axios.js"></script>
-<script>
-    //要接收文章 接收文章数量  标签数量  分类数量 近期文章  标签
-    var vm=new Vue({
-        el: "#main",
-        data: function(){
-            return {
-                blogs:[],
-                tagsCount:0,
-                blogsCount:1,
-                tagsName:[],
-                cateData:[],
-                categoryCount:0,
+<div class="cube-loading out"></div>
+</body>
+    <script>
+        var vm = new Vue({
+            el: "#main",
+            data: function(){
+                return {
+                    current:"",
+                    previous:"",
+                    next:"",
+                    blogs:[],
+                    tagsCount:0,
+                    blogsCount:1,
+                    tagsName:[],
+                    comments:"",
+                    newComment:{
+                        author:"",
+                        email:"",
+                        content:"",
+                        url:"",
+                        article_id:""
+                    },
+                    categoryCount:0,
 
-            }
-        },
-        methods:{
-            recommend:function(){
-                var self = this;
-                var type = "category";
-                axios.get("/get_all_datas/"+type).then(function (response) {
-                    //一行搞定
-                    $.extend(self._data,response.data);
-                });
-
-
+                }
             },
-            getPostUrl:function (Object) {
-                return "article.html?id="+Object.uid;
-            },
-            getTagLink:function (data) {
-                return "/tag/"+data;
-            }
+            methods:{
+                recommend:function(){
+                    var self = this;
+                    //vue 一个方法调用另一个方法
+                    var id = this.$options.methods.getQueryString("id");
+                    var type = "article";
+                    axios.get("/get_all_datas/"+type+id).then(function (response) {
+                        //一行搞定
+                        $.extend(self._data,response.data);
+                    });
+
+                },
+                getPostUrl:function (Object) {
+                    return "article.html?id="+Object.uid;
+                },
+
+                getTagLink:function (data) {
+                    return "/tag/"+data;
+                },
+                repley:function () {
+                    //留言回复
+                },
+                insertComment:function () {
+                    this._data.newComment.author = document.commnentForm.author.value
+                    this._data.newComment.email  = document.commnentForm.email.value
+                    this._data.newComment.content = document.commnentForm.content.value
+                    this._data.newComment.url = document.commnentForm.url.value
+                    this._data.newComment.article_id = this._data.current.uid
+                    axios.post("/comments/send",this._data.newComment).then(function (response) {
+                        if(response.data.code==0){
+                            layer.msg(response.data.msg, {icon: 2});
+                        }else if(response.data.code==1){
+                            var t=setTimeout("window.location.reload()",2000)
+                        }
+
+
+        });
+                },
+                getQueryString:function (key) {
+                    var pairs = location.search.slice(1).split('&')
+                    for(var i = 0 ; i < pairs.length  ; i++ ) {
+                        var pair = pairs[i].split('=');
+                        if (pair[0] == key) {
+                            return decodeURIComponent(pair[1]);
+                        }
+                    }
+                    console.log('Query variable %s not found', key);
+                },
+                getSharUrl:function () {
+                    var pairs = location.search.slice(1).split('&');
+                    var url = "http://service.weibo.com/share/share.php?url=http://localhost:8002/article.html?"+pairs+"&title=分享我的博文";
+                    return url
+
+                }
 
         },
 
-    });
-    vm.recommend()
+        });
+        vm.recommend()
 </script>
-
+<script src="../../../static/tale/js/jquery.app.js"></script>
+<script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>
+>
 </html>

@@ -23,13 +23,13 @@ public class ErrorPageController implements ErrorController {
     public String error() {
         return getErrorPath();
     }
-//    /**
-//     * 渲染404页面
-//     *
-//     * @return String
-//     */
-//    @GetMapping(value = "/404")
-//    public String fourZeroFour() {
-//        return "404";
-//    }
+    /**
+     * 渲染404页面
+     *
+     * @return String
+     */
+    @GetMapping(value = "/404")
+    public String fourZeroFour() {
+        return "404.html";
+    }
 }

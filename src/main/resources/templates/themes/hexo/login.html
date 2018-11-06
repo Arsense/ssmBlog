@@ -68,7 +68,7 @@
 
     function login() {
         var b,a = document.forms[0];
-        a.action = "/login";
+        a.action = "/doLogin";
         b = document.getElementById("passBefore").value;
         document.getElementById("password").value=md5(b);
         a.method="post";

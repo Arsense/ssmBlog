@@ -44,7 +44,7 @@ public class LoginController extends BaseController {
      */
     @GetMapping("/login")
     public String login1(){
-        return "/login";
+        return redirectTo("/login");
     }
 
 
@@ -52,7 +52,7 @@ public class LoginController extends BaseController {
      * 登录 （注解跳过权限验证）
      */
   //  @Login(action = Action.Skip)
-    @PostMapping("/dologin")
+    @PostMapping("/doLogin")
     public String doLogin(HttpServletRequest request) throws Exception {
         /**
          * 生产环境需要过滤sql注入  登陆验证次数校验  返回一个IP

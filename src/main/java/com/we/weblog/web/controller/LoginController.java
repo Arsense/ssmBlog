@@ -66,12 +66,12 @@ public class LoginController extends BaseController {
             //创建日志
             Log loginLog =new Log(LogActions.LOGIN,username, AddressUtil.getIpAddress(request),1);
             if (logService.saveByLogs(loginLog) < 0)
-                throw  new Exception("loginLog add error");
+                throw new Exception("loginLog add error");
             //这里创建session 防止重复登录
             SSOHelper.setCookie(request, response, SSOToken.create().setIp(request).setId(1000).setIssuer(username), false);
-            return "/admintf/admin_index.html";
+            return "/index.html/#/admin_index.html";
         } else {
-            return redirectTo("/login");
+            return redirectTo("/admin/login.html");
 
         }
     }

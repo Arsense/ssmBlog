@@ -71,7 +71,8 @@ public class LoginController extends BaseController {
             SSOHelper.setCookie(request, response, SSOToken.create().setIp(request).setId(1000).setIssuer(username), false);
             return "/index.html/#/admin/index.html";
         } else {
-            return "/login";
+            return redirectTo("/login");
+
         }
     }
 
@@ -84,7 +85,7 @@ public class LoginController extends BaseController {
     public String logout() {
         SSOHelper.clearLogin(request, response);
         logService.saveByLogs(new Log(LogActions.LOGOUT,null, AddressUtil.getIpAddress(request),1));
-        return "/index";
+        return redirectTo("/index");
     }
 
 

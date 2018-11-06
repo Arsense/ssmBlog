@@ -4,7 +4,6 @@ import com.vue.adminlte4j.model.UIModel;
 import com.we.weblog.domain.Select;
 import com.we.weblog.service.PostService;
 import com.we.weblog.service.TagService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -86,7 +85,9 @@ public class CategoryAdminController {
         if (tagName.contains(name)) {
             return UIModel.fail().msg("该分类已存在");
         }
-        int result = tagService.addCategory(name);
+
+        int result = tagService.saveCategory(name);
+
 
         if (result > 0)
             return UIModel.success().msg("添加成功");

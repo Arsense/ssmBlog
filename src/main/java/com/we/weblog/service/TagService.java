@@ -46,7 +46,7 @@ public interface TagService {
      * @param name
      * @return
      */
-    int addCategory(String name);
+    int saveCategory(String name);
 
     /**
      * 获取所有标签

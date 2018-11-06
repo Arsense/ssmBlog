@@ -34,7 +34,7 @@ public interface TagMapper {
     int deleteTagByName(@Param("tag") String tagName);
 
     @Insert({"insert into t_mates (name,type) values (#{m.name},#{m.type})"})
-    int insertCatgory(@Param("m")Metas name);
+    int save(@Param("m")Metas name);
 
     @Select({"select distinct name from t_mates where type = 'category'"})
     List<Metas> selectCategories();

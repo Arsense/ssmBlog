@@ -63,13 +63,14 @@ public class TagServiceImpl implements TagService {
      * @param name
      * @return
      */
-    public int addCategory(String name) {
+    public int saveCategory(String name) {
         if (name == null)
             return 0;
         Metas category = new Metas();
         category.setName(name);
         category.setType(Types.MATE_CATEGOTY);
-        return tagMapper.insertCatgory(category);
+
+        return tagMapper.save(category);
     }
 
 

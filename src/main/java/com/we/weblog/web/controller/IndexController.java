@@ -55,11 +55,12 @@ public class IndexController extends BaseController {
      */
     @GetMapping("/")
     public String index(){
-        return "/index";
+        return redirectTo("/index");
+
     }
     @GetMapping("/about")
     public String about(){
-        return "/about";
+        return redirectTo("/about");
     }
 
     /**

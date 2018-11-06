@@ -33,15 +33,48 @@ public class AdminBlogApiController extends ApiAdminController {
         //把开发配置放到最后
         List<Menu> menus = new ArrayList<>();
 
-        Menu menu1 = new Menu("1", "仪表盘", "/admin/index.html", "fa fa-dashboard", 1);
-        Menu menu2 = new Menu("2", "新随笔", "/admin/add_blog.html", "fa fa-edit", 2);
-        Menu menu3 = new Menu("3", "博客管理", "/admin/bloglist.html", "fa fa-edit", 3);
-        Menu menu4 = new Menu("4", "评论管理", "/admin/comments.html", "fa fa-weixin", 4);
-        Menu menu5 = new Menu("5", "页面管理", "/admin/pages.html", "fa fa-pagelines", 5);
-        Menu menu6 = new Menu("6", "分类标签", "/admin/category.html", "fa fa-tags", 6);
-        Menu menu7 = new Menu("7", "主题设置", "/admin/scheme.html", "fa fa-laptop", 7);
-        Menu menu8 = new Menu("8", "系统设置", "/admin/system.html", "fa fa-cog", 8);
-        Menu menu9 = new Menu("9", "退出登录", "/logout.html", "fa fa-sign-out", 9);
+        Menu menu1 = new Menu("1", "仪表盘"
+                , "/admin/index.html", "fa fa-dashboard", 1);
+        Menu menu2 = new Menu("2", "文章"
+                , "/admin/#", "fa fa-edit", 2);
+        menu2.addChildMenu(new Menu("21", "新博客"
+                , "/admin/add_blog.html", "fa fa-edit", 0));
+        menu2.addChildMenu(new Menu("22", "博客列表"
+                , "/admin/bloglist.html", "fa fa-edit", 1));
+        menu2.addChildMenu(new Menu("23", "标签"
+                , "/admin/category.html", "fa fa-tags", 2));
+
+        Menu menu3 = new Menu("4", "评论"
+                , "/admin/comments.html", "fa fa-weixin", 3);
+        Menu menu4 = new Menu("5", "页面"
+                , "/admin/pages.html", "fa fa-pagelines", 4);
+        Menu menu5 = new Menu("6", "外观"
+                , "/admin/#", "fa fa-paint-brush", 5);
+
+        menu5.addChildMenu(new Menu("51", "主题"
+                , "/admin/scheme.html", "fa fa-laptop", 0));
+        menu5.addChildMenu(new Menu("52", "主题编辑"
+                , "/admin/theme_edit.html", "fa fa-laptop", 1));
+
+        Menu menu6= new Menu("7", "附件"
+                , "/logout.html", "fa fa-sign-out", 9);
+        Menu menu7 = new Menu("8", "用户"
+                , "/admin/scheme.html", "fa fa-user-o", 7);
+        menu7.addChildMenu(new Menu("71", "个人信息"
+                , "/admin/scheme.html", "fa fa-user-o", 0));
+
+
+        Menu menu8 = new Menu("9", "设置"
+                , "/admin/system.html", "fa fa-cog", 8);
+
+        menu8.addChildMenu(new Menu("81", "博客设置"
+                , "/admin/setting.html", "fa fa-cog", 1));
+
+        menu8.addChildMenu(new Menu("82", "博客备份"
+                , "/admin/backup.html", "fa fa-cog", 2));
+
+        Menu menu9 = new Menu("20", "退出登录"
+                , "/logout.html", "fa fa-sign-out", 10);
 
         menus.add(menu1);
         menus.add(menu2);
@@ -52,6 +85,7 @@ public class AdminBlogApiController extends ApiAdminController {
         menus.add(menu7);
         menus.add(menu8);
         menus.add(menu9);
+
 
         super.configureMenu(uiModel);
         uiModel.menu(menus);

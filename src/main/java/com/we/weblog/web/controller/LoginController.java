@@ -85,7 +85,7 @@ public class LoginController extends BaseController {
     public String logout() {
         SSOHelper.clearLogin(request, response);
         logService.saveByLogs(new Log(LogActions.LOGOUT,null, AddressUtil.getIpAddress(request),1));
-        return redirectTo("/index");
+        return "redirect:/" + THEME + "/index";
     }
 
 

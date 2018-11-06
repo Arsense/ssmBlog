@@ -120,7 +120,7 @@
                 axios.post("/admin/send",this.mdData).then(function (response){
                     $.alert(response.data);
                     if(response.data.code === 1)
-                        var t=setTimeout(" window.location.href = \"/admin/index.html#/admin/bloglist.html\" ",1500);
+                        var t=setTimeout(" window.location.href = \"/index.html#/admin/bloglist.html\" ",1500);
                 }).catch(function (e) {
                     console.log(e.valueOf());
                 });

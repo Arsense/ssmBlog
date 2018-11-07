@@ -1,108 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-
-<div th:replace="~{themes/hexo/module/header:: copy}"></div>
+<div th:replace="~{themes/hexo/module/_header:: head}"></div>
 <body>
-
-<div class="cube-body">
-    <nav id="cube-top-memu" class="cube-menu">
-        <ul class="cube-menu-collapse">
-
-            <li>
-                <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
-                <a href="/">首页</a>
-            </li>
-
-            <li>
-                <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
-                <a href="/archive">归档</a>
-            </li>
-
-            <li>
-                <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
-                <a href="/category">分类</a>
-            </li>
+<div th:replace="~{themes/hexo/module/_header:: menu}"></div>
 
 
-            <li>
-                <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
-                <a href="/about">关于我</a>
-            </li>
-
-        </ul>
-    </nav>
-    <nav class="cube-side-menu" id="cube-side-menu">
-        <ul class="cube-menu-list">
-
-            <li>
-                <a class="lrc-control">开启歌词</a>
-            </li>
-
-            <li>
-                <a class="scroll-to-top">回到顶部</a>
-            </li>
-        </ul>
-    </nav>
-    <header class="cube-header" id="cube-header">
-        <img src=" http://cube-1252774894.cosgz.myqcloud.com/background.jpg " alt="头部背景图片">
-
-        <div class="cube-type">
-            <span class="cube-typed-title">clayの部落格</span>
-            <span class="cube-typed-cursor">|</span>
-        </div>
-
-    </header>
-
-    <style>
-        nav.cube-menu:before {
-            content: '';
-            visibility: hidden;
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 44px;
-
-            filter: blur(5px);
-            -webkit-filter: blur(5px);
-
-            z-index: -1;
-            background-image: url('http://cube-1252774894.cosgz.myqcloud.com/background.jpg');
-            background-repeat: no-repeat;
-            background-position: center -256px;
-            background-size: cover;
-            background-color: transparent;
-        }
-
-        header.cube-background.cube-header-background {
-            visibility: hidden;
-            background-image: url('http://cube-1252774894.cosgz.myqcloud.com/background.jpg');
-            background-position: center -300px;
-        }
-    </style>
-    <header class="cube-background cube-header-background">
-
-        <div class="cube-type">
-            <span class="cube-typed-title">clayの部落格</span>
-            <span class="cube-typed-cursor">|</span>
-        </div>
-
-    </header>
-    <div class="load-header-background"></div>
-    <script>
-        (function (window) {
-
-            window.headerModule = {}
-            window.headerModule.image = {
-                width: '1920',
-                height: '1080'
-            }
-
-        })(window)
-    </script>
-
-</div>
 
 <div class ="cube-content" id = "main" style="visibility: visible;">
     <div class="cube-left">
@@ -129,6 +32,7 @@
     </div>
     <div class ="cube-right"  >
         <!--作者信息-->
+
         <div class="cube-author cube-sidebar" id="cube-author">
 
 

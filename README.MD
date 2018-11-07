@@ -3,20 +3,19 @@
 ## 基本技术
 
 环境: `Springboot+mysql+admintle+vue.js+mybatis`环境搭建的个博客
-- springboot 2.0
+- springboot2.5
 - 日志 logback
+- mybatis框架
+- vue.js框架
+- mysql数据库
+- theamleaf模板
+- admintle 后台页面
+- editor.md 开源markdown编辑器
+- springmvc框架
 
 ### 搭建方法在下面
 
 
-- 1月3日  v1.0
-- 1月10日 v1.1   加入kisso单点登录 删除自己拦截器
-- 1.11   v1.2   前台能解析mdtext文本，后台的editor.md加入到VUE框架中，后面editor界面BUG修改成功
-- 2.5 后台大更新
-- 2018 7月27日 代码排版优化 增加阅读性
-- 9.25 依赖的vue-admintle工程性能各种界面大更新 jar包依賴不斷更新中
-- 10.18 目录结构优化 logback添加
-- 更新中...
 后台菜单自主配置需要在 vmOptions中添加:-Dadmin.src.dir=D:\code\ssmBlog  
 dir后面是你的项目路径
 ## 前台首页
@@ -24,11 +23,8 @@ dir后面是你的项目路径
 ## 首页右边分类浏览
 ![](doc/10.png)
 ## 文章预览 访问量和评论 分享
-
 ![](doc/11.png)
-
 ![](doc/12.png)
-
 
 ## 后台登录界面
  ![](https://i.imgur.com/axudahd.png)
@@ -77,7 +73,7 @@ pom.xml引入:
 	<dependency>
 			<groupId>com.vue.adminlte4j</groupId>
 			<artifactId>vue-adminlte4j</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
+			<version>1.0.2-SNAPSHOT</version>
 	</dependency>
 ![](https://i.imgur.com/p2XL4kj.jpg)
 3. 运行 在自己mysql服务上创建名为`ssmBlog`数据库
@@ -94,6 +90,19 @@ pom.xml引入:
 ### 默认账号名密码都是 admin admin  路劲是login1/html 如果想使用请数据库直接修改
 目前还没增加此功能
 
+
+### 开发日志
+
+- 1月3日  v1.0
+- 1月10日 v1.1   加入kisso单点登录 删除自己拦截器
+- 1.11   v1.2   前台能解析mdtext文本，后台的editor.md加入到VUE框架中，后面editor界面BUG修改成功
+- 2.5 后台大更新
+- 2018 7月27日 代码排版优化 增加阅读性
+- 9.25 依赖的vue-admintle工程性能各种界面大更新 jar包依賴不斷更新中
+- 10.18 目录结构优化 logback添加
+- 11月1号 升级springboot到2.5
+- 11月7日 整体前后端重构 前端代码模板化
+- 更新中...
 
 ### 联系方式
 

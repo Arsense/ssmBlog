@@ -33,7 +33,7 @@ public class BaseController {
      */
     public String redirectTo(String url) {
         StringBuffer themeString = new StringBuffer("themes/");
-        themeString.append(THEME).append("/").append(url);
+        themeString.append(THEME).append(url);
         return themeString.toString();
     }
 

@@ -62,7 +62,7 @@
 </body>
 
 <script>
-    var vm =new Vue({
+    var vm = new Vue({
         el: "#main",
         data: function(){
             return {
@@ -77,7 +77,6 @@
         methods:{
             recommend:function(){
                 var self = this;
-
                 var type = "archive";
                 axios.get("/get_all_datas/"+type).then(function (response) {
                     //一行搞定

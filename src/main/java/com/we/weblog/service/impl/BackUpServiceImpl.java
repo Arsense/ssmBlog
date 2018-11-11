@@ -1,9 +1,19 @@
 package com.we.weblog.service.impl;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.ZipUtil;
 import com.we.weblog.domain.BackFile;
+import com.we.weblog.domain.Post;
 import com.we.weblog.service.BackupService;
+import com.we.weblog.service.PostService;
+import com.we.weblog.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
@@ -23,6 +33,10 @@ import java.util.List;
 @Service
 public class BackUpServiceImpl implements BackupService {
 
+    private static final Logger LOG = LoggerFactory.getLogger(BackUpServiceImpl.class);
+
+    @Resource
+    private PostService postService;
 
     @Override
     public List<BackFile> getBackUps(String fileType) {
@@ -59,7 +73,73 @@ public class BackUpServiceImpl implements BackupService {
         return backFiles;
     }
 
-    public static Date getCreateTime(String filePath) {
+    @Override
+    public void backupResources() {
+        try {
+            if (getBackUps("resources").size() > 10 ) {
+                FileUtil.del(System.getProperties().getProperty("user.home") + "/blog/backup/resources/");
+            }
+            File path = new File(ResourceUtils.getURL("classpath:").getPath());
+            String srcPath = path.getAbsolutePath();
+            String distName = "resources_backup_" + TimeUtil.getCurrentTime();
+            //执行打包
+            ZipUtil.zip(srcPath, System.getProperties().getProperty("user.home") + "/blog/backup/resources/" + distName + ".zip");
+
+            LOG.info("当前时间：{}，执行了资源文件备份。", DateUtil.now());
+
+        } catch (Exception e) {
+            LOG.error("备份文章失败：{}", e.getMessage());
+
+        }
+    }
+
+    @Override
+    public void backupDatabase() {
+        try{
+            //备份不超过10个
+            if (this.getBackUps("databases").size() > 10) {
+                FileUtil.del(System.getProperties().getProperty("user.home") + "/halo/backup/databases/");
+            }
+            String srcPath = System.getProperties().getProperty("user.home") + "/blog/";
+            String distName = "databases_backup_" + TimeUtil.getCurrentTime();
+            ZipUtil.zip(srcPath + "sql.mv.db", System.getProperties().getProperty("user.home") + "/blog/backup/databases/" + distName + ".zip");
+            LOG.info("当前时间：{}，执行了数据库备份。", DateUtil.now());
+
+        } catch (Exception e) {
+            LOG.error("备份数据库失败：{}", e.getMessage());
+        }
+    }
+
+    @Override
+    public void backupPosts() {
+        //再处理一下
+        List<Post> posts = postService.findAllPosts(5);
+        try {
+            if (getBackUps("post").size() > 10) {
+                FileUtil.del(System.getProperties().getProperty("user.home") + "/halo/backup/posts/");
+            }
+            //打包好的文件名
+            String distName = "posts_backup_" + TimeUtil.getCurrentTime();
+            String srcPath = System.getProperties().getProperty("user.home") + "/halo/backup/posts/" + distName;
+            for (Post post : posts) {
+                HaloUtils.postToFile(post.getPostContentMd(), srcPath, post.getPostTitle() + ".md");
+            }
+            //打包导出好的文章
+            ZipUtil.zip(srcPath, srcPath + ".zip");
+            FileUtil.del(srcPath);
+            LOG.info("当前时间：{}，执行了文章备份。", DateUtil.now());
+        } catch (Exception e) {
+            LOG.error("备份文章失败：{}", e.getMessage());
+
+        }
+
+
+    }
+
+
+
+
+    private static Date getCreateTime(String filePath) {
         Path path = Paths.get(filePath);
         //获取文件属性
         BasicFileAttributeView basicview = Files.getFileAttributeView(path, BasicFileAttributeView.class, LinkOption.NOFOLLOW_LINKS);

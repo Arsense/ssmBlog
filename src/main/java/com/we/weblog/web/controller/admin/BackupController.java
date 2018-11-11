@@ -1,5 +1,6 @@
 package com.we.weblog.web.controller.admin;
 
+import com.vue.adminlte4j.model.UIModel;
 import com.we.weblog.domain.BackFile;
 import com.we.weblog.service.BackupService;
 import org.apache.commons.lang3.StringUtils;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -46,9 +48,31 @@ public class BackupController {
         model.addAttribute("backups", backups);
         model.addAttribute("type", type);
         return "admin/backup";
-
     }
 
+
+    /**
+     * 执行备份
+     *
+     * @param type 备份类型
+     * @return JsonResult
+     */
+    @GetMapping(value = "doBackup")
+    @ResponseBody
+    public UIModel doBackup(@RequestParam("type") String type) {
+        if (StringUtils.equals(type, "resources")) {
+             backupService.backupResources();
+        } else if (StringUtils.equals(type, "databases")) {
+             backupService.backupDatabase();
+        } else if (StringUtils.equals(type, "posts")) {
+             backupService.backupPosts();
+        } else {
+           return UIModel.fail().msg("备份失败");
+        }
+
+        return UIModel.success().msg("备份成功");
+
+    }
 
 
 }

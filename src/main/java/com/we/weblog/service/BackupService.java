@@ -17,4 +17,25 @@ public interface BackupService {
      */
     List<BackFile> getBackUps(String filePath);
 
+    /**
+     * 备份资源文件
+     *
+     */
+    void backupResources();
+
+    /**
+     * 备份数据库
+     *
+     */
+    void backupDatabase();
+
+    /**
+     *  备份文章，导出markdown文件
+     *
+     */
+    void backupPosts();
+
+
+
+
 }

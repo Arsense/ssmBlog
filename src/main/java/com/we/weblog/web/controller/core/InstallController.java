@@ -1,7 +1,7 @@
 package com.we.weblog.web.controller.core;
 
 
-import com.we.weblog.enums.BaseBlogEnum;
+import com.we.weblog.util.enums.BaseBlogEnum;
 import com.we.weblog.service.OptionsService;
 import com.we.weblog.util.BaseConfigUtil;
 import org.apache.commons.lang3.StringUtils;

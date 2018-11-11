@@ -1,9 +1,7 @@
 package com.we.weblog.web.intercaptor;
 
-import com.we.weblog.enums.BaseBlogEnum;
-import com.we.weblog.util.BaseConfigUtil;
+import com.we.weblog.util.enums.BaseBlogEnum;
 import org.springframework.stereotype.Component;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;

@@ -27,8 +27,8 @@ public class FileUtil {
         String[] name = fileName.split("\\.");
         int length = name.length;
 
-        if (length >0 ) {
-            return name[length-1];
+        if (length > 0 ) {
+            return name[length - 1];
         } else {
             return "";
         }

@@ -1,5 +1,4 @@
 
-
 ## 基本技术
 
 环境: `Springboot+mysql+admintle+vue.js+mybatis`环境搭建的个博客
@@ -13,6 +12,12 @@
 - editor.md 开源markdown编辑器
 - springmvc框架
 
+
+
+## 注意的是
+- 前后端的区别
+前端是通过模板的查找 默认资源路径是tempaltes 可自定义路径
+后端是静态 是直接访问资源的 默认资源路径是static 不可重定向
 ### 搭建方法在下面
 
 
@@ -47,7 +52,7 @@ dir后面是你的项目路径
 ![](doc/7.png)
 ### 添加菜单和子菜单
 ![](doc/8.png)
-·
+
 
 ### 本地搭建 
 运行成功后访问:http://localhost:8002

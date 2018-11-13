@@ -2,7 +2,7 @@
 
 ## 最近更新
 登陆后台地址改为  /admin/login.html
-
+- vue-admintle jar包需要更新 maven clean 后重新编译打包
 ## 基本技术
 
 环境: `Springboot+mysql+admintle+vue.js+mybatis`环境搭建的个博客

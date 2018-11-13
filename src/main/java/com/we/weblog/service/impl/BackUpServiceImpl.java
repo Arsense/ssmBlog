@@ -14,7 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
 import javax.annotation.Resource;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
@@ -116,27 +119,30 @@ public class BackUpServiceImpl implements BackupService {
     @Override
     public void backupPosts() {
         //再处理一下
-        List<Post> posts = postService.findAllPosts(5);
+        List<Post> posts = postService.findAllPosts();
         try {
             if (getBackUps("post").size() > 10) {
-                FileUtil.del(System.getProperties().getProperty("user.home") + "/halo/backup/posts/");
+                FileUtil.del(System.getProperties().getProperty("user.home") + "/blog/backup/posts/");
             }
             //打包好的文件名
             String distName = "posts_backup_" + TimeUtil.getCurrentTime();
-            String srcPath = System.getProperties().getProperty("user.home") + "/halo/backup/posts/" + distName;
-//            for (Post post : posts) {
-//                HaloUtils.postToFile(post.getPostContentMd(), srcPath, post.getPostTitle() + ".md");
-//            }
+            String srcPath = System.getProperties().getProperty("user.home") + "/blog/backup/temp/" + distName;
+            for (Post post : posts) {
+                exportToFile(post.getMd(), srcPath, post.getTitle() + ".md");
+            }
+            String zipPath = System.getProperties().getProperty("user.home") + "/blog/backup/posts/" + distName+"1";
             //打包导出好的文章
-            ZipUtil.zip(srcPath, srcPath + ".zip");
+            ZipUtil.zip(srcPath, zipPath + ".zip");
+            //删除临时文件
             FileUtil.del(srcPath);
+            //删除临时文件夹
+            File srcFile = new File(srcPath);
+            srcFile.delete();
+
             LOG.info("当前时间：{}，执行了文章备份。", DateUtil.now());
         } catch (Exception e) {
             LOG.error("备份文章失败：{}", e.getMessage());
-
         }
-
-
     }
 
 
@@ -161,6 +167,46 @@ public class BackUpServiceImpl implements BackupService {
         cal.set(1970, 0, 1, 0, 0, 0);
         return cal.getTime();
     }
+
+
+    /**
+     * 导出博客为文件
+     * @param data
+     * @param filePath
+     * @param fileName
+     */
+
+    public  void exportToFile(String data, String filePath, String fileName) throws IOException {
+        //文件流
+        FileWriter fileWriter = null;
+        //字节流
+        BufferedWriter bufferedWriter = null;
+        try {
+            //创建文件对象
+            File file = new File(filePath);
+            //不存在则自己创建
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+            //写入文件
+            fileWriter = new FileWriter(file.getAbsoluteFile() + "/" + fileName, true);
+            bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            // 资源销毁
+            if (null != bufferedWriter) {
+                bufferedWriter.close();
+            }
+            if (null != fileWriter) {
+                fileWriter.close();
+            }
+        }
+
+    }
+
+
 
     /**
      * 转换文件大小

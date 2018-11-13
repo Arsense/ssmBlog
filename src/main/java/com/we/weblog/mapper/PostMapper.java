@@ -25,6 +25,9 @@ public interface PostMapper {
     Post findLastestPost();
 
 
+    @Select({"select * from t_context where type = 'post' order by uid asc"})
+    List<Post> findAllPosts();
+
     @Select({"select uid,title,created,article from t_context where title='关于我'"})
     Post findAuthor();
 

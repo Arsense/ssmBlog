@@ -268,6 +268,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<Post> findAllPosts(){
+        return sortPostDate(postMapper.findAllPosts());
+
+    }
+
+    @Override
     public List<Post> searchPosts(String keyWord) {
         return null;
     }

@@ -138,6 +138,15 @@ public interface PostService {
      * @return List
      */
     List<Post> findAllPosts(int page);
+
+
+    /**
+     * 获取所有文章
+     *
+     * @return List
+     */
+    List<Post> findAllPosts();
+
     /**
      * 模糊查询文章
      *

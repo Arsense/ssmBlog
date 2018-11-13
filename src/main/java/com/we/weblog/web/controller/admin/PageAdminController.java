@@ -40,7 +40,7 @@ public class PageAdminController extends BaseController{
         if (logService.saveByLogs(loginLog)<0) {
             throw new Exception("添加新页面失败");
         }
-        response.sendRedirect("/admin/pages.html");
+        response.sendRedirect("/admin/admin_pages.html");
     }
 
 

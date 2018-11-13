@@ -100,8 +100,9 @@ public class BackUpServiceImpl implements BackupService {
         try{
             //备份不超过10个
             if (this.getBackUps("databases").size() > 10) {
-                FileUtil.del(System.getProperties().getProperty("user.home") + "/halo/backup/databases/");
+                FileUtil.del(System.getProperties().getProperty("user.home") + "/blog/backup/databases/");
             }
+            //数据库备份得改
             String srcPath = System.getProperties().getProperty("user.home") + "/blog/";
             String distName = "databases_backup_" + TimeUtil.getCurrentTime();
             ZipUtil.zip(srcPath + "sql.mv.db", System.getProperties().getProperty("user.home") + "/blog/backup/databases/" + distName + ".zip");

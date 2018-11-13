@@ -6,7 +6,7 @@ import com.vue.adminlte4j.model.form.FormModel;
 import com.we.weblog.domain.Category;
 import com.we.weblog.domain.Comment;
 import com.we.weblog.domain.Post;
-import com.we.weblog.domain.YearBlog;
+import com.we.weblog.domain.modal.YearBlog;
 import com.we.weblog.domain.modal.Types;
 import com.we.weblog.service.CommentService;
 import com.we.weblog.service.PostService;

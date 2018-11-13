@@ -1,7 +1,7 @@
 package com.we.weblog.web.controller.admin;
 
 import com.vue.adminlte4j.model.UIModel;
-import com.we.weblog.domain.Select;
+import com.we.weblog.domain.modal.Select;
 import com.we.weblog.service.PostService;
 import com.we.weblog.service.TagService;
 import org.springframework.stereotype.Controller;

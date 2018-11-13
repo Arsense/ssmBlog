@@ -2,7 +2,7 @@ package com.we.weblog.service;
 
 import com.we.weblog.domain.Category;
 import com.we.weblog.domain.Post;
-import com.we.weblog.domain.YearBlog;
+import com.we.weblog.domain.modal.YearBlog;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;

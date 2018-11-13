@@ -1,4 +1,4 @@
-package com.we.weblog.domain;
+package com.we.weblog.domain.modal;
 
 import com.baomidou.kisso.SSOConfig;
 

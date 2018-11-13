@@ -1,6 +1,6 @@
 package com.we.weblog.service;
 
-import com.we.weblog.domain.UploadPicture;
+import com.we.weblog.domain.modal.UploadPicture;
 
 import javax.servlet.http.HttpServletRequest;
 

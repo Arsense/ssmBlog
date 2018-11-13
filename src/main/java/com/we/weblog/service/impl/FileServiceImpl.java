@@ -1,6 +1,6 @@
 package com.we.weblog.service.impl;
 
-import com.we.weblog.domain.UploadPicture;
+import com.we.weblog.domain.modal.UploadPicture;
 import com.we.weblog.service.FileService;
 import com.we.weblog.util.FileUtil;
 import org.springframework.stereotype.Service;

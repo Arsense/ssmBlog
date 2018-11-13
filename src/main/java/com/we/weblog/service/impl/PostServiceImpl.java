@@ -2,6 +2,7 @@ package com.we.weblog.service.impl;
 
 import com.we.weblog.domain.*;
 import com.we.weblog.domain.modal.Types;
+import com.we.weblog.domain.modal.YearBlog;
 import com.we.weblog.mapper.PostMapper;
 import com.we.weblog.service.PostService;
 import com.we.weblog.service.TagService;

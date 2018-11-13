@@ -1,7 +1,6 @@
 package com.we.weblog.service;
 
-import com.we.weblog.domain.Select;
-import com.we.weblog.domain.Tags;
+import com.we.weblog.domain.modal.Select;
 
 import java.util.List;
 

@@ -1,4 +1,6 @@
-package com.we.weblog.domain;
+package com.we.weblog.domain.modal;
+
+import com.we.weblog.domain.Post;
 
 import java.util.ArrayList;
 import java.util.List;

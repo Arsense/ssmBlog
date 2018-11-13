@@ -79,10 +79,12 @@ public class BackUpServiceImpl implements BackupService {
             if (getBackUps("resources").size() > 10 ) {
                 FileUtil.del(System.getProperties().getProperty("user.home") + "/blog/backup/resources/");
             }
+            //获取静态资源地址
             File path = new File(ResourceUtils.getURL("classpath:").getPath());
+            //取出其绝对路径
             String srcPath = path.getAbsolutePath();
+            //创建备份时间和时间戳 //执行打包
             String distName = "resources_backup_" + TimeUtil.getCurrentTime();
-            //执行打包
             ZipUtil.zip(srcPath, System.getProperties().getProperty("user.home") + "/blog/backup/resources/" + distName + ".zip");
 
             LOG.info("当前时间：{}，执行了资源文件备份。", DateUtil.now());

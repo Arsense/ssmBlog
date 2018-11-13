@@ -88,15 +88,15 @@ public class IndexController extends BaseController {
             return UIModel.fail().msg("评论失败,输入内容有误");
     }
 
-    /**
-     * 标签显示 删除吧 只留分类吧
-     */
-    @GetMapping("/get_kind_blogs")
-    @ResponseBody
-    public List<Category> getBlogsByTag(){
-        List<Category> lists = postService.sortBlogsByCategories();
-        return lists;
-    }
+//    /**
+//     * 标签显示 删除吧 只留分类吧
+//     */
+//    @GetMapping("/get_kind_blogs")
+//    @ResponseBody
+//    public List<Category> getBlogsByTag(){
+//        List<Category> lists = postService.sortBlogsByCategories();
+//        return lists;
+//    }
 
 
     /**
@@ -110,12 +110,12 @@ public class IndexController extends BaseController {
         response.sendRedirect("/article.html");
     }
 
-    @GetMapping("/tags_data")
-    @ResponseBody
-    public List<String> getAllTags(){
-        List<String> list = tagService.findAllTags();
-        return list;
-    }
+//    @GetMapping("/tags_data")
+//    @ResponseBody
+//    public List<String> getAllTags(){
+//        List<String> list = tagService.findAllTags();
+//        return list;
+//    }
 
     /**
      * 捕获点击的博客类别的get请求
@@ -130,15 +130,15 @@ public class IndexController extends BaseController {
         response.sendRedirect("/tagdetail.html");
     }
 
-    /**
-     *  根据tags 展示所有博客
-     * @return
-     */
-    @GetMapping("/tags_detail_data")
-    @ResponseBody
-    public  List<Post> tagDetailData() {
-        return  postService.findPostsByTagName(tagName);
-    }
+//    /**
+//     *  根据tags 展示所有博客
+//     * @return
+//     */
+//    @GetMapping("/tags_detail_data")
+//    @ResponseBody
+//    public  List<Post> tagDetailData() {
+//        return  postService.findPostsByTagName(tagName);
+//    }
 
 
     /**

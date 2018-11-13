@@ -45,7 +45,7 @@ public class BackUpServiceImpl implements BackupService {
         BackFile backFile = null;
 
         //构造存储路径
-        String sourcePath = System.getProperties().getProperty("user.home") + "/halo/backup/" + fileType;
+        String sourcePath = System.getProperties().getProperty("user.home") + "\\blog\\backup\\" + fileType;
         //创建文件对象
         File srcPath = new File(sourcePath);
         //获取文件下其他文件
@@ -121,9 +121,9 @@ public class BackUpServiceImpl implements BackupService {
             //打包好的文件名
             String distName = "posts_backup_" + TimeUtil.getCurrentTime();
             String srcPath = System.getProperties().getProperty("user.home") + "/halo/backup/posts/" + distName;
-            for (Post post : posts) {
-                HaloUtils.postToFile(post.getPostContentMd(), srcPath, post.getPostTitle() + ".md");
-            }
+//            for (Post post : posts) {
+//                HaloUtils.postToFile(post.getPostContentMd(), srcPath, post.getPostTitle() + ".md");
+//            }
             //打包导出好的文章
             ZipUtil.zip(srcPath, srcPath + ".zip");
             FileUtil.del(srcPath);
@@ -137,8 +137,12 @@ public class BackUpServiceImpl implements BackupService {
     }
 
 
-
-
+    /**
+     * 得到文件创建时间
+     *
+     * @param filePath
+     * @return
+     */
     private static Date getCreateTime(String filePath) {
         Path path = Paths.get(filePath);
         //获取文件属性

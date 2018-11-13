@@ -66,7 +66,7 @@ public class BackUpServiceImpl implements BackupService {
                 //获取文件创建时间
                 backFile.setCreateTime(getCreateTime(file.getAbsolutePath()));
                 //获取文件类型
-                backFile.setFileType("fileType");
+                backFile.setFileType("zip");
                 //获取文件大小
                 backFile.setFileSize("100");
                 backFile.setBackupType(fileType);

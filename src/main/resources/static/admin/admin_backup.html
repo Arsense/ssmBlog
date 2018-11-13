@@ -1,10 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <style type="text/css" rel="stylesheet">
+        .div a{color: #00f}
+    </style>
 </head>
-<body>
-        <h1>博客备份</h1>
-</body>
-</html>
+<v-row>
+    <v-col span="6">
+        <a class="text-warning"  href="/admin/backup/table?type=resources" >资源文件备份</a>&nbsp;|&nbsp;
+        <a class="text-warning"  href="/admin/backup/table?type=databases">文章备份</a>&nbsp;|&nbsp;
+        <a  class="text-warning" href="/admin/backup/table?type=posts" >数据库备份</a>
+    </v-col>
+
+</v-row>
+<v-box title="博客备份">
+
+
+    <v-row>
+        <v-col span="12">
+            <v-table :ajax_url="ajax_url" ref="table" :operations="operations"></v-table>
+        </v-col>
+    </v-row>
+
+
+</v-box>
+<script>
+    new Vue({
+        el:"#app" ,
+        data : {
+            ajax_url : '/admin/backup/table' ,
+            operations : [
+                {
+                    name : '下载' ,
+                    class: 'btn-primary',
+                    icon:'edit',
+                    method : function(row , $table) {
+                        window.location.href = "#";
+                    }
+                } ,
+                {
+                    name : '发送到邮箱' ,
+                    class: 'btn-success',
+                    icon:'edit',
+                    method : function(row , $table) {
+                        window.location.href = "#";
+                    }
+                } ,
+                {
+                    name : '删除'  ,
+                    class: 'btn-danger',
+                    icon:'trash',
+                    method : function(row ,$table) {
+                        window.location.href = "#";
+                    }
+                }
+            ]
+        } ,
+        methods : {
+
+
+        } ,
+        mounted : function () {
+            debugger
+            // var self = this;
+            // axios.get("/admin/index/data").then(function (response) {
+            //     $.extend(self,response.data);
+            // })
+
+        }
+    })
+
+</script>

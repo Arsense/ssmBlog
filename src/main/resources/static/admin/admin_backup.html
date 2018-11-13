@@ -1,24 +1,18 @@
-<head>
-    <style type="text/css" rel="stylesheet">
-        .div a{color: #00f}
-    </style>
-</head>
-<v-row>
-    <v-col span="6">
-        <a class="text-warning"  href="/admin/backup/table?type=resources" >资源文件备份</a>&nbsp;|&nbsp;
-        <a class="text-warning"  href="/admin/backup/table?type=databases">文章备份</a>&nbsp;|&nbsp;
-        <a  class="text-warning" href="/admin/backup/table?type=posts" >数据库备份</a>
-    </v-col>
-
-</v-row>
 <v-box title="博客备份">
+    <v-tab ref="tab">
+        <v-tab-pane label="资源文件备份">
+            <v-table ajax_url="/admin/backup/table?type=resources"  ref="table1" :operations="operations"  ></v-table>
+        </v-tab-pane>
+        <v-tab-pane label="文章备份">
+            <v-table ajax_url="/admin/backup/table?type=posts"  ref="table1" :operations="operations"  ></v-table>
+        </v-tab-pane>
+        <v-tab-pane label="数据库备份">
+            <v-table ajax_url="/admin/backup/table?type=databases"  ref="table1" :operations="operations"  ></v-table>
+        </v-tab-pane>
+
+    </v-tab>
 
 
-    <v-row>
-        <v-col span="12">
-            <v-table :ajax_url="ajax_url" ref="table" :operations="operations"></v-table>
-        </v-col>
-    </v-row>
 
 
 </v-box>
@@ -55,7 +49,11 @@
             ]
         } ,
         methods : {
-
+            backUp: function(type) {
+                debugger;
+                axios.get("/admin/backup/table?type=" + type).then(function (response) {
+                })
+            }
 
         } ,
         mounted : function () {

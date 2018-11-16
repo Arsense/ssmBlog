@@ -65,10 +65,10 @@ public class AdminBlogApiController extends ApiAdminController {
 
 
         Menu menu8 = new Menu("9", "设置"
-                , "/admin/admin_system.html", "fa fa-cog", 8);
+                , "/admin/#", "fa fa-cog", 8);
 
         menu8.addChildMenu(new Menu("81", "博客设置"
-                , "/admin/admin_file.html", "fa fa-cog", 1));
+                , "/admin/admin_system.html", "fa fa-cog", 1));
 
         menu8.addChildMenu(new Menu("82", "博客备份"
                 , "/admin/admin_backup.html", "fa fa-cog", 2));

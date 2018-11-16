@@ -1,20 +1,30 @@
 <v-box title="评论修改">
+        <v-tab ref="tab">
+            <v-tab-pane label="已通过">
+                <v-table ajax_url="/admin/comments/list"  ref="table" :operations="operations"  ></v-table>
+            </v-tab-pane>
+            <v-tab-pane label="待审核">
+                <v-table ajax_url="/admin/comments/list"  ref="table" :operations="operations"  ></v-table>
+            </v-tab-pane>
+            <v-tab-pane label="垃圾箱">
+                <v-table ajax_url="/admin/comments/list"  ref="table" :operations="operations"  ></v-table>
+            </v-tab-pane>
+        </v-tab>
+
+
     <v-row>
-        <v-col span="4">
-            <v-form>
-                <v-form-item>
-                    <v-form-item label="用户名:" inline="true">
-                        <v-input placeholder="请输入用户名:" v-model="userName"></v-input>
-                    </v-form-item>
+    <v-col span="2">
+        <v-button @click="add">查找</v-button>
+    </v-col>
+    <v-col span="4">
+        <v-form>
+            <v-form-item>
+                <v-form-item label="用户名:" inline="true">
+                    <v-input placeholder="请输入用户名:" v-model="userName"></v-input>
                 </v-form-item>
-            </v-form>
-        </v-col>
-        <v-col span="2">
-            <v-button @click="add">查找</v-button>
-        </v-col>
-        <v-col span="12">
-            <v-table ajax_url="/admin/comments/list" ref="table" :operations="operations"></v-table>
-        </v-col>
+            </v-form-item>
+        </v-form>
+    </v-col>
     </v-row>
 </v-box>
 <script>

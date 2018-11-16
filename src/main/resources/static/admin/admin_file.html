@@ -1,0 +1,57 @@
+
+
+
+<v-box>
+    <section class="content container-fluid">
+        <div class="row" id="uploadForm" style="">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="file-input file-input-ajax-new"><div class="file-preview ">
+                        <div class=" file-drop-zone"><div class="file-drop-zone-title">拖拽文件到这里 …<br>支持多文件同时上传</div>
+                            <div class="file-preview-thumbnails">
+                            </div>
+                            <div class="clearfix"></div>    <div class="file-preview-status text-center text-success"></div>
+                            <div class="kv-fileinput-error file-error-message" style="display: none;"></div>
+                        </div>
+                    </div>
+                        <div class="kv-upload-progress kv-hidden" style="display: none;"><div class="progress">
+                            <div class="progress-bar bg-success progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
+                                0%
+                            </div>
+                        </div></div><div class="clearfix"></div>
+                        <div class="input-group file-caption-main">
+                            <div class="file-caption form-control kv-fileinput-caption" tabindex="500">
+                                <span class="file-caption-icon"></span>
+                                <input class="file-caption-name" onkeydown="return false;" onpaste="return false;" placeholder="Select 个文件...">
+                            </div>
+                            <div class="input-group-btn input-group-append">
+                                <button type="button" tabindex="500" title="清除选中文件" class="btn btn-default btn-secondary fileinput-remove fileinput-remove-button"><i class="glyphicon glyphicon-trash"></i>  <span class="hidden-xs">移除</span></button>
+                                <button type="button" tabindex="500" title="取消进行中的上传" class="btn btn-default btn-secondary kv-hidden fileinput-cancel fileinput-cancel-button"><i class="glyphicon glyphicon-ban-circle"></i>  <span class="hidden-xs">取消</span></button>
+                                <a href="/admin/attachments/upload" tabindex="500" title="上传选中文件" class="btn btn-default btn-secondary fileinput-upload fileinput-upload-button"><i class="glyphicon glyphicon-upload"></i>  <span class="hidden-xs">上传</span></a>
+                                <div tabindex="500" class="btn btn-primary btn-file"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;  <span class="hidden-xs">选择 …</span><input id="uploadImg" class="" type="file" multiple="" name="file"></div>
+                            </div>
+                        </div></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="no-margin pull-left">
+                    第1/0页
+                </div>
+                <ul class="pagination no-margin pull-right">
+                    <li><a data-pjax="true" class="btn btn-sm disabled" href="/admin/attachments">首页</a> </li>
+                    <li><a data-pjax="true" class="btn btn-sm disabled" href="/admin/attachments?page=-1">上一页</a></li>
+                    <li><a data-pjax="true" class="btn btn-sm disabled" href="/admin/attachments?page=1">下一页</a></li>
+                    <li><a data-pjax="true" class="btn btn-sm disabled" href="/admin/attachments?page=-1">尾页</a> </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</v-box>
+<script>
+    new Vue({
+        el: '#app',
+        data: {}
+    })
+</script>

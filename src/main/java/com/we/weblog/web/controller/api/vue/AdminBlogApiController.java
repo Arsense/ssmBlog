@@ -57,18 +57,18 @@ public class AdminBlogApiController extends ApiAdminController {
                 , "/admin/theme_edit.html", "fa fa-laptop", 1));
 
         Menu menu6= new Menu("7", "附件"
-                , "/admin/admin_scheme.html", "fa fa-sign-out", 9);
+                , "/admin/admin_file.html", "fa fa-sign-out", 9);
         Menu menu7 = new Menu("8", "用户"
                 , "/admin/admin_scheme.html", "fa fa-user-o", 7);
         menu7.addChildMenu(new Menu("71", "个人信息"
-                , "/admin/admin_scheme.html", "fa fa-user-o", 0));
+                , "/admin/admin_user.html", "fa fa-user-o", 0));
 
 
         Menu menu8 = new Menu("9", "设置"
                 , "/admin/admin_system.html", "fa fa-cog", 8);
 
         menu8.addChildMenu(new Menu("81", "博客设置"
-                , "/admin/setting.html", "fa fa-cog", 1));
+                , "/admin/admin_file.html", "fa fa-cog", 1));
 
         menu8.addChildMenu(new Menu("82", "博客备份"
                 , "/admin/admin_backup.html", "fa fa-cog", 2));

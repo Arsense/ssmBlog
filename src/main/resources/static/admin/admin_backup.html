@@ -11,7 +11,11 @@
         </v-tab-pane>
 
     </v-tab>
-
+    <v-row>
+        <v-col>
+            <button id = "blogSubmit" type="button" class="btn btn-success"   @click="backUp"  >备份</button>
+        </v-col>
+    </v-row>
 
 
 
@@ -20,6 +24,7 @@
     new Vue({
         el:"#app" ,
         data : {
+            type:"",
             ajax_url : '/admin/backup/table' ,
             operations : [
                 {
@@ -27,7 +32,9 @@
                     class: 'btn-primary',
                     icon:'edit',
                     method : function(row , $table) {
-                        window.location.href = "#";
+                        axios.get("/admin/backup/dowload").then(function (response) {
+                            $.alert(response.data);
+                        })
                     }
                 } ,
                 {
@@ -35,7 +42,9 @@
                     class: 'btn-success',
                     icon:'edit',
                     method : function(row , $table) {
-                        window.location.href = "#";
+                        axios.get("/admin/backup/email").then(function (response) {
+                            $.alert(response.data);
+                        })
                     }
                 } ,
                 {
@@ -43,7 +52,9 @@
                     class: 'btn-danger',
                     icon:'trash',
                     method : function(row ,$table) {
-                        window.location.href = "#";
+                        axios.get("/admin/backup/delete").then(function (response) {
+                            $.alert(response.data);
+                        })
                     }
                 }
             ]
@@ -52,6 +63,7 @@
             backUp: function(type) {
                 debugger;
                 axios.get("/admin/backup/table?type=" + type).then(function (response) {
+                    $.alert(response.data);
                 })
             }
 

@@ -1,5 +1,6 @@
 package com.we.weblog.web.controller.admin;
 
+import cn.hutool.core.io.FileUtil;
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.model.form.FormModel;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +31,6 @@ public class BackupController {
 
     @Resource
     private BackupService backupService;
-
 
     /**
      * 执行备份
@@ -90,6 +91,46 @@ public class BackupController {
 
         return  UIModel.success().tableData(tableData);
 
+    }
+
+
+    /**
+     * 删除备份
+     *
+     * @param fileName 文件名
+     * @param type     备份类型
+     * @return JsonResult
+     */
+    @GetMapping(value = "delBackup")
+    @ResponseBody
+    public UIModel deleteBackup(@RequestParam("fileName") String fileName,
+                                @RequestParam("type") String type) {
+        String srcPath = System.getProperties().getProperty("user.home") + "/halo/backup/" + type + "/" + fileName;
+        try {
+            FileUtil.del(srcPath);
+            return UIModel.success().msg("备份删除成功");
+        } catch (Exception e) {
+            return UIModel.success().msg("备份删除失败");
+        }
+
+    }
+
+
+    /**
+     * 将备份发送到邮箱
+     *
+     * @param fileName 文件名
+     * @param type     备份类型
+     * @return JsonResult
+     */
+    @GetMapping(value = "sendToEmail")
+    @ResponseBody
+    public UIModel sendToEmail(@RequestParam("fileName") String fileName,
+                                  @RequestParam("type") String type,
+                                  HttpSession session){
+
+        String srcPath = System.getProperties().getProperty("user.home") + "/halo/backup/" + type + "/" + fileName;
+        return UIModel.success().msg("发送到邮件成功");
     }
 
 }

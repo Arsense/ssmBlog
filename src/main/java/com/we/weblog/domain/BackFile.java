@@ -17,8 +17,7 @@ public class BackFile {
     /**
      * 创建时间
      */
-    private Date createTime;
-
+    private String createTime;
     /**
      * 文件大小
      */
@@ -42,11 +41,11 @@ public class BackFile {
         this.fileName = fileName;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 

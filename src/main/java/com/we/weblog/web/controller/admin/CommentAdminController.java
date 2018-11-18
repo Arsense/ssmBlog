@@ -61,7 +61,7 @@ public class CommentAdminController extends BaseController {
 
     @GetMapping("/delete/{id}")
     @ResponseBody
-    public  UIModel deleteCommnets(@PathVariable("id") Integer commentId) {
+    public  UIModel removeComment(@PathVariable("id") Integer commentId) {
         if (commentId <= 0 )
             return UIModel.fail().msg("删除id非法");
         int result  = commentSerivce.removeByCommentId(commentId);

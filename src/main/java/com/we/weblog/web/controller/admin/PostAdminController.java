@@ -33,7 +33,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admin")
-public class ArticleAdminController extends BaseController{
+public class PostAdminController extends BaseController{
 
     @Resource
     private PostService postService;
@@ -148,31 +148,7 @@ public class ArticleAdminController extends BaseController{
     }
 
 
-    /**
-     *  前端仪表盘
-     * @param request
-     * @return
-     */
-    @GetMapping("/index/data")
-    @ResponseBody
-    public Map<String,Object> index(HttpServletRequest request){
 
-        //获得最新的20条日志  获得最新的文章  后台统计对象
-        Map<String,Object> map = new HashMap<>();
-        int blogCount = postService.findPostCount();
-        int commnetCount = commentSerivce.getCommentCount();
-        List<Post> contexts = postService.findLastestPost(5);
-        List<Comment> comments = commentSerivce.getAllComments();
-        List<Log> logs = logService.findLastestTenLogs(10);
-
-        map.put("blogNumber",blogCount);
-        map.put("contexts", contexts);
-        map.put("logs",logs);
-        map.put("comments",comments);
-        map.put("commentNumber",commnetCount);
-
-        return map;
-    }
 
     /**
      * 显示后台博客列表

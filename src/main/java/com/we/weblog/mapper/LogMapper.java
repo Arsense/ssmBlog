@@ -1,10 +1,7 @@
 package com.we.weblog.mapper;
 
 import com.we.weblog.domain.Log;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,4 +21,8 @@ public interface LogMapper  {
 
     @Select({"select id,action,ip,created from t_logs order by id desc limit #{l}"})
     List<Log> getLogs(@Param("l") int limit);
+
+
+    @Delete({"delete  from t_logs"})
+    int removeAllLog();
 }

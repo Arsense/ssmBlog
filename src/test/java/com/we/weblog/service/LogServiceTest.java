@@ -17,6 +17,12 @@ public class LogServiceTest extends BaseTest {
 
     @Test
     public void testClear(){
+        int a = logsService.removeAllLogs();
 
+        if(a > 0){
+            System.out.println("删除日志成功");
+        } else {
+            System.out.println("删除失败");
+        }
     }
 }

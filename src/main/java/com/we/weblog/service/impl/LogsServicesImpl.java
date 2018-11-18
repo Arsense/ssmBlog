@@ -58,8 +58,8 @@ public class LogsServicesImpl implements LogsService {
      *
      */
     @Override
-    public void removeAllLogs() {
-
+    public int removeAllLogs() {
+        return logMapper.removeAllLog();
     }
 
 }

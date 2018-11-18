@@ -28,7 +28,7 @@ public interface LogsService {
      * 移除所有日志
      *
      */
-    void removeAllLogs();
+    int removeAllLogs();
 
     /**
      * 查询最新的10条日志

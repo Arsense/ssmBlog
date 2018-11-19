@@ -76,7 +76,7 @@
             recommend: function () {
                 var self = this;
                 var type = "index";
-                axios.get("/get_all_datas/" + type).then(function (response) {
+                axios.get("/front/base/" + type).then(function (response) {
                     //一行搞定
                     $.extend(self._data, response.data);
                 });

@@ -12,15 +12,22 @@ import java.util.Date;
 public interface UserService {
 
      /**
-      * 判断用户名和密码
+      * 根据用户名登陆
       *
       * @param username
       * @param password
       * @return
       * @throws Exception
       */
-     boolean checkLogin(String username,String password) throws Exception;
+     User userLoginByName(String username,String password) throws Exception;
 
+
+     /**
+      * 查询admin
+      *
+      * @return User
+      */
+     User findUser();
 
      /**
       * 保存个人资料
@@ -59,6 +66,24 @@ public interface UserService {
       * @return
       */
      User findByUserIdAndUserPass(String userId,String newPassword);
+
+     /**
+      * 根据邮箱和密码查询，用户登录
+      *
+      * @param userEmail userEmail
+      * @param password  userPass
+      * @return User
+      */
+     User userLoginByEmail(String userEmail, String password);
+
+
+
+     /**
+      * 修改禁用状态
+      *
+      * @param enable enable
+      */
+     void updateUserLoginEnable(String enable);
 
 
 

@@ -33,7 +33,7 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> getAllComments() {
         List<Comment> comments = commentMapper.selectAllComments();
         for (Comment comment:comments){
-            comment.setTime(TimeUtil.getFormatClearToSecond(comment.getCreated()));
+            comment.setCommentDate(TimeUtil.getFormatClearToSecond(comment.getCreated()));
         }
         return  comments;
     }
@@ -63,7 +63,7 @@ public class CommentServiceImpl implements CommentService {
             return comments;
         }
         for(Comment comment:comments){
-            comment.setTime(TimeUtil.getFormatClearToDay(comment.getCreated()));
+            comment.setCommentDate(TimeUtil.getFormatClearToDay(comment.getCreated()));
         }
         return comments;
     }
@@ -82,7 +82,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setAuthor("admin");
         //后面再改吧
         comment.setEmail("admin@qq.com");
-        comment.setArticle_id(reply.getArticle_id());
+        comment.s(reply.getArticle_id());
         comment.setContent("回复@"+reply.getAuthor()+"  "+messgae);
         comment.setParent(cid);
 

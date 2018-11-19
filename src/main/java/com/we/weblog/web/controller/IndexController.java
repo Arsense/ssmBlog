@@ -47,7 +47,6 @@ public class IndexController extends BaseController {
         postId = postService.getLastestBlogId();
         postId = 0;
     }
-
     /**
      * 首页视图
      * @return
@@ -70,7 +69,7 @@ public class IndexController extends BaseController {
     @PostMapping("/comments/send")
     @ResponseBody
     public UIModel addComment(@RequestBody Comment comment ){
-        if (StringUtils.isEmpty(comment) || comment.getArticle_id() <= 0 ) {
+        if (StringUtils.isEmpty(comment) || comment.getPost_id() <= 0 ) {
             return UIModel.fail().msg("评论失败,输入信息有误");
         } else if (!comment.getEmail().contains("@")) {
             return UIModel.fail().msg("邮箱格式不正确");
@@ -165,7 +164,7 @@ public class IndexController extends BaseController {
     }
 
 
-    @GetMapping("/get_all_datas/{page}")
+    @GetMapping("/front/base/{page}")
     @ResponseBody
     public Map<String,Object> getIndexData(@PathVariable String page) throws Exception {
         //如果是首页
@@ -179,7 +178,7 @@ public class IndexController extends BaseController {
         List<Post> blogs = postService.findLastestPost(1);
         maps.put(Types.BLOGS,blogs);
 
-        sortPagesMap(maps,page);
+        findResourceByPageType(maps,page);
         maps.put(Types.TAG_NAME,tagsName);
         maps.put(Types.TAG_COUNT,totalTags);
         maps.put(Types.BLOG_COUNT,postCount);
@@ -204,7 +203,7 @@ public class IndexController extends BaseController {
      * @param pageType
      * @throws Exception
      */
-    public  void sortPagesMap(Map<String,Object> maps, String pageType) throws Exception {
+    private   void findResourceByPageType(Map<String,Object> maps, String pageType) throws Exception {
         if (pageType.equals(Types.PAGE_CATEGORY)) {
             List<Category> cBlogs = postService.sortBlogsByCategories();
             maps.put(Types.CATEGORIES,cBlogs);
@@ -219,6 +218,7 @@ public class IndexController extends BaseController {
             postService.updatePostVisit(currentContext);
             Post preContext = postService.findPreviousPost(getId);
             Post nextContext = postService.findNextPost(getId);
+
             int uid = currentContext.getUid();
             //显示评论
             if (uid > 0) {

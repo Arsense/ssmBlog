@@ -59,10 +59,8 @@ public class MainAdminController {
 
         //文章总数 TODO 其实Long会更好
         int blogCount = postService.findPostCount();
-
         //评论总数
         int commnetCount = commentSerivce.getCommentCount();
-
         //查询最新的文章
         List<Post> contexts = postService.findLastestPost(5);
 

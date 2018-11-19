@@ -1,22 +1,32 @@
 package com.we.weblog.web.controller.admin;
 
+import cn.hutool.core.date.DateUnit;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.lang.Validator;
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.kisso.SSOHelper;
 import com.baomidou.kisso.annotation.Action;
 import com.baomidou.kisso.annotation.Login;
 import com.baomidou.kisso.security.token.SSOToken;
 import com.baomidou.kisso.web.waf.request.WafRequestWrapper;
 import com.we.weblog.domain.Log;
+import com.we.weblog.domain.User;
 import com.we.weblog.domain.modal.LogActions;
 import com.we.weblog.service.LogsService;
 import com.we.weblog.service.UserService;
 import com.we.weblog.util.AddressUtil;
 import com.we.weblog.web.controller.core.BaseController;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 
 /**
@@ -39,43 +49,58 @@ public class LoginController extends BaseController {
 
 
     /**
-     * 首页视图
-     * @return
-     */
-   /* @GetMapping("/login")
-    public String login1(){
-        return redirectTo("/login");
-    }
-*/
-
-    /**
      * 登录 （注解跳过权限验证）
      */
-  //  @Login(action = Action.Skip)
+    @Login(action = Action.Skip)
     @PostMapping("/doLogin")
-    public String doLogin(HttpServletRequest request) throws Exception {
-        /**
-         * 生产环境需要过滤sql注入  登陆验证次数校验  返回一个IP
-         */
-        WafRequestWrapper wafRequest = new WafRequestWrapper(request);
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+    @ResponseBody
+    public String getLogin(HttpServletRequest request) throws Exception {
 
-        boolean result = userService.checkLogin(username, password);
-        if (result) {
+//        WafRequestWrapper wafRequest = new WafRequestWrapper(request);
+        String loginName = request.getParameter("username");
+        String password = request.getParameter("password");
+        //管理员只有一个
+        User adminUser = userService.findUser();
+        Date loginLast = DateUtil.date();
+        if (null != adminUser.getLoginLast()) {
+            loginLast = adminUser.getLoginLast();
+        }
+        Long between = DateUtil.between(loginLast, DateUtil.date(), DateUnit.MINUTE);
+        //登陆次数限制
+        if (StringUtils.equals(adminUser.getLoginEnable(), "true") && (between < 10)) {
+            return "登陆限制";
+        }
+        //验证用户名和密码
+        User user = null;
+        if (Validator.isEmail(loginName)) {
+            user = userService.userLoginByEmail(loginName, SecureUtil.md5(password));
+        } else {
+            user = userService.userLoginByName(loginName, password);
+        }
+        userService.updateUserLoginLast(DateUtil.date());
+        //判断User对象是否相等
+        if (ObjectUtil.equal(adminUser, user)) {
+            //重置用户的登录状态为正常
             //创建日志
-            Log loginLog =new Log(LogActions.LOGIN,username, AddressUtil.getIpAddress(request),1);
+            Log loginLog =new Log(LogActions.LOGIN,loginName, AddressUtil.getIpAddress(request),1);
             if (logService.saveByLogs(loginLog) < 0)
                 throw new Exception("loginLog add error");
-            //这里创建session 防止重复登录
-            SSOHelper.setCookie(request, response, SSOToken.create().setIp(request).setId(1000).setIssuer(username), false);
+            userService.updateUserNormal();
+            SSOHelper.setCookie(request, response, SSOToken.create().setIp(request).setId(1000).setIssuer(loginName), false);
             return "redirect:index.html/#/admin/admin_index.html";
-        } else {
+        } else{
+            //更新失败次数
+            Integer errorCount = userService.updateUserLoginError();
+            //超过五次禁用账户
+            Log loginLog = new Log(LogActions.LOGIN,loginName, AddressUtil.getIpAddress(request),1);
+            logService.saveByLogs(loginLog);
+            if (errorCount >= 5) {
+                userService.updateUserLoginEnable("5");
+            }
             return redirectTo("/admin/login.html");
-
         }
-    }
 
+    }
 
     /**
      *  登出页面
@@ -87,23 +112,5 @@ public class LoginController extends BaseController {
         logService.saveByLogs(new Log(LogActions.LOGOUT,null, AddressUtil.getIpAddress(request),1));
         return "redirect:/" + THEME + "/index";
     }
-
-
-//
-//     /**
-//     * 登录 （注解跳过权限验证）
-//     */
-//    @Login(action = Action.Skip)
-//    @RequestMapping("/login")
-//    public String login() {
-//        // 设置登录 COOKIE
-//        SSOToken ssoToken = SSOHelper.getSSOToken(request);
-//        if(ssoToken != null) {
-//            return redirectTo("/admin/admin_index.html");
-//        }
-//        return redirectTo("/login.html");
-//    }
-
-
 
 }

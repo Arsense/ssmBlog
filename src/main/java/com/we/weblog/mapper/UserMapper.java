@@ -6,6 +6,8 @@ import com.we.weblog.domain.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 /**
  *    @TODO 用户数据Mapper 处理用户的登陆什么的
@@ -19,17 +21,20 @@ public interface UserMapper {
      * @param username
      * @return
      */
-    @Select({"select count(*) from t_user where username=#{name} and password=#{ps}"})
-    int selectByPassAndName(@Param("name") String username,@Param("ps") String password) throws RuntimeException;
+    @Select({"select * from t_user where username = #{name} and password = #{pass}"})
+    User selectByPassAndName(@Param("name") String username,@Param("pass") String password) throws RuntimeException;
+
+    @Select({"select * from t_user where userEmail = #{email} and password = #{pass}"})
+    User findByUserEmailAndPassword(@Param("email") String userEmail,@Param("pass") String password) throws RuntimeException;
+
 
     //TODO 修改密码
-    @Insert({""})
-    int saveByUser();
-
     @Update({" update t_user" +
             "set username = #{u.username}," +
             "password = #{u.password}"})
-    int updateUser(@Param("u") User user);
+    int saveByUser(@Param("u") User user);
+
+
 
 
     @Update({" update t_context " +
@@ -43,5 +48,15 @@ public interface UserMapper {
 
     @Select({"select user from t_user where username=#{name} and password=#{ps}"})
     User findByUserIdAndPassword(@Param("name") String username,@Param("ps") String password);
+
+
+    /**
+     * 查询所有User
+     * @param
+     * @return
+     */
+    @Select({"select * from t_user"})
+    List<User> findAllUsers() throws RuntimeException;
+
 
 }

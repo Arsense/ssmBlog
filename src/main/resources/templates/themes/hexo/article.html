@@ -165,7 +165,7 @@
                         email:"",
                         content:"",
                         url:"",
-                        article_id:""
+                        post_id:""
                     },
                     categoryCount:0,
 
@@ -177,7 +177,7 @@
                     //vue 一个方法调用另一个方法
                     var id = this.$options.methods.getQueryString("id");
                     var type = "article";
-                    axios.get("/get_all_datas/"+type+id).then(function (response) {
+                    axios.get("/front/base/"+type+id).then(function (response) {
                         //一行搞定
                         $.extend(self._data,response.data);
                     });
@@ -198,7 +198,7 @@
                     this._data.newComment.email  = document.commnentForm.email.value
                     this._data.newComment.content = document.commnentForm.content.value
                     this._data.newComment.url = document.commnentForm.url.value
-                    this._data.newComment.article_id = this._data.current.uid
+                    this._data.newComment.post_id = this._data.current.uid
                     axios.post("/comments/send",this._data.newComment).then(function (response) {
                         if(response.data.code==0){
                             layer.msg(response.data.msg, {icon: 2});

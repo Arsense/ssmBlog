@@ -1,4 +1,4 @@
-package com.we.weblog.web.controller.api.vue;
+package com.we.weblog.web.controller.api;
 
 import com.baomidou.kisso.SSOHelper;
 import com.baomidou.kisso.security.token.SSOToken;
@@ -12,11 +12,13 @@ import java.util.List;
 
 
 /**
+ * <pre>
+ *     配置不可删改的菜单
+ * </pre>
  *
- * 配置不可删改的菜单
  */
 @Controller
-public class AdminBlogApiController extends ApiAdminController {
+public class VueApiAdminController extends ApiAdminController {
 
     public String getUserName(HttpServletRequest request) {
         SSOToken ssoToken = SSOHelper.getSSOToken(request);
@@ -24,6 +26,7 @@ public class AdminBlogApiController extends ApiAdminController {
     }
 
     /**
+     * 这里创建的后台菜单如同默认菜单 不可修改
      *
      * @param uiModel
      */

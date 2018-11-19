@@ -59,22 +59,24 @@ public class IndexAdminController {
 
         //文章总数 TODO 其实Long会更好
         int blogCount = postService.findPostCount();
+        map.put("blogNumber",blogCount);
+
         //评论总数
-        int commnetCount = commentSerivce.getCommentCount();
+        int commentCount = commentSerivce.getCommentCount();
+        map.put("commentNumber",commentCount);
+
         //查询最新的文章
         List<Post> contexts = postService.findLastestPost(5);
+        map.put("contexts", contexts);
 
         //查询最新的评论
         List<Comment> comments = commentSerivce.getAllComments();
+        map.put("comments",comments);
 
         //查询最新的日志
         List<Log> logs = logsService.findLastestTenLogs(10);
-
-        map.put("blogNumber",blogCount);
-        map.put("contexts", contexts);
         map.put("logs",logs);
-        map.put("comments",comments);
-        map.put("commentNumber",commnetCount);
+
         return map;
     }
 

@@ -55,14 +55,14 @@ public class MenuVueApiController extends ApiAdminController {
                 , "/admin/#", "fa fa-paint-brush", 5);
 
         menu5.addChildMenu(new Menu("51", "主题"
-                , "/admin/admin_scheme.html", "fa fa-laptop", 0));
+                , "/admin/admin_theme.html", "fa fa-laptop", 0));
         menu5.addChildMenu(new Menu("52", "主题编辑"
                 , "/admin/theme_edit.html", "fa fa-laptop", 1));
 
         Menu menu6= new Menu("7", "附件"
                 , "/admin/admin_attachment.html", "fa fa-sign-out", 9);
         Menu menu7 = new Menu("8", "用户"
-                , "/admin/admin_scheme.html", "fa fa-user-o", 7);
+                , "/admin/admin_theme.html", "fa fa-user-o", 7);
         menu7.addChildMenu(new Menu("71", "个人信息"
                 , "/admin/admin_user.html", "fa fa-user-o", 0));
 

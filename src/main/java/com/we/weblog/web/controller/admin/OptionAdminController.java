@@ -7,5 +7,5 @@ import org.springframework.stereotype.Controller;
  * @date 2018/11/5 19:56
  */
 @Controller
-public class OptionController {
+public class OptionAdminController {
 }

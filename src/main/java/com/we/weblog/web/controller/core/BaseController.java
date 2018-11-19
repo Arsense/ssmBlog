@@ -31,10 +31,8 @@ public class BaseController {
      * @param url
      * @return
      */
-    public String redirectTo(String url) {
-        StringBuffer themeString = new StringBuffer("themes/");
-        themeString.append(THEME).append(url);
-        return themeString.toString();
+    protected String redirectTo(String url) {
+        return "themes/" + THEME + url;
     }
 
 

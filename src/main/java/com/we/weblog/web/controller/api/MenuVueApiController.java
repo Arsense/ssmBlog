@@ -18,7 +18,7 @@ import java.util.List;
  *
  */
 @Controller
-public class VueApiAdminController extends ApiAdminController {
+public class MenuVueApiController extends ApiAdminController {
 
     public String getUserName(HttpServletRequest request) {
         SSOToken ssoToken = SSOHelper.getSSOToken(request);

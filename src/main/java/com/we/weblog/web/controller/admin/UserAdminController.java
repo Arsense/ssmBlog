@@ -1,6 +1,5 @@
 package com.we.weblog.web.controller.admin;
 
-import cn.hutool.crypto.SecureUtil;
 import com.vue.adminlte4j.model.UIModel;
 import com.we.weblog.domain.User;
 import com.we.weblog.service.UserService;
@@ -26,10 +25,10 @@ import javax.validation.Valid;
  */
 @Controller
 @RequestMapping("/admin/user")
-public class UserController {
+public class UserAdminController {
 
 
-    private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UserAdminController.class);
     @Autowired
     private UserService userService;
 

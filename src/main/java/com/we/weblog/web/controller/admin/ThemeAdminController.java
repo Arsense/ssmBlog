@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date 2018/11/5 19:56
  */
 @RequestMapping("/admin/theme")
-public class ThemeController {
+public class ThemeAdminController {
 
     /**
      * 渲染主题设置页面
@@ -21,7 +21,7 @@ public class ThemeController {
     @GetMapping
     public String themes(Model model) {
         model.addAttribute("activeTheme", BaseController.THEME);
-//        if (null != BaseBlogEnum.THEMES) {
+//        if (null != PropertyEnum.THEMES) {
 //            model.addAttribute("themes", HaloConst.THEMES);
 //        }
         return "admin/admin_theme";

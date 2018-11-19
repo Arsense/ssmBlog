@@ -80,14 +80,11 @@ public class CategoryAdminController {
         } else if(name.length()> 25) {
             return  UIModel.fail().msg("您输入的类别过长");
         }
-
         List<String> tagName = tagService.getMates();
         if (tagName.contains(name)) {
             return UIModel.fail().msg("该分类已存在");
         }
-
         int result = tagService.saveCategory(name);
-
 
         if (result > 0)
             return UIModel.success().msg("添加成功");

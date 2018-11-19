@@ -1,5 +1,5 @@
 
-package com.we.weblog.util.other;
+package com.we.weblog.util;
 
 
 //这是CTF的一道密码题 放这儿将来可能做加密算法

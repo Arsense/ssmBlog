@@ -16,7 +16,6 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
 
-
     @Override
     public User userLoginByName(String username, String password) throws Exception {
         return userMapper.selectByPassAndName(username,password);
@@ -44,17 +43,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUserLoginLast(Date lastDate) {
-        return null;
+        User user = this.findUser();
+        user.setLoginLast(lastDate);
+        userMapper.saveByUser(user);
+        return user;
     }
 
     @Override
     public Integer updateUserLoginError() {
-        return null;
+        User user = this.findUser();
+        user.setLoginError((user.getLoginError() == null ? 0 : user.getLoginError()) + 1);
+        userMapper.saveByUser(user);
+        return user.getLoginError();
     }
 
     @Override
     public User updateUserNormal() {
-        return null;
+        User user = this.findUser();
+        user.setLoginEnable("true");
+        user.setLoginError(0);
+        user.setLoginLast(new Date());
+        userMapper.saveByUser(user);
+        return user;
     }
 
     @Override
@@ -65,7 +75,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User userLoginByEmail(String userEmail, String password) {
         return userMapper.findByUserEmailAndPassword(userEmail, password);
-
     }
 
     @Override
@@ -74,6 +83,5 @@ public class UserServiceImpl implements UserService {
         user.setLoginEnable(enable);
         userMapper.saveByUser(user);
     }
-
 
 }

@@ -32,9 +32,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("/admin")
 
-public class MainAdminController {
+public class IndexAdminController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(MainAdminController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(IndexAdminController.class);
 
     @Resource
     private LogsService logsService;

@@ -1,7 +1,7 @@
 package com.we.weblog.web.controller.core;
 
 
-import com.we.weblog.util.enums.BaseBlogEnum;
+import com.we.weblog.util.enums.PropertyEnum;
 import com.we.weblog.service.OptionsService;
 import com.we.weblog.util.BaseConfigUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -40,7 +40,7 @@ public class InstallController {
     @GetMapping
     public String install(Model model) throws Exception {
         try {
-            if (StringUtils.equals("true", BaseConfigUtil.OPTIONS.get(BaseBlogEnum.IS_INSTALL))) {
+            if (StringUtils.equals("true", BaseConfigUtil.OPTIONS.get(PropertyEnum.IS_INSTALL))) {
                 //TODO 如果安装前端显示true的部分
                 model.addAttribute("isInstall", true);
 
@@ -78,13 +78,13 @@ public class InstallController {
                              @RequestParam("password") String password,
                              HttpServletRequest request){
 
-        if (StringUtils.equals("true", BaseConfigUtil.OPTIONS.get(BaseBlogEnum.IS_INSTALL.getProp()))) {
+        if (StringUtils.equals("true", BaseConfigUtil.OPTIONS.get(PropertyEnum.IS_INSTALL.getProp()))) {
             return false;
         }
 
 
 
-        optionsService.saveOption(BaseBlogEnum.IS_INSTALL.getProp(), "true");
+        optionsService.saveOption(PropertyEnum.IS_INSTALL.getProp(), "true");
         return true;
     }
 

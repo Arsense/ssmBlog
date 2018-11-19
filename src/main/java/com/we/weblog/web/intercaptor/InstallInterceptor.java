@@ -1,6 +1,6 @@
 package com.we.weblog.web.intercaptor;
 
-import com.we.weblog.util.enums.BaseBlogEnum;
+import com.we.weblog.util.enums.PropertyEnum;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,7 +18,7 @@ public class InstallInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //TODO 先不拦截吧
         return true;
-//        if(StringUtils.equals("true", BaseConfigUtil.OPTIONS.get(BaseBlogEnum.IS_INSTALL.getProp()))) {
+//        if(StringUtils.equals("true", BaseConfigUtil.OPTIONS.get(PropertyEnum.IS_INSTALL.getProp()))) {
 //            return true;
 //        }
 //       response.sendRedirect("/install");

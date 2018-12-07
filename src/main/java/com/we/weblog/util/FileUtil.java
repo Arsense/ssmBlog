@@ -9,7 +9,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class FileUtil {
 
@@ -67,7 +69,6 @@ public class FileUtil {
         MultipartHttpServletRequest multipartRequest =(MultipartHttpServletRequest) request;
         Iterator<String> fileNames = multipartRequest.getFileNames();
         return multipartRequest.getFile(fileNames.next());
-
     }
 
     /**
@@ -81,6 +82,12 @@ public class FileUtil {
             throw  new MalformedURLException("get ServerRoot error");
         }
         return serverRoot;
+    }
+
+
+    public static List<String> findAllTemplateFileName(String themeName){
+        List<String> fileNames = new ArrayList<>();
+        return fileNames;
     }
 
 

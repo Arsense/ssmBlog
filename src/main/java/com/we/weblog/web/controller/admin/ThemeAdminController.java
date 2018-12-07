@@ -2,10 +2,12 @@ package com.we.weblog.web.controller.admin;
 
 import com.vue.adminlte4j.model.UIModel;
 import com.we.weblog.util.BaseConfigUtil;
+import com.we.weblog.util.FileUtil;
 import com.we.weblog.util.enums.PropertyEnum;
 import com.we.weblog.web.controller.core.BaseController;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,6 +19,7 @@ import java.util.List;
  * @author tangwei
  * @date 2018/11/5 19:56
  */
+@Controller
 @RequestMapping("/admin/theme")
 public class ThemeAdminController {
 
@@ -47,8 +50,6 @@ public class ThemeAdminController {
     @CacheEvict(value = "posts", allEntries = true, beforeInvocation = true)
     public UIModel activeTheme(@RequestParam("siteTheme") String siteTheme,
                                HttpServletRequest request) {
-
-
         return UIModel.success().msg("激活主题成功");
     }
 
@@ -127,6 +128,8 @@ public class ThemeAdminController {
      */
     @GetMapping(value = "/editor")
     public String editor(Model model) {
+
+        List<String> tpls = FileUtil.findAllTemplateFileName(BaseController.THEME);
         return null;
     }
 

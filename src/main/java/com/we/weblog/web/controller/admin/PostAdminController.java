@@ -7,7 +7,6 @@ import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.model.form.FormModel;
 import com.we.weblog.service.*;
 import com.we.weblog.web.controller.core.BaseController;
-import com.we.weblog.domain.Comment;
 import com.we.weblog.domain.Post;
 import com.we.weblog.domain.Log;
 import com.we.weblog.domain.modal.UploadPicture;
@@ -51,7 +50,6 @@ public class PostAdminController extends BaseController{
     private FileService fileService;
 
     private int updateId = 0;
-
 
 
     /**

@@ -1,4 +1,4 @@
-package com.we.weblog.util;
+package com.we.weblog.domain.util;
 
 import javax.servlet.http.HttpServletRequest;
 

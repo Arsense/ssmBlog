@@ -9,7 +9,7 @@ import com.we.weblog.domain.Post;
 import com.we.weblog.domain.Log;
 import com.we.weblog.domain.modal.LogActions;
 import com.we.weblog.domain.modal.Types;
-import com.we.weblog.util.AddressUtil;
+import com.we.weblog.domain.util.AddressUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 

@@ -5,4 +5,5 @@ package com.we.weblog.domain;
  * @date 2018/10/28 22:37
  */
 public class Options {
+    //TODO
 }

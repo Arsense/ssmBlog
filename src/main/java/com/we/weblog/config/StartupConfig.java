@@ -1,7 +1,7 @@
 package com.we.weblog.config;
 
 import com.we.weblog.service.OptionsService;
-import com.we.weblog.util.BaseConfigUtil;
+import com.we.weblog.domain.util.BaseConfigUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
@@ -43,8 +43,6 @@ public class StartupConfig  implements ApplicationListener<ApplicationStartedEve
     private void loadCurrenTheme(){
         //TODO 这里加载主题吧
     }
-
-
 
     /**
      * 加载设置选项

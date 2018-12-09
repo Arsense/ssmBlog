@@ -1,7 +1,7 @@
 package com.we.weblog.web.controller.api;
 
 import com.vue.adminlte4j.model.UIModel;
-import com.we.weblog.domain.formitem.SystemFromInfo;
+import com.we.weblog.domain.modal.form.SystemFromInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

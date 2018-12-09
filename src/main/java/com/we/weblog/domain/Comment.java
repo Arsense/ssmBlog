@@ -80,7 +80,6 @@ public class Comment {
         this.parent = parent;
     }
 
-
     public Date getCreated() {
         return created;
     }

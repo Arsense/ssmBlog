@@ -19,7 +19,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User userLoginByName(String username, String password) throws Exception {
         return userMapper.selectByPassAndName(username,password);
-
     }
 
     /**

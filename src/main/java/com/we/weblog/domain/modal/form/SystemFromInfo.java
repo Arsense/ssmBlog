@@ -1,4 +1,4 @@
-package com.we.weblog.domain.formitem;
+package com.we.weblog.domain.modal.form;
 
 import com.vue.adminlte4j.annotation.UIFormItem;
 import java.io.Serializable;

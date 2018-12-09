@@ -9,20 +9,18 @@ import com.baomidou.kisso.SSOHelper;
 import com.baomidou.kisso.annotation.Action;
 import com.baomidou.kisso.annotation.Login;
 import com.baomidou.kisso.security.token.SSOToken;
-import com.baomidou.kisso.web.waf.request.WafRequestWrapper;
 import com.we.weblog.domain.Log;
 import com.we.weblog.domain.User;
 import com.we.weblog.domain.modal.LogActions;
 import com.we.weblog.service.LogsService;
 import com.we.weblog.service.UserService;
-import com.we.weblog.util.AddressUtil;
+import com.we.weblog.domain.util.AddressUtil;
 import com.we.weblog.web.controller.core.BaseController;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -77,7 +75,7 @@ public class LoginController extends BaseController {
         } else {
             user = userService.userLoginByName(loginName, password);
         }
-        userService.updateUserLoginLast(DateUtil.date());
+//        userService.updateUserLoginLast(DateUtil.date());
         //判断User对象是否相等
         if (ObjectUtil.equal(adminUser, user)) {
             //重置用户的登录状态为正常

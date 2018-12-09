@@ -5,9 +5,9 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ZipUtil;
 import com.we.weblog.domain.BackFile;
 import com.we.weblog.domain.Post;
+import com.we.weblog.domain.util.TimeUtil;
 import com.we.weblog.service.BackupService;
 import com.we.weblog.service.PostService;
-import com.we.weblog.util.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -46,7 +46,6 @@ public class BackUpServiceImpl implements BackupService {
 
         List<BackFile> backFiles = new ArrayList<>();
         BackFile backFile = null;
-
         //构造存储路径
         String sourcePath = System.getProperties().getProperty("user.home") + "\\blog\\backup\\" + fileType;
         //创建文件对象

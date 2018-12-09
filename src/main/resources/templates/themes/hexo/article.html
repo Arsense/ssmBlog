@@ -52,9 +52,9 @@
                     <input type="hidden" name="cid" id="cid" value="1">
                     <!--<input type="hidden" name="csrf_token" value="HEYEoUQ5HHi7Q0X0KS_1Z0">-->
                     <input name="author" maxlength="12" id="author" class="form-control input-control clearfix" placeholder="姓名 (*)" value="" required="">
-                    <input id = "email" type="email" name="mail" id="mail" class="form-control input-control clearfix" placeholder="邮箱 (*)" value="" required="">
-                    <input id= "url" type="url" name="url" id="url" class="form-control input-control clearfix" placeholder="网址 (http://)" value="">
-                    <textarea id="content" name="content" id="textarea" class="form-control" placeholder="基佬，留下你的评论." required="" minlength="5" maxlength="2000"></textarea>
+                    <input id = "email" type="email" name="mail" class="form-control input-control clearfix" placeholder="邮箱 (*)" value="" required="">
+                    <input id= "url" type="url" name="url" class="form-control input-control clearfix" placeholder="网址 (http://)" value="">
+                    <textarea id="content" name="content"  class="form-control" placeholder="基佬，留下你的评论." required="" minlength="5" maxlength="2000"></textarea>
                     <button id="commentFrom" type="button" class="submit" @click="insertComment">提交</button>
                 </form>
 
@@ -177,9 +177,9 @@
                     //vue 一个方法调用另一个方法
                     var id = this.$options.methods.getQueryString("id");
                     var type = "article";
-                    axios.get("/front/base/"+type+id).then(function (response) {
+                    axios.get("/front/base/" + type + id).then(function (response) {
                         //一行搞定
-                        $.extend(self._data,response.data);
+                        $.extend(self._data , response.data);
                     });
 
                 },

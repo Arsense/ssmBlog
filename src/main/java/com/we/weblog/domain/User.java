@@ -32,7 +32,7 @@ public class User {
      * 是否禁用登录
      */
     @JsonIgnore
-    private String loginEnable = "true";
+    private String loginEnable = "false";
     /**
      * 最后一次登录时间
      */

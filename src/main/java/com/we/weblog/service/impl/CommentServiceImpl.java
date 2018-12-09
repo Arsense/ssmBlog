@@ -4,8 +4,8 @@ package com.we.weblog.service.impl;
 import com.we.weblog.domain.Comment;
 import com.we.weblog.mapper.CommentMapper;
 import com.we.weblog.service.CommentService;
-import com.we.weblog.util.AddressUtil;
-import com.we.weblog.util.TimeUtil;
+import com.we.weblog.domain.util.AddressUtil;
+import com.we.weblog.domain.util.TimeUtil;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -82,7 +82,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setAuthor("admin");
         //后面再改吧
         comment.setEmail("admin@qq.com");
-        comment.s(reply.getArticle_id());
+//        comment.(reply.getArticle_id());
         comment.setContent("回复@"+reply.getAuthor()+"  "+messgae);
         comment.setParent(cid);
 

@@ -104,9 +104,11 @@ public class IndexController extends BaseController {
      * @return
      */
     @GetMapping("/post/{id}")
-    public void post(@PathVariable String id,HttpServletResponse response ) throws IOException {
+    public void post(@PathVariable String id) throws IOException {
         postId = Integer.parseInt(id);
-        response.sendRedirect("/article.html");
+
+//        return "article";
+        response.sendRedirect("/article");
     }
 
 //    @GetMapping("/tags_data")
@@ -178,7 +180,7 @@ public class IndexController extends BaseController {
         List<Post> blogs = postService.findLastestPost(1);
         maps.put(Types.BLOGS,blogs);
 
-        findResourceByPageType(maps,page);
+        findResourceByPageType(maps , page);
         maps.put(Types.TAG_NAME,tagsName);
         maps.put(Types.TAG_COUNT,totalTags);
         maps.put(Types.BLOG_COUNT,postCount);

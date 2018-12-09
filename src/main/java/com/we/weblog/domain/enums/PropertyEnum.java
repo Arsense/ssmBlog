@@ -1,4 +1,4 @@
-package com.we.weblog.util.enums;
+package com.we.weblog.domain.enums;
 
 /**
  * @author tangwei

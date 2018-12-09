@@ -1,6 +1,6 @@
 package com.we.weblog.service;
 
-import com.we.weblog.domain.modal.UploadPicture;
+import com.we.weblog.domain.modal.Picture;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,5 +20,5 @@ public interface FileService {
      * @return
      * @throws Exception
      */
-     UploadPicture loadPicture(HttpServletRequest request) throws Exception;
+     Picture loadPicture(HttpServletRequest request) throws Exception;
 }

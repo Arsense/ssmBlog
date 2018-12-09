@@ -1,6 +1,5 @@
 package com.we.weblog.domain;
 
-import java.util.Date;
 
 /**
  * @author tangwei
@@ -13,7 +12,6 @@ public class BackFile {
      * 文件名
      */
     private String fileName;
-
     /**
      * 创建时间
      */
@@ -22,12 +20,10 @@ public class BackFile {
      * 文件大小
      */
     private String fileSize;
-
     /**
      * 文件类型
      */
     private String fileType;
-
     /**
      * 备份类型
      */

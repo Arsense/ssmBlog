@@ -1,5 +1,5 @@
 
-package com.we.weblog.util;
+package com.we.weblog.domain.util;
 
 
 //这是CTF的一道密码题 放这儿将来可能做加密算法
@@ -9,7 +9,6 @@ public class Base16 {
     public static void main(String[] args) {
         String temp = "ocjp{zkirjwmo-ollj-nmlw-joxi-tmolnrnotvms}";
         sortPig(temp);
-
  }
     /**
      * 猪圈

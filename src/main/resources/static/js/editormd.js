@@ -95,7 +95,7 @@
         theme                : "",             // Editor.md self themes, before v1.5.0 is CodeMirror theme, default empty
         editorTheme          : "default",      // Editor area, this is CodeMirror theme at v1.5.0
         previewTheme         : "",             // Preview area theme, default empty
-        markdown             : "",             // Markdown source code
+        markdown             : "",             // Markdown static code
         appendMarkdown       : "",             // if in init textarea value not empty, append markdown to textarea
         width                : "100%",
         height               : "100%",
@@ -228,7 +228,7 @@
         
         lang : {
             name        : "zh-cn",
-            description : "开源在线Markdown编辑器<br/>Open source online Markdown editor.",
+            description : "开源在线Markdown编辑器<br/>Open static online Markdown editor.",
             tocTitle    : "目录",
             toolbar     : {
                 undo             : "撤销（Ctrl+Z）",
@@ -1958,7 +1958,7 @@
         
         /**
          * 解析和保存Markdown代码
-         * Parse & Saving Markdown source code
+         * Parse & Saving Markdown static code
          * 
          * @returns {editormd}     返回editormd的实例对象
          */
@@ -2237,7 +2237,7 @@
         
         /**
          * 设置和传入编辑器的markdown源文档
-         * Set Markdown source document
+         * Set Markdown static document
          * 
          * @param   {String}    md     要传入的markdown源文档
          * @returns {editormd}         返回editormd的实例对象

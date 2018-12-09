@@ -2,12 +2,10 @@
 <html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-
 <div th:replace="~{themes/hexo/module/_header:: head}"></div>
 
 <body>
 <div th:replace="~{themes/hexo/module/_header:: menu}"></div>
-
 
 <div class ="cube-content" style="visibility: visible;" id="main">
     <div class="cube-left">
@@ -23,7 +21,6 @@
             <div class="cube-archive" style="margin-top: 0;" v-for="yearBlogs in blogData">
                 <h1 class="title">{{yearBlogs.year}}</h1>
                 <ul class="posts" >
-
                     <li class="post" v-for="yearBlog in yearBlogs.yearContexts">
                         <a :href="getPostUrl(yearBlog)">{{yearBlog.title}}</a>
                     </li>
@@ -52,8 +49,6 @@
         <div th:replace="~{themes/hexo/sidebar/_links:: copy}"></div>
     </div>
 </div>
-
-
 </div>
 
 <div th:replace="~{themes/hexo/module/_footer:: html}"></div>
@@ -82,7 +77,6 @@
                     //一行搞定
                     $.extend(self._data,response.data);
                 });
-
             },
             getPostUrl:function (Object) {
                 return "article.html?id="+Object.uid;

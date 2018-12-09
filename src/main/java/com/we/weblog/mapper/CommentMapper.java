@@ -15,7 +15,7 @@ public interface CommentMapper {
     @Select({"select count(*) from t_comments"})
     int getNumberOfComment();
 
-    @Select({"select post_id,author,content,created from t_comments where post_id = #{uid} "})
+    @Select({"select article_id,author,content,created from t_comments where article_id = #{uid} "})
     List<Comment> getArticleById(@Param("uid") int uid);
 
     @Insert({"insert into t_comments (post_id,created,author,email,ip,content,parent) "+

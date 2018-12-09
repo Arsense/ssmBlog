@@ -37,7 +37,7 @@ CodeMirror.defineMode("puppet", function () {
     'nagios_hostescalation nagios_hostextinfo nagios_hostgroup nagios_service ' +
     'nagios_servicedependency nagios_serviceescalation nagios_serviceextinfo ' +
     'nagios_servicegroup nagios_timeperiod name notify outiface package proto reject ' +
-    'resources router schedule scheduled_task selboolean selmodule service source ' +
+    'resources router schedule scheduled_task selboolean selmodule service static ' +
     'sport ssh_authorized_key sshkey stage state table tidy todest toports tosource ' +
     'user vlan yumrepo zfs zone zpool');
 

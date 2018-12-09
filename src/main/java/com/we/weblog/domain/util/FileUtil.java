@@ -1,4 +1,4 @@
-package com.we.weblog.util;
+package com.we.weblog.domain.util;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -36,7 +36,7 @@ public class FileUtil {
         }
     }
 
-    public  static String uploadPicture(HttpServletRequest request) throws IOException {
+    public  static String Picture(HttpServletRequest request) throws IOException {
         MultipartFile   files = getMultipartFile(request);
         //设置图片名称为currentTimeMillis+文件后缀
         String  fileName = String.valueOf(System.currentTimeMillis()+"."+ FileUtil.getSuffix(files.getOriginalFilename()));

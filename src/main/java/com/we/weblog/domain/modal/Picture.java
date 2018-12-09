@@ -6,7 +6,7 @@ package com.we.weblog.domain.modal;
  * @author tangwei
  * @date 2018/8/18 14:59
  */
-public class UploadPicture {
+public class Picture {
 
    /**
     *  0 表示上传失败，1 表示上传成功
@@ -50,7 +50,7 @@ public class UploadPicture {
 
     @Override
     public String toString() {
-        return "UploadPicture{" +
+        return "Picture{" +
                 "success=" + success +
                 ", message='" + message + '\'' +
                 ", url='" + url + '\'' +

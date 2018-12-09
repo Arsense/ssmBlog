@@ -9,10 +9,10 @@ import com.we.weblog.service.*;
 import com.we.weblog.web.controller.core.BaseController;
 import com.we.weblog.domain.Post;
 import com.we.weblog.domain.Log;
-import com.we.weblog.domain.modal.UploadPicture;
+import com.we.weblog.domain.modal.Picture;
 import com.we.weblog.domain.modal.LogActions;
 import com.we.weblog.domain.modal.Types;
-import com.we.weblog.util.AddressUtil;
+import com.we.weblog.domain.util.AddressUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -87,7 +87,7 @@ public class PostAdminController extends BaseController{
      */
     @PostMapping("/upload")
     @ResponseBody
-    public UploadPicture uploadPickture(HttpServletRequest request) throws Exception {
+    public Picture uploadPickture(HttpServletRequest request) throws Exception {
         return  fileService.loadPicture(request);
     }
 

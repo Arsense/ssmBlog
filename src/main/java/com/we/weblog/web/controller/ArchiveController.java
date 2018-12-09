@@ -21,7 +21,8 @@ public class ArchiveController extends BaseController{
      */
     @GetMapping("/article")
     public String article(){
-        return redirectTo("/article");
+
+        return redirectTo("/article.html");
     }
 
 
@@ -31,6 +32,6 @@ public class ArchiveController extends BaseController{
      */
     @GetMapping("/archive")
     public String archive(){
-        return redirectTo("/archive");
+        return redirectTo("/archive.html");
     }
 }

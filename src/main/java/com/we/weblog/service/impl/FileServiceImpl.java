@@ -1,8 +1,8 @@
 package com.we.weblog.service.impl;
 
-import com.we.weblog.domain.modal.UploadPicture;
+import com.we.weblog.domain.modal.Picture;
 import com.we.weblog.service.FileService;
-import com.we.weblog.util.FileUtil;
+import com.we.weblog.domain.util.FileUtil;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,11 +17,11 @@ public class FileServiceImpl implements FileService {
      * @throws Exception
      */
     @Override
-    public UploadPicture loadPicture(HttpServletRequest request) throws Exception {
+    public Picture loadPicture(HttpServletRequest request) throws Exception {
         String url;
-        UploadPicture picture = new UploadPicture();
+        Picture picture = new Picture();
         try {
-             url = FileUtil.uploadPicture(request);
+             url = FileUtil.Picture(request);
         } catch(Exception e) {
             e.printStackTrace();
             throw new Exception("loadPicture() error , load picture error");

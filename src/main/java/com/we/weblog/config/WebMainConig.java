@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.config.annotation.*;
 
 import javax.annotation.Resource;
@@ -36,7 +35,6 @@ public class WebMainConig implements WebMvcConfigurer {
     private InstallInterceptor installInterceptor;
 
     private String LOGIN_URL = "/login.html" ;
-
     /**ser
      * 注册拦截器
      * @param registry
@@ -54,28 +52,18 @@ public class WebMainConig implements WebMvcConfigurer {
    }
 
     /**
-     * 配置静态资源路径
+     * 配置静态资源路径 不加的话无法加载静态资源
      *
      * @param registry registry
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        //不加的话无法加载静态资源
-        /*registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/static/");*/
 
-        registry.addResourceHandler("/fonts")
-                .addResourceLocations("classpath:/static/fonts/");
-
-        registry.addResourceHandler("/loading.png")
-                .addResourceLocations("classpath:/static/images/loading.png");
+//        registry.addResourceHandler("/loading.png")
+//                .addResourceLocations("classpath:/static/images/lg/loading.png");
 
         registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/templates/source/" , "classpath:/META-INF/resources/","classpath:/static/");
-        //添加jar包中静态资源的方法
-       /* registry.addResourceHandler("/lib/**")
-                .addResourceLocations("classpath:/META-INF/resources/lib/");*/
-
+                .addResourceLocations("classpath:/templates/static/" , "classpath:/META-INF/resources/","classpath:/static/");
 
     }
 

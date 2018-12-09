@@ -2,6 +2,10 @@ package com.we.weblog.domain;
 
 
 /**
+ * <pre>
+ *     博客分类
+ * <pre/>
+ *
  * @author tangwei
  * @date 2018/11/11 20:45
  */

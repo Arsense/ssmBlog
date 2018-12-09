@@ -11,6 +11,9 @@ import javax.annotation.Resource;
 import java.util.*;
 
 /**
+ *  * <pre>
+ *     公共常量
+ * </pre>
  * 分类标签控制器
  * created by tangwei at 2018/3/19
  */

@@ -14,6 +14,9 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
+ *  * <pre>
+ *     公共常量
+ * </pre>
  *  评论管理页面
  */
 @Controller

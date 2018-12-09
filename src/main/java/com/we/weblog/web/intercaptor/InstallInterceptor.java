@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * <pre>
+ *     公共常量
+ * </pre>
+ *
  * @author tangwei
  * @date 2018/10/23 18:11
  */

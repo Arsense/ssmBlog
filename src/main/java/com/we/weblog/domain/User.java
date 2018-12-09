@@ -5,6 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.validation.constraints.Email;
 import java.util.Date;
 
+
+/**
+ * <pre>
+ *     用户信息
+ * <pre/>
+ */
 public class User {
 
     /**

@@ -3,6 +3,11 @@ package com.we.weblog.domain;
 
 import java.util.Date;
 
+/**
+ *  * <pre>
+ *     博客分类
+ * <pre/>
+ */
 public class Log {
     /**
      * 编号 主键

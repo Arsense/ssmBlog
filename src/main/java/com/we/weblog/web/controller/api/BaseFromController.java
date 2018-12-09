@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
+ *
+ *  *  * <pre>
+ *     公共常量
+ * </pre>
  * @author tangwei
  * @date 2018/9/28 10:51
  */

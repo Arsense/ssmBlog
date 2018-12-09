@@ -2,7 +2,11 @@ package com.we.weblog.domain;
 
 import java.util.Date;
 
-
+/**
+ * <pre>
+ *     博客分类
+ * <pre/>
+ */
 public class Post {
     //   博客内容md 博客内容的html
 

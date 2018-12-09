@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 
+
+/**
+ * <pre>
+ *     公共常量
+ * </pre>
+ */
 @Controller
 @RequestMapping("/admin/tags")
 public class TagAdminController extends BaseController {

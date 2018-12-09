@@ -1,10 +1,13 @@
-package com.we.weblog.web.controller;
+package com.we.weblog.web.exception;
 
 import com.we.weblog.web.controller.core.BaseController;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
+ *  *  * <pre>
+ *     公共常量
+ * </pre>
  * @author tangwei
  * @date 2018/12/7 15:10
  */

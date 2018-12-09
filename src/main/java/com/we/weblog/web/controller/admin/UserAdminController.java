@@ -18,6 +18,10 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 /**
+ *
+ * <pre>
+ *     公共常量
+ * </pre>
  * 用户信息的修改
  *
  * @author tangwei

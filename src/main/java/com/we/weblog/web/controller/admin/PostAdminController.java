@@ -27,6 +27,10 @@ import java.util.Map;
 
 
 /**
+ *
+ *  * <pre>
+ *     公共常量
+ * </pre>
  * 文章控制管理器
  * created by clay
  */

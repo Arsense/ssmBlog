@@ -7,7 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 评论
+ *  * <pre>
+ *     博客分类
+ * <pre/>
  */
 public class Comment {
     /**

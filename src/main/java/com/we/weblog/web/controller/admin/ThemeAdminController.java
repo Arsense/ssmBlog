@@ -44,7 +44,7 @@ public class ThemeAdminController {
      *
      * @param siteTheme 主题名称
      * @param request   request
-     * @return JsonResult
+     * @return UIModel
      */
     @GetMapping(value = "/set")
     @ResponseBody
@@ -59,7 +59,7 @@ public class ThemeAdminController {
      * 上传主题
      *
      * @param file 文件
-     * @return JsonResult
+     * @return UIModel
      */
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
@@ -86,7 +86,7 @@ public class ThemeAdminController {
      *
      * @param remoteAddr 远程地址
      * @param themeName  主题名称
-     * @return JsonResult
+     * @return UIModel
      */
     @PostMapping(value = "/clone")
     @ResponseBody
@@ -99,7 +99,7 @@ public class ThemeAdminController {
      * 更新主题
      *
      * @param themeName 主题名
-     * @return JsonResult
+     * @return UIModel
      */
     @GetMapping(value = "/pull")
     @ResponseBody
@@ -153,7 +153,7 @@ public class ThemeAdminController {
      *
      * @param tplName    模板名称
      * @param tplContent 模板内容
-     * @return JsonResult
+     * @return UIModel
      */
     @PostMapping(value = "/editor/save")
     @ResponseBody

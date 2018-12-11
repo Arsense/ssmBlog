@@ -30,7 +30,7 @@ public interface TagService {
      *
      * @return List
      */
-    int deleteMetas(String name);
+    int removeByTagId(String name);
 
 
     /**

@@ -1,10 +1,13 @@
 package com.we.weblog.web.controller.admin;
 
 import com.vue.adminlte4j.model.UIModel;
+import com.we.weblog.domain.Category;
 import com.we.weblog.domain.modal.Select;
+import com.we.weblog.service.CategoryService;
 import com.we.weblog.service.PostService;
 import com.we.weblog.service.TagService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -25,6 +28,8 @@ public class CategoryAdminController {
     private PostService postService;
     @Resource
     private TagService tagService;
+    @Resource
+    private CategoryService categoryService;
 
     /**
      *  添加博客分类显示
@@ -44,16 +49,19 @@ public class CategoryAdminController {
     @ResponseBody
     public UIModel deleteCategory(@PathVariable("name") String categoryName){
 
-          if (categoryName.equals("")) {
-            return UIModel.fail().msg("删除的类别为空");
-          }
-          int result = postService.removePostCategory(categoryName);
-          tagService.deleteMetas(categoryName);
-          if(result >= 0) {
-              return UIModel.success().msg("删除成功");
-          } else {
-              return UIModel.fail().msg("删除失败");
-          }
+        if ("".equals(categoryName)) {
+          return UIModel.fail().msg("删除的类别为空");
+        }
+
+        try {
+            int result = postService.removePostCategory(categoryName);
+//            tagService.deleteMetas(categoryName);
+        } catch (Exception e) {
+//            log.error("删除分类失败：{}", e.getMessage());
+            return UIModel.fail().msg("删除失败");
+        }
+        return UIModel.success().msg("删除成功");
+
     }
 
     /**
@@ -87,13 +95,30 @@ public class CategoryAdminController {
         if (tagName.contains(name)) {
             return UIModel.fail().msg("该分类已存在");
         }
-        int result = tagService.saveCategory(name);
-
-        if (result > 0)
-            return UIModel.success().msg("添加成功");
-        else
+        try {
+            tagService.saveCategory(name);
+        } catch (Exception e) {
             return UIModel.fail().msg("添加失败");
+//            log.error("修改分类失败：{}", e.getMessage());
+        }
 
+
+        return UIModel.success().msg("添加成功");
+
+    }
+
+    /**
+     * 跳转到修改页面
+     *
+     * @param cateId cateId
+     * @param model  model
+     * @return 模板路径admin/admin_category
+     */
+    @GetMapping(value = "/edit")
+    public String toEditCategory(Model model, @RequestParam("cateId") Integer cateId) {
+        Category category = categoryService.findByCateId(cateId);
+        model.addAttribute("updateCategory", category);
+        return "admin/admin_category";
     }
 
 }

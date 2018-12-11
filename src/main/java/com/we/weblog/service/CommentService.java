@@ -64,4 +64,13 @@ public interface CommentService {
      * @param reply
      */
     Integer replyComment(String messgae,Integer cid,Comment reply);
+
+    /**
+     * 更改评论的状态
+     *
+     * @param commentId commentId
+     * @param status    status
+     * @return Comment
+     */
+    Comment updateCommentStatus(Long commentId, Integer status);
 }

@@ -12,6 +12,7 @@ import com.baomidou.kisso.security.token.SSOToken;
 import com.we.weblog.domain.Log;
 import com.we.weblog.domain.User;
 import com.we.weblog.domain.modal.LogActions;
+import com.we.weblog.domain.util.BaseConfigUtil;
 import com.we.weblog.service.LogsService;
 import com.we.weblog.service.UserService;
 import com.we.weblog.domain.util.AddressUtil;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 
@@ -45,6 +47,22 @@ public class LoginController extends BaseController {
         this.logService = logService;
     }
 
+
+    /**
+     * 处理跳转到登录页的请求
+     *
+     * @param session session
+     * @return 模板路径admin/admin_login
+     */
+    @GetMapping(value = "/login")
+    public String login(HttpSession session) {
+        User user = (User) session.getAttribute(BaseConfigUtil.USER_SESSION_KEY);
+        //如果session存在，跳转到后台首页
+        if (null != user) {
+            return "redirect:/admin";
+        }
+        return "admin/admin_login";
+    }
 
     /**
      * 登录 （注解跳过权限验证）
@@ -88,7 +106,7 @@ public class LoginController extends BaseController {
             return "redirect:index.html/#/admin/admin_index.html";
         } else{
             //更新失败次数
-            Integer errorCount = userService.updateUserLoginError();
+                Integer errorCount = userService.updateUserLoginError();
             //超过五次禁用账户
             Log loginLog = new Log(LogActions.LOGIN,loginName, AddressUtil.getIpAddress(request),1);
             logService.saveByLogs(loginLog);

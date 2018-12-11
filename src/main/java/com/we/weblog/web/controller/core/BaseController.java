@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class BaseController {
 
-    protected Logger LOG = LoggerFactory.getLogger(this.getClass());
+    protected final static Logger logger = LoggerFactory.getLogger(BaseController.class);
 
     @Resource
     protected HttpServletRequest request;

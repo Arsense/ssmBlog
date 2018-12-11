@@ -25,7 +25,12 @@ public class TagServiceImpl implements TagService {
         tagMapper.deleteTagById(uid);
     }
 
-     // 删除category from metas
+    @Override
+    public int removeByTagId(String name) {
+        return 0;
+    }
+
+    // 删除category from metas
     public int deleteMetas(String name){
         return tagMapper.deleteCategoryByName(name);
     }

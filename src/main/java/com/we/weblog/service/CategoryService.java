@@ -38,4 +38,6 @@ public interface CategoryService {
      */
     List<Category> getAllCategories();
 
+    Category findByCateId(Integer id);
+
 }

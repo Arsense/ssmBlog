@@ -88,6 +88,12 @@ public class CommentServiceImpl implements CommentService {
 
         return commentMapper.insertComment(comment);
     }
+
+    @Override
+    public Comment updateCommentStatus(Long commentId, Integer status) {
+        return null;
+    }
+
     /**
      * 获取文章数量
      * @return

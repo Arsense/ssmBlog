@@ -7,6 +7,7 @@ import com.vue.adminlte4j.model.form.FormModel;
 import com.we.weblog.domain.BackFile;
 import com.we.weblog.domain.User;
 import com.we.weblog.service.BackupService;
+import com.we.weblog.service.MailService;
 import com.we.weblog.service.UserService;
 import com.we.weblog.domain.util.BaseConfigUtil;
 import com.we.weblog.domain.enums.PropertyEnum;
@@ -20,12 +21,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
- *  * <pre>
+ * <pre>
  *     公共常量
  * </pre>
  * @author tangwei
@@ -39,28 +43,9 @@ public class BackupController extends BaseController{
     private BackupService backupService;
     @Resource
     private UserService userService;
+    @Resource
+    private MailService mailService;
 
-
-    /**
-     * 执行备份
-     *
-     * @param type 备份类型
-     * @return
-     */
-    @GetMapping(value = "doBackup")
-    @ResponseBody
-    public UIModel doBackup(@RequestParam("type") String type) {
-        if (StringUtils.equals(type, "resources")) {
-             backupService.backupResources();
-        } else if (StringUtils.equals(type, "databases")) {
-             backupService.backupDatabase();
-        } else if (StringUtils.equals(type, "posts")) {
-             backupService.backupPosts();
-        } else {
-           return UIModel.fail().msg("备份失败");
-        }
-        return UIModel.success().msg("备份成功");
-    }
 
 
     /**
@@ -99,10 +84,35 @@ public class BackupController extends BaseController{
 
 
     /**
+     * 执行备份
+     *
+     * @param type 备份类型
+     * @return
+     */
+    @GetMapping(value = "doBackup")
+    @ResponseBody
+    public UIModel doBackup(@RequestParam("type") String type) {
+        if (StringUtils.equals(type, "resources")) {
+             backupService.backupResources();
+        } else if (StringUtils.equals(type, "databases")) {
+             backupService.backupDatabase();
+        } else if (StringUtils.equals(type, "posts")) {
+             backupService.backupPosts();
+        } else {
+           return UIModel.fail().msg("备份失败");
+        }
+        return UIModel.success().msg("备份成功");
+    }
+
+
+
+
+
+    /**
      * 删除备份
      * @param fileName 文件名
      * @param type     备份类型
-     * @return JsonResult
+     * @return UIModel
      */
     @GetMapping(value = "delBackup")
     @ResponseBody
@@ -124,7 +134,7 @@ public class BackupController extends BaseController{
      *
      * @param fileName 文件名
      * @param type     备份类型
-     * @return JsonResult
+     * @return UIModel
      */
     @GetMapping(value = "sendToEmail")
     @ResponseBody
@@ -157,7 +167,17 @@ public class BackupController extends BaseController{
 
         @Override
         public void run() {
-            //TODO 发送邮件 不知道之前的能不能发成功
+//            //TODO 发送邮件 不知道之前的能不能发成功
+//            File file = new File(sourcePath);
+//            Map<String, Object> content = new HashMap<>(3);
+//            try {
+//                content.put("fileName", file.getName());
+//                content.put("createAt", HaloUtils.getCreateTime(srcPath));
+//                content.put("size", HaloUtils.parseSize(file.length()));
+//                mailService.sendAttachMail(user.getUserEmail(), "", content, "common/mail_template/mail_attach.ftl", sourcePath);
+//            } catch (Exception e) {
+//                LOG.error("邮件服务器未配置：{}", e.getMessage());
+//            }
         }
 
 

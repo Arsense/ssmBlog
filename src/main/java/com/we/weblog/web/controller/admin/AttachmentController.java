@@ -27,7 +27,6 @@ import java.util.Map;
 @RequestMapping(value = "/admin/attachments")
 public class AttachmentController extends BaseController {
 
-
     private final static Logger LOG = LoggerFactory.getLogger(AttachmentController.class);
 
     @Resource
@@ -64,7 +63,7 @@ public class AttachmentController extends BaseController {
     @ResponseBody
     public Map<String, Object> upload(@RequestParam("file") MultipartFile file,
                                       HttpServletRequest request) {
-        return uploadAttachment(file, request);
+        return attachmentService.uploadAttachment(file);
     }
 
     /**
@@ -108,38 +107,7 @@ public class AttachmentController extends BaseController {
 
     }
 
-    /**
-     * 上传图片
-     *
-     * @param file    file
-     * @param request request
-     * @return Map
-     */
-    private Map<String, Object> uploadAttachment(MultipartFile file, HttpServletRequest request) {
-        Map<String, Object> result = new HashMap<>(3);
-        if (!file.isEmpty()) {
-            try {
-                //用户目录
-                String userPath = System.getProperties().getProperty("user.home") + "/halo";
-                //upload的路径
-                StringBuffer filePath = new StringBuffer("upload/");
-                //获取当前年月以创建目录，如果没有该目录则创建
-                filePath.append(DateUtil.thisYear()).append("/").append(DateUtil.thisMonth()).append("/");
-                File mediaPath = new File(userPath, filePath.toString());
-                if (!mediaPath.exists()) {
-                    mediaPath.mkdirs();
-                }
-            } catch (Exception e) {
-                LOG.error("上传文件失败：{}", e.getMessage());
-                result.put("success", 0);
-            }
-        } else {
-            LOG.error("文件不能为空");
 
-        }
-
-        return  null;
-    }
 
     /**
      * 处理获取附件详情的请求

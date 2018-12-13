@@ -1,8 +1,10 @@
 package com.we.weblog.service;
 
 import com.we.weblog.domain.Attachment;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author tangwei
@@ -29,4 +31,9 @@ public interface AttachmentService {
      * @param id
      */
     void removeByAttachId(int id);
+
+    Map<String, Object> uploadAttachment(MultipartFile file);
+
+
+
 }

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 @Service
-public class TagServiceImpl implements TagService {
+public class TagServiceImpl implements TagService  {
 
     @Resource
     private TagMapper tagMapper;

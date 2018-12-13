@@ -19,21 +19,22 @@ public class Post {
     //博客标签
     private String   tags;
    //文章标签
-    public String  article;
+    public String   article;
     //md内容
     private String  md;
     //发布时间
-    private String month;
+    private String  month;
     //文章类型
-    private String type;
+    private String  type;
     //缩略名
-    private String slug;
+    private String  slug;
     //用了确认是草稿 还是发布的文章
-    private String publish;
+    private String  publish;
     // 分类列表
-    private String  categories;
+    private String   categories;
     //浏览量
-    private int   hits;
+    private int     hits;
+
 
 
     public String getPublish() {
@@ -43,7 +44,6 @@ public class Post {
     public void setPublish(String publish) {
         this.publish = publish;
     }
-
 
     public Date getCreated() {
         return created;

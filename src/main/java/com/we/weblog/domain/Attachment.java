@@ -51,7 +51,7 @@ public class Attachment {
     /**
      * 附件长宽
      */
-    private String attachWh;
+    private String attachWidth;
 
     public Long getAttachId() {
         return attachId;
@@ -117,11 +117,4 @@ public class Attachment {
         this.attachSize = attachSize;
     }
 
-    public String getAttachWh() {
-        return attachWh;
-    }
-
-    public void setAttachWh(String attachWh) {
-        this.attachWh = attachWh;
-    }
 }

@@ -2,6 +2,7 @@ package com.we.weblog.mapper;
 
 import com.we.weblog.domain.Attachment;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +17,6 @@ import java.util.List;
 public interface AttachmentMapper {
 
 
-    @Select({"select commentId,post_id,created,author,email,content from t_comments"})
-    List<Attachment> selectAllAttachment();
+    @Select({"select * from t_attach limit #{page},#{size}"})
+    List<Attachment> selectAllAttachment(@Param("page")int currentPage,@Param("size") int pageSize);
 }

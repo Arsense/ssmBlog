@@ -17,6 +17,8 @@ public class BaseController {
 
     protected final static Logger logger = LoggerFactory.getLogger(BaseController.class);
 
+    public static String HOME_DIR = "/clay";
+
     @Resource
     protected HttpServletRequest request;
     @Resource

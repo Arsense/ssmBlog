@@ -15,11 +15,11 @@ public class Comment {
     /**
      * comment主键
      */
-    private int commentId;
+    private int cid;
     /**
      * 所评论文章的ID
      */
-    private int post_id;
+    private int article_id;
     /**
      * 创建时间
      */
@@ -122,20 +122,21 @@ public class Comment {
         this.content = content;
     }
 
-    public int getCommentId() {
-        return commentId;
+
+    public int getCid() {
+        return cid;
     }
 
-    public void setCommentId(int commentId) {
-        this.commentId = commentId;
+    public void setCid(int cid) {
+        this.cid = cid;
     }
 
-    public int getPost_id() {
-        return post_id;
+    public int getArticle_id() {
+        return article_id;
     }
 
-    public void setPost_id(int post_id) {
-        this.post_id = post_id;
+    public void setArticle_id(int article_id) {
+        this.article_id = article_id;
     }
 
     public String getCommentDate() {

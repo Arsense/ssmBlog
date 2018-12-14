@@ -60,6 +60,7 @@ public class PostAdminController extends BaseController{
 
     @Resource
     private FileService fileService;
+
     @Resource
     private PostMapper postMapper;
 

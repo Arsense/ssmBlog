@@ -31,30 +31,6 @@
         </v-col>
     </v-row>
 
-    <!--<v-row >-->
-        <!--<v-col span="1">-->
-            <!--<v-form-item class="text-warning" label="主题选择">-->
-                <!--<select id="editormd-theme-select"  >-->
-                    <!--<option selected="selected" value=""></option>-->
-                <!--</select>-->
-            <!--</v-form-item>-->
-        <!--</v-col>-->
-        <!--<v-col span="1" >-->
-            <!--<v-form-item class="text-warning" label="编辑主题">-->
-                <!--<select id="editor-area-theme-select">-->
-                    <!--<option selected="selected" value=""></option>-->
-                <!--</select>-->
-            <!--</v-form-item>-->
-        <!--</v-col>-->
-        <!--<v-col span="1" >-->
-            <!--<v-form-item class="text-warning"  label="预览主题">-->
-                <!--<select id="preview-area-theme-select">-->
-                    <!--<option selected="selected" value=""></option>-->
-                <!--</select>-->
-            <!--</v-form-item>-->
-        <!--</v-col>-->
-    <!--</v-row>-->
-
     <div class="clearfix"></div>
     <div id="page-wrapper">
       <div id="editormd">
@@ -139,7 +115,7 @@
                 var md = editormd("editormd", {
                     path : "../lib/",
                     width: "85%",
-                    height: 410,
+                    height: 500,
                     theme        : (localStorage.theme) ? localStorage.theme : "dark",
                     previewTheme : (localStorage.previewTheme) ? localStorage.previewTheme : "dark",
                     editorTheme  : (localStorage.editorTheme) ? localStorage.editorTheme : "pastel-on-dark",

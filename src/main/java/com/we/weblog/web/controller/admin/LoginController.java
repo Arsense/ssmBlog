@@ -93,12 +93,12 @@ public class LoginController extends BaseController {
         } else {
             user = userService.userLoginByName(loginName, password);
         }
-//        userService.updateUserLoginLast(DateUtil.date());
-        //判断User对象是否相等
-        if (ObjectUtil.equal(adminUser, user)) {
+        userService.updateUserLoginLast(DateUtil.date());
+        //判断User对象是否相等 TODO 这里的逻辑还要修改 比较弱
+        if (user != null && adminUser.getUserId() == user.getUserId() ) {
             //重置用户的登录状态为正常
             //创建日志
-            Log loginLog =new Log(LogActions.LOGIN,loginName, AddressUtil.getIpAddress(request),1);
+            Log loginLog = new Log(LogActions.LOGIN,loginName, AddressUtil.getIpAddress(request),1);
             if (logService.saveByLogs(loginLog) < 0)
                 throw new Exception("loginLog add error");
             userService.updateUserNormal();
@@ -106,7 +106,7 @@ public class LoginController extends BaseController {
             return "redirect:index.html/#/admin/admin_index.html";
         } else{
             //更新失败次数
-                Integer errorCount = userService.updateUserLoginError();
+            Integer errorCount = userService.updateUserLoginError();
             //超过五次禁用账户
             Log loginLog = new Log(LogActions.LOGIN,loginName, AddressUtil.getIpAddress(request),1);
             logService.saveByLogs(loginLog);

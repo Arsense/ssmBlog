@@ -32,7 +32,7 @@ public interface UserMapper {
     @Update({" update t_user" +
             "set username = #{u.username}," +
             "password = #{u.password}"})
-    int saveByUser(@Param("u") User user);
+    void saveByUser(@Param("u") User user);
 
 
 

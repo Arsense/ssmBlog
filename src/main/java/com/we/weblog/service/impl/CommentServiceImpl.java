@@ -33,7 +33,8 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> getAllComments() {
         List<Comment> comments = commentMapper.selectAllComments();
         for (Comment comment:comments){
-            comment.setCommentDate(TimeUtil.getFormatClearToSecond(comment.getCreated()));
+            comment.setCommentDate(
+                    TimeUtil.getFormatClearToSecond(comment.getCreated()));
         }
         return  comments;
     }

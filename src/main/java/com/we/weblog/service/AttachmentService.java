@@ -11,7 +11,6 @@ import java.util.Map;
  * @date 2018/12/9 19:49
  */
 public interface AttachmentService {
-
     /**
      * 查询所有附件，分页
      *
@@ -32,8 +31,12 @@ public interface AttachmentService {
      */
     void removeByAttachId(int id);
 
+    /**
+     * 上传附件
+     * @param file
+     * @return
+     */
     Map<String, Object> uploadAttachment(MultipartFile file);
-
 
 
 }

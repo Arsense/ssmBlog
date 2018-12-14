@@ -1,6 +1,7 @@
 package com.we.weblog.mapper;
 
 import com.we.weblog.domain.Attachment;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -19,4 +20,11 @@ public interface AttachmentMapper {
 
     @Select({"select * from t_attach limit #{page},#{size}"})
     List<Attachment> selectAllAttachment(@Param("page")int currentPage,@Param("size") int pageSize);
+
+    @Insert({"insert into t_attach (attachId,attachName,attachPath,attachSmallPath,attachType,attachCreated,attachSize) "+
+            "values (#{file.attachId},#{file.attachName}," +
+            "#{file.attachPath},#{file.attachSmallPath}" +
+            ",#{file.attachType},#{file.attachCreated}" +
+            ",#{file.attachSize})"})
+    int save(@Param("file") Attachment attachment);
 }

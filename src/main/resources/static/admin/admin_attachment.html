@@ -1,68 +1,97 @@
 <head>
-    <link rel="stylesheet" href="/plugins/fileinput/fileinput.min.css">
+    <link rel="stylesheet" href="../plugins/fileinput/fileinput.min.css">
 
 </head>
-
 <v-box>
+    <style type="text/css" rel="stylesheet">
+        #showForm{margin-left:4px;padding:3px 6px;position:relative;top:-4px;border:1px solid #ccc;border-radius:2px;background:#fff;text-shadow:none;font-weight:600;font-size:12px;line-height:normal;color:#3c8dbc;cursor:pointer;transition:all .2s ease-in-out}
+        #showForm:hover{background:#3c8dbc;color:#fff}
+        .div-thumbnail{transition:all .5s ease-in-out;padding:10px}
+        .thumbnail{margin-bottom:0}
+    </style>
+    <section class="content-header">
+        <h1 style="display: inline-block;">11</h1>
+        <a id="showForm" href="#">
+            <i class="fa fa-cloud-upload" aria-hidden="true"></i>上传附件
+        </a>
+        <ol class="breadcrumb">
+            <li><a data-pjax="true" href="/admin"><i class="fa fa-dashboard"></i> index/a></li>
+            <li class="active">sss</li>
+        </ol>
+    </section>
     <section class="content container-fluid">
-        <div class="row" id="uploadForm" style="">
+        <div class="row" id="uploadForm" style="display: none;">
             <div class="col-md-12">
                 <div class="form-group">
-                    <div class="file-input file-input-ajax-new"><div class="file-preview ">
-                        <div class=" file-drop-zone"><div class="file-drop-zone-title">拖拽文件到这里 …<br>支持多文件同时上传</div>
-                            <div class="file-preview-thumbnails">
-                            </div>
-                            <div class="clearfix"></div>    <div class="file-preview-status text-center text-success"></div>
-                            <div class="kv-fileinput-error file-error-message" style="display: none;"></div>
-                        </div>
+                    <div class="file-loading">
+                        <input id="uploadImg" class="file-loading" type="file" multiple name="file">
                     </div>
-                        <div class="kv-upload-progress kv-hidden" style="display: none;"><div class="progress">
-                            <div class="progress-bar bg-success progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
-                                0%
-                            </div>
-                        </div></div><div class="clearfix"></div>
-                        <div class="input-group file-caption-main">
-                            <div class="file-caption form-control kv-fileinput-caption" tabindex="500">
-                                <span class="file-caption-icon"></span>
-                                <input class="file-caption-name" onkeydown="return false;" onpaste="return false;" placeholder="Select 个文件...">
-                            </div>
-                            <div class="input-group-btn input-group-append">
-                                <button type="button" tabindex="500" title="清除选中文件" class="btn btn-default btn-secondary fileinput-remove fileinput-remove-button"><i class="glyphicon glyphicon-trash"></i>  <span class="hidden-xs">移除</span></button>
-                                <button type="button" tabindex="500" title="取消进行中的上传" class="btn btn-default btn-secondary kv-hidden fileinput-cancel fileinput-cancel-button"><i class="glyphicon glyphicon-ban-circle"></i>  <span class="hidden-xs">取消</span></button>
-                                <a href="/admin/attachments/upload" tabindex="500" title="上传选中文件" class="btn btn-default btn-secondary fileinput-upload fileinput-upload-button"><i class="glyphicon glyphicon-upload"></i>  <span class="hidden-xs">上传</span></a>
-                                <div tabindex="500" class="btn btn-primary btn-file"><i class="glyphicon glyphicon-folder-open"></i>&nbsp;  <span class="hidden-xs">选择 …</span><input id="uploadImg" class="" type="file" multiple="" name="file"></div>
-                            </div>
-                        </div></div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="no-margin pull-left">
-                    第1/0页
-                </div>
-                <ul class="pagination no-margin pull-right">
-                    <li><a data-pjax="true" class="btn btn-sm disabled" href="/admin/attachments">首页</a> </li>
-                    <li><a data-pjax="true" class="btn btn-sm disabled" href="/admin/attachments?page=-1">上一页</a></li>
-                    <li><a data-pjax="true" class="btn btn-sm disabled" href="/admin/attachments?page=1">下一页</a></li>
-                    <li><a data-pjax="true" class="btn btn-sm disabled" href="/admin/attachments?page=-1">尾页</a> </li>
-                </ul>
-            </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         </div>
     </section>
 </v-box>
-<script src="/plugins/fileinput/fileinput.min.js"></script>
+<script src="../plugins/fileinput/fileinput.min.js"></script>
+<script src="../plugins/fileinput/zh.min.js"></script>
+
 <script>
     new Vue({
         el: '#app',
         data: {},
         methods:{
             openDetail:function () {
-                
+                layer.open({
+                    type: 2,
+                    title: 'title" />',
+                    shadeClose: true,
+                    shade: 0.5,
+                    maxmin: true,
+                    area: ['90%', '90%'],
+                    content: '/admin/attachments/attachment?attachId=' + id,
+                    scrollbar: false
+                });
             },
             loadFileInput:function () {
+                debugger;
+
                 
             }
+        },
+        mounted () {
+            debugger;
+            $('#uploadImg').fileinput({
+                language: 'zh',
+                uploadUrl: '/admin/attachments/upload',
+                uploadAsync: true,
+                allowedFileExtensions: ['jpg','gif','png','jpeg','svg','psd'],
+                maxFileCount: 100,
+                enctype : 'multipart/form-data',
+                showClose: false
+
+            }).on("fileuploaded",function (event,data,previewId,index) {
+                var data = data.jqXHR.responseJSON;
+                if(data.success=="1"){
+                    $("#uploadForm").hide(400);
+                    $.toast({
+                        text: data.message,
+                        heading: '<@spring.message code="common.text.tips" />',
+                        icon: 'success',
+                        showHideTransition: 'fade',
+                        allowToastClose: true,
+                        hideAfter: 1000,
+                        stack: 1,
+                        position: 'top-center',
+                        textAlign: 'left',
+                        loader: true,
+                        loaderBg: '#ffffff',
+                        afterHidden: function () {
+                            window.location.reload();
+                        }
+                    });
+                }
+            });
         }
     })
 </script>

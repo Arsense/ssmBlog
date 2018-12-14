@@ -77,6 +77,8 @@ public class BackupController extends BaseController{
         TableData tableData = new TableData() ;
         tableData.setFormItems(formModel.getFormItems());
         tableData.setDataItems(backups);
+        tableData.setPage(true);
+        tableData.setPageSize(15);
         tableData.setTotalSize(50);
 
         return  UIModel.success().tableData(tableData);

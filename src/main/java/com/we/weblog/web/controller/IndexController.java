@@ -158,7 +158,9 @@ public class IndexController extends BaseController {
         List<Post> tempContexts = postService.getArticlePages();
 
         TableData tableData = new TableData() ;
-        tableData.setTotalSize(10);
+        tableData.setPage(true);
+        tableData.setPageSize(15);
+
         tableData.setDataItems(tempContexts);
         tableData.setFormItems(formModel.getFormItems());
 

@@ -1,14 +1,14 @@
 package com.we.weblog.web.controller.admin;
 
-import cn.hutool.core.date.DateUtil;
+
 import com.baomidou.kisso.SSOHelper;
 import com.baomidou.kisso.security.token.SSOToken;
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.model.form.FormModel;
-import com.vue.adminlte4j.web.config.BaseConfig;
 import com.we.weblog.domain.User;
 import com.we.weblog.domain.util.BaseConfigUtil;
+import com.we.weblog.mapper.PostMapper;
 import com.we.weblog.service.*;
 import com.we.weblog.web.controller.core.BaseController;
 import com.we.weblog.domain.Post;
@@ -60,9 +60,60 @@ public class PostAdminController extends BaseController{
 
     @Resource
     private FileService fileService;
+    @Resource
+    private PostMapper postMapper;
+
 
     private int updateId = 0;
 
+    /**
+     * 显示后台博客列表
+     * @return
+     */
+    @GetMapping("/blog/list")
+    @ResponseBody
+    public UIModel getBlogList() {
+        List<Post> tempContexts = postMapper.findPostBaseByPage(1);
+
+        FormModel formModel = new FormModel();
+        formModel.createFormItem("uid").setHidden(false).setLabel("博客编号");
+        formModel.createFormItem("title").setHidden(false).setLabel("标题");
+        formModel.createFormItem("tags").setHidden(false).setLabel("标签");
+        formModel.createFormItem("hits").setHidden(false).setLabel("访问量");
+        formModel.createFormItem("month").setHidden(false).setLabel("发布时间");
+
+        TableData tableData = new TableData() ;
+        tableData.setFormItems(formModel.getFormItems());
+        tableData.setDataItems(tempContexts);
+        tableData.setTotalSize(commentSerivce.getCommentCount());
+        tableData.setPage(true);
+        tableData.setPageSize(15);
+
+        return  UIModel.success().tableData(tableData);
+
+    }
+
+    /**
+     * 发布文章
+     * @return
+     */
+    @PostMapping("/send")
+    @ResponseBody
+    public UIModel postAction(@RequestBody Post context) throws Exception {
+        String message = validateContext(context);
+
+        if (!StringUtils.isEmpty(message))
+            return UIModel.fail().msg(message);
+
+        context.setType(Types.ARTICLE);
+        postService.saveByPost(context);
+        Log loginLog =new Log(LogActions.ADD_BLOG,"admin", AddressUtil.getIpAddress(request),1);
+        if (logService.saveByLogs(loginLog) < 0) {
+            message = "添加博客失败";
+        }
+        message = "添加博客成功！";
+        return UIModel.success().msg(message);
+    }
 
     /**
      * 删除文章
@@ -150,55 +201,11 @@ public class PostAdminController extends BaseController{
          return UIModel.success().msg("修改成功！");
      }
 
-    /**
-     * 发布文章
-     * @return
-     */
-    @PostMapping("/send")
-    @ResponseBody
-    public UIModel postAction(@RequestBody Post context) throws Exception {
-        String message = validateContext(context);
-
-        if (!StringUtils.isEmpty(message))
-            return UIModel.fail().msg(message);
-
-        context.setType(Types.ARTICLE);
-        postService.saveByPost(context);
-        Log loginLog =new Log(LogActions.ADD_BLOG,"admin", AddressUtil.getIpAddress(request),1);
-        if (logService.saveByLogs(loginLog) < 0) {
-            message = "添加博客失败";
-        }
-        message = "添加博客成功！";
-        return UIModel.success().msg(message);
-    }
 
 
 
 
-    /**
-     * 显示后台博客列表
-     * @return
-     */
-    @GetMapping("/blog/list")
-    @ResponseBody
-    public UIModel getBlogList() {
-        List<Post> tempContexts = postService.findLastestPost(1);
 
-        FormModel formModel = new FormModel();
-        formModel.createFormItem("uid").setHidden(false).setLabel("博客编号");
-        formModel.createFormItem("title").setHidden(false).setLabel("标题");
-        formModel.createFormItem("tags").setHidden(false).setLabel("标签");
-        formModel.createFormItem("hits").setHidden(false).setLabel("访问量");
-        formModel.createFormItem("month").setHidden(false).setLabel("发布时间");
-
-        TableData tableData = new TableData() ;
-        tableData.setFormItems(formModel.getFormItems());
-        tableData.setDataItems(tempContexts);
-        tableData.setTotalSize(commentSerivce.getCommentCount());
-
-        return  UIModel.success().tableData(tableData);
-
-    }
 
 
     /**

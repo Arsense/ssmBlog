@@ -34,7 +34,7 @@ public class WebMainConig implements WebMvcConfigurer {
     @Resource
     private InstallInterceptor installInterceptor;
 
-    private String LOGIN_URL = "/login.html" ;
+    private String LOGIN_URL = "/admin/login.html" ;
     /**ser
      * 注册拦截器
      * @param registry

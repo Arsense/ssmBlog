@@ -96,6 +96,11 @@ public interface PostMapper {
             "where type = 'post' order by created desc limit #{p},20"})
     List<Post> findLastPostsByPage(@Param("p") int page);
 
+
+    @Select({"select uid,title,article,created from t_context " +
+            "where type = 'post' order by created desc limit #{p},20"})
+    List<Post> findPostBaseByPage(@Param("p") int page);
+
     @Select({"select uid,title,article,md,created,tags,hits from t_context where uid = #{id}  "})
     Post findPostById(@Param("id") int id);
 

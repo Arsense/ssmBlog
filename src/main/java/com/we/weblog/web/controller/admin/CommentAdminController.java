@@ -65,7 +65,9 @@ public class CommentAdminController extends BaseController {
         TableData tableData = new TableData();
         List<Comment> comments = commentService.getAllComments();
         tableData.setDataItems(comments);
-        tableData.setPage(false);
+        tableData.setPage(true);
+        tableData.setPageSize(15);
+
 
         FormModel formModel = new FormModel();
         formModel.createFormItem("cid").setHidden(false).setLabel("博客编号");

@@ -69,7 +69,6 @@ public class LoginController extends BaseController {
      */
     @Login(action = Action.Skip)
     @PostMapping("/doLogin")
-    @ResponseBody
     public String getLogin(HttpServletRequest request) throws Exception {
 
 //        WafRequestWrapper wafRequest = new WafRequestWrapper(request);

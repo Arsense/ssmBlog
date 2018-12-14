@@ -29,8 +29,8 @@ public interface UserMapper {
 
 
     //TODO 修改密码
-    @Update({" update t_user" +
-            "set username = #{u.username}," +
+    @Update({" update t_user " +
+            "set username = #{u.userName}," +
             "password = #{u.password}"})
     void saveByUser(@Param("u") User user);
 

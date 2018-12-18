@@ -5,10 +5,14 @@ import com.we.weblog.domain.Post;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ *  按年份排序
+ */
 public class YearBlog {
 
-
     private int year;
+
     private List<Post> yearContexts;
 
     public YearBlog(int year, ArrayList<Post> contexts) {

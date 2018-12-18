@@ -2,7 +2,7 @@ package com.we.weblog.domain.modal;
 
 public class Select {
 
-//   格式 {code:'1' ,  label:'男' ,checked:false},
+    //   格式 {code:'1' ,  label:'男' ,checked:false},
 
     private String code;
     //select选项的内容

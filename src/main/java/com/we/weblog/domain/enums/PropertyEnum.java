@@ -62,7 +62,6 @@ public enum PropertyEnum {
 
 
 
-
     private String prop;
 
     PropertyEnum(String prop) {

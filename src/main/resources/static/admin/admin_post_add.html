@@ -38,7 +38,7 @@
       </div>
     </div>
     <div class="text-right">
-        <button id = "blogSubmit" type="button" class="btn btn-success" @click="getData" >保存修改</button>
+        <button id = "blogSubmit" type="button" class="btn btn-success" @click="getData" >保存文章</button>
     </div>
     <input type="hidden" name="mdText" id = "mdText" />
     <input type="hidden" name="article" id = "article"/>
@@ -92,11 +92,11 @@
                 vm.mdData.title = document.getElementsByName("title")[0].value;
                 vm.mdData.slug = document.getElementsByName("slug")[0].value;
                 vm.mdData.tags = document.getElementsByName("tags")[0].value;
-                vm.mdData.categories = document.getElementsByName("categories")[0].value;
+                // vm.mdData.categories = document.getElementsByName("categories")[0].value;
                 axios.post("/admin/send",this.mdData).then(function (response){
                     $.alert(response.data);
                     if(response.data.code === 1)
-                        var t=setTimeout(" window.location.href = \"/index.html#/admin/bloglist.html\" ",1500);
+                        var t=setTimeout(" window.location.href = \"/index.html#/admin/admin_post.html\" ",1500);
                 }).catch(function (e) {
                     console.log(e.valueOf());
                 });
@@ -115,7 +115,7 @@
                 var md = editormd("editormd", {
                     path : "../lib/",
                     width: "85%",
-                    height: 500,
+                    height: 430,
                     theme        : (localStorage.theme) ? localStorage.theme : "dark",
                     previewTheme : (localStorage.previewTheme) ? localStorage.previewTheme : "dark",
                     editorTheme  : (localStorage.editorTheme) ? localStorage.editorTheme : "pastel-on-dark",

@@ -73,7 +73,7 @@ public class PostAdminController extends BaseController{
      */
     @GetMapping("/blog/list")
     @ResponseBody
-    public UIModel getBlogList() {
+    public UIModel getBlogList(int currentPage) {
         List<Post> tempContexts = postMapper.findPostBaseByPage(1);
 
         FormModel formModel = new FormModel();
@@ -87,8 +87,9 @@ public class PostAdminController extends BaseController{
         tableData.setFormItems(formModel.getFormItems());
         tableData.setDataItems(tempContexts);
         tableData.setTotalSize(commentSerivce.getCommentCount());
+
         tableData.setPage(true);
-        tableData.setPageSize(15);
+        tableData.setPageSize(6);
 
         return  UIModel.success().tableData(tableData);
 
@@ -108,7 +109,7 @@ public class PostAdminController extends BaseController{
 
         context.setType(Types.ARTICLE);
         postService.saveByPost(context);
-        Log loginLog =new Log(LogActions.ADD_BLOG,"admin", AddressUtil.getIpAddress(request),1);
+        Log loginLog = new Log(LogActions.ADD_BLOG,"admin", AddressUtil.getIpAddress(request),1);
         if (logService.saveByLogs(loginLog) < 0) {
             message = "添加博客失败";
         }
@@ -347,9 +348,11 @@ public class PostAdminController extends BaseController{
             messgae = "博客标签不能为空";
         } else if (context.getArticle().equals("")) {
             messgae = "请输入博客的内容";
-        } else if (context.getCategories().equals("")) {
-            messgae = "未选择博客分类";
-        } else if (context.getArticle().length() < 10) {
+        }
+// else if (context.getCategories().equals("")) {
+//            messgae = "未选择博客分类";
+//        }
+        else if (context.getArticle().length() < 10) {
             messgae = "请输入长度为5的内容";
         }
         int length = context.article.length();

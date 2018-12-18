@@ -1,6 +1,5 @@
 package com.we.weblog.web.controller.admin;
 
-import cn.hutool.core.date.DateUtil;
 import com.vue.adminlte4j.model.UIModel;
 import com.we.weblog.domain.Attachment;
 import com.we.weblog.service.AttachmentService;
@@ -9,6 +8,7 @@ import com.we.weblog.web.controller.core.BaseController;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +23,7 @@ import java.util.Map;
  * @author tangwei
  * @date 2018/12/9 19:46
  */
+@Controller
 @RequestMapping(value = "/admin/attachments")
 public class AttachmentController extends BaseController {
 
@@ -55,15 +55,15 @@ public class AttachmentController extends BaseController {
     /**
      * 上传附件
      *
-     * @param file    file
      * @param request request
      * @return Map
      */
     @PostMapping(value = "/upload", produces = {"application/json;charset=UTF-8"})
     @ResponseBody
-    public Map<String, Object> upload(@RequestParam("file") MultipartFile file,
-                                      HttpServletRequest request) {
-        return attachmentService.uploadAttachment(file);
+    public Map<String, Object> upload(@RequestParam("file") MultipartFile file
+            ,HttpServletRequest request ) {
+//        @RequestParam("file") MultipartFile file,
+        return attachmentService.uploadAttachment(null);
     }
 
     /**

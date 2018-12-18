@@ -4282,8 +4282,8 @@
                 }
                 opt = $.extend(true, {}, $.fn.fileinput.defaults, t, $.fn.fileinputLocales.en, l, options, self.data());
                 data = new FileInput(this, opt);
-                self.data('fileinput', data);
-            }
+
+            } self.data('fileinput', data);
 
             if (typeof option === 'string') {
                 retvals.push(data[option].apply(data, args));

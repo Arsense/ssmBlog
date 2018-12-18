@@ -53,7 +53,7 @@ public class CommentAdminController extends BaseController {
     @PostMapping("/send")
     @ResponseBody
     public  UIModel uiModel(@RequestBody Comment comment){
-        return   UIModel.success();
+        return   UIModel.success().msg("回复成功");
     }
 
     /**
@@ -61,7 +61,7 @@ public class CommentAdminController extends BaseController {
      */
     @RequestMapping("/list")
     @ResponseBody
-    public UIModel list() {
+    public UIModel list(@RequestParam(value = "status", defaultValue = "0") int status,int currentPage) {
         TableData tableData = new TableData();
         List<Comment> comments = commentService.getAllComments();
         tableData.setDataItems(comments);
@@ -263,7 +263,6 @@ public class CommentAdminController extends BaseController {
 //                }
             }
         }
-    }
 
     /**
      * 异步通知评论者审核通过
@@ -307,7 +306,8 @@ public class CommentAdminController extends BaseController {
 //                }
 //            }
 //        }
-    }
+     }
 
+    }
 
 }

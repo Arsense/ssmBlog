@@ -4,10 +4,10 @@
                 <v-table ajax_url="/admin/comments/list"  ref="table" :operations="operations"  ></v-table>
             </v-tab-pane>
             <v-tab-pane label="待审核">
-                <v-table ajax_url="/admin/comments/list"  ref="table" :operations="operations"  ></v-table>
+                <v-table ajax_url="/admin/comments/list?status=1"  ref="table" :operations="operations"  ></v-table>
             </v-tab-pane>
             <v-tab-pane label="垃圾箱">
-                <v-table ajax_url="/admin/comments/list"  ref="table" :operations="operations"  ></v-table>
+                <v-table ajax_url="/admin/comments/list?status=2"  ref="table" :operations="operations"  ></v-table>
             </v-tab-pane>
 
 

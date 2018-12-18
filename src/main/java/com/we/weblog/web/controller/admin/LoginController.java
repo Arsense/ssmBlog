@@ -70,7 +70,7 @@ public class LoginController extends BaseController {
     @Login(action = Action.Skip)
     @PostMapping("/doLogin")
     public String getLogin(HttpServletRequest request) throws Exception {
-
+        //写的看起来有点乱
 //        WafRequestWrapper wafRequest = new WafRequestWrapper(request);
         String loginName = request.getParameter("username");
         String password = request.getParameter("password");
@@ -96,19 +96,21 @@ public class LoginController extends BaseController {
         //判断User对象是否相等 TODO 这里的逻辑还要修改 比较弱
         if (user != null && adminUser.getUserId() == user.getUserId() ) {
             //重置用户的登录状态为正常
-            //创建日志
             Log loginLog = new Log(LogActions.LOGIN,loginName, AddressUtil.getIpAddress(request),1);
             if (logService.saveByLogs(loginLog) < 0)
                 throw new Exception("loginLog add error");
             userService.updateUserNormal();
+
             SSOHelper.setCookie(request, response, SSOToken.create().setIp(request).setId(1000).setIssuer(loginName), false);
+
             return "redirect:index.html/#/admin/admin_index.html";
-        } else{
-            //更新失败次数
+        } else {
+            //更新失败次数 超过五次禁用账户
             Integer errorCount = userService.updateUserLoginError();
-            //超过五次禁用账户
+
             Log loginLog = new Log(LogActions.LOGIN,loginName, AddressUtil.getIpAddress(request),1);
             logService.saveByLogs(loginLog);
+
             if (errorCount >= 5) {
                 userService.updateUserLoginEnable("5");
             }

@@ -33,9 +33,9 @@ public class UserAdminController {
 
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAdminController.class);
+
     @Autowired
     private UserService userService;
-
 
     /**
      *
@@ -48,18 +48,14 @@ public class UserAdminController {
     @PostMapping(value = "save")
     @ResponseBody
     public UIModel saveProfile(@Valid @ModelAttribute User user, BindingResult result, HttpSession session) {
-        try{
-            //对Contoller层的成熟校验 不知道有什么用
-            if (result.hasErrors()) {
-                for (ObjectError error : result.getAllErrors()) {
-                    return new UIModel().fail().msg("用户资料修改失败");
-                }
-            }
-            userService.saveByUser(user);
-            //这里修改了不删Session会怎么样 我这里应该暂时不用处理吧
-
-        }catch (Exception e){
-        }
+       //对Contoller层的成熟校验 不知道有什么用
+       if (result.hasErrors()) {
+           for (ObjectError error : result.getAllErrors()) {
+               return new UIModel().fail().msg("用户资料修改失败");
+           }
+       }
+       userService.saveByUser(user);
+       //这里修改了不删Session会怎么样 我这里应该暂时不用处理吧
         return UIModel.success().msg("修改信息成功");
     }
 
@@ -79,12 +75,10 @@ public class UserAdminController {
                                  HttpSession session) {
             try {
                 User user = userService.findByUserIdAndUserPass(userId, beforePass);
-                if (null != user) {
-                    userService.saveByUser(user);
-                } else {
+                if (null == user)
                     return UIModel.fail().msg("改用户不存在");
+                userService.saveByUser(user);
 
-                }
             } catch (Exception e) {
                 LOG.error("修改密码失败：{}", e.getMessage());
                 return UIModel.fail().msg("修改密码失败");

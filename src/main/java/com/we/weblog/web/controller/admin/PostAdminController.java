@@ -6,6 +6,7 @@ import com.baomidou.kisso.security.token.SSOToken;
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.model.form.FormModel;
+import com.we.weblog.domain.modal.PostConfigQuery;
 import com.we.weblog.domain.User;
 import com.we.weblog.domain.util.BaseConfigUtil;
 import com.we.weblog.mapper.PostMapper;
@@ -31,7 +32,6 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 
 /**
@@ -86,13 +86,23 @@ public class PostAdminController extends BaseController{
         TableData tableData = new TableData() ;
         tableData.setFormItems(formModel.getFormItems());
         tableData.setDataItems(tempContexts);
-        tableData.setTotalSize(commentSerivce.getCommentCount());
-
+        tableData.setTotalSize(50);
         tableData.setPage(true);
         tableData.setPageSize(6);
 
         return  UIModel.success().tableData(tableData);
 
+    }
+
+    /**
+     * 获得配置的查询模型
+     *
+     * @return
+     */
+    @RequestMapping("model")
+    @ResponseBody
+    public UIModel getOrderListModel() {
+        return UIModel.success().formData(new PostConfigQuery(), PostConfigQuery.class);
     }
 
     /**

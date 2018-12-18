@@ -1,13 +1,38 @@
 <v-box title="博客列表">
-    <v-col span="12">
-        <v-table ajax_url="/admin/blog/list" ref="table" :operations="operations"></v-table>
+    <v-row>
+    <v-col span="10">
+        <v-form ref="queryForm" ajax_url="/admin/model"></v-form>
     </v-col>
+    <v-col span="2">
+        <button class="layui-btn" @click="query"><i class="fa fa-search"></i> 查询</button>
+    </v-col>
+    </v-row>
+    <v-row>
+    <v-tab ref="tableList">
+        <v-tab-pane label="草稿">
+            <v-table ajax_url="/admin/blog/list" ref="postList" :operations="operations"></v-table>
+
+        </v-tab-pane>
+        <v-tab-pane label="回收站">
+            <v-table ajax_url="/admin/blog/list" ref="postList1" :operations="operations"></v-table>
+
+        </v-tab-pane>
+        <v-tab-pane label="已发布">
+            <v-table ajax_url="/admin/blog/list" ref="postList2" :operations="operations"></v-table>
+        </v-tab-pane>
+    </v-tab>
+    </v-row>
 </v-box>
 
 <script>
     new Vue({
         el:"#app" ,
         data: {
+            render: {
+                myIcon: function (row, $table) {
+                    return '<i class="' + row.myIcon + '"></i>'
+                }
+            },
             operations : [
                 {
                     name : '编辑' ,
@@ -32,6 +57,10 @@
             ]
         } ,
         methods: {
+            query: function (event) {
+                debugger;
+                this.$refs.postList.refresh(this.$refs.queryForm)
+            },
             re_query : function () {
                 this.send_req++
             }

@@ -1,15 +1,11 @@
 package com.we.weblog.web.controller.admin;
 
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.lang.Validator;
-import cn.hutool.crypto.SecureUtil;
-import cn.hutool.extra.servlet.ServletUtil;
-import cn.hutool.http.HtmlUtil;
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.model.form.FormModel;
 import com.we.weblog.domain.Post;
+import com.we.weblog.domain.modal.CommentConfigQuery;
 import com.we.weblog.domain.User;
 import com.we.weblog.domain.util.BaseConfigUtil;
 import com.we.weblog.service.CommentService;
@@ -17,16 +13,13 @@ import com.we.weblog.service.MailService;
 import com.we.weblog.service.PostService;
 import com.we.weblog.web.controller.core.BaseController;
 import com.we.weblog.domain.Comment;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  *  * <pre>
@@ -55,6 +48,18 @@ public class CommentAdminController extends BaseController {
     public  UIModel uiModel(@RequestBody Comment comment){
         return   UIModel.success().msg("回复成功");
     }
+
+    /**
+     * 获得配置的查询模型
+     *
+     * @return
+     */
+    @RequestMapping("model")
+    @ResponseBody
+    public UIModel getOrderListModel() {
+        return UIModel.success().formData(new CommentConfigQuery(), CommentConfigQuery.class);
+    }
+
 
     /**
      * 前端 评论信息

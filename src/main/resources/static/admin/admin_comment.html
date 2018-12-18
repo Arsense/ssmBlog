@@ -1,4 +1,15 @@
 <v-box title="评论修改">
+    <v-row>
+        <v-col span="10">
+            <v-form ref="queryForm" ajax_url="/admin/comments/model"></v-form>
+        </v-col>
+
+        <v-col span="2">
+            <button class="layui-btn" @click="query"><i class="fa fa-search"></i> 查询</button>
+        </v-col>
+    </v-row>
+
+    <v-row>
         <v-tab ref="tab">
             <v-tab-pane label="已通过">
                 <v-table ajax_url="/admin/comments/list"  ref="table" :operations="operations"  ></v-table>
@@ -9,8 +20,8 @@
             <v-tab-pane label="垃圾箱">
                 <v-table ajax_url="/admin/comments/list?status=2"  ref="table" :operations="operations"  ></v-table>
             </v-tab-pane>
-
-
+        </v-tab>
+    </v-row>
     <v-row>
     <v-col span="2">
         <v-button @click="add">查找</v-button>

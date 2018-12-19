@@ -56,9 +56,7 @@ public class CommentServiceImpl implements CommentService {
      * @param comment comment
      */
     @Override
-    public Integer saveComment(Comment comment , HttpServletRequest request) {
-        comment.setCreated(new Date(System.currentTimeMillis()));
-        comment.setIp(AddressUtil.getIpAddress(request));
+    public Integer saveComment(Comment comment) {
         return commentMapper.insertComment(comment);
     }
 
@@ -95,7 +93,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setEmail("admin@qq.com");
 //        comment.(reply.getArticle_id());
         comment.setContent("回复@"+reply.getAuthor()+"  "+messgae);
-        comment.setParent(cid);
+        comment.setCommentParent(cid);
 
         return commentMapper.insertComment(comment);
     }
@@ -104,6 +102,7 @@ public class CommentServiceImpl implements CommentService {
     public Comment updateCommentStatus(Long commentId, Integer status) {
         return null;
     }
+
 
     /**
      * 获取文章数量
@@ -120,7 +119,7 @@ public class CommentServiceImpl implements CommentService {
      * @return
      */
     @Override
-    public Comment getCommentById(Integer cid) {
+    public Comment findCommentById(Integer cid) {
         return commentMapper.selectCommentById(cid);
     }
 
@@ -135,14 +134,6 @@ public class CommentServiceImpl implements CommentService {
     }
 
 
-    /**
-     * 查询最新的前五条评论
-     *
-     * @return List
-     */
-    @Override
-    public List<Comment> getLastest5Comments() {
-        return null;
-    }
+
 
 }

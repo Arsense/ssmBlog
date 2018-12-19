@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Comment {
     /**
-     * comment主键
+     * 评论id 自增
      */
     private int cid;
     /**
@@ -66,7 +66,7 @@ public class Comment {
     /**
      * 恢复父id
      */
-    private int parent;
+    private int commentParent;
 
     /**
      * 当前评论下的所有子评论
@@ -74,12 +74,12 @@ public class Comment {
     private List<Comment> childComments;
 
 
-    public int getParent() {
-        return parent;
+    public int getCommentParent() {
+        return commentParent;
     }
 
-    public void setParent(int parent) {
-        this.parent = parent;
+    public void setCommentParent(int commentParent) {
+        this.commentParent = commentParent;
     }
 
     public Date getCreated() {

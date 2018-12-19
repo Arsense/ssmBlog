@@ -51,24 +51,24 @@
 </body>
 <script>
         new Vue({
-                 el: "#main",
-                 data: function(){
-                    return {
-                        blogs:[],
-                        blog: Object,
-                        tagsCount:0,
-                        blogsCount:1,
-                        tagsName:[],
-                        categoryCount:0,
-                    }
+            el: "#main",
+            data: function(){
+                return {
+                     blogs:[],
+                     blog: Object,
+                     tagsCount:0,
+                     blogsCount:1,
+                     tagsName:[],
+                     categoryCount:0,
+                }
             },
             methods:{
-                getPostUrl:function (Object) {
-                        return "/post/"+Object.uid;
-                    },
-                    getTagLink:function (data) {
-                        return "/tag/"+data;
-                    }
+                getPostUrl : function (Object) {
+                    return "/post/"+Object.uid;
+                },
+                getTagLink : function (data) {
+                    return "/tag/"+data;
+                }
 
              },
             mounted:function () {

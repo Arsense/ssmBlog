@@ -26,10 +26,10 @@ public interface CommentService {
 
     /**
      * 查询评论byId
-     * @param cid
+     * @param id
      * @return
      */
-    Comment getCommentById(Integer cid);
+    Comment findCommentById(Integer id);
 
     /**
      * 删除评论
@@ -43,15 +43,8 @@ public interface CommentService {
      *
      * @param comment comment
      */
-    Integer saveComment(Comment comment,HttpServletRequest request);
+    Integer saveComment(Comment comment);
 
-
-    /**
-     * 查询最新的前五条评论
-     *
-     * @return List
-     */
-    List<Comment> getLastest5Comments();
 
     /**
      * 获取文章数量

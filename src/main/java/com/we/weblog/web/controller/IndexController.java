@@ -61,41 +61,6 @@ public class IndexController extends BaseController {
         return redirectTo("/about");
     }
 
-    /**
-     * 添加评论
-     * @param
-     * @return
-     */
-    @PostMapping("/comments/send")
-    @ResponseBody
-    public UIModel addComment(@RequestBody Comment comment ){
-        if (StringUtils.isEmpty(comment) || comment.getArticle_id() <= 0 ) {
-            return UIModel.fail().msg("评论失败,输入信息有误");
-        } else if (!comment.getEmail().contains("@")) {
-            return UIModel.fail().msg("邮箱格式不正确");
-        } else if (comment.getContent().length() < 5) {
-            return UIModel.fail().msg("您的评论太短");
-        } else if (comment.getContent() == null) {
-            return UIModel.fail().msg("您的评论不能为空");
-        }
-        //处理XSS
-        comment.setContent(cleanXSS(comment.getContent()));
-        int result = commentSerivce.saveComment(comment,request);
-        if(result > 0)
-            return UIModel.success().msg("评论成功");
-        else
-            return UIModel.fail().msg("评论失败,输入内容有误");
-    }
-
-//    /**
-//     * 标签显示 删除吧 只留分类吧
-//     */
-//    @GetMapping("/get_kind_blogs")
-//    @ResponseBody
-//    public List<Category> getBlogsByTag(){
-//        List<Category> lists = postService.sortBlogsByCategories();
-//        return lists;
-//    }
 
 
     /**
@@ -106,17 +71,9 @@ public class IndexController extends BaseController {
     @GetMapping("/post/{id}")
     public void post(@PathVariable String id) throws IOException {
         postId = Integer.parseInt(id);
-
-//        return "article";
         response.sendRedirect("/article");
     }
 
-//    @GetMapping("/tags_data")
-//    @ResponseBody
-//    public List<String> getAllTags(){
-//        List<String> list = tagService.findAllTags();
-//        return list;
-//    }
 
     /**
      * 捕获点击的博客类别的get请求
@@ -130,16 +87,6 @@ public class IndexController extends BaseController {
         tagName = tag;
         response.sendRedirect("/tagdetail.html");
     }
-
-//    /**
-//     *  根据tags 展示所有博客
-//     * @return
-//     */
-//    @GetMapping("/tags_detail_data")
-//    @ResponseBody
-//    public  List<Post> tagDetailData() {
-//        return  postService.findPostsByTagName(tagName);
-//    }
 
 
     /**
@@ -156,7 +103,6 @@ public class IndexController extends BaseController {
         formModel.createFormItem("publish").setHidden(false).setLabel("发布状态");
 
         List<Post> tempContexts = postService.getArticlePages();
-
         TableData tableData = new TableData() ;
         tableData.setPage(true);
         tableData.setPageSize(15);
@@ -191,14 +137,6 @@ public class IndexController extends BaseController {
         return maps;
     }
 
-    /**
-     * todo 根据标签名显示分类
-     * @param tagName
-     */
-    @GetMapping("/tags/{name}")
-    public void getTagDetail(@PathVariable String tagName){
-
-    }
 
 
     /**
@@ -207,7 +145,7 @@ public class IndexController extends BaseController {
      * @param pageType
      * @throws Exception
      */
-    private   void findResourceByPageType(Map<String,Object> maps, String pageType) throws Exception {
+    private void findResourceByPageType(Map<String,Object> maps, String pageType) throws Exception {
         if (pageType.equals(Types.PAGE_CATEGORY)) {
             List<Category> cBlogs = postService.sortBlogsByCategories();
             maps.put(Types.CATEGORIES,cBlogs);

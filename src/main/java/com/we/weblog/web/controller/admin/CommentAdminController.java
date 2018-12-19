@@ -121,7 +121,7 @@ public class CommentAdminController extends BaseController {
             return UIModel.fail().msg("请输入2000字以内的评论");
         }
         //查看该评论是否存在
-        Comment comment  = commentService.getCommentById(cid);
+        Comment comment  = commentService.findCommentById(cid);
         if (comment== null) {
             return UIModel.fail().msg("评论的文章不存在");
         }

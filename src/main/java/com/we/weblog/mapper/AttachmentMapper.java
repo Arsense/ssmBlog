@@ -18,10 +18,10 @@ import java.util.List;
 public interface AttachmentMapper {
 
 
-    @Select({"select * from t_attach limit #{page},#{size}"})
+    @Select({"select * from hexo_attach limit #{page},#{size}"})
     List<Attachment> selectAllAttachment(@Param("page")int currentPage,@Param("size") int pageSize);
 
-    @Insert({"insert into t_attach (attachId,attachName,attachPath,attachSmallPath,attachType,attachCreated,attachSize) "+
+    @Insert({"insert into hexo_attach (attachId,attachName,attachPath,attachSmallPath,attachType,attachCreated,attachSize) "+
             "values (#{file.attachId},#{file.attachName}," +
             "#{file.attachPath},#{file.attachSmallPath}" +
             ",#{file.attachType},#{file.attachCreated}" +

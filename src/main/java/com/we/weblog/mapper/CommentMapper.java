@@ -10,25 +10,25 @@ import java.util.List;
 public interface CommentMapper {
 
 
-    @Select({"select cid,article_id,created,author,email,content from t_comments"})
+    @Select({"select cid,article_id,created,author,email,content from hexo_comment"})
     List<Comment> selectAllComments();
 
-    @Select({"select count(*) from t_comments"})
+    @Select({"select count(*) from hexo_comment"})
     int getNumberOfComment();
 
-    @Select({"select article_id,author,content,created from t_comments where article_id = #{uid} "})
+    @Select({"select article_id,author,content,created from hexo_comment where article_id = #{uid} "})
     List<Comment> getArticleById(@Param("uid") int uid);
 
-    @Insert({"insert into t_comments (article_id,created,author,email,ip,content,parent) "+
+    @Insert({"insert into hexo_comment (article_id,created,author,email,ip,content,parent) "+
     "values (#{c.post_id},#{c.created},#{c.author},#{c.email},#{c.ip},#{c.content},#{c.parent})"})
     int insertComment(@Param("c") Comment comment);
 
 
-    @Delete({"delete from t_comments where cid = #{id}"})
+    @Delete({"delete from hexo_comment where cid = #{id}"})
     int deleteCommentById(@Param("id")Integer cid);
 
 
-    @Select({"select * from t_comments where cid = #{c}"})
+    @Select({"select * from hexo_comment where cid = #{c}"})
     Comment selectCommentById(@Param("c") Integer cid);
 
 }

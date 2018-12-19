@@ -21,15 +21,15 @@ public interface UserMapper {
      * @param username
      * @return
      */
-    @Select({"select * from t_user where username = #{name} and password = #{pass}"})
+    @Select({"select * from hexo_user where username = #{name} and password = #{pass}"})
     User selectByPassAndName(@Param("name") String username,@Param("pass") String password) throws RuntimeException;
 
-    @Select({"select * from t_user where userEmail = #{email} and password = #{pass}"})
+    @Select({"select * from hexo_user where userEmail = #{email} and password = #{pass}"})
     User findByUserEmailAndPassword(@Param("email") String userEmail,@Param("pass") String password) throws RuntimeException;
 
 
     //TODO 修改密码
-    @Update({" update t_user " +
+    @Update({" update hexo_user " +
             "set username = #{u.userName}," +
             "password = #{u.password}"})
     void saveByUser(@Param("u") User user);
@@ -37,7 +37,7 @@ public interface UserMapper {
 
 
 
-    @Update({" update t_context " +
+    @Update({" update hexo_post " +
             " set title = #{b.title}," +
             " md = #{b.md}," +
             " slug = #{b.slug}," +
@@ -46,7 +46,7 @@ public interface UserMapper {
             " article=#{b.article} where uid= #{id}"})
     void updatePostByUid(@Param("b") Post context, @Param("id") int uid);
 
-    @Select({"select user from t_user where username=#{name} and password=#{ps}"})
+    @Select({"select user from hexo_user where username=#{name} and password=#{ps}"})
     User findByUserIdAndPassword(@Param("name") String username,@Param("ps") String password);
 
 
@@ -55,7 +55,7 @@ public interface UserMapper {
      * @param
      * @return
      */
-    @Select({"select * from t_user"})
+    @Select({"select * from hexo_user"})
     List<User> findAllUsers() throws RuntimeException;
 
 

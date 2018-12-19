@@ -18,27 +18,27 @@ public interface PostMapper {
      * 分类标签查询 这里 in not null去除空列表
      * @return
      */
-    @Select({"select DISTINCT categories FROM t_context  where categories is not null"})
+    @Select({"select DISTINCT categories FROM hexo_post  where categories is not null"})
     List<String> findAllCategory();
 
-    @Select({"select * from t_context where type = 'post' and tags = #{tagName} order by uid asc"})
+    @Select({"select * from hexo_post where type = 'post' and tags = #{tagName} order by uid asc"})
     List<Post> findByTagName(String tagName);
 
-    @Select({"select * from t_context where type = 'post' order by uid asc limit 1 "})
+    @Select({"select * from hexo_post where type = 'post' order by uid asc limit 1 "})
     Post findLastestPost();
 
 
-    @Select({"select * from t_context where type = 'post' order by uid asc"})
+    @Select({"select * from hexo_post where type = 'post' order by uid asc"})
     List<Post> findAllPosts();
 
-    @Select({"select uid,title,created,article from t_context where title='关于我'"})
+    @Select({"select uid,title,created,article from hexo_post where title='关于我'"})
     Post findAuthor();
 
     /**
      * 得到博客的总数量
       * @return
      */
-    @Select({"select count(*) from t_context where type = 'post'"})
+    @Select({"select count(*) from hexo_post where type = 'post'"})
     int findPostNumber();
 
     /**
@@ -46,7 +46,7 @@ public interface PostMapper {
      * @param post
      * @return
      */
-    @Insert({"insert into t_context " +
+    @Insert({"insert into hexo_post " +
             "(article,title,created,tags,md,type,slug,publish,categories) " +
             "values (#{b.article},#{b.title},#{b.created},#{b.tags},#{b.md}" +
             ",#{b.type},#{b.slug},#{b.publish},#{b.categories})"})
@@ -59,7 +59,7 @@ public interface PostMapper {
      * @param id
      * @return
      */
-    @Delete({"delete from t_context where uid = #{id}"})
+    @Delete({"delete from hexo_post where uid = #{id}"})
     int removeByPostId(@Param("id") int id);
 
     /**
@@ -68,11 +68,11 @@ public interface PostMapper {
      * @return
      */
     @Select({"select uid,title,created,tags,article" +
-            ",slug,hits from t_context where type = 'post'  limit #{count}"})
+            ",slug,hits from hexo_post where type = 'post'  limit #{count}"})
     List<Post> findRecent10Posts(@Param("count") int count);
 
 
-    @Update({" update t_context " +
+    @Update({" update hexo_post " +
             " set title = #{b.title}," +
             " md = #{b.md}," +
             " slug = #{b.slug}," +
@@ -81,52 +81,52 @@ public interface PostMapper {
             " article=#{b.article} where uid= #{id}"})
     void updatePostByUid(@Param("b") Post context, @Param("id") int uid);
 
-    @Update({"update t_context set hits=#{c.hits} where uid = #{c.uid}"})
+    @Update({"update hexo_post set hits=#{c.hits} where uid = #{c.uid}"})
     void updateOnePostVisit(@Param("c") Post context);
 
 
-    @Select({"select uid,title,created,tags from t_context " +
+    @Select({"select uid,title,created,tags from hexo_post " +
             "where type = 'post'  order by created desc limit #{p},12"})
     List<Post> findPostByYearAndMonth(@Param("p") int page);
 
 
-    @Select({"select uid,title,created,tags,categories from t_context " +
+    @Select({"select uid,title,created,tags,categories from hexo_post " +
             "where type = 'post'  order by tags desc "})
     List<Post> findPostsByCategory();
 
 
-    @Select({"select uid,title,article,created from t_context " +
+    @Select({"select uid,title,article,created from hexo_post " +
             "where type = 'post' order by created desc limit #{p},20"})
     List<Post> findLastPostsByPage(@Param("p") int page);
 
 
-    @Select({"select uid,title,article,tags,created from t_context " +
+    @Select({"select uid,title,article,tags,created from hexo_post " +
             "where type = 'post' order by created desc limit #{p},20"})
     List<Post> findPostBaseByPage(@Param("p") int page);
 
-    @Select({"select uid,title,article,md,created,tags,hits from t_context where uid = #{id}  "})
+    @Select({"select uid,title,article,md,created,tags,hits from hexo_post where uid = #{id}  "})
     Post findPostById(@Param("id") int id);
 
-    @Select({"select uid,title,tags,created from t_context " +
+    @Select({"select uid,title,tags,created from hexo_post " +
             "where uid < #{id} and type = 'post'   order by uid desc limit 1"})
     Post findPreviousPost(@Param("id") int id);
 
     @Select({"select uid,title,article,tags,created " +
-            "from t_context where uid > #{id} and type = 'post' order by uid asc limit 1"})
+            "from hexo_post where uid > #{id} and type = 'post' order by uid asc limit 1"})
     Post findNextPost(@Param("id") int id);
 
 
-    @Select("select * from t_context where tags=#{tag}")
+    @Select("select * from hexo_post where tags=#{tag}")
     List<Post> findPostByTagName(@Param("tag") String tagName);
 
 
-    @Select({"select * from t_context where type= #{type} order by uid desc"})
+    @Select({"select * from hexo_post where type= #{type} order by uid desc"})
     List<Post> findPostByPageType(@Param("type")String page);
 
     /**
      * 标签页面删除相关数据
      * @param categoryName
      */
-    @Delete({"update t_context set categories = null where categories = #{cate}"})
+    @Delete({"update hexo_post set categories = null where categories = #{cate}"})
     int removePostCategory(@Param("cate") String categoryName);
 }

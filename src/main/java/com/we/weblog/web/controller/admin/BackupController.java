@@ -37,7 +37,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admin/backup")
-public class BackupController extends BaseController{
+public class BackupController extends BaseController {
 
     @Resource
     private BackupService backupService;
@@ -52,7 +52,8 @@ public class BackupController extends BaseController{
      */
     @GetMapping("/table")
     @ResponseBody
-    public UIModel baseSourceFromData(@RequestParam(value = "type", defaultValue = "resources") String type) {
+    public UIModel baseSourceFromData(@RequestParam(value = "type", defaultValue = "resources")
+                                        String type) {
         //需要优化
         List<BackFile> backups = null;
         if (StringUtils.equals(type, "resources")) {

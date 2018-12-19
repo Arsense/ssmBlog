@@ -72,7 +72,7 @@ public class PostAdminController extends BaseController{
      */
     @GetMapping("/blog/list")
     @ResponseBody
-    public UIModel getBlogList(int currentPage) {
+    public UIModel getBlogList(@RequestParam(value = "11",defaultValue = "11")String type) {
 
         FormModel formModel = new FormModel();
         formModel.createFormItem("uid").setHidden(false).setLabel("博客编号");

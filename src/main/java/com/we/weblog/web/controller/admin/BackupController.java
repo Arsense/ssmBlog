@@ -46,8 +46,6 @@ public class BackupController extends BaseController{
     @Resource
     private MailService mailService;
 
-
-
     /**
      * 显示后台博客列表
      * @return

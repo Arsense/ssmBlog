@@ -1,7 +1,6 @@
 package com.we.weblog.service;
 
 import com.we.weblog.domain.modal.Select;
-
 import java.util.List;
 
 /**
@@ -9,6 +8,8 @@ import java.util.List;
  * @date 2018/10/23 19:35
  */
 public interface TagService {
+
+
 
     /**
      * 获取所有标签

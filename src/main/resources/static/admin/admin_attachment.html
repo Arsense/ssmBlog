@@ -5,12 +5,12 @@
     <input id="fileupload" class="file-loading" type="file" multiple name="file" enctype="multipart/form-data">
 </v-box>
 <script src="../js/plugins/piexif.min.js" type="text/javascript"></script>
-<script src="../js/fileinput.js" type="text/javascript"></script>
+<script src="../js/fileinput.min.js" type="text/javascript"></script>
 <script src="../js/locales/zh.js" type="text/javascript"></script>
 
 
 <script>
-    new Vue({
+    var vm = new Vue({
         el: '#app',
         data: {},
         methods:{
@@ -26,6 +26,38 @@
                     scrollbar: false
                 });
             },
+            loadFileInput:function () {
+                $("#fileupload").fileinput({
+                    language: 'zh',
+                    uploadUrl: '/admin/attachments/upload',
+                    uploadAsync: true,
+                    allowedFileExtensions: ['jpg','gif','png','jpeg','svg','psd'],
+                    maxFileCount: 100,
+                    enctype : 'multipart/form-data',
+                    showClose: false
+                }).on("fileuploaded",function (event , data , previewId , index) {
+                    var data = data.jqXHR.responseJSON;
+                    if(data.success=="1"){
+                        $("#uploadForm").hide(400);
+                        $.toast({
+                            text: data.message,
+                            heading: '<@spring.message code="common.text.tips" />',
+                            icon: 'success',
+                            showHideTransition: 'fade',
+                            allowToastClose: true,
+                            hideAfter: 1000,
+                            stack: 1,
+                            position: 'top-center',
+                            textAlign: 'left',
+                            loader: true,
+                            loaderBg: '#ffffff',
+                            afterHidden: function () {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                });
+            }
 
         },
         mounted () {
@@ -40,30 +72,59 @@
                 showClose: false
             }).on("fileuploaded",function (event , data , previewId , index) {
                 var data = data.jqXHR.responseJSON;
-                console.log("upload ok")
+                if(data.success=="1"){
+                    $("#uploadForm").hide(400);
+                    $.toast({
+                        text: data.message,
+                        heading: '<@spring.message code="common.text.tips" />',
+                        icon: 'success',
+                        showHideTransition: 'fade',
+                        allowToastClose: true,
+                        hideAfter: 1000,
+                        stack: 1,
+                        position: 'top-center',
+                        textAlign: 'left',
+                        loader: true,
+                        loaderBg: '#ffffff',
+                        afterHidden: function () {
+                            window.location.reload();
+                        }
+                    });
+                }
             });
-           // .on("fileuploaded",function (event,data,previewId,index) {
-            //     var data = data.jqXHR.responseJSON;
-            //     if(data.success=="1"){
-            //         $("#uploadForm").hide(400);
-            //         $.toast({
-            //             text: data.message,
-            //             heading: '<@spring.message code="common.text.tips" />',
-            //             icon: 'success',
-            //             showHideTransition: 'fade',
-            //             allowToastClose: true,
-            //             hideAfter: 1000,
-            //             stack: 1,
-            //             position: 'top-center',
-            //             textAlign: 'left',
-            //             loader: true,
-            //             loaderBg: '#ffffff',
-            //             afterHidden: function () {
-            //                 window.location.reload();
-            //             }
-            //         });
-            //     }
-            // });
         }
     })
+
+    $(document).on('pjax:complete',function () {
+        $("#fileupload").fileinput({
+            language: 'zh',
+            uploadUrl: '/admin/attachments/upload',
+            uploadAsync: true,
+            allowedFileExtensions: ['jpg','gif','png','jpeg','svg','psd'],
+            maxFileCount: 100,
+            enctype : 'multipart/form-data',
+            showClose: false
+        }).on("fileuploaded",function (event , data , previewId , index) {
+            var data = data.jqXHR.responseJSON;
+            if(data.success=="1"){
+                $("#uploadForm").hide(400);
+                $.toast({
+                    text: data.message,
+                    heading: '<@spring.message code="common.text.tips" />',
+                    icon: 'success',
+                    showHideTransition: 'fade',
+                    allowToastClose: true,
+                    hideAfter: 1000,
+                    stack: 1,
+                    position: 'top-center',
+                    textAlign: 'left',
+                    loader: true,
+                    loaderBg: '#ffffff',
+                    afterHidden: function () {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    });
 </script>

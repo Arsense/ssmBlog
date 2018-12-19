@@ -12,6 +12,10 @@ import java.util.*;
  * @date 2018/10/23 19:24
  */
 public interface PostService {
+
+    List<Post> findByTagName(String tagName);
+
+
     /**
      * 更新博客访问量
      *

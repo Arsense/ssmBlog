@@ -182,6 +182,11 @@ public class PostServiceImpl implements PostService {
     }
 
 
+    @Override
+    public List<Post> findByTagName(String tagName) {
+        return postMapper.findByTagName(tagName);
+    }
+
     /**
      * 访问量增加
      *

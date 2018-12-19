@@ -74,7 +74,6 @@ public class PostAdminController extends BaseController{
     @GetMapping("/blog/list")
     @ResponseBody
     public UIModel getBlogList(int currentPage) {
-        List<Post> tempContexts = postMapper.findPostBaseByPage(1);
 
         FormModel formModel = new FormModel();
         formModel.createFormItem("uid").setHidden(false).setLabel("博客编号");
@@ -84,11 +83,11 @@ public class PostAdminController extends BaseController{
         formModel.createFormItem("month").setHidden(false).setLabel("发布时间");
 
         TableData tableData = new TableData() ;
-        tableData.setFormItems(formModel.getFormItems());
-        tableData.setDataItems(tempContexts);
         tableData.setTotalSize(50);
         tableData.setPage(true);
-        tableData.setPageSize(6);
+        tableData.setPageSize(20);
+        tableData.setFormItems(formModel.getFormItems());
+        tableData.setDataItems(postMapper.findPostBaseByPage(1));
 
         return  UIModel.success().tableData(tableData);
 
@@ -150,7 +149,6 @@ public class PostAdminController extends BaseController{
         logService.saveByLogs(new Log(LogActions.DELETE_BLOG,deleteId+" ", AddressUtil.getIpAddress(request),1));
 
         return UIModel.success().msg("删除成功");
-
     }
 
     /**

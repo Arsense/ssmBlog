@@ -21,6 +21,9 @@ public interface PostMapper {
     @Select({"select DISTINCT categories FROM t_context  where categories is not null"})
     List<String> findAllCategory();
 
+    @Select({"select * from t_context where type = 'post' and tags = #{tagName} order by uid asc"})
+    List<Post> findByTagName(String tagName);
+
     @Select({"select * from t_context where type = 'post' order by uid asc limit 1 "})
     Post findLastestPost();
 

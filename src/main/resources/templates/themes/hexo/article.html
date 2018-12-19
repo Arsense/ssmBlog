@@ -172,17 +172,6 @@
                 }
             },
             methods:{
-                recommend:function(){
-                    var self = this;
-                    //vue 一个方法调用另一个方法
-                    var id = this.$options.methods.getQueryString("id");
-                    var type = "article";
-                    axios.get("/front/base/" + type + id).then(function (response) {
-                        //一行搞定
-                        $.extend(self._data , response.data);
-                    });
-
-                },
                 getPostUrl:function (Object) {
                     return "article.html?id="+Object.uid;
                 },
@@ -227,9 +216,19 @@
                 }
 
         },
+        mounted : function () {
+            var self = this;
+            //vue 一个方法调用另一个方法
+            var id = this.$options.methods.getQueryString("id");
+            var type = "article";
+            axios.get("/front/base/" + type + id).then(function (response) {
+                //一行搞定
+                $.extend(self._data , response.data);
+            });
 
-        });
-        vm.recommend()
+        }
+
+    });
 </script>
 
 

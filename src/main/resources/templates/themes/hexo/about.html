@@ -50,7 +50,7 @@
 <div class="cube-loading out"></div>
 </body>
 <script>
-    var vm=new Vue({
+        new Vue({
                  el: "#main",
                  data: function(){
                     return {
@@ -63,15 +63,6 @@
                     }
             },
             methods:{
-                    recommend:function(){
-                        var self = this;
-                        var type = "about";
-                        axios.get("/front/base/"+type).then(function (response) {
-                            //一行搞定
-                            $.extend(self._data,response.data);
-                        });
-                    },
-
                 getPostUrl:function (Object) {
                         return "/post/"+Object.uid;
                     },
@@ -80,11 +71,18 @@
                     }
 
              },
+            mounted:function () {
+                var self = this;
+                var type = "about";
+                axios.get("/front/base/"+type).then(function (response) {
+                    //一行搞定
+                    $.extend(self._data,response.data);
+                });
 
-            });
+            }
+          });
 
 
-            vm.recommend()
 
 
 </script>

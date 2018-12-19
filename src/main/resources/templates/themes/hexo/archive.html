@@ -71,12 +71,7 @@
         },
         methods:{
             recommend:function(){
-                var self = this;
-                var type = "archive";
-                axios.get("/front/base/"+type).then(function (response) {
-                    //一行搞定
-                    $.extend(self._data,response.data);
-                });
+
             },
             getPostUrl:function (Object) {
                 return "article.html?id="+Object.uid;
@@ -85,9 +80,15 @@
                 return "/tag/"+data;
             }
         },
-
+        mounted : function () {
+            var self = this;
+            var type = "archive";
+            axios.get("/front/base/"+type).then(function (response) {
+                //一行搞定
+                $.extend(self._data,response.data);
+            });
+        }
     });
-    vm.recommend()
 
 </script>
 </html>

@@ -1,5 +1,5 @@
 
-
+#### 本博客还在开发完善中同时也是作者的一个学习项目 各位只能当做学习项目 目前不要搭建到服务器上
 ## 最近更新
 登陆后台地址改为  /admin/login.html
 - vue-admintle jar包需要更新 maven clean 后重新编译打包
@@ -7,6 +7,8 @@
 - 增加了themleaf模板 
 - 代码优化重构 升级到springboot2.5
 - 增加了备份的功能
+- 增加了上传文件
+- 有table展示的页面做了优化 SQL做了优化
 ## 基本技术
 
 环境: `Springboot+mysql+admintle+vue.js+mybatis`环境搭建的个博客

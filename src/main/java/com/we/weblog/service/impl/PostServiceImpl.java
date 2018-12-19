@@ -280,6 +280,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<Post> findAllPostsByStatus(int status) {
+        return sortPostDate(postMapper.findAllPostsByStatus(status));
+    }
+
+    @Override
     public List<Post> searchPosts(String keyWord) {
         return null;
     }
@@ -290,10 +295,7 @@ public class PostServiceImpl implements PostService {
 
     }
 
-    @Override
-    public List<Post> findPostByPage(int page) {
-        return null;
-    }
+
 
 
     /**

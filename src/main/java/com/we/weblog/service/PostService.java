@@ -58,13 +58,6 @@ public interface PostService {
     void updatePost(Post context, int uid) throws SQLException;
 
     /**
-     * 一页一页查询博客
-     * @param page
-     * @return
-     */
-    List<Post> findPostByPage(int page);
-
-    /**
      * 根据标签名查询博客
      * @param tagName
      * @return
@@ -150,6 +143,14 @@ public interface PostService {
      * @return List
      */
     List<Post> findAllPosts();
+
+
+    /**
+     * 根据文章状态获取所有文章
+     *
+     * @return List
+     */
+    List<Post> findAllPostsByStatus(int status);
 
     /**
      * 模糊查询文章

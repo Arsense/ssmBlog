@@ -44,7 +44,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admin")
-public class PostAdminController extends BaseController{
+public class PostAdminController extends BaseController {
 
     @Resource
     private PostService postService;
@@ -72,7 +72,7 @@ public class PostAdminController extends BaseController{
      */
     @GetMapping("/blog/list")
     @ResponseBody
-    public UIModel getBlogList(@RequestParam(value = "11",defaultValue = "11")String type) {
+    public UIModel getBlogList(@RequestParam(value = "status",defaultValue = "2")String status) {
 
         FormModel formModel = new FormModel();
         formModel.createFormItem("uid").setHidden(false).setLabel("博客编号");
@@ -84,7 +84,7 @@ public class PostAdminController extends BaseController{
         TableData tableData = new TableData() ;
         tableData.setTotalSize(50);
         tableData.setFormItems(formModel.getFormItems());
-        tableData.setDataItems(postService.findAllPosts());
+        tableData.setDataItems(postService.findAllPostsByStatus(Integer.parseInt(status)));
 
         return  UIModel.success().tableData(tableData);
 

@@ -8,16 +8,17 @@
                 <button class="layui-btn" @click="query"><i class="fa fa-search"></i> 查询</button>
             </v-col>
         </v-row>
+        <v-tab-pane label="已发布">
+            <v-table ajax_url="/admin/blog/list?status=2" ref="postList2" :operations="operations"></v-table>
+        </v-tab-pane>
         <v-tab-pane label="草稿">
-            <v-table ajax_url="/admin/blog/list?type=databases" ref="postList" :operations="operations"></v-table>
+            <v-table ajax_url="/admin/blog/list?status=1" ref="postList" :operations="operations"></v-table>
         </v-tab-pane>
         <v-tab-pane label="回收站">
-            <v-table ajax_url="/admin/blog/list?type=databases" ref="postList1" :operations="operations"></v-table>
+            <v-table ajax_url="/admin/blog/list?status=0" ref="postList1" :operations="operations"></v-table>
 
         </v-tab-pane>
-        <v-tab-pane label="已发布">
-            <v-table ajax_url="/admin/blog/list?type=databases" ref="postList2" :operations="operations"></v-table>
-        </v-tab-pane>
+
     </v-tab>
 </v-box>
 

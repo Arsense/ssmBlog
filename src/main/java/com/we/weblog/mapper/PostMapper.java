@@ -31,6 +31,9 @@ public interface PostMapper {
     @Select({"select * from hexo_post where type = 'post' order by uid asc"})
     List<Post> findAllPosts();
 
+    @Select({"select * from hexo_post where type = 'post' and status = #{status} order by uid asc"})
+    List<Post> findAllPostsByStatus(@Param("status")int status);
+
     @Select({"select uid,title,created,article from hexo_post where title='关于我'"})
     Post findAuthor();
 

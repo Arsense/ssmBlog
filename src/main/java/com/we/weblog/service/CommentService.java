@@ -14,7 +14,15 @@ public interface CommentService {
      *
      * @return Page
      */
-    List<Comment> getAllComments();
+    List<Comment> findAllComments();
+
+
+    /**
+     * 查询所有的评论，用于后台管理
+     *
+     * @return Page
+     */
+    List<Comment> findAllCommentsByStatus(int status);
 
     /**
      * 查询评论byId

@@ -30,8 +30,18 @@ public class CommentServiceImpl implements CommentService {
      * @return Page
      */
     @Override
-    public List<Comment> getAllComments() {
+    public List<Comment> findAllComments() {
         List<Comment> comments = commentMapper.selectAllComments();
+        for (Comment comment:comments){
+            comment.setCommentDate(
+                    TimeUtil.getFormatClearToSecond(comment.getCreated()));
+        }
+        return  comments;
+    }
+
+    @Override
+    public List<Comment> findAllCommentsByStatus(int status) {
+        List<Comment> comments = commentMapper.findAllCommentsByStatus(status);
         for (Comment comment:comments){
             comment.setCommentDate(
                     TimeUtil.getFormatClearToSecond(comment.getCreated()));

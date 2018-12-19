@@ -6,6 +6,7 @@ import com.we.weblog.domain.modal.Select;
 import com.we.weblog.service.CategoryService;
 import com.we.weblog.service.PostService;
 import com.we.weblog.service.TagService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,8 +40,7 @@ public class CategoryAdminController {
     @ResponseBody
     public List<Select> getAllKindCategories(){
 //        {code:'1' ,  label:'男' ,checked:false},
-        List<Select> lists = tagService.getCategories();
-        return  lists;
+        return  tagService.getCategories();
     }
     /**
      * 删除类别
@@ -49,12 +49,11 @@ public class CategoryAdminController {
     @ResponseBody
     public UIModel deleteCategory(@PathVariable("name") String categoryName){
 
-        if ("".equals(categoryName)) {
-          return UIModel.fail().msg("删除的类别为空");
-        }
+        if (StringUtils.isEmpty(categoryName))
+            return UIModel.fail().msg("删除类别异常");
 
         try {
-            int result = postService.removePostCategory(categoryName);
+            postService.removePostCategory(categoryName);
 //            tagService.deleteMetas(categoryName);
         } catch (Exception e) {
 //            log.error("删除分类失败：{}", e.getMessage());
@@ -71,10 +70,8 @@ public class CategoryAdminController {
     @ResponseBody
     public Map<String,Object> manageCategoryAndTag() {
         Map<String,Object> maps  = new HashMap<>();
-        List<String> cates = tagService.getMates();
-        List<String> tags = tagService.findAllTags();
-        maps.put("categories",cates);
-        maps.put("tags",tags);
+        maps.put("categories", tagService.getMates());
+        maps.put("tags",tagService.findAllTags());
         return maps;
     }
 
@@ -86,7 +83,7 @@ public class CategoryAdminController {
     @ResponseBody
     public UIModel newCategory(@PathVariable("name")  String name) {
         //这里全是空格 全是数字 null 都要检查
-        if (name.equals("")) {
+        if (StringUtils.isEmpty(name)) {
             return UIModel.fail().msg("请输入类别");
         } else if(name.length()> 25) {
             return  UIModel.fail().msg("您输入的类别过长");

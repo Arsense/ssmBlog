@@ -70,7 +70,7 @@ public class IndexAdminController {
         map.put("contexts", contexts);
 
         //查询最新的评论
-        List<Comment> comments = commentSerivce.getAllComments();
+        List<Comment> comments = commentSerivce.findAllComments();
         map.put("comments",comments);
 
         //查询最新的日志

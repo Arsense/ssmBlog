@@ -46,7 +46,8 @@ public class CommentAdminController extends BaseController {
     @PostMapping("/send")
     @ResponseBody
     public  UIModel uiModel(@RequestBody Comment comment){
-        return   UIModel.success().msg("回复成功");
+        //TODO 评论回复还没做
+        return  UIModel.success().msg("回复成功");
     }
 
     /**
@@ -66,16 +67,15 @@ public class CommentAdminController extends BaseController {
      */
     @RequestMapping("/list")
     @ResponseBody
-    public UIModel list(@RequestParam(value = "status", defaultValue = "0") int status,int currentPage) {
+    public UIModel list(@RequestParam(value = "status", defaultValue = "0") String status,int currentPage) {
         TableData tableData = new TableData();
-        List<Comment> comments = commentService.getAllComments();
+        List<Comment> comments = commentService.findAllCommentsByStatus(Integer.parseInt(status));
         tableData.setDataItems(comments);
         tableData.setPage(true);
         tableData.setPageSize(15);
 
-
         FormModel formModel = new FormModel();
-        formModel.createFormItem("cid").setHidden(false).setLabel("博客编号");
+        formModel.createFormItem("cid").setHidden(false).setLabel("评论Id");
         formModel.createFormItem("content").setHidden(false).setLabel("评论内容");
         formModel.createFormItem("time").setHidden(false).setLabel("评论时间");
         formModel.createFormItem("author").setHidden(false).setLabel("评论人");

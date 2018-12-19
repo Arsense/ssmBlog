@@ -55,7 +55,7 @@ public class BackupController extends BaseController {
     public UIModel baseSourceFromData(@RequestParam(value = "type", defaultValue = "resources")
                                         String type) {
         //需要优化
-        List<BackFile> backups = null;
+        List<BackFile> backups;
         if (StringUtils.equals(type, "resources")) {
             backups = backupService.getBackUps("resources");
         } else if (StringUtils.equals(type, "databases")) {
@@ -65,6 +65,7 @@ public class BackupController extends BaseController {
         } else {
             backups = new ArrayList<>();
         }
+
 
         FormModel formModel = new FormModel();
         formModel.createFormItem("fileName").setHidden(false).setLabel("文件名称");
@@ -107,8 +108,6 @@ public class BackupController extends BaseController {
 
 
 
-
-
     /**
      * 删除备份
      * @param fileName 文件名
@@ -128,7 +127,6 @@ public class BackupController extends BaseController {
         }
 
     }
-
 
     /**
      * 将备份发送到邮箱

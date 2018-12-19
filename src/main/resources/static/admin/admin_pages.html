@@ -1,10 +1,16 @@
 
 <v-box>
     <div class="pull-right">
-        <a href="admin_setting.html" class="btn btn-success waves-effect waves-light m-b-5">添加新页面</a>
+        <a href="#/admin/admin_setting.html" class="btn btn-success waves-effect waves-light m-b-5">添加新页面</a>
     </div>
-<v-table :ajax_url="ajax_url" :query="query" :send_req="send_req" :operations="operations" ></v-table>
+    <v-tab ref="tableList">
+        <v-tab-pane label="前端Menu">
+                <v-table :ajax_url="ajax_url" :query="query" :send_req="send_req" :operations="operations" ></v-table>
+        </v-tab-pane>
+
+    </v-tab>
 </v-box>
+
 <script>
     new Vue({
         el:"#app" ,

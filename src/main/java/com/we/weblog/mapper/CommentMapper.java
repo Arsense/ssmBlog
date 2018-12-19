@@ -13,6 +13,12 @@ public interface CommentMapper {
     @Select({"select cid,article_id,created,author,email,content from hexo_comment"})
     List<Comment> selectAllComments();
 
+
+    @Select({"select cid,article_id,created,author,email,content from hexo_comment where status = #{status}"})
+    List<Comment> findAllCommentsByStatus(@Param("status")int status);
+
+
+
     @Select({"select count(*) from hexo_comment"})
     int getNumberOfComment();
 

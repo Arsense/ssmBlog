@@ -64,7 +64,6 @@ public class PostAdminController extends BaseController{
     @Resource
     private PostMapper postMapper;
 
-
     private int updateId = 0;
 
     /**
@@ -84,10 +83,8 @@ public class PostAdminController extends BaseController{
 
         TableData tableData = new TableData() ;
         tableData.setTotalSize(50);
-        tableData.setPage(true);
-        tableData.setPageSize(20);
         tableData.setFormItems(formModel.getFormItems());
-        tableData.setDataItems(postMapper.findPostBaseByPage(1));
+        tableData.setDataItems(postService.findAllPosts());
 
         return  UIModel.success().tableData(tableData);
 
@@ -146,7 +143,7 @@ public class PostAdminController extends BaseController{
         tagService.deleteTag(deleteId);
 
         commentSerivce.removeByCommentId(deleteId);
-        logService.saveByLogs(new Log(LogActions.DELETE_BLOG,deleteId+" ", AddressUtil.getIpAddress(request),1));
+        logService.saveByLogs(new Log (LogActions.DELETE_BLOG,deleteId + " ", AddressUtil.getIpAddress(request),1));
 
         return UIModel.success().msg("删除成功");
     }

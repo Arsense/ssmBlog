@@ -12,10 +12,10 @@
             <v-table ajax_url="/admin/blog/list?status=2" ref="postList2" :operations="operations"></v-table>
         </v-tab-pane>
         <v-tab-pane label="草稿">
-            <v-table ajax_url="/admin/blog/list?status=1" ref="postList" :operations="operations"></v-table>
+            <v-table ajax_url="/admin/blog/list?status=1" ref="postList" :operations="operations1"></v-table>
         </v-tab-pane>
         <v-tab-pane label="回收站">
-            <v-table ajax_url="/admin/blog/list?status=0" ref="postList1" :operations="operations"></v-table>
+            <v-table ajax_url="/admin/blog/list?status=0" ref="postList1" :operations="operations2"></v-table>
 
         </v-tab-pane>
 
@@ -32,16 +32,79 @@
                 }
             },
             operations : [
+
+                {
+                    name : '查看'  ,
+                    class: 'btn-info',
+                    icon:'trash',
+                    method : function(row ,$table) {
+
+                    }
+                },
                 {
                     name : '编辑' ,
                     class: 'btn-success',
                     icon:'edit',
-                    method : function(row , $table) {
-                        window.location.href = "/index.html/#/admin/admin_edit.html"+"?id="+row.uid;
+                    method : function(row) {
+                        window.location.href = "/index.html/#/admin/admin_edit.html"+"?id=" + row.uid;
                     }
                 } ,
                 {
-                    name : '删除'  ,
+                    name : '丢弃'  ,
+                    class: 'btn-danger',
+                    icon:'trash',
+                    method : function(row ,$table) {
+                        axios.get('/admin/throw/'+row.uid).then(function (response) {
+                            $.alert(response.data);
+                            $table.fetchData()
+                        });
+
+                    }
+                }
+            ],
+            operations1 : [
+                {
+                    name : '编辑' ,
+                    class: 'btn-success',
+                    icon:'edit',
+                    method : function(row) {
+                        window.location.href = "/index.html/#/admin/admin_edit.html"+"?id=" + row.uid;
+                    }
+                } ,
+                {
+                    name : '发布' ,
+                    class: 'btn-info',
+                    icon:'edit',
+                    method : function(row) {
+                    }
+                } ,
+                {
+                    name : '丢弃'  ,
+                    class: 'btn-danger',
+                    icon:'trash',
+                    method : function(row ,$table) {
+                        axios.get('/admin/throw/'+row.uid).then(function (response) {
+                            $.alert(response.data);
+                            $table.fetchData()
+                        });
+
+                    }
+                }
+            ],
+            operations2 : [
+                {
+                    name : '还原' ,
+                    class: 'btn-success',
+                    icon:'edit',
+                    method : function(row) {
+                        axios.get('/admin/update/' + row.uid).then(function (response) {
+                            $.alert(response.data);
+                            $table.fetchData()
+                        });
+                    }
+                } ,
+                {
+                    name : '永久删除'  ,
                     class: 'btn-danger',
                     icon:'trash',
                     method : function(row ,$table) {

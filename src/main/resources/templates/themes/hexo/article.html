@@ -165,7 +165,7 @@
                         email:"",
                         content:"",
                         url:"",
-                        post_id:""
+                        article_id :""
                     },
                     categoryCount:0,
 
@@ -183,11 +183,12 @@
                     //留言回复
                 },
                 insertComment:function () {
+                    debugger;
                     this._data.newComment.author = document.commnentForm.author.value
                     this._data.newComment.email  = document.commnentForm.email.value
                     this._data.newComment.content = document.commnentForm.content.value
                     this._data.newComment.url = document.commnentForm.url.value
-                    this._data.newComment.post_id = this._data.current.uid
+                    this._data.newComment.article_id = this._data.current.uid
                     axios.post("/comments/send",this._data.newComment).then(function (response) {
                         if(response.data.code==0){
                             layer.msg(response.data.msg, {icon: 2});

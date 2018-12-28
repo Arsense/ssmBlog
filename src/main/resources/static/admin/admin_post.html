@@ -37,8 +37,8 @@
                     name : '查看'  ,
                     class: 'btn-info',
                     icon:'trash',
-                    method : function(row ,$table) {
-
+                    method : function(row) {
+                        return "article.html?id=" + row.uid;
                     }
                 },
                 {

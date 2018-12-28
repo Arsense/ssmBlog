@@ -6,6 +6,7 @@ import com.baomidou.kisso.security.token.SSOToken;
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.model.form.FormModel;
+import com.we.weblog.domain.enums.PostStatus;
 import com.we.weblog.domain.modal.PostConfigQuery;
 import com.we.weblog.domain.User;
 import com.we.weblog.domain.util.BaseConfigUtil;
@@ -72,7 +73,7 @@ public class PostAdminController extends BaseController {
      */
     @GetMapping("/blog/list")
     @ResponseBody
-    public UIModel getBlogList(@RequestParam(value = "status",defaultValue = "2")String status) {
+    public UIModel getBlogList(@RequestParam(value = "status",defaultValue = "2")Integer status) {
 
         FormModel formModel = new FormModel();
         formModel.createFormItem("uid").setHidden(false).setLabel("博客编号");
@@ -84,7 +85,7 @@ public class PostAdminController extends BaseController {
         TableData tableData = new TableData() ;
         tableData.setTotalSize(50);
         tableData.setFormItems(formModel.getFormItems());
-        tableData.setDataItems(postService.findAllPostsByStatus(Integer.parseInt(status)));
+        tableData.setDataItems(postService.findAllPostsByStatus(status));
 
         return  UIModel.success().tableData(tableData);
 
@@ -163,7 +164,6 @@ public class PostAdminController extends BaseController {
         }
         return org.apache.commons.lang3.StringUtils.replaceAll(url, " ", "-");
     }
-
     /**
      * 更新文章
      * @param request
@@ -208,13 +208,6 @@ public class PostAdminController extends BaseController {
          return UIModel.success().msg("修改成功！");
      }
 
-
-
-
-
-
-
-
     /**
      * 模糊查询文章
      *
@@ -231,7 +224,6 @@ public class PostAdminController extends BaseController {
                              @RequestParam(value = "size", defaultValue = "10") Integer size) {
         try {
             //排序规则
-            model.addAttribute("posts", postService.searchPosts(keyword));
         } catch (Exception e) {
             logger.error("未知错误：{}", e.getMessage());
         }
@@ -252,59 +244,6 @@ public class PostAdminController extends BaseController {
         return this.redirectTo("post");
     }
 
-    /**
-     * 自动保存文章为草稿
-     *
-     * @param postId        文章编号
-     * @param postTitle     文章标题
-     * @param postUrl       文章路径
-     * @param postContentMd 文章内容
-     * @param postType      文章类型
-     * @param session       session
-     * @return UIModel
-     */
-    @PostMapping(value = "/new/autoPush")
-    @ResponseBody
-    public UIModel autoPushPost(@RequestParam(value = "postId", defaultValue = "0") int postId,
-                                   @RequestParam(value = "postTitle") String postTitle,
-                                   @RequestParam(value = "postUrl") String postUrl,
-                                   @RequestParam(value = "postContentMd") String postContentMd,
-                                   @RequestParam(value = "postType", defaultValue = "post") String postType,
-                                   HttpSession session) {
-        Post post = null;
-        User user = (User) session.getAttribute(BaseConfigUtil.USER_SESSION_KEY);
-        if (postId == 0) {
-            post = new Post();
-        } else {
-            post = postService.findByPostId(postId);
-        }
-        try {
-            if (org.apache.commons.lang3.StringUtils.isEmpty(postTitle)) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-//                post.setPostTitle("草稿：" + dateFormat.format(DateUtil.date()));
-            } else {
-//                post.setPostTitle(postTitle);
-            }
-            if (org.apache.commons.lang3.StringUtils.isEmpty(postUrl)) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-//                post.setPostUrl(dateFormat.format(DateUtil.date()));
-            } else {
-//                post.setPostUrl(postUrl);
-            }
-//            post.setPostId(postId);
-//            post.setPostStatus(1);
-//            post.setPostContentMd(postContentMd);
-//            post.setPostType(postType);
-//            post.setPostDate(DateUtil.date());
-//            post.setPostUpdate(DateUtil.date());
-//            post.setUser(user);
-        } catch (Exception e) {
-            logger.error("未知错误：{}", e.getMessage());
-            return UIModel.fail().msg("保存失败");
-        }
-        return UIModel.success().msg("保存成功");
-
-    }
 
 
     /**
@@ -314,14 +253,14 @@ public class PostAdminController extends BaseController {
      * @return 重定向到/admin/posts
      */
     @GetMapping(value = "/throw")
-    public String moveToTrash(@RequestParam("postId") Long postId, @RequestParam("status") Integer status) {
+    public UIModel moveToTrash( Integer postId) {
         try {
-            postService.updatePostStatus(postId, 1);
+            postService.updatePostStatus(postId, PostStatus.RECYCLE.getCode());
             logger.info("编号为" + postId + "的文章已被移到回收站");
         } catch (Exception e) {
             logger.error("删除文章到回收站失败：{}", e.getMessage());
         }
-        return "redirect:/admin/posts?status=" + status;
+        return UIModel.success().msg("更改成功");
     }
 
     /**
@@ -334,7 +273,7 @@ public class PostAdminController extends BaseController {
     public String moveToPublish(@RequestParam("postId") Long postId,
                                 @RequestParam("status") Integer status) {
         try {
-            postService.updatePostStatus(postId, 0);
+//            postService.updatePostStatus(postId, PostStatus.PUBLISHED.getCode());
             logger.info("编号为" + postId + "的文章已改变为发布状态");
         } catch (Exception e) {
             logger.error("发布文章失败：{}", e.getMessage());
@@ -373,6 +312,59 @@ public class PostAdminController extends BaseController {
     }
 
 
+    /**
+     * 自动保存文章为草稿
+     *
+     * @param postId        文章编号
+     * @param postTitle     文章标题
+     * @param postUrl       文章路径
+     * @param postContentMd 文章内容
+     * @param postType      文章类型
+     * @param session       session
+     * @return UIModel
+     */
+    @PostMapping(value = "/new/autoPush")
+    @ResponseBody
+    public UIModel autoPushPost(@RequestParam(value = "postId", defaultValue = "0") int postId,
+                                @RequestParam(value = "postTitle") String postTitle,
+                                @RequestParam(value = "postUrl") String postUrl,
+                                @RequestParam(value = "postContentMd") String postContentMd,
+                                @RequestParam(value = "postType", defaultValue = "post") String postType,
+                                HttpSession session) {
+        Post post = null;
+        User user = (User) session.getAttribute(BaseConfigUtil.USER_SESSION_KEY);
+        if (postId == 0) {
+            post = new Post();
+        } else {
+            post = postService.findByPostId(postId);
+        }
+        try {
+            if (org.apache.commons.lang3.StringUtils.isEmpty(postTitle)) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+//                post.setPostTitle("草稿：" + dateFormat.format(DateUtil.date()));
+            } else {
+//                post.setPostTitle(postTitle);
+            }
+            if (org.apache.commons.lang3.StringUtils.isEmpty(postUrl)) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+//                post.setPostUrl(dateFormat.format(DateUtil.date()));
+            } else {
+//                post.setPostUrl(postUrl);
+            }
+//            post.setPostId(postId);
+//            post.setPostStatus(1);
+//            post.setPostContentMd(postContentMd);
+//            post.setPostType(postType);
+//            post.setPostDate(DateUtil.date());
+//            post.setPostUpdate(DateUtil.date());
+//            post.setUser(user);
+        } catch (Exception e) {
+            logger.error("未知错误：{}", e.getMessage());
+            return UIModel.fail().msg("保存失败");
+        }
+        return UIModel.success().msg("保存成功");
+
+    }
 
 
 }

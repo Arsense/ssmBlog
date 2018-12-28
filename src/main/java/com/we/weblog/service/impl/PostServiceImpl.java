@@ -1,6 +1,7 @@
 package com.we.weblog.service.impl;
 
 import com.we.weblog.domain.*;
+import com.we.weblog.domain.enums.PostStatus;
 import com.we.weblog.domain.modal.Types;
 import com.we.weblog.domain.modal.YearBlog;
 import com.we.weblog.mapper.PostMapper;
@@ -19,10 +20,8 @@ public class PostServiceImpl implements PostService {
 
     @Resource
     private PostMapper postMapper;
-
     @Resource
     private TagService tagService;
-
 
     /**
      * 得到分类总数
@@ -46,7 +45,7 @@ public class PostServiceImpl implements PostService {
      * @return
      */
     public List<String> getCategories(){
-       return postMapper.findAllCategory();
+        return postMapper.findAllCategory();
     }
 
     /**
@@ -95,7 +94,6 @@ public class PostServiceImpl implements PostService {
         tagService.updateBlogTag(context.getTags(), uid);
     }
 
-
     /**
      * 查询Id之前的文章
      *
@@ -103,13 +101,11 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     public Post findPreviousPost(int uid) {
-
         Post context =postMapper.findPreviousPost(uid);
         if(context == null){
             return null;
         }
         context.setMonth(TimeUtil.getFormatClearToDay(context.getCreated()));
-
         return context;
     }
 
@@ -125,9 +121,7 @@ public class PostServiceImpl implements PostService {
             return null;
         }
         context.setMonth(TimeUtil.getFormatClearToDay(context.getCreated()));
-
         return context;
-
     }
 
     @Override
@@ -155,7 +149,6 @@ public class PostServiceImpl implements PostService {
         int start = (page - 1) * 12;
         List<Post> list = postMapper.findPostByYearAndMonth(start);
         return sortBlogsByYears(list);
-
     }
 
     /**
@@ -213,14 +206,14 @@ public class PostServiceImpl implements PostService {
         //初始化访问量是0
         post.setHits(0);
         post.setPublish(Types.PUBLISH);
+        post.setStatus(PostStatus.PUBLISHED.getCode());
         post.setCreated(new Date(System.currentTimeMillis()));
         postMapper.savePost(post);
-
-        try{
+        try {
             tagService.addBlogTags(post.getTags(), post.getUid());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            throw new SQLException("addBlog fail");
+            throw new SQLException("添加博客失败");
         }
     }
 
@@ -252,16 +245,15 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     public List<Post> findLastestPost(int limit) {
-        if(limit < 0 || limit >20){
+        if (limit < 0 || limit >20) {
             limit = 10;
         }
         return  sortPostDate(postMapper.findLastPostsByPage(limit));
     }
 
-
     @Override
-    public Post updatePostStatus(Long postId, Integer status) {
-        return null;
+    public void updatePostStatus(Integer postId, Integer status) {
+        postMapper.updateByStatus(postId,status);
     }
 
     @Override
@@ -285,17 +277,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> searchPosts(String keyWord) {
-        return null;
-    }
-
-
-    @Override
     public void updatePost(Post context, int uid) throws SQLException {
 
     }
-
-
 
 
     /**
@@ -304,27 +288,23 @@ public class PostServiceImpl implements PostService {
      * @return
      */
     private  List<Post> sortPostDate(List<Post> pages) {
-        for(Post page : pages){
-            String time = TimeUtil.getFormatClearToDay(page.getCreated());
-            page.setMonth(time);
+        for(Post page: pages){
+            page.setMonth(TimeUtil.getFormatClearToDay(page.getCreated()));
         }
-        return  pages;
+        return pages;
     }
 
-
-    public List<YearBlog> sortBlogsByYears(List<Post> bloglist) throws IOException{
+    private List<YearBlog> sortBlogsByYears(List<Post> bloglist) {
         List<YearBlog> yearBlogs = new ArrayList<>();
         Map<Integer,YearBlog> yearMap = new HashMap<>();
 
         for (Post context : bloglist) {
-            Date date = context.getCreated();
-            context.setMonth(TimeUtil.getEdate(date));
-            int year = TimeUtil.getYear(date);
-
+            context.setMonth(TimeUtil.getEdate(context.getCreated()));
+            Integer year = TimeUtil.getYear(context.getCreated());
             if (yearMap.containsKey(year)) {
                 yearMap.get(year).getYearContexts().add(context);
             } else {
-                YearBlog yearBlog = new YearBlog(year,new ArrayList<Post>());
+                YearBlog yearBlog = new YearBlog(year, new ArrayList<>());
                 yearMap.put(year,yearBlog);
                 yearBlog.getYearContexts().add(context);
                 yearBlogs.add(yearBlog);

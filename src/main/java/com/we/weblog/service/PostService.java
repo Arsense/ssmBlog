@@ -15,7 +15,6 @@ public interface PostService {
 
     List<Post> findByTagName(String tagName);
 
-
     /**
      * 更新博客访问量
      *
@@ -91,7 +90,6 @@ public interface PostService {
      */
      int removePostCategory(String name);
 
-
     /**
      * 新增文章
      *
@@ -127,7 +125,7 @@ public interface PostService {
      * @param status status
      * @return Post
      */
-    Post updatePostStatus(Long postId, Integer status);
+    void updatePostStatus(Integer postId, Integer status);
     /**
      * 获取文章列表 不分页
      *
@@ -152,13 +150,7 @@ public interface PostService {
      */
     List<Post> findAllPostsByStatus(int status);
 
-    /**
-     * 模糊查询文章
-     *
-     * @param keyWord  keyword
-     * @return List
-     */
-    List<Post> searchPosts(String keyWord);
+
 
     /**
      * 根据编号查询文章

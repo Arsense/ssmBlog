@@ -23,7 +23,6 @@ public class CategoryController extends BaseController{
     @GetMapping("/category")
     public String category(){
         return redirectTo("/category");
-
     }
 
 }

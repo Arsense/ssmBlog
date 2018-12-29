@@ -35,7 +35,6 @@ import java.util.Map;
 public class IndexAdminController {
 
     private static final Logger LOG = LoggerFactory.getLogger(IndexAdminController.class);
-
     @Resource
     private LogsService logsService;
     @Resource

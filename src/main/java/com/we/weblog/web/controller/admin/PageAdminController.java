@@ -40,7 +40,6 @@ public class PageAdminController extends BaseController{
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-
     @Resource
     private PostService postService;
     @Resource
@@ -57,7 +56,6 @@ public class PageAdminController extends BaseController{
         context.setType(Types.PAGE);
         context.setTags("test");  //tags not null
         postService.saveByPost(context);
-
         Log loginLog =new Log(LogActions.ADD_PAGES,"admin", AddressUtil.getIpAddress(request),1);
         if (logService.saveByLogs(loginLog)<0) {
             throw new Exception("添加新页面失败");

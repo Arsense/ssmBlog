@@ -21,10 +21,8 @@ public class ArchiveController extends BaseController{
      */
     @GetMapping("/article")
     public String article(){
-
         return redirectTo("/article.html");
     }
-
 
     /**
      * 首页视图

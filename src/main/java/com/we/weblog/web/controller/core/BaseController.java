@@ -37,8 +37,6 @@ public class BaseController {
         return "themes/" + THEME + url;
     }
 
-
-
     /**
      * 渲染404页面
      *
@@ -47,7 +45,6 @@ public class BaseController {
     public String pageNotFound() {
         return "redirect:/404";
     }
-
 
     /**
      * 防止XSS过滤

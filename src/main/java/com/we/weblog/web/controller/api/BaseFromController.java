@@ -28,7 +28,6 @@ public class BaseFromController {
         return UIModel.success().formData(new SystemFromInfo());
     }
 
-
     /**
      * 系统配置
      * @return

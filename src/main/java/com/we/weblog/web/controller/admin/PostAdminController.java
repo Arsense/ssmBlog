@@ -49,19 +49,14 @@ public class PostAdminController extends BaseController {
 
     @Resource
     private PostService postService;
-
     @Resource
     private CommentService commentSerivce;
-
     @Resource
     private LogsService logService;
-
     @Resource
     private TagService tagService;
-
     @Resource
     private FileService fileService;
-
     @Resource
     private PostMapper postMapper;
 

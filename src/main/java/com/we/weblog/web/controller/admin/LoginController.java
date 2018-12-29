@@ -40,7 +40,6 @@ public class LoginController extends BaseController {
 
     private UserService userService;
     private LogsService logService;
-
      @Autowired
      LoginController(UserService userService,LogsService logService) {
         this.userService = userService;

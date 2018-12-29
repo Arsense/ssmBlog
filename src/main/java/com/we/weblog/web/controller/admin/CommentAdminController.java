@@ -61,7 +61,6 @@ public class CommentAdminController extends BaseController {
         return UIModel.success().formData(new CommentConfigQuery(), CommentConfigQuery.class);
     }
 
-
     /**
      * 前端 评论信息
      */
@@ -73,7 +72,6 @@ public class CommentAdminController extends BaseController {
         tableData.setDataItems(comments);
         tableData.setPage(true);
         tableData.setPageSize(15);
-
         FormModel formModel = new FormModel();
         formModel.createFormItem("cid").setHidden(false).setLabel("评论Id");
         formModel.createFormItem("content").setHidden(false).setLabel("评论内容");
@@ -81,7 +79,6 @@ public class CommentAdminController extends BaseController {
         formModel.createFormItem("author").setHidden(false).setLabel("评论人");
         formModel.createFormItem("email").setHidden(false).setLabel("邮箱");
         tableData.setFormItems(formModel.getFormItems());
-
         tableData.setTotalSize(commentService.getCommentCount());
 
         return  UIModel.success().tableData(tableData);
@@ -114,7 +111,6 @@ public class CommentAdminController extends BaseController {
     @PostMapping("/reply/{id}")
     @ResponseBody
     public  UIModel replyComments(@RequestBody String text,@PathVariable("id") Integer cid) {
-
         if (text == null || text.equals("")) {
             return UIModel.fail().msg("请输入完成的回复");
         } else if (text.length() > 2000){

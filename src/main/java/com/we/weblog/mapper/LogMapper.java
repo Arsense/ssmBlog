@@ -23,6 +23,6 @@ public interface LogMapper  {
     List<Log> getLogs(@Param("l") int limit);
 
 
-    @Delete({"delete  from hexo_logs"})
+    @Delete({"delete from hexo_logs"})
     int removeAllLog();
 }

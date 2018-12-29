@@ -28,7 +28,6 @@ public class InstallController {
     //TODO 博客安装页面进行中
     private static final Logger LOG = LoggerFactory.getLogger(InstallController.class);
 
-
     @Resource
     private OptionsService optionsService;
 
@@ -43,10 +42,8 @@ public class InstallController {
             if (StringUtils.equals("true", BaseConfigUtil.OPTIONS.get(PropertyEnum.IS_INSTALL))) {
                 //TODO 如果安装前端显示true的部分
                 model.addAttribute("isInstall", true);
-
             } else {
                 model.addAttribute("isInstall", true);
-
             }
         } catch (Exception e) {
             LOG.error(e.getMessage());
@@ -81,8 +78,6 @@ public class InstallController {
         if (StringUtils.equals("true", BaseConfigUtil.OPTIONS.get(PropertyEnum.IS_INSTALL.getProp()))) {
             return false;
         }
-
-
 
         optionsService.saveOption(PropertyEnum.IS_INSTALL.getProp(), "true");
         return true;

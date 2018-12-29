@@ -12,7 +12,6 @@ public class SystemFromInfo implements Serializable {
     @UIFormItem(label = "改什么好呢 待留" )
     private String appName      ;
 
-
     @UIFormItem(label = "测试" )
     private String test      ;
 

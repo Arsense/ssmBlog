@@ -15,9 +15,7 @@
 
         <form method="/post" id="pageFrom" name="pageFrom" >
             <!--style="position:absolute;width:2200px;height:110px;left:40%;top:20px;-->
-
             <div style="width:90%;margin: 10px auto;">
-
                 <v-form-item span="5" label="标题" class="text-warning">
                     <input  type="text" class="form-control" name="title" placeholder="请输入页面标题"/>
                 </v-form-item >
@@ -25,9 +23,7 @@
                 <v-form-item span="5" label="访问名" class="text-warning">
                     <input  type="text" class="form-control" name="slug" placeholder="请输入访问名" />
                 </v-form-item>
-
                 <div class="clearfix"></div>
-
                 <div id="page-wrapper">
                     <div class="row">
                         <div class="col-md-12 column">
@@ -39,9 +35,7 @@
                 </div><!-- /#page-wrapper -->
                 <div class="text-right">
                     <input id = "blogSubmit" type="submit" class="btn btn-success" @click="getData" value="保存文章"/>
-
                 </div>
-
                 <input type="hidden" name="mdText" id = "mdText" />
                 <input type="hidden" name="article" id = "article"/>
             </div>
@@ -53,8 +47,6 @@
 
 <script src="../js/editormd.js"></script>
 <script type="text/javascript">
-
-
     new Vue({
         el:"#app" ,
         data: {
@@ -73,14 +65,11 @@
                 document.pageFrom.article.value = this.editor.getHTML();
                 a.submit()
             }
-
-
         } ,
         mounted : function () {
             var testEditor;
             var self=this;
             $(function() {
-
                 $.get('add.md', function(md){
                     testEditor = editormd("test-editormd", {
                         width: "98%",

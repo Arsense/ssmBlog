@@ -52,42 +52,17 @@
         }
     </style>
 
-    <!--<section class="content-header">-->
-        <!--<h1 style="display: inline-block;">博客名</h1>-->
-        <!--<a id="showForm" href="#" onclick="openThemeInstall()">-->
-            <!--<i class="fa fa-cloud-upload" aria-hidden="true"></i><@spring.message code='admin.themes.btn.install' />-->
-        <!--</a>-->
-        <!--<ol class="breadcrumb">-->
-            <!--<li><a data-pjax="true" href="/admin"><i class="fa fa-dashboard"></i> <@spring.message code='admin.index.bread.index' /></a></li>-->
-            <!--<li><a data-pjax="true" href="#"><@spring.message code='admin.themes.bread.appearance' /></a></li>-->
-            <!--<li class="active"><@spring.message code='admin.themes.title' /></li>-->
-        <!--</ol>-->
-    <!--</section>-->
     <section class="content container-fluid">
         <div class="row">
-            <!--<#if themes?? && (themes?size>0)>-->
-            <!--<#list themes as theme>-->
             <div class="col-md-6 col-lg-3 col theme-body">
                 <div class="box box-solid">
-                    <!--<div class="box-body theme-thumbnail" style="background-image: url(/${theme.themeName?if_exists}/screenshot.png)">-->
-                        <!--<div class="pull-right btn-delete" style="display: none" onclick="modelShow('/admin/themes/remove?themeName=${theme.themeName}')"><i class="fa fa-times fa-lg" aria-hidden="true"></i></div>-->
-                    <!--</div>-->
                     <div class="box-footer">
                         <span class="theme-title">xxx</span>
-                        <!--<#if theme.hasOptions>-->
                         <button class="btn btn-primary btn-sm pull-right btn-theme-setting"style="display: none">设置</button>
-                    <!--</#if>-->
-                    <!--<#if activeTheme != "${theme.themeName}">-->
                     <button class="btn btn-default btn-sm pull-right btn-theme-enable"  style="display: none;margin-right: 3px">禁用</button>
-                    <!--<#else>-->
                     <button class="btn btn-default btn-sm pull-right btn-theme-enable" style="display: none;margin-right: 3px" disabled>启用</button>
-                <!--</#if>-->
             </div>
         </div>
-<!--</div>-->
-<!--</#list>-->
-<!--<#else>-->
-<div class="col-md-12">
     <h2>居然没有主题？</h2>
     <h2>你仿佛在逗我？</h2>
     <h2>赶紧去上传一个主题，不然前台会报错！</h2>

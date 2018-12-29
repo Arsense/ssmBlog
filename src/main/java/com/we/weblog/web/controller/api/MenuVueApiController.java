@@ -35,7 +35,6 @@ public class MenuVueApiController extends ApiAdminController {
 
         //把开发配置放到最后
         List<Menu> menus = new ArrayList<>();
-
         Menu menu1 = new Menu("1", "仪表盘"
                 , "/admin/admin_index.html", "fa fa-dashboard", 1);
         Menu menu2 = new Menu("2", "文章"
@@ -46,7 +45,6 @@ public class MenuVueApiController extends ApiAdminController {
                 , "/admin/admin_post.html", "fa fa-edit", 1));
         menu2.addChildMenu(new Menu("23", "标签"
                 , "/admin/admin_category.html", "fa fa-tags", 2));
-
         Menu menu3 = new Menu("4", "评论"
                 , "/admin/admin_comment.html", "fa fa-weixin", 3);
         Menu menu4 = new Menu("5", "页面"
@@ -58,14 +56,12 @@ public class MenuVueApiController extends ApiAdminController {
                 , "/admin/admin_theme.html", "fa fa-laptop", 0));
         menu5.addChildMenu(new Menu("52", "主题编辑"
                 , "/admin/theme_edit.html", "fa fa-laptop", 1));
-
         Menu menu6= new Menu("7", "附件"
                 , "/admin/admin_attachment.html", "fa fa-sign-out", 9);
         Menu menu7 = new Menu("8", "用户"
                 , "/admin/admin_theme.html", "fa fa-user-o", 7);
         menu7.addChildMenu(new Menu("71", "个人信息"
                 , "/admin/admin_user.html", "fa fa-user-o", 0));
-
 
         Menu menu8 = new Menu("9", "设置"
                 , "/admin/#", "fa fa-cog", 8);
@@ -88,7 +84,6 @@ public class MenuVueApiController extends ApiAdminController {
         menus.add(menu7);
         menus.add(menu8);
         menus.add(menu9);
-
 
         super.configureMenu(uiModel);
         uiModel.menu(menus);

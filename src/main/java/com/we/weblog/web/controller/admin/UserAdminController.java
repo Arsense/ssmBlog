@@ -78,7 +78,6 @@ public class UserAdminController {
                 if (null == user)
                     return UIModel.fail().msg("改用户不存在");
                 userService.saveByUser(user);
-
             } catch (Exception e) {
                 LOG.error("修改密码失败：{}", e.getMessage());
                 return UIModel.fail().msg("修改密码失败");

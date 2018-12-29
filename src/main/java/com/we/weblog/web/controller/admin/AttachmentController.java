@@ -31,7 +31,6 @@ public class AttachmentController extends BaseController {
 
     @Resource
     private AttachmentService attachmentService;
-
     @Resource
     private LogsService logsService;
 
@@ -78,7 +77,6 @@ public class AttachmentController extends BaseController {
     public Map<String, Object> editorUpload(@RequestParam("editormd-image-file") MultipartFile file,
                                             HttpServletRequest request) {
 //        return uploadAttachment(file, request);
-
         return null;
     }
 
@@ -94,7 +92,6 @@ public class AttachmentController extends BaseController {
                                    @RequestParam(value = "page", defaultValue = "0") Integer page,
                                    @RequestParam(value = "id", defaultValue = "none") String id,
                                    @RequestParam(value = "type", defaultValue = "normal") String type) {
-
         int currentPage = 1;
         int pageSize = 15;
         List<Attachment> attachments = attachmentService.findAllAttachments(currentPage);

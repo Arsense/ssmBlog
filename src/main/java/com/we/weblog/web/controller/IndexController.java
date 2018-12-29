@@ -61,8 +61,6 @@ public class IndexController extends BaseController {
         return redirectTo("/about");
     }
 
-
-
     /**
      *  先处理好数据 要不然后让所有url 在
      * @param id
@@ -73,7 +71,6 @@ public class IndexController extends BaseController {
         postId = Integer.parseInt(id);
         response.sendRedirect("/article");
     }
-
 
     /**
      * 捕获点击的博客类别的get请求
@@ -87,7 +84,6 @@ public class IndexController extends BaseController {
         tagName = tag;
         response.sendRedirect("/tagdetail.html");
     }
-
 
     /**
      *  获取标签信息
@@ -106,7 +102,6 @@ public class IndexController extends BaseController {
         TableData tableData = new TableData() ;
         tableData.setPage(true);
         tableData.setPageSize(15);
-
         tableData.setDataItems(tempContexts);
         tableData.setFormItems(formModel.getFormItems());
 
@@ -127,7 +122,6 @@ public class IndexController extends BaseController {
         //旁边博客展示都需要
         List<Post> blogs = postService.findLastestPost(1);
         maps.put(Types.BLOGS,blogs);
-
         findResourceByPageType(maps , page);
         maps.put(Types.TAG_NAME,tagsName);
         maps.put(Types.TAG_COUNT,totalTags);
@@ -136,7 +130,6 @@ public class IndexController extends BaseController {
 
         return maps;
     }
-
 
 
     /**
@@ -181,8 +174,6 @@ public class IndexController extends BaseController {
 
         }
     }
-
-
 
 
 }

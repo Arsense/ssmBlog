@@ -37,8 +37,8 @@ public interface PostMapper {
     @Select({"select uid,title,created,article from hexo_post where title='关于我'"})
     Post findAuthor();
 
-    @Update({"update hexo_post set status = #{s} where id = #{id}"})
-    int updateByStatus(@Param("id") Integer postId,@Param("s") Integer status);
+    @Update({"update hexo_post set status = #{s} where uid = #{id}"})
+    void updateByStatus(@Param("id") Integer postId,@Param("s") Integer status);
     /**
      * 得到博客的总数量
       * @return

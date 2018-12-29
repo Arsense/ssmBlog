@@ -225,30 +225,16 @@ public class PostAdminController extends BaseController {
         return "admin/admin_post";
     }
 
-    /**
-     * 处理预览文章的请求
-     *
-     * @param postId 文章编号
-     * @param model  model
-     * @return 模板路径/themes/{theme}/post
-     */
-    @GetMapping(value = "/view")
-    public String viewPost(@RequestParam("postId") int postId, Model model) {
-        Post post = postService.findByPostId(postId);
-        model.addAttribute("post", post);
-        return this.redirectTo("post");
-    }
-
 
 
     /**
      * 处理移至回收站的请求
      *
-     * @param postId 文章编号
      * @return 重定向到/admin/posts
      */
-    @GetMapping(value = "/throw")
-    public UIModel moveToTrash( Integer postId) {
+    @GetMapping(value = "/throw/{id}")
+    @ResponseBody
+    public UIModel moveToTrash(@PathVariable("id")Integer postId) {
         try {
             postService.updatePostStatus(postId, PostStatus.RECYCLE.getCode());
             logger.info("编号为" + postId + "的文章已被移到回收站");
@@ -264,18 +250,17 @@ public class PostAdminController extends BaseController {
      * @param postId 文章编号
      * @return 重定向到/admin/posts
      */
-    @GetMapping(value = "/revert")
-    public String moveToPublish(@RequestParam("postId") Long postId,
-                                @RequestParam("status") Integer status) {
+    @GetMapping(value = "/revert/{id}")
+    @ResponseBody
+    public UIModel moveToPublish(@PathVariable("id")Integer postId) {
         try {
-//            postService.updatePostStatus(postId, PostStatus.PUBLISHED.getCode());
+            postService.updatePostStatus(postId, PostStatus.PUBLISHED.getCode());
             logger.info("编号为" + postId + "的文章已改变为发布状态");
         } catch (Exception e) {
             logger.error("发布文章失败：{}", e.getMessage());
         }
-        return "redirect:/admin/posts?status=" + status;
+        return UIModel.success().msg("更改成功");
     }
-
 
 
 

@@ -9,7 +9,6 @@ import java.util.Date;
  */
 public class Post {
     //   博客内容md 博客内容的html
-
     // 博客id
     private int   uid;
     //创建时间
@@ -34,6 +33,7 @@ public class Post {
     private String   categories;
     //浏览量
     private int   hits;
+    // 0是已发布 1是草稿 2是回收站
     private Integer status;
 
     public Integer getStatus() {

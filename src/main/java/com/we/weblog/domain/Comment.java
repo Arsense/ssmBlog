@@ -30,7 +30,6 @@ public class Comment {
     @NotEmpty(message = "请输入评论作者")
     @Length(max = 30,message = "姓名过长")
     private String author;
-
     /**
      * 评论者邮箱
      */
@@ -45,7 +44,6 @@ public class Comment {
      *  评论时间
      */
     private String commentDate;
-
     /**
      * 评论状态，0：正常，1：待审核，2：回收站
      */

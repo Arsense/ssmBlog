@@ -54,7 +54,7 @@ public class CommentController extends BaseController{
                 String lastContent = "回复" + comment.getCid() + "'>@" + comment.getAuthor() + ":";
                 comment.setContent(lastContent + comment.getContent());
             }
-             commentSerivce.saveComment(comment);
+//             commentSerivce.saveComment(comment);
         } catch (Exception e) {
             return UIModel.fail().msg("评论失败");
         }

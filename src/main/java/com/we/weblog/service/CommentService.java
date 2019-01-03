@@ -43,7 +43,7 @@ public interface CommentService {
      *
      * @param comment comment
      */
-    Integer saveComment(Comment comment);
+    Integer saveByComment(Comment comment);
 
 
     /**

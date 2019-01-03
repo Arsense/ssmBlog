@@ -4,11 +4,9 @@ package com.we.weblog.service.impl;
 import com.we.weblog.domain.Comment;
 import com.we.weblog.mapper.CommentMapper;
 import com.we.weblog.service.CommentService;
-import com.we.weblog.domain.util.AddressUtil;
 import com.we.weblog.domain.util.TimeUtil;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -56,7 +54,7 @@ public class CommentServiceImpl implements CommentService {
      * @param comment comment
      */
     @Override
-    public Integer saveComment(Comment comment) {
+    public Integer saveByComment(Comment comment) {
         return commentMapper.insertComment(comment);
     }
 

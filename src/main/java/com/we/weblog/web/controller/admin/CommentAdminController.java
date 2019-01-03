@@ -1,6 +1,10 @@
 package com.we.weblog.web.controller.admin;
 
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.extra.servlet.ServletUtil;
+import cn.hutool.http.HtmlUtil;
 import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.model.form.FormModel;
@@ -15,6 +19,7 @@ import com.we.weblog.service.MailService;
 import com.we.weblog.service.PostService;
 import com.we.weblog.web.controller.core.BaseController;
 import com.we.weblog.domain.Comment;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -98,20 +103,35 @@ public class CommentAdminController extends BaseController {
      */
     @PostMapping("/reply/{id}")
     @ResponseBody
-    public UIModel replyComments(@RequestBody String text,@PathVariable("id") Integer cid) {
-        if (text == null || text.equals("")) {
-            return UIModel.fail().msg("请输入完成的回复");
+    public UIModel replyComments(@RequestBody String text,@PathVariable("id") Integer commentId) {
+        if (StringUtils.isEmpty(text)) {
+            return UIModel.fail().msg("回复不能为空");
         } else if (text.length() > 2000){
-            return UIModel.fail().msg("请输入2000字以内的评论");
+            return UIModel.fail().msg("输入评论过长");
         }
         //查看该评论是否存在
-        Comment comment  = commentService.findCommentById(cid);
-        if (comment== null) {
+        Comment lastComment = commentService.findCommentById(commentId);
+        if (lastComment == null) {
             return UIModel.fail().msg("评论的文章不存在");
         }
+
         //处理XSS
+        //修改被回复的评论的状态
+        lastComment.setCommentStatus(CommentStatus.PUBLISHED.getCode());
+        commentService.saveByComment(lastComment);
+
+        //保存评论
+        Comment comment = new Comment();
+        comment.setAuthor("aa");
+        comment.setEmail("bb");
+        comment.setCommentDate(DateUtil.date().toString());
         text = cleanXSS(text);
-        commentService.replyComment(text,cid,comment);
+        comment.setContent(text);
+        comment.setCommentParent(commentId);
+        comment.setCommentStatus(CommentStatus.PUBLISHED.getCode());
+        comment.setIsAdmin(1);
+        commentService.saveByComment(comment);
+
         return UIModel.success().msg("回复成功");
     }
 
@@ -158,45 +178,38 @@ public class CommentAdminController extends BaseController {
      * 管理员回复评论
      *
      * @param commentId      被回复的评论
-     * @param commentContent 回复的内容
      * @return 重定向到/admin/comments
      */
     @PostMapping(value = "/reply")
-    public String replyComment(@RequestParam("commentId") Long commentId,
-                               @RequestParam("postId") int postId,
-                               @RequestParam("commentContent") String commentContent,
-                               @RequestParam("userAgent") String userAgent,
-                               HttpServletRequest request,
-                               HttpSession session) {
+    public String replyComment(@RequestParam("commentId") Integer commentId,
+                               @RequestBody String text) {
         try {
-            Post post = postService.findByPostId(postId);
+            Post post = postService.findByPostId(commentId);
 
             //博主信息
-            User user = (User) session.getAttribute(BaseConfigUtil.USER_SESSION_KEY);
+            //被回复的评论
+            Comment lastComment = commentService.findCommentById(commentId);
 
-//            被回复的评论
-//            Comment lastComment = commentService.findCommentById(commentId).get();
-//
             //修改被回复的评论的状态
-//            lastComment.setCommentStatus(CommentStatusEnum.PUBLISHED.getCode());
-//            commentService.saveByComment(lastComment);
+            lastComment.setCommentStatus(CommentStatus.PUBLISHED.getCode());
+            commentService.saveByComment(lastComment);
 
             //保存评论
             Comment comment = new Comment();
 //            comment.setPost(post);
-//            comment.setCommentAuthor(user.getUserDisplayName());
+//            comment.setAuthor(user.getUserDisplayName());
 //            comment.setCommentAuthorEmail(user.getUserEmail());
 //            comment.setCommentAuthorUrl(BaseConfigUtil.OPTIONS.get(BlogPropertiesEnum.BLOG_URL.getProp()));
 //            comment.setCommentAuthorIp(ServletUtil.getClientIP(request));
 //            comment.setCommentAuthorAvatarMd5(SecureUtil.md5(user.getUserEmail()));
-//            comment.setCommentDate(DateUtil.date());
-//            String lastContent = "<a href='#comment-id-" + lastComment.getCommentId() + "'>@" + lastComment.getCommentAuthor() + "</a> ";
+//            comment.setCommentDate(DateUtil.date().toString());
+////            String lastContent = "<a href='#comment-id-" + lastComment.getCommentId() + "'>@" + lastComment.getCommentAuthor() + "</a> ";
 //            comment.setCommentContent(lastContent + OwoUtil.markToImg(HtmlUtil.escape(commentContent)));
 //            comment.setCommentAgent(userAgent);
 //            comment.setCommentParent(commentId);
 //            comment.setCommentStatus(CommentStatusEnum.PUBLISHED.getCode());
-//            comment.setIsAdmin(1);
-//            commentService.saveByComment(comment);
+            comment.setIsAdmin(1);
+            commentService.saveByComment(comment);
 
             //邮件通知
 //            new EmailToAuthor(comment, lastComment, post, user, commentContent).start();

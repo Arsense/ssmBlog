@@ -14,9 +14,11 @@ public interface CommentMapper {
     List<Comment> selectAllComments();
 
 
+    @Update({"update hexo_comment set status = #{status} where cid = #{id}"})
+    void updateByStatus(@Param("id")Integer commentId, @Param("status")Integer status);
+
     @Select({"select cid,article_id,created,author,email,content from hexo_comment where status = #{status}"})
     List<Comment> findAllCommentsByStatus(@Param("status")int status);
-
 
 
     @Select({"select count(*) from hexo_comment"})

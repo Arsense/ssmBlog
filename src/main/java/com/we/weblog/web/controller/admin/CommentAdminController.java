@@ -5,6 +5,8 @@ import com.vue.adminlte4j.model.TableData;
 import com.vue.adminlte4j.model.UIModel;
 import com.vue.adminlte4j.model.form.FormModel;
 import com.we.weblog.domain.Post;
+import com.we.weblog.domain.enums.CommentStatus;
+import com.we.weblog.domain.enums.PostStatus;
 import com.we.weblog.domain.modal.CommentConfigQuery;
 import com.we.weblog.domain.User;
 import com.we.weblog.domain.util.BaseConfigUtil;
@@ -22,7 +24,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
- *  * <pre>
+ * <pre>
  *     公共常量
  * </pre>
  *  评论管理页面
@@ -37,18 +39,6 @@ public class CommentAdminController extends BaseController {
     private PostService postService;
     @Resource
     private MailService mailService;
-
-    /**
-     * 后台回复添加评论
-     * @param comment
-     * @return
-     */
-    @PostMapping("/send")
-    @ResponseBody
-    public  UIModel uiModel(@RequestBody Comment comment){
-        //TODO 评论回复还没做
-        return  UIModel.success().msg("回复成功");
-    }
 
     /**
      * 获得配置的查询模型
@@ -86,7 +76,6 @@ public class CommentAdminController extends BaseController {
 
     /**
      * 删除评论
-
      * @param commentId
      * @return
      */
@@ -100,17 +89,16 @@ public class CommentAdminController extends BaseController {
             return UIModel.success().msg("删除成功");
         }
         return UIModel.fail().msg("删除失败");
-
     }
 
     /**
      * 回复 这里需要知道回复文章评论的ID和回复的消息
-     * d
-     * @return
+     *
+     *
      */
     @PostMapping("/reply/{id}")
     @ResponseBody
-    public  UIModel replyComments(@RequestBody String text,@PathVariable("id") Integer cid) {
+    public UIModel replyComments(@RequestBody String text,@PathVariable("id") Integer cid) {
         if (text == null || text.equals("")) {
             return UIModel.fail().msg("请输入完成的回复");
         } else if (text.length() > 2000){
@@ -124,52 +112,47 @@ public class CommentAdminController extends BaseController {
         //处理XSS
         text = cleanXSS(text);
         commentService.replyComment(text,cid,comment);
-
         return UIModel.success().msg("回复成功");
-
     }
+
 
     /**
-     * 将评论改变为发布状态
+     * 处理评论为发布状态
      *
-     * @param commentId 评论编号
-     * @param status    评论状态
-     * @param session   session
-     * @return 重定向到/admin/comments
+     * @param commentId 文章编号
+     * @return 重定向到/admin/posts
      */
-    @GetMapping(value = "/revert")
-    public String moveToPublish(@RequestParam("commentId") Long commentId,
-                                @RequestParam("status") Integer status,
-                                HttpSession session) {
-        Comment comment = commentService.updateCommentStatus(commentId, 1);
-//        Post post = comment.getPost();
-        Post post = new Post();
-        User user = (User) session.getAttribute(BaseConfigUtil.USER_SESSION_KEY);
-
-        //判断是否启用邮件服务
-//        new NoticeToAuthor(comment, post, user, status).start();
-        return "redirect:/admin/comments?status=" + status;
+    @GetMapping(value = "/revert/{id}")
+    @ResponseBody
+    public UIModel moveToPublish(@PathVariable("id")Integer commentId) {
+        try {
+            commentService.updateCommentStatus(commentId, PostStatus.PUBLISHED.getCode());
+            logger.info("编号为" + commentId + "的文章已改变为发布状态");
+        } catch (Exception e) {
+            logger.error("发布文章失败：{}", e.getMessage());
+        }
+        return UIModel.success().msg("更改成功");
     }
-
-
     /**
      * 将评论移到回收站
      *
-     * @param commentId 评论编号
-     * @param status    评论状态
-     * @return 重定向到/admin/comments
+     * @return
      */
-    @GetMapping(value = "/throw")
-    public String moveToTrash(@RequestParam("commentId") Long commentId,
-                              @RequestParam("status") String status,
-                              @RequestParam(value = "page", defaultValue = "0") Integer page) {
+    @GetMapping(value = "/throw/{id}")
+    @ResponseBody
+    public UIModel moveToTrash(@PathVariable("id") Integer commentId) {
         try {
-            commentService.updateCommentStatus(commentId, 2);
+            commentService.updateCommentStatus(commentId, CommentStatus.RECYCLE.getCode());
+            logger.info("编号为" + commentId + "的评论已被移到回收站");
         } catch (Exception e) {
-            logger.error("删除评论失败：{}", e.getMessage());
+            logger.error("删除评论到回收站失败：{}", e.getMessage());
         }
-        return "redirect:/admin/comments?status=" + status + "&page=" + page;
+        return UIModel.success().msg("删除成功");
     }
+
+
+
+
 
     /**
      * 管理员回复评论

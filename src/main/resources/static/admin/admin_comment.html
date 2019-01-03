@@ -56,7 +56,7 @@
                     class: 'btn-success',
                     icon:'trash',
                     method : function(row ,$table) {
-                        axios.get('/admin/comments/delete/'+row.cid).then(function (response) {
+                        axios.get('/admin/comments/throw/'+row.cid).then(function (response) {
                             $.alert(response.data);
                             $table.fetchData()
                         });
@@ -69,7 +69,10 @@
                     class: 'btn-info',
                     icon:'edit',
                     method : function(row , $table) {
-
+                        axios.get('/admin/comments/revert/'+row.cid).then(function (response) {
+                            $.alert(response.data);
+                            $table.fetchData()
+                        });
                     }
                 } ,
                 {
@@ -82,7 +85,7 @@
                             layer.close(index);
                             //这里text发到后端去
                             axios.post('/admin/comments/reply/'+row.cid,text).then(function(reponse){
-                                if(reponse.data.code == 1)
+                                if(reponse.data.code === 1)
                                     layer.msg('您已成功回复'+text);
                                 else alert(reponse.data);
                             });
@@ -95,7 +98,7 @@
                     class: 'btn-danger',
                     icon:'trash',
                     method : function(row ,$table) {
-                        axios.get('/admin/comments/delete/'+row.cid).then(function (response) {
+                        axios.get('/admin/comments/throw/'+row.cid).then(function (response) {
                             $.alert(response.data);
                             $table.fetchData()
                         });
@@ -108,7 +111,10 @@
                     class: 'btn-success',
                     icon:'edit',
                     method : function(row , $table) {
-
+                        axios.get('/admin/comments/revert/'+row.cid).then(function (response) {
+                            $.alert(response.data);
+                            $table.fetchData()
+                        });
                     }
                 } ,
                 {

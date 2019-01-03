@@ -92,15 +92,15 @@ public class CommentServiceImpl implements CommentService {
         //后面再改吧
         comment.setEmail("admin@qq.com");
 //        comment.(reply.getArticle_id());
-        comment.setContent("回复@"+reply.getAuthor()+"  "+messgae);
+        comment.setContent("回复@" + reply.getAuthor() + "  " + messgae);
         comment.setCommentParent(cid);
 
         return commentMapper.insertComment(comment);
     }
 
     @Override
-    public Comment updateCommentStatus(Long commentId, Integer status) {
-        return null;
+    public void updateCommentStatus(Integer commentId, Integer status) {
+        commentMapper.updateByStatus(commentId, status);
     }
 
 

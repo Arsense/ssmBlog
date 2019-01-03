@@ -73,5 +73,5 @@ public interface CommentService {
      * @param status    status
      * @return Comment
      */
-    Comment updateCommentStatus(Long commentId, Integer status);
+    void updateCommentStatus(Integer commentId, Integer status);
 }

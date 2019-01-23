@@ -49,8 +49,8 @@ public class CommentController extends BaseController{
         comment.setIp(AddressUtil.getIpAddress(request));
         comment.setIsAdmin(0);
         try {
-            if (comment.getCommentParent() > 0) {
-                comment = commentSerivce.findCommentById(comment.getCommentParent());
+            if (comment.getParent() > 0) {
+                comment = commentSerivce.findCommentById(comment.getParent());
                 String lastContent = "回复" + comment.getCid() + "'>@" + comment.getAuthor() + ":";
                 comment.setContent(lastContent + comment.getContent());
             }

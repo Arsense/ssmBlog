@@ -28,7 +28,7 @@ public interface CommentMapper {
     List<Comment> getArticleById(@Param("uid") int uid);
 
     @Insert({"insert into hexo_comment (article_id,created,author,email,ip,content,parent) "+
-    "values (#{c.post_id},#{c.created},#{c.author},#{c.email},#{c.ip},#{c.content},#{c.parent})"})
+    "values (#{c.article_id},#{c.created},#{c.author},#{c.email},#{c.ip},#{c.content},#{c.parent})"})
     int insertComment(@Param("c") Comment comment);
 
 

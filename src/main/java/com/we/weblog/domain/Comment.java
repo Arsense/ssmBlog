@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *  * <pre>
+ * <pre>
  *     博客分类
  * <pre/>
  */
@@ -48,14 +48,12 @@ public class Comment {
      * 评论状态，0：正常，1：待审核，2：回收站
      */
     private Integer commentStatus = 1;
-
     /**
      * 评论内容
      */
     @NotEmpty(message = "请输入评论内容")
     @Length(max=2000,message = "评论过长")
     private  String  content;
-
     /**
      * 是否是博主的评论 0:不是 1:是
      */
@@ -64,7 +62,7 @@ public class Comment {
     /**
      * 恢复父id
      */
-    private int commentParent;
+    private int parent;
 
     /**
      * 当前评论下的所有子评论
@@ -72,12 +70,12 @@ public class Comment {
     private List<Comment> childComments;
 
 
-    public int getCommentParent() {
-        return commentParent;
+    public int getParent() {
+        return parent;
     }
 
-    public void setCommentParent(int commentParent) {
-        this.commentParent = commentParent;
+    public void setParent(int parent) {
+        this.parent = parent;
     }
 
     public Date getCreated() {

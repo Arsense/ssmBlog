@@ -4,7 +4,7 @@ package com.we.weblog.domain;
 import java.util.Date;
 
 /**
- *  * <pre>
+ * <pre>
  *     博客分类
  * <pre/>
  */

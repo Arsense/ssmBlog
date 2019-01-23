@@ -43,9 +43,9 @@
                             layer.close(index);
                             //这里text发到后端去
                             axios.post('/admin/comments/reply/' + row.cid,text).then(function(reponse){
-                                if(reponse.data.code == 1)
+                                if(reponse.data.code === 1)
                                     layer.msg('您已成功回复'+text);
-                                else alert(reponse.data);
+                                else alert("回复失败");
                             });
 
                         });

@@ -91,7 +91,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setEmail("admin@qq.com");
 //        comment.(reply.getArticle_id());
         comment.setContent("回复@" + reply.getAuthor() + "  " + messgae);
-        comment.setCommentParent(cid);
+        comment.setParent(cid);
 
         return commentMapper.insertComment(comment);
     }

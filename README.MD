@@ -1,5 +1,8 @@
 
 #### 本博客还在开发完善中同时也是作者的一个学习项目 各位只能当做学习项目 目前不要搭建到服务器上
+
+交流群：951459325 欢迎交流学习
+
 ## 最近更新
 登陆后台地址改为  /admin/login.html
 - vue-admintle jar包需要更新 maven clean 后重新编译打包
@@ -13,7 +16,7 @@
 
 环境: `Springboot+mysql+admintle+vue.js+mybatis`环境搭建的个博客
 - springboot2.5
-- 日志 logback
+- logback 日志
 - mybatis框架
 - vue.js框架
 - mysql数据库
@@ -106,19 +109,5 @@ pom.xml引入:
 目前还没增加此功能
 
 
-### 开发日志
 
-- 1月3日  v1.0
-- 1月10日 v1.1   加入kisso单点登录 删除自己拦截器
-- 1.11   v1.2   前台能解析mdtext文本，后台的editor.md加入到VUE框架中，后面editor界面BUG修改成功
-- 2.5 后台大更新
-- 2018 7月27日 代码排版优化 增加阅读性
-- 9.25 依赖的vue-admintle工程性能各种界面大更新 jar包依賴不斷更新中
-- 10.18 目录结构优化 logback添加
-- 11月1号 升级springboot到2.5
-- 11月7日 整体前后端重构 前端代码模板化
-- 更新中...
 
-### 联系方式
-
-QQ：1984562796 欢迎交流学习

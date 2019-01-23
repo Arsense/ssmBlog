@@ -99,7 +99,6 @@ public class CommentAdminController extends BaseController {
     /**
      * 回复 这里需要知道回复文章评论的ID和回复的消息
      *
-     *
      */
     @PostMapping("/reply/{id}")
     @ResponseBody
@@ -115,7 +114,6 @@ public class CommentAdminController extends BaseController {
             return UIModel.fail().msg("评论的文章不存在");
         }
 
-        //处理XSS
         //修改被回复的评论的状态
         lastComment.setCommentStatus(CommentStatus.PUBLISHED.getCode());
         commentService.saveByComment(lastComment);
@@ -127,7 +125,7 @@ public class CommentAdminController extends BaseController {
         comment.setCommentDate(DateUtil.date().toString());
         text = cleanXSS(text);
         comment.setContent(text);
-        comment.setCommentParent(commentId);
+        comment.setParent(commentId);
         comment.setCommentStatus(CommentStatus.PUBLISHED.getCode());
         comment.setIsAdmin(1);
         commentService.saveByComment(comment);
@@ -169,7 +167,6 @@ public class CommentAdminController extends BaseController {
         }
         return UIModel.success().msg("删除成功");
     }
-
 
 
 

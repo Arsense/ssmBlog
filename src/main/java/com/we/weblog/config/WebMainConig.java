@@ -59,8 +59,6 @@ public class WebMainConig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-//        registry.addResourceHandler("/loading.png")
-//                .addResourceLocations("classpath:/static/images/lg/loading.png");
 
         registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/templates/static/" , "classpath:/META-INF/resources/","classpath:/static/");

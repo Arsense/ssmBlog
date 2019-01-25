@@ -29,10 +29,10 @@ import javax.validation.Valid;
  */
 @Controller
 @RequestMapping("/admin/user")
-public class UserAdminController {
+public class UserController {
 
 
-    private static final Logger LOG = LoggerFactory.getLogger(UserAdminController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
@@ -65,14 +65,12 @@ public class UserAdminController {
      * @param beforePass
      * @param newPass
      * @param userId
-     * @param session
      */
     @PostMapping(value = "updatePass")
     @ResponseBody
     public UIModel changePass(@ModelAttribute("beforePass") String beforePass,
                                  @ModelAttribute("newPass") String newPass,
-                                 @ModelAttribute("userId") String userId,
-                                 HttpSession session) {
+                                 @ModelAttribute("userId") String userId) {
             try {
                 User user = userService.findByUserIdAndUserPass(userId, beforePass);
                 if (null == user)

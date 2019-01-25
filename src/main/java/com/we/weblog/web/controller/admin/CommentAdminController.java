@@ -204,7 +204,7 @@ public class CommentAdminController extends BaseController {
 //            comment.setCommentContent(lastContent + OwoUtil.markToImg(HtmlUtil.escape(commentContent)));
 //            comment.setCommentAgent(userAgent);
 //            comment.setCommentParent(commentId);
-//            comment.setCommentStatus(CommentStatusEnum.PUBLISHED.getCode());
+            comment.setCommentStatus(CommentStatus.PUBLISHED.getCode());
             comment.setIsAdmin(1);
             commentService.saveByComment(comment);
 

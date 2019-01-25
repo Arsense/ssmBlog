@@ -101,8 +101,6 @@ pom.xml引入:
 端口配置在 application.yml文件中 
 7.后台路径 加 "login1.html"
 ![](https://i.imgur.com/HWemR8y.jpg)
-### 远程搭建
-待更新....
 
 项目maven package打包成war包 放到相应tomcat工作目录 运行tomcat
 ### 默认账号名密码都是 admin admin  路劲是login1/html 如果想使用请数据库直接修改

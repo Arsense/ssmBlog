@@ -28,14 +28,20 @@ import java.util.Map;
  * </pre>
  * 首页、归档、分类、评论
  *   前端页面显示的控制器
+ * @date 2019-03-28 13:49
+ * @author tangwei9
  */
 @Controller
 public class IndexController extends BaseController {
-
+    //
     private PostService postService;
+    //
     private CommentService commentSerivce;
+    //
     private static int  postId ;
+    //
     private static String  tagName = null;
+    //
     private TagService tagService;
 
     @Autowired
@@ -44,7 +50,7 @@ public class IndexController extends BaseController {
         this.tagService = tagService;
         this.postService = postService;
         //初始化postID 为第一个 防止单独访问为0 什么都木有
-        postId = postService.getLastestBlogId();
+//        postId = postService.getLastestBlogId();
         postId = 0;
     }
     /**
@@ -81,6 +87,9 @@ public class IndexController extends BaseController {
     @GetMapping("/tags/{tag}")
     public void getTagName(@PathVariable String tag,
                            HttpServletResponse response) throws IOException {
+        if (StringUtils.isEmpty(tag)) {
+            //
+        }
         tagName = tag;
         response.sendRedirect("/tagdetail.html");
     }
@@ -112,8 +121,8 @@ public class IndexController extends BaseController {
     @GetMapping("/front/base/{page}")
     @ResponseBody
     public Map<String,Object> getIndexData(@PathVariable String page) throws Exception {
-        //如果是首页
-        Map<String,Object> maps = new HashMap<>();
+        //TODO 尽量指定大小吗？有什么好处吗？
+        Map<String,Object> maps = new HashMap<>(20);
         List<String> tagsName = tagService.getTotalTagsName();
         int postCount = postService.findPostCount();
         int categoryCount = postService.getCategoryCount();

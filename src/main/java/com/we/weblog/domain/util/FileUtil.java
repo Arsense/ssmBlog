@@ -13,6 +13,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ *
+ * @author tangwei9
+ * @date 2019-03-28 13:50 2019-03-28 13:50
+ */
 public class FileUtil {
 
      private static Path getJavaResources() {
@@ -36,24 +41,30 @@ public class FileUtil {
         }
     }
 
-    public  static String Picture(HttpServletRequest request) throws IOException {
-        MultipartFile   files = getMultipartFile(request);
+    public  static String picture(HttpServletRequest request) {
+        MultipartFile files = getMultipartFile(request);
         //设置图片名称为currentTimeMillis+文件后缀
         String  fileName = String.valueOf(System.currentTimeMillis()+"."+ FileUtil.getSuffix(files.getOriginalFilename()));
         //然后设置路径
-        String  date = TimeUtil.getCurrentTime();
         String  path = getJavaResources().toString();
-        //图片存储路径为根路径/年月。比如staic/picture/201608
-        File filePath = new File(path);
-        if(!filePath.exists()){
-            filePath.mkdirs();
+        String tempPath = null;
+        try {
+            //图片存储路径为根路径/年月。比如staic/picture/201608
+            File filePath = new File(path);
+            if(!filePath.exists()){
+                if(filePath.mkdirs()) {
+                    throw new Exception("创建文件异常");
+                }
+            }
+            File targetFile = new File(filePath+"/"+fileName);
+            //保存图片
+            String requestUrl = getServerRoot(request);
+            tempPath = requestUrl+"/img"+"/"+fileName;
+            //保存图片
+            files.transferTo(targetFile);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        File targetFile = new File(filePath+"/"+fileName);
-        //保存图片
-        String requestUrl = getServerRoot(request);
-        String tempPath = requestUrl+"/img"+"/"+fileName;
-        //保存图片
-        files.transferTo(targetFile);
         return tempPath;
     }
 

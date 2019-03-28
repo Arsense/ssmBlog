@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 
 
+/**
+ *
+ * @author tangwei9
+ * @date 2019-03-28 13:50 2019-03-28 13:50
+ */
 @Service
 public class FileServiceImpl implements FileService {
 
@@ -21,7 +26,7 @@ public class FileServiceImpl implements FileService {
         String url;
         Picture picture = new Picture();
         try {
-             url = FileUtil.Picture(request);
+             url = FileUtil.picture(request);
         } catch(Exception e) {
             e.printStackTrace();
             throw new Exception("loadPicture() error , load picture error");

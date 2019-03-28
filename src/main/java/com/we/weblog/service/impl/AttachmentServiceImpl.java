@@ -57,6 +57,7 @@ public class AttachmentServiceImpl implements AttachmentService {
      * @param file    file
      * @return Map
      */
+    @Override
     public Map<String, Object> uploadAttachment(MultipartFile file) {
         Map<String, Object> result = new HashMap<>(3);
         if (file.isEmpty()) {
@@ -73,7 +74,9 @@ public class AttachmentServiceImpl implements AttachmentService {
             uploadPath.append(DateUtil.thisYear()).append("/").append(DateUtil.thisMonth()).append("/");
             File mediaPath = new File(userPath, uploadPath.toString());
             if (!mediaPath.exists()) {
-                mediaPath.mkdirs();
+                if (!mediaPath.mkdirs()) {
+                    throw new Exception("创建文件异常");
+                }
             }
 
             String fileFullPath  = buildUploadFilePath(file.getOriginalFilename());

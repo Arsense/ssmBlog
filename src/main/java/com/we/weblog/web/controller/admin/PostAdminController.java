@@ -1,6 +1,7 @@
 package com.we.weblog.web.controller.admin;
 
 
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.kisso.SSOHelper;
 import com.baomidou.kisso.security.token.SSOToken;
 import com.vue.adminlte4j.model.TableData;
@@ -42,6 +43,8 @@ import java.util.Map;
  * </pre>
  * 文章控制管理器
  * created by clay
+ * @date 2019-03-28 13:49
+ * @author tangwei9
  */
 @Controller
 @RequestMapping("/admin")
@@ -106,8 +109,9 @@ public class PostAdminController extends BaseController {
     public UIModel postAction(@RequestBody Post context) throws Exception {
         String message = validateContext(context);
 
-        if (!StringUtils.isEmpty(message))
+        if (!StringUtils.isEmpty(message)) {
             return UIModel.fail().msg(message);
+        }
 
         context.setType(Types.ARTICLE);
         postService.saveByPost(context);
@@ -180,7 +184,7 @@ public class PostAdminController extends BaseController {
      @ResponseBody
      public Map<String, Object> getTagretUpdateContext(@PathVariable int id){
          updateId = id;
-         Map<String,Object> maps = new HashMap<>();
+         Map<String,Object> maps = new HashMap<>(20);
          Post context = postService.findByPostId(updateId);
 
          maps.put("context",context);
@@ -268,9 +272,9 @@ public class PostAdminController extends BaseController {
         String messgae = null;
         if (StringUtils.isEmpty(context.getTitle())) {
             messgae = "博客标题不能为空";
-        } else if (context.getTags().equals("")) {
+        } else if ("".equals(context.getTags())) {
             messgae = "博客标签不能为空";
-        } else if (context.getArticle().equals("")) {
+        } else if ("".equals(context.getArticle())) {
             messgae = "请输入博客的内容";
         }
 // else if (context.getCategories().equals("")) {
@@ -311,26 +315,26 @@ public class PostAdminController extends BaseController {
                                 @RequestParam(value = "postContentMd") String postContentMd,
                                 @RequestParam(value = "postType", defaultValue = "post") String postType,
                                 HttpSession session) {
-        Post post = null;
-        User user = (User) session.getAttribute(BaseConfigUtil.USER_SESSION_KEY);
-        if (postId == 0) {
-            post = new Post();
-        } else {
-            post = postService.findByPostId(postId);
-        }
+//        Post post = null;
+//        User user = (User) session.getAttribute(BaseConfigUtil.USER_SESSION_KEY);
+//        if (postId == 0) {
+//            post = new Post();
+//        } else {
+//            post = postService.findByPostId(postId);
+//        }
         try {
-            if (org.apache.commons.lang3.StringUtils.isEmpty(postTitle)) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-//                post.setPostTitle("草稿：" + dateFormat.format(DateUtil.date()));
-            } else {
-//                post.setPostTitle(postTitle);
-            }
-            if (org.apache.commons.lang3.StringUtils.isEmpty(postUrl)) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-//                post.setPostUrl(dateFormat.format(DateUtil.date()));
-            } else {
-//                post.setPostUrl(postUrl);
-            }
+//            if (org.apache.commons.lang3.StringUtils.isEmpty(postTitle)) {
+//                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+////                post.setPostTitle("草稿：" + dateFormat.format(DateUtil.date()));
+//            } else {
+////                post.setPostTitle(postTitle);
+//            }
+//            if (org.apache.commons.lang3.StringUtils.isEmpty(postUrl)) {
+////                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+////                post.setPostUrl(dateFormat.format(DateUtil.date()));
+//            } else {
+////                post.setPostUrl(postUrl);
+//            }
 //            post.setPostId(postId);
 //            post.setPostStatus(1);
 //            post.setPostContentMd(postContentMd);

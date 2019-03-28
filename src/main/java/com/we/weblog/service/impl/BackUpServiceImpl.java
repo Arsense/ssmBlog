@@ -5,6 +5,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ZipUtil;
 import com.we.weblog.domain.BackFile;
 import com.we.weblog.domain.Post;
+import com.we.weblog.domain.util.BackupContants;
 import com.we.weblog.domain.util.TimeUtil;
 import com.we.weblog.service.BackupService;
 import com.we.weblog.service.PostService;
@@ -78,8 +79,8 @@ public class BackUpServiceImpl implements BackupService {
     @Override
     public void backupResources() {
         try {
-            if (getBackUps("resources").size() > 10 ) {
-                FileUtil.del(System.getProperties().getProperty("user.home") + "/blog/backup/resources/");
+            if (getBackUps(BackupContants.DATABASES).size() > 10 ) {
+                FileUtil.del(System.getProperties().getProperty(BackupContants.HOME_PATH) + "/blog/backup/resources/");
             }
             //获取静态资源地址
             File path = new File(ResourceUtils.getURL("classpath:").getPath());
@@ -101,8 +102,8 @@ public class BackUpServiceImpl implements BackupService {
     public void backupDatabase() {
         try{
             //备份不超过10个
-            if (this.getBackUps("databases").size() > 10) {
-                FileUtil.del(System.getProperties().getProperty("user.home") + "/blog/backup/databases/");
+            if (this.getBackUps(BackupContants.DATABASES).size() > 10) {
+                FileUtil.del(System.getProperties().getProperty(BackupContants.HOME_PATH) + "/blog/backup/databases/");
             }
             //数据库备份得改
             String srcPath = System.getProperties().getProperty("user.home") + "/blog/";
@@ -136,8 +137,9 @@ public class BackUpServiceImpl implements BackupService {
             FileUtil.del(srcPath);
             //删除临时文件夹
             File srcFile = new File(srcPath);
-            srcFile.delete();
-
+            if(srcFile.delete()){
+                throw new Exception("删除异常");
+            }
             LOG.info("当前时间：{}，执行了文章备份。", DateUtil.now());
         } catch (Exception e) {
             LOG.error("备份文章失败：{}", e.getMessage());
@@ -185,7 +187,9 @@ public class BackUpServiceImpl implements BackupService {
             File file = new File(filePath);
             //不存在则自己创建
             if (!file.exists()) {
-                file.mkdirs();
+                if(!file.mkdirs() ) {
+                    throw new Exception("创建文件失败");
+                }
             }
             //写入文件
             fileWriter = new FileWriter(file.getAbsoluteFile() + "/" + fileName, true);
@@ -215,18 +219,18 @@ public class BackUpServiceImpl implements BackupService {
      */
     public  String parseSize(long size) {
         //处理成B
-        if (size < 1024) {
-            return String.valueOf(size) + "B";
-        } else {
-            size = size / 1024;
-        }
+//        if (size < 1024) {
+//            return String.valueOf(size) + "B";
+//        } else {
+//            size = size / 1024;
+//        }
 
         //处理成KB
-        if (size < 1024) {
-            return String.valueOf(size) + "KB";
-        } else {
-            size = size / 1024;
-        }
+//        if (size < 1024) {
+//            return String.valueOf(size) + "KB";
+//        } else {
+//            size = size >> 10;
+//        }
         return null;
         //处理的有点奇怪
 //        if (size < CommonParamsEnum.NOT_FOUND.getValue()) {

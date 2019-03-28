@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
  *     博客初始化控制器
  * </pre>
  *  安装页面留用
+ * @date 2019-03-28 13:50
+ * @author tangwei9
  */
 @Controller
 @RequestMapping(value = "/install")
@@ -38,17 +40,17 @@ public class InstallController {
      */
     @GetMapping
     public String install(Model model) throws Exception {
-        try {
-            if (StringUtils.equals("true", BaseConfigUtil.OPTIONS.get(PropertyEnum.IS_INSTALL))) {
-                //TODO 如果安装前端显示true的部分
-                model.addAttribute("isInstall", true);
-            } else {
-                model.addAttribute("isInstall", true);
-            }
-        } catch (Exception e) {
-            LOG.error(e.getMessage());
-            throw new Exception("安装失败");
-        }
+//        try {
+//            if (StringUtils.equals("true", BaseConfigUtil.OPTIONS.get(PropertyEnum.IS_INSTALL))) {
+//                //TODO 如果安装前端显示true的部分
+//                model.addAttribute("isInstall", true);
+//            } else {
+//                model.addAttribute("isInstall", true);
+//            }
+//        } catch (Exception e) {
+//            LOG.error(e.getMessage());
+//            throw new Exception("安装失败");
+//        }
         return "common/install";
     }
 

@@ -36,7 +36,7 @@ public class TagController extends BaseController{
 
     @GetMapping("/tag/{tageName}")
     public String findArticleByTag(@PathVariable("tageName")String tagName){
-        List<Post> posts = postService.findByTagName(tagName);
+//        List<Post> posts = postService.findByTagName(tagName);
         return redirectTo("/tags");
     }
 

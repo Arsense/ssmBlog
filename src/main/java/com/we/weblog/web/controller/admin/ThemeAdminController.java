@@ -130,7 +130,7 @@ public class ThemeAdminController {
     @GetMapping(value = "/editor")
     public String editor(Model model) {
 
-        List<String> tpls = FileUtil.findAllTemplateFileName(BaseController.THEME);
+//        List<String> tpls = FileUtil.findAllTemplateFileName(BaseController.THEME);
         return null;
     }
 

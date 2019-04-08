@@ -9,7 +9,7 @@ import javax.annotation.Resource;
  * @date 2018/11/6 10:38
  */
 
-public class CategoryServiceTest extends BaseTest{
+public class CategoryServiceTest extends BaseTest {
     @Resource
     private CategoryService categoryService;
 

@@ -17,10 +17,12 @@ public class TagServiceImpl implements TagService  {
     @Resource
     private TagMapper tagMapper;
 
+    @Override
     public List<String> getTotalTagsName(){
         return tagMapper.findAll();
     }
 
+    @Override
     public void deleteTag(int uid){
         tagMapper.deleteTagById(uid);
     }
@@ -40,7 +42,8 @@ public class TagServiceImpl implements TagService  {
      * @param tags
      * @param id
      */
-    public  void addBlogTags(String tags,int id){
+    @Override
+    public  void addBlogTags(String tags, int id){
         List<String> tagList = getTagList(tags);
         for(String tag:tagList){
             tagMapper.insertBlogTag(tag,id);
@@ -52,6 +55,7 @@ public class TagServiceImpl implements TagService  {
       * @param tagName
      * @return
      */
+    @Override
     public int clearTagData(String tagName) {
        int result = tagMapper.deleteTagByName(tagName);
        if (result > 0) {
@@ -67,9 +71,11 @@ public class TagServiceImpl implements TagService  {
      * @param name
      * @return
      */
+    @Override
     public int saveCategory(String name) {
-        if (name == null)
+        if (name == null) {
             return 0;
+        }
         Metas category = new Metas();
         category.setName(name);
         category.setType(Types.MATE_CATEGOTY);
@@ -78,6 +84,7 @@ public class TagServiceImpl implements TagService  {
     }
 
 
+    @Override
     public List<String> getMates() {
        List<String> categories = new ArrayList<>();
        List<Metas> metas =  tagMapper.selectCategories();
@@ -89,6 +96,7 @@ public class TagServiceImpl implements TagService  {
 
 
 
+    @Override
     public List<Select> getCategories(){
         List<Select> selects = new ArrayList<>();
         List<String> categories = tagMapper.getAllCategories();
@@ -108,7 +116,8 @@ public class TagServiceImpl implements TagService  {
      * @param tags
      * @param id
      */
-    public  void updateBlogTag(String tags,int id){
+    @Override
+    public  void updateBlogTag(String tags, int id){
         tagMapper.deleteTagById(id);
         List<String> tagList = getTagList(tags);
         for(String tag:tagList){

@@ -76,7 +76,6 @@ public interface PostService {
      */
     int findPostCount();
 
-
     /**
      * 得到页面管理的信息
      * @return

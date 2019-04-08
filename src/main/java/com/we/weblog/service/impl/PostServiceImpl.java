@@ -145,6 +145,7 @@ public class PostServiceImpl implements PostService {
      * @param page
      * @return
      */
+    @Override
     public List<YearBlog> findPostByYearAndMonth(int page) throws IOException {
         int start = (page - 1) * 12;
         List<Post> list = postMapper.findPostByYearAndMonth(start);
@@ -165,6 +166,7 @@ public class PostServiceImpl implements PostService {
      * 得到页面管理的信息
      * @return
      */
+    @Override
     public List<Post> getArticlePages(){
         return sortPostDate(postMapper.findPostByPageType(Types.PAGE));
     }

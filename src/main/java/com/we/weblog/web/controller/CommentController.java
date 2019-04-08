@@ -35,7 +35,7 @@ public class CommentController extends BaseController{
     @ResponseBody
     public UIModel addComment(@RequestBody Comment comment ){
         if (StringUtils.isEmpty(comment) || comment.getArticle_id() <= 0 ) {
-            return UIModel.fail().msg("评论失败,    输入信息有误");
+            return UIModel.fail().msg("评论失败,   输入信息有误");
         } else if (!comment.getEmail().contains("@")) {
             return UIModel.fail().msg("邮箱格式不正确");
         } else if (comment.getContent().length() < 5) {

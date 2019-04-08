@@ -21,7 +21,6 @@ public interface UserService {
       */
      User userLoginByName(String username,String password) throws Exception;
 
-
      /**
       * 查询admin
       *
@@ -35,7 +34,6 @@ public interface UserService {
       * @param user user
       */
      void saveByUser(User user);
-
 
      /**
       * 修改最后登录时间
@@ -58,7 +56,6 @@ public interface UserService {
       * @return User
       */
      User updateUserNormal();
-
      /**
       * 根据用户编号和密码查询
       * @param userId
@@ -75,8 +72,6 @@ public interface UserService {
       * @return User
       */
      User userLoginByEmail(String userEmail, String password);
-
-
 
      /**
       * 修改禁用状态

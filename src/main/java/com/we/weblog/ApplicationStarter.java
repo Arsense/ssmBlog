@@ -22,7 +22,6 @@ public class ApplicationStarter {
     public static void main(String[] args) {
         //动态自动更新 每一秒更新一次
         configFileChangeListener();
-
         ApplicationContext context = SpringApplication
                 .run(ApplicationStarter.class, args);
         String serverPort = context.getEnvironment().getProperty("server.port");

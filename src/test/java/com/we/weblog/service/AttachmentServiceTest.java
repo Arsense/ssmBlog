@@ -1,26 +1,38 @@
-package com.we.weblog.service.admin;
+package com.we.weblog.service;
 
 import com.we.weblog.domain.Attachment;
-import com.we.weblog.service.AttachmentService;
-import com.we.weblog.service.BaseTest;
 import org.junit.Assert;
 import org.junit.Test;
-
 import javax.annotation.Resource;
 import java.util.List;
 
+
 /**
+ *  附件管理
+ *
  * @author tangwei
- * @date 2018/12/13 16:47
+ * @date 2019/3/28 14:09
  */
-public class AttachmentTest extends BaseTest {
+public class AttachmentServiceTest extends BaseTest {
+
 
     @Resource
     private AttachmentService attachmentService;
-
     @Test
-    public void testfind(){
+    public void findAllAttachments() {
         List<Attachment> attachments = attachmentService.findAllAttachments(1);
         Assert.assertNotNull(attachments);
+    }
+
+    @Test
+    public void findByAttachId() {
+    }
+
+    @Test
+    public void removeByAttachId() {
+    }
+
+    @Test
+    public void uploadAttachment() {
     }
 }

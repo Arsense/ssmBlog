@@ -1,4 +1,4 @@
-package com.we.weblog.domain.util;
+package com.we.weblog.util;
 
 import org.springframework.ui.context.Theme;
 

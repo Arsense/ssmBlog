@@ -2,7 +2,7 @@ package com.we.weblog.service.impl;
 
 import com.we.weblog.domain.modal.Picture;
 import com.we.weblog.service.FileService;
-import com.we.weblog.domain.util.FileUtil;
+import com.we.weblog.util.FileUtil;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 

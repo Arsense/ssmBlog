@@ -6,7 +6,12 @@
 	<groupId>com.we</groupId>
 	<artifactId>weblog</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+    <modules>
+        <module>ssmblog-dao</module>
+        <module>ssmblog-service</module>
+        <module>ssmblog-domain</module>
+    </modules>
+    <packaging>pom</packaging>
 
 
 	<name>weblog</name>

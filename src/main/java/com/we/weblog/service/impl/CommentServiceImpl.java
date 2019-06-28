@@ -4,7 +4,7 @@ package com.we.weblog.service.impl;
 import com.we.weblog.domain.Comment;
 import com.we.weblog.mapper.CommentMapper;
 import com.we.weblog.service.CommentService;
-import com.we.weblog.domain.util.TimeUtil;
+import com.we.weblog.util.TimeUtil;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;

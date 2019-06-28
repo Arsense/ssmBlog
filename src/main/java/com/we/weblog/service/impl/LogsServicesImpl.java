@@ -3,7 +3,7 @@ package com.we.weblog.service.impl;
 import com.we.weblog.domain.Log;
 import com.we.weblog.mapper.LogMapper;
 import com.we.weblog.service.LogsService;
-import com.we.weblog.domain.util.TimeUtil;
+import com.we.weblog.util.TimeUtil;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;

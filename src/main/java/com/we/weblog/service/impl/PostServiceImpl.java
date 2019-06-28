@@ -7,7 +7,7 @@ import com.we.weblog.domain.modal.YearBlog;
 import com.we.weblog.mapper.PostMapper;
 import com.we.weblog.service.PostService;
 import com.we.weblog.service.TagService;
-import com.we.weblog.domain.util.TimeUtil;
+import com.we.weblog.util.TimeUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import javax.annotation.Resource;

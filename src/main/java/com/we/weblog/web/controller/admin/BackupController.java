@@ -9,7 +9,7 @@ import com.we.weblog.domain.User;
 import com.we.weblog.service.BackupService;
 import com.we.weblog.service.MailService;
 import com.we.weblog.service.UserService;
-import com.we.weblog.domain.util.BaseConfigUtil;
+import com.we.weblog.util.BaseConfigUtil;
 import com.we.weblog.domain.enums.PropertyEnum;
 import com.we.weblog.web.controller.core.BaseController;
 import org.apache.commons.lang3.StringUtils;
@@ -21,11 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**

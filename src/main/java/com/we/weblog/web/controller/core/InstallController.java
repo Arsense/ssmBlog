@@ -3,7 +3,7 @@ package com.we.weblog.web.controller.core;
 
 import com.we.weblog.domain.enums.PropertyEnum;
 import com.we.weblog.service.OptionsService;
-import com.we.weblog.domain.util.BaseConfigUtil;
+import com.we.weblog.util.BaseConfigUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;

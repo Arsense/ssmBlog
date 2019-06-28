@@ -1,7 +1,7 @@
 package com.we.weblog.config;
 
 import com.we.weblog.service.OptionsService;
-import com.we.weblog.domain.util.BaseConfigUtil;
+import com.we.weblog.util.BaseConfigUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationStartedEvent;

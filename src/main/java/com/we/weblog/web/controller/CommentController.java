@@ -2,7 +2,7 @@ package com.we.weblog.web.controller;
 
 import com.vue.adminlte4j.model.UIModel;
 import com.we.weblog.domain.Comment;
-import com.we.weblog.domain.util.AddressUtil;
+import com.we.weblog.util.AddressUtil;
 import com.we.weblog.service.CommentService;
 import com.we.weblog.web.controller.core.BaseController;
 import org.springframework.stereotype.Controller;

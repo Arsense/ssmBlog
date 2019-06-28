@@ -1,8 +1,8 @@
 package com.we.weblog.web.controller.admin;
 
 import com.vue.adminlte4j.model.UIModel;
-import com.we.weblog.domain.util.BaseConfigUtil;
-import com.we.weblog.domain.util.FileUtil;
+import com.we.weblog.util.BaseConfigUtil;
+import com.we.weblog.util.FileUtil;
 import com.we.weblog.web.controller.core.BaseController;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  *

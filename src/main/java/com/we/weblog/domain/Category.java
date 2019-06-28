@@ -2,12 +2,10 @@ package com.we.weblog.domain;
 
 import java.util.List;
 
-
 /**
  * <pre>
  *     博客分类
  * <pre/>
- *
  *
  */
 public class Category {

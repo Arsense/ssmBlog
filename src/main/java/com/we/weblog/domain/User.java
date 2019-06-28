@@ -12,7 +12,6 @@ import java.util.Date;
  * <pre/>
  */
 public class User {
-
     /**
      *  用户id
      */
@@ -22,7 +21,7 @@ public class User {
      */
     private String userName ;
     /**
-     *  用户姓名
+     *  用户密码
      */
     private String password ;
     /**
@@ -44,7 +43,6 @@ public class User {
      */
     @JsonIgnore
     private Date loginLast;
-
     /**
      * 登录错误次数记录
      */

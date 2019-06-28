@@ -22,6 +22,16 @@ public interface UserService {
      User userLoginByName(String username,String password) throws Exception;
 
      /**
+      * 根据邮箱和密码查询，用户登录
+      *
+      * @param userEmail userEmail
+      * @param password  userPass
+      * @return User
+      */
+     User userLoginByEmail(String userEmail, String password);
+
+
+     /**
       * 查询admin
       *
       * @return User
@@ -64,14 +74,7 @@ public interface UserService {
       */
      User findByUserIdAndUserPass(String userId,String newPassword);
 
-     /**
-      * 根据邮箱和密码查询，用户登录
-      *
-      * @param userEmail userEmail
-      * @param password  userPass
-      * @return User
-      */
-     User userLoginByEmail(String userEmail, String password);
+
 
      /**
       * 修改禁用状态

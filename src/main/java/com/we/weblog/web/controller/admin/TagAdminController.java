@@ -33,8 +33,14 @@ public class TagAdminController extends BaseController {
         if (tagName.equals("")) {
             return UIModel.fail().msg("删除的标签类别为空");
         }
-        int result = tagService.clearTagData(tagName);
-        int check = postService.removePostCategory(tagName);
+        int result = 0;
+        int check = 0;
+        try {
+            result = tagService.clearTagData(tagName);
+            check = postService.removePostCategory(tagName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (result >= 0 && check >= 0) {
             return UIModel.success().msg("删除成功");
         } else {

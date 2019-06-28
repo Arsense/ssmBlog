@@ -7,7 +7,6 @@ import java.util.Date;
  * @date 2018/12/9 19:48
  */
 public class Attachment {
-
     /**
      * 附件编号
      */

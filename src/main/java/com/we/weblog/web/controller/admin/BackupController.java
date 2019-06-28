@@ -140,16 +140,20 @@ public class BackupController extends BaseController {
                                   @RequestParam("type") String type,
                                   HttpSession session){
 
-        String sourcePath = System.getProperties().getProperty("user.home") + "/halo/backup/" + type + "/" + fileName;
-        //获取当前登录User
-        User user = userService.findUser();
-        if (null == user.getUserEmail() || StringUtils.equals(user.getUserEmail(), "")) {
-           return UIModel.fail().msg("没有配置email");
+        try {
+            String sourcePath = System.getProperties().getProperty("user.home") + "/halo/backup/" + type + "/" + fileName;
+            //获取当前登录User
+            User user = userService.findUser();
+            if (null == user.getUserEmail() || StringUtils.equals(user.getUserEmail(), "")) {
+               return UIModel.fail().msg("没有配置email");
+            }
+            if (StringUtils.equals(BaseConfigUtil.OPTIONS.get(PropertyEnum.SMTP_EMAIL_ENABLE.getProp()), "true")) {
+                return UIModel.fail().msg("邮件服务没有设置");
+            }
+            new EmailToAdmin(sourcePath, user).start();
+        } catch (Exception e) {
+             UIModel.fail().msg("发送邮件服务端异常");
         }
-        if (StringUtils.equals(BaseConfigUtil.OPTIONS.get(PropertyEnum.SMTP_EMAIL_ENABLE.getProp()), "true")) {
-            return UIModel.fail().msg("邮件服务没有设置");
-        }
-        new EmailToAdmin(sourcePath, user).start();
 
         return UIModel.success().msg("发送到邮件成功");
     }

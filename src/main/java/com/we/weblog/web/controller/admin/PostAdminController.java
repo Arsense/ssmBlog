@@ -108,18 +108,20 @@ public class PostAdminController extends BaseController {
     @ResponseBody
     public UIModel postAction(@RequestBody Post context) throws Exception {
         String message = validateContext(context);
-
         if (!StringUtils.isEmpty(message)) {
             return UIModel.fail().msg(message);
         }
-
-        context.setType(Types.ARTICLE);
-        postService.saveByPost(context);
-        Log loginLog = new Log(LogActions.ADD_BLOG,"admin", AddressUtil.getIpAddress(request),1);
-        if (logService.saveByLogs(loginLog) < 0) {
-            message = "添加博客失败";
+        try {
+            context.setType(Types.ARTICLE);
+            postService.saveByPost(context);
+            Log loginLog = new Log(LogActions.ADD_BLOG,"admin", AddressUtil.getIpAddress(request),1);
+            if (logService.saveByLogs(loginLog) < 0) {
+                message = "添加博客失败";
+            }
+            message = "添加博客成功！";
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        message = "添加博客成功！";
         return UIModel.success().msg(message);
     }
 

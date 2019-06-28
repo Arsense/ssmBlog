@@ -34,6 +34,7 @@ public class CommentController extends BaseController{
     @PostMapping("/send")
     @ResponseBody
     public UIModel addComment(@RequestBody Comment comment ){
+        validateComment(comment);
         if (StringUtils.isEmpty(comment) || comment.getArticle_id() <= 0 ) {
             return UIModel.fail().msg("评论失败,   输入信息有误");
         } else if (!comment.getEmail().contains("@")) {
@@ -59,7 +60,12 @@ public class CommentController extends BaseController{
             return UIModel.fail().msg("评论失败");
         }
         return UIModel.success().msg("评论已经提交，待博主审核");
+    }
+
+    private void validateComment(Comment comment) {
 
 
     }
+
+
 }

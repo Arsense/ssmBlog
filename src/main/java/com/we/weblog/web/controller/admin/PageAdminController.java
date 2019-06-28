@@ -53,12 +53,16 @@ public class PageAdminController extends BaseController{
     @PostMapping("/publish")
     @ResponseBody
     public void createPages(Post context, HttpServletResponse response) throws Exception {
-        context.setType(Types.PAGE);
-        context.setTags("test");  //tags not null
-        postService.saveByPost(context);
-        Log loginLog =new Log(LogActions.ADD_PAGES,"admin", AddressUtil.getIpAddress(request),1);
-        if (logService.saveByLogs(loginLog)<0) {
-            throw new Exception("添加新页面失败");
+        try {
+            context.setType(Types.PAGE);
+            context.setTags("test");  //tags not null
+            postService.saveByPost(context);
+            Log loginLog =new Log(LogActions.ADD_PAGES,"admin", AddressUtil.getIpAddress(request),1);
+            if (logService.saveByLogs(loginLog)<0) {
+                throw new Exception("添加新页面失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         response.sendRedirect("/admin/admin_pages.html");
     }

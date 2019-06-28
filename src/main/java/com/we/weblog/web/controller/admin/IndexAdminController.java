@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,7 @@ import java.util.Map;
 public class IndexAdminController {
 
     private static final Logger LOG = LoggerFactory.getLogger(IndexAdminController.class);
+
     @Resource
     private LogsService logsService;
     @Resource
@@ -55,25 +57,26 @@ public class IndexAdminController {
     public Map<String,Object> index(){
         //获得最新的20条日志  获得最新的文章  后台统计对象
         Map<String,Object> map = new HashMap<>();
-
         //文章总数 TODO 其实Long会更好
-        int blogCount = postService.findPostCount();
-        map.put("blogNumber",blogCount);
-
-        //评论总数
-        int commentCount = commentSerivce.getCommentCount();
-        map.put("commentNumber",commentCount);
-
-        //查询最新的文章
-        List<Post> contexts = postService.findLastestPost(5);
+        int commentCount = 0;
+        List<Comment> comments = new ArrayList<>();
+        List<Log> logs = new ArrayList<>();
+        List<Post> contexts = new ArrayList<>();
+        int blogCount = 0;
+        try {
+            //todo 这些计数应该在内部去处理
+            blogCount = postService.findPostCount();
+            commentCount = commentSerivce.getCommentCount();
+            contexts = postService.findLastestPost(5);
+            comments = commentSerivce.findAllComments();
+            logs = logsService.findLastestTenLogs(10);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         map.put("contexts", contexts);
-
-        //查询最新的评论
-        List<Comment> comments = commentSerivce.findAllComments();
+        map.put("blogNumber",blogCount);
         map.put("comments",comments);
-
-        //查询最新的日志
-        List<Log> logs = logsService.findLastestTenLogs(10);
+        map.put("commentNumber",commentCount);
         map.put("logs",logs);
 
         return map;

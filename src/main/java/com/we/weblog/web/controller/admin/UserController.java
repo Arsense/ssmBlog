@@ -51,11 +51,15 @@ public class UserController {
        //对Contoller层的成熟校验 不知道有什么用
        if (result.hasErrors()) {
            for (ObjectError error : result.getAllErrors()) {
-               return new UIModel().fail().msg("用户资料修改失败");
+               return UIModel.fail().msg("用户资料修改失败");
            }
        }
-       userService.saveByUser(user);
-       //这里修改了不删Session会怎么样 我这里应该暂时不用处理吧
+        try {
+            userService.saveByUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //这里修改了不删Session会怎么样 我这里应该暂时不用处理吧
         return UIModel.success().msg("修改信息成功");
     }
 
@@ -73,8 +77,9 @@ public class UserController {
                                  @ModelAttribute("userId") String userId) {
             try {
                 User user = userService.findByUserIdAndUserPass(userId, beforePass);
-                if (null == user)
+                if (null == user) {
                     return UIModel.fail().msg("改用户不存在");
+                }
                 userService.saveByUser(user);
             } catch (Exception e) {
                 LOG.error("修改密码失败：{}", e.getMessage());

@@ -58,8 +58,6 @@ public class WebMainConig implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
-
         registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/templates/static/" , "classpath:/META-INF/resources/","classpath:/static/");
 
@@ -72,7 +70,6 @@ public class WebMainConig implements WebMvcConfigurer {
      */
     @Bean(autowire = Autowire.BY_NAME )
     public SSOSpringInterceptor ssoInterceptor() {
-
         SSOConfig.getInstance().setLoginUrl(LOGIN_URL);
         SSOConfig.getInstance().setLogoutUrl("/logout.html");
 
@@ -84,9 +81,7 @@ public class WebMainConig implements WebMvcConfigurer {
                 try {
                     UIModel uiModel = UIModel.success().isLogin(false).setLoginUrl(LOGIN_URL);
                     response.getWriter().write(uiModel.toJsonString());
-
                 } catch (IOException e) {
-                    // to do nothing
                 }
                 return false;
             }

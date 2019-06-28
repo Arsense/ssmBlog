@@ -8,23 +8,22 @@ import java.util.Date;
  * <pre/>
  */
 public class Post {
-    //   博客内容md 博客内容的html
     // 博客id
     private int   uid;
-    //创建时间
-    private Date   created;
-    //博客名称
+    //文章标题
     private String   title;
+    //文章类型
+    private String  type;
     //博客标签
     private String   tags;
+    //创建时间
+    private Date   created;
    //文章标签
     public String   article;
     //md内容
     private String  md;
     //发布时间
     private String  month;
-    //文章类型
-    private String  type;
     //缩略名
     private String  slug;
     //用了确认是草稿 还是发布的文章

@@ -13,6 +13,23 @@ import java.util.*;
  */
 public interface PostService {
 
+    /**
+     * 新增文章
+     *
+     * @param post Post
+     * @return Post
+     */
+    void saveByPost(Post post) throws SQLException;
+
+    /**
+     * 根据编号删除文章
+     *
+     * @param postId postId
+     * @return Post
+     */
+    Integer removeByPostId(Integer postId);
+
+
     List<Post> findByTagName(String tagName);
 
     /**
@@ -89,13 +106,7 @@ public interface PostService {
      */
      int removePostCategory(String name);
 
-    /**
-     * 新增文章
-     *
-     * @param post Post
-     * @return Post
-     */
-    void saveByPost(Post post) throws SQLException;
+
 
     /**
      * 查询Id之后的一篇文章
@@ -110,13 +121,7 @@ public interface PostService {
      * @return List
      */
     Post findPreviousPost(int uid);
-    /**
-     * 根据编号删除文章
-     *
-     * @param postId postId
-     * @return Post
-     */
-    Integer removeByPostId(Integer postId);
+
     /**
      * 修改文章状态
      *

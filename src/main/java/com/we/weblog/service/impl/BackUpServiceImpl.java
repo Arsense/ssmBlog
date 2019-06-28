@@ -44,7 +44,6 @@ public class BackUpServiceImpl implements BackupService {
 
     @Override
     public List<BackFile> getBackUps(String fileType) {
-
         List<BackFile> backFiles = new ArrayList<>();
         BackFile backFile = null;
         //构造存储路径
@@ -53,12 +52,10 @@ public class BackUpServiceImpl implements BackupService {
         File srcPath = new File(sourcePath);
         //获取文件下其他文件
         File[] files = srcPath.listFiles();
-
         //遍历文件
         if (null == files) {
             return backFiles;
         }
-
         for (File file : files) {
             if (file.isFile()) {
                 backFile = new BackFile();
@@ -89,9 +86,7 @@ public class BackUpServiceImpl implements BackupService {
             //创建备份时间和时间戳 //执行打包
             String distName = "resources_backup_" + TimeUtil.getCurrentTime();
             ZipUtil.zip(srcPath, System.getProperties().getProperty("user.home") + "/blog/backup/resources/" + distName + ".zip");
-
             LOG.info("当前时间：{}，执行了资源文件备份。", DateUtil.now());
-
         } catch (Exception e) {
             LOG.error("备份文章失败：{}", e.getMessage());
 
@@ -110,7 +105,6 @@ public class BackUpServiceImpl implements BackupService {
             String distName = "databases_backup_" + TimeUtil.getCurrentTime();
             ZipUtil.zip(srcPath + "sql.mv.db", System.getProperties().getProperty("user.home") + "/blog/backup/databases/" + distName + ".zip");
             LOG.info("当前时间：{}，执行了数据库备份。", DateUtil.now());
-
         } catch (Exception e) {
             LOG.error("备份数据库失败：{}", e.getMessage());
         }

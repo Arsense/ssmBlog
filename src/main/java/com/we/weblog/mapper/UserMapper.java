@@ -27,17 +27,14 @@ public interface UserMapper {
     @Select({"select * from hexo_user where userEmail = #{email} and password = #{pass}"})
     User findByUserEmailAndPassword(@Param("email") String userEmail,@Param("pass") String password) throws RuntimeException;
 
-
     //TODO 修改密码
-    @Update({" update hexo_user " +
+    @Update({"update hexo_user " +
             "set username = #{u.userName}," +
             "password = #{u.password}"})
     void saveByUser(@Param("u") User user);
 
 
-
-
-    @Update({" update hexo_post " +
+    @Update({"update hexo_post " +
             " set title = #{b.title}," +
             " md = #{b.md}," +
             " slug = #{b.slug}," +

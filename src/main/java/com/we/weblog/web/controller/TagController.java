@@ -5,11 +5,14 @@ import com.we.weblog.service.PostService;
 import com.we.weblog.service.TagService;
 import com.we.weblog.web.controller.core.BaseController;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.Max;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -40,5 +43,22 @@ public class TagController extends BaseController{
         return redirectTo("/tags");
     }
 
+
+
+//    /**
+//     * 捕获点击的博客类别的get请求
+//     * @param tag
+//     * @param response
+//     * @throws IOException
+//     */
+//    @GetMapping("/tags/{tag}")
+//    public void getTagName(@PathVariable String tag,
+//                           HttpServletResponse response) throws IOException {
+//        if (StringUtils.isEmpty(tag)) {
+//            //
+//        }
+//        tagName = tag;
+//        response.sendRedirect("/tagdetail.html");
+//    }
 
 }

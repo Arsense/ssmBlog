@@ -49,14 +49,12 @@ public class CategoryAdminController {
     @ResponseBody
     public UIModel deleteCategory(@PathVariable("name") String categoryName){
 
-        if (StringUtils.isEmpty(categoryName))
+        if (StringUtils.isEmpty(categoryName)) {
             return UIModel.fail().msg("删除类别异常");
-
+        }
         try {
             postService.removePostCategory(categoryName);
-//            tagService.deleteMetas(categoryName);
         } catch (Exception e) {
-//            log.error("删除分类失败：{}", e.getMessage());
             return UIModel.fail().msg("删除失败");
         }
         return UIModel.success().msg("删除成功");

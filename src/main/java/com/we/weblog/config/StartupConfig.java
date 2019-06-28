@@ -22,7 +22,7 @@ import java.util.Map;
  * @date 2018/10/23 17:25
  */
 @Configuration
-public class StartupConfig  implements ApplicationListener<ApplicationStartedEvent> {
+public class StartupConfig implements ApplicationListener<ApplicationStartedEvent> {
 
     private static final Logger LOG = LoggerFactory.getLogger(StartupConfig.class);
 

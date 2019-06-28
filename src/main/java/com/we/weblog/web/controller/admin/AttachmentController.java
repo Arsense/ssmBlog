@@ -44,23 +44,25 @@ public class AttachmentController extends BaseController {
     public String attachments(Model model,
                               @RequestParam(value = "page", defaultValue = "0") Integer page,
                               @RequestParam(value = "size", defaultValue = "18") Integer size) {
-        int currentPage = 1;
-        int pageSize = 15;
-        List<Attachment> attachments = attachmentService.findAllAttachments(currentPage);
-        model.addAttribute("attachments", attachments);
+        try {
+            int currentPage = 1;
+            List<Attachment> attachments = attachmentService.findAllAttachments(currentPage);
+            model.addAttribute("attachments", attachments);
+        } catch (Exception e) {
+            //todo 改为404页面 友好不
+            return "admin/admin_attachment";
+        }
         return "admin/admin_attachment";
     }
 
     /**
      * 上传附件
      *
-     * @param request request
      * @return Map
      */
     @PostMapping(value = "/upload", produces = {"application/json;charset=UTF-8"})
     @ResponseBody
-    public Map<String, Object> upload(@RequestParam("file") MultipartFile file
-            ,HttpServletRequest request ) {
+    public Map<String, Object> upload(@RequestParam("file") MultipartFile file) {
 //        @RequestParam("file") MultipartFile file,
         return attachmentService.uploadAttachment(null);
     }
@@ -76,7 +78,7 @@ public class AttachmentController extends BaseController {
     @ResponseBody
     public Map<String, Object> editorUpload(@RequestParam("editormd-image-file") MultipartFile file,
                                             HttpServletRequest request) {
-//        return uploadAttachment(file, request);
+//      return uploadAttachment(file, request);
         return null;
     }
 
@@ -92,19 +94,23 @@ public class AttachmentController extends BaseController {
                                    @RequestParam(value = "page", defaultValue = "0") Integer page,
                                    @RequestParam(value = "id", defaultValue = "none") String id,
                                    @RequestParam(value = "type", defaultValue = "normal") String type) {
-        int currentPage = 1;
-        int pageSize = 15;
-        List<Attachment> attachments = attachmentService.findAllAttachments(currentPage);
+
+        List<Attachment> attachments = null;
+        try {
+            attachments = attachmentService.findAllAttachments(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         model.addAttribute("attachments", attachments);
         model.addAttribute("id", id);
+
         if (StringUtils.equals(type, "post")) {
             return "admin/widget/_attachment-select-post";
         }
         return "admin/widget/_attachment-select";
 
     }
-
-
 
     /**
      * 处理获取附件详情的请求
@@ -115,12 +121,15 @@ public class AttachmentController extends BaseController {
      */
     @GetMapping(value = "/attachment")
     public String attachmentDetail(Model model, @RequestParam("attachId") Integer attachId) {
-        Attachment attachment = attachmentService.findByAttachId(attachId);
+        Attachment attachment = null;
+        try {
+            attachment = attachmentService.findByAttachId(attachId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         model.addAttribute("attachment", attachment);
         return "admin/widget/_attachment-detail";
     }
-
-
 
     /**
      * 移除附件的请求
@@ -133,10 +142,12 @@ public class AttachmentController extends BaseController {
     @ResponseBody
     public UIModel removeAttachment(@RequestParam("attachId") Integer attachId,
                                     HttpServletRequest request) {
-        Attachment attachment = attachmentService.findByAttachId(attachId);
-        String delFileName = attachment.getAttachName();
-        String delSmallFileName = delFileName.substring(0, delFileName.lastIndexOf('.')) + "_small" + attachment.getAttachSuffix();
+        String delFileName = null;
         try {
+            Attachment attachment = attachmentService.findByAttachId(attachId);
+            delFileName = attachment.getAttachName();
+            String delSmallFileName = delFileName.substring(0, delFileName.lastIndexOf('.')) + "_small" + attachment.getAttachSuffix();
+
             //删除数据库中的内容
             attachmentService.removeByAttachId(attachId);
             //删除文件

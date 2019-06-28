@@ -7,8 +7,16 @@ package com.we.weblog.domain;
  * <pre/>
  */
 public class Tags {
-    //TODO
+    /**
+     * 标签编号
+     */
     private  int tagId;
+    /**
+     * 标签名称
+     */
     private  String tagName;
-
+    /**
+     * 标签路径
+     */
+    private String tagUrl;
 }

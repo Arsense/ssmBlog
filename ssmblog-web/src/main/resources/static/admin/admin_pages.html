@@ -1,0 +1,52 @@
+
+<v-box>
+    <div class="pull-right">
+        <a href="#/admin/admin_setting.html" class="btn btn-success waves-effect waves-light m-b-5">添加新页面</a>
+    </div>
+    <v-tab ref="tableList">
+        <v-tab-pane label="前端Menu">
+                <v-table :ajax_url="ajax_url" :query="query" :send_req="send_req" :operations="operations" ></v-table>
+        </v-tab-pane>
+
+    </v-tab>
+</v-box>
+
+<script>
+    new Vue({
+        el:"#app" ,
+        data: {
+            query : {} ,
+            ajax_url : '/get_pages_data' ,
+            send_req : 0 ,
+            operations : [
+                {
+                    name : '编辑' ,
+                    class: 'btn-success',
+                    method : function(row , $table) {
+                        window.location.href = "http://localhost:8002/admin/edit.html?id="+row.uid;
+                        $table.fetchData()
+                    }
+                } ,
+                {
+                    name : '删除'  ,
+                    class: 'btn-danger',
+                    method : function(row ,$table) {
+                        axios.delete('/admin/delete/'+row.uid).then(function (response) {
+                            $.alert(response.data);
+                            $table.fetchData()
+
+                        });
+                        $table.fetchData()
+                    }
+                }
+            ]
+        } ,
+        methods: {
+
+        } ,
+        mounted : function () {
+
+        }
+    });
+
+</script>

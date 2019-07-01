@@ -1,0 +1,156 @@
+<head>
+    <link rel="shortcut icon" href="../images/icon/snow.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/editormd.css" />
+    <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+</head>
+<v-box>
+    <v-row>
+        <v-col span="5">
+            <v-form-item  class="text-warning" label="博客标题(必须)">
+                <v-input span="5" name="title"></v-input>
+            </v-form-item>
+        </v-col>
+        <v-col span="5">
+            <v-form-item class="text-warning" label="自定义访问路径">
+                <v-input span="5" name="slug"></v-input>
+            </v-form-item>
+        </v-col>
+    </v-row>
+    <v-row >
+        <v-col span="5">
+            <v-form-item class="text-warning" label="博客标签(必须)">
+                <v-input span="5" name="tags"></v-input>
+            </v-form-item>
+        </v-col>
+        <v-col span="5">
+            <v-form-item class="text-warning" label="博客分类">
+                <v-select name="categories"   :items="items" value="1" placeholder="请选择"></v-select>
+            </v-form-item>
+        </v-col>
+    </v-row>
+    <div class="clearfix"></div>
+    <div id="page-wrapper">
+      <div id="editormd">
+          <textarea style="display:none;"></textarea>
+      </div>
+    </div>
+    <div class="text-right">
+        <button id = "blogSubmit" type="button" class="btn btn-success" @click="getData" >保存文章</button>
+    </div>
+    <input type="hidden" name="mdText" id = "mdText" />
+    <input type="hidden" name="article" id = "article"/>
+</v-box>
+<script src="../js/editormd.js"></script>
+<script>
+    function themeSelect(id, themes, lsKey, callback) {
+        var select = $("#" + id);
+        for (var i = 0, len = themes.length; i < len; i ++) {
+            var theme    = themes[i];
+            var selected = (localStorage[lsKey] == theme) ? " selected=\"selected\"" : "";
+            select.append("<option value=\"" + theme + "\"" + selected + ">" + theme + "</option>");
+        }
+        select.bind("change", function(){
+            var theme = $(this).val();
+            if (theme === "") {
+                alert("theme == \"\"");
+                return false;
+            }
+            console.log("lsKey =>", lsKey, theme);
+            localStorage[lsKey] = theme;
+            callback(select, theme);
+        });
+        return select;
+    }
+
+    var vm = new Vue({
+        el: '#app',
+        data:{
+            items : [
+                {code:'1' ,  label:'默认分类' ,checked:false},
+                {code:'2' ,   label:'name',checked:false},
+                {code:'3' ,    label:'hello',checked:false}
+            ],
+            editor:Object,
+            options:[],
+            mdData:{
+                mdText:11,
+                article:"",
+                title:"",
+                slug:"",
+                tags:"",
+                categories:"",
+            }
+        },
+        methods : {
+            getData:function () {
+                debugger
+                vm.mdData.mdText = vm.editor.getMarkdown();
+                vm.mdData.article = vm.editor.getHTML();
+                vm.mdData.title = document.getElementsByName("title")[0].value;
+                vm.mdData.slug = document.getElementsByName("slug")[0].value;
+                vm.mdData.tags = document.getElementsByName("tags")[0].value;
+                // vm.mdData.categories = document.getElementsByName("categories")[0].value;
+                axios.post("/admin/send",this.mdData).then(function (response){
+                    $.alert(response.data);
+                    if(response.data.code === 1)
+                        var t = setTimeout(" window.location.href = \"/index.html#/admin/admin_post.html\" ",1500);
+                }).catch(function (e) {
+                    console.log(e.valueOf());
+                });
+            }
+        } ,
+        mounted : function () {
+            var self = this
+            debugger
+            axios.get("/admin/category/index").then(function (response) {
+                self.options = response.data;
+
+            }).catch(function (e) {
+                console.log(e);
+            });
+            $(function() {
+                var md = editormd("editormd", {
+                    path : "../lib/",
+                    width: "85%",
+                    height: 430,
+                    theme        : (localStorage.theme) ? localStorage.theme : "dark",
+                    previewTheme : (localStorage.previewTheme) ? localStorage.previewTheme : "dark",
+                    editorTheme  : (localStorage.editorTheme) ? localStorage.editorTheme : "pastel-on-dark",
+                    markdown: "",
+                    codeFold: true,
+                    saveHTMLToTextarea: true, // 保存 HTML 到 Textarea
+                    htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了
+                    tocm            : true,         // Using [TOCM]
+                    tex : true,                   // 开启科学公式TeX语言支持，默认关闭
+                    taskList : true,
+                    imageUpload: true,
+                    searchReplace : true,
+                    imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                    imageUploadURL: "/admin/upload",
+                    onload: function () {
+                        console.log('onload', this);
+                    }
+
+                });
+                self.editor = md;
+                themeSelect("editormd-theme-select", md.themes, "theme", function($this, theme) {
+                    md.setTheme(theme);
+                });
+
+                themeSelect("editor-area-theme-select", md.editorThemes, "editorTheme", function($this, theme) {
+                    editormd.setCodeMirrorTheme(theme);
+                });
+
+                themeSelect("preview-area-theme-select", md.previewThemes, "previewTheme", function($this, theme) {
+                    md.setPreviewTheme(theme);
+                });
+            });
+
+
+
+        }
+    });
+
+
+</script>

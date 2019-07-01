@@ -1,0 +1,759 @@
+<v-box title="系统配置">
+    <section class="content container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#general" data-toggle="tab">常规设置</a>
+                        </li>
+                        <li>
+                            <a href="#seo" data-toggle="tab">SEO设置</a>
+                        </li>
+                        <li>
+                            <a href="#post" data-toggle="tab">文章设置</a>
+                        </li>
+                        <li>
+                            <a href="#comment" data-toggle="tab">评论设置</a>
+                        </li>
+                        <li>
+                            <a href="#attach" data-toggle="tab">附件设置</a>
+                        </li>
+                        <li>
+                            <a href="#admin" data-toggle="tab">后台设置</a>
+                        </li>
+                        <li>
+                            <a href="#email" data-toggle="tab">邮箱设置</a>
+                        </li>
+                        <li>
+                            <a href="#other" data-toggle="tab">其他设置</a>
+                        </li>
+                    </ul>
+                    <!-- 基础设置 -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="general">
+                            <form method="post" class="form-horizontal" id="commonOptions">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="blogLocale" class="col-lg-2 col-sm-4 control-label">系统语言：</label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <select class="form-control" id="blogLocale" name="blog_locale">
+                                                <option value="zh_CN" selected="">简体中文</option>
+                                                <option value="en_US">English</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="blogTitle" class="col-lg-2 col-sm-4 control-label">博客标题：</label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <input type="text" class="form-control" id="blogTitle" name="blog_title" value="唐伟">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="blogUrl" class="col-lg-2 col-sm-4 control-label">博客地址：</label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <input type="url" class="form-control" id="blogUrl" name="blog_url" value="http://localhost:8090">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="blogLogo" class="col-lg-2 col-sm-4 control-label">LOGO：</label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control selectData" id="blogLogo" name="blog_logo" value="">
+                                                <span class="input-group-btn">
+                                                        <button class="btn btn-default " type="button" onclick="openAttach('blogLogo')">选择</button>
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="blogFavicon" class="col-lg-2 col-sm-4 control-label">Favicon：</label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control selectData" id="blogFavicon" name="blog_favicon" value="">
+                                                <span class="input-group-btn">
+                                                        <button class="btn btn-default " type="button" onclick="openAttach('blogFavicon')">选择</button>
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="blogFooterInfo" class="col-lg-2 col-sm-4 control-label">页脚信息：
+                                            <span data-toggle="tooltip" data-placement="top" title="" style="cursor: pointer" data-original-title="支持HTML">
+                                                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                </span>
+                                        </label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <textarea class="form-control" rows="5" id="blogFooterInfo" name="blog_footer_info" style="resize: none"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <button type="button" class="btn btn-primary btn-sm " onclick="saveOptions('commonOptions')">保存</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- seo设置 -->
+                        <div class="tab-pane" id="seo">
+                            <form method="post" class="form-horizontal" id="seoOptions">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="keywords" class="col-lg-2 col-sm-4 control-label">关键词：
+                                            <span data-toggle="tooltip" data-placement="top" title="" style="cursor: pointer" data-original-title="多个关键词使用,隔开">
+                                                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                </span>
+                                        </label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <input type="text" class="form-control" id="keywords" name="seo_keywords" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="desc" class="col-lg-2 col-sm-4 control-label">博客描述：</label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <input type="text" class="form-control" id="desc" name="seo_desc" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="baiduToken" class="col-lg-2 col-sm-4 control-label">百度推送 token：
+                                            <span data-toggle="tooltip" data-placement="top" title="" style="cursor: pointer" data-original-title="百度站长平台获取">
+                                                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                </span>
+                                        </label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="baiduToken" name="seo_baidu_token" value="">
+                                                <span class="input-group-btn">
+                                                        <button class="btn btn-default " id="btn_push_baidu" onclick="pushAllToBaidu()" type="button">推送</button>
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="blogVerificationGoogle" class="col-lg-2 col-sm-4 control-label">Google 站点验证：</label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <input type="text" class="form-control" id="blogVerificationGoogle" name="blog_verification_google" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="blogVerificationBing" class="col-lg-2 col-sm-4 control-label">Bing 站点验证：</label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <input type="text" class="form-control" id="blogVerificationBing" name="blog_verification_bing" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="blogVerificationBaidu" class="col-lg-2 col-sm-4 control-label">Baidu 站点验证：</label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <input type="text" class="form-control" id="blogVerificationBaidu" name="blog_verification_baidu" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="blogVerificationQihu" class="col-lg-2 col-sm-4 control-label">360 站点验证：</label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <input type="text" class="form-control" id="blogVerificationQihu" name="blog_verification_qihu" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <button type="button" class="btn btn-primary btn-sm " onclick="saveOptions('seoOptions')">保存</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- 文章设置 -->
+                        <div class="tab-pane" id="post">
+                            <form method="post" class="form-horizontal" id="postOptions">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="indexPosts" class="col-lg-2 col-sm-4 control-label">首页显示条数：
+                                            <span data-toggle="tooltip" data-placement="top" title="" style="cursor: pointer" data-original-title="默认为10条">
+                                                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                </span>
+                                        </label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <input type="number" class="form-control" id="indexPosts" name="index_posts" value="10">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="rssPosts" class="col-lg-2 col-sm-4 control-label">RSS 显示条数：</label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <input type="number" class="form-control" id="rssPosts" name="rss_posts" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="postSummary" class="col-lg-2 col-sm-4 control-label">文章摘要字数：</label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="postSummary" name="post_summary" value="50">
+                                                <span class="input-group-btn">
+                                                        <button class="btn btn-default " id="btn_update_summary" onclick="updateAllSummary()" type="button">更新</button>
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <button type="button" class="btn btn-primary btn-sm " onclick="saveOptions('postOptions')">保存</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- 评论设置 -->
+                        <div class="tab-pane" id="comment">
+                            <form method="post" class="form-horizontal" id="commentOptions">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-sm-4 control-label">评论系统：
+                                            <span data-toggle="tooltip" data-placement="top" title="" style="cursor: pointer" data-original-title="其他第三方评论系统在后台无法管理">
+                                                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                </span>
+                                        </label>
+                                        <div class="col-lg-4 col-sm-8 control-radio">
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="comment_system" value="native" checked="">
+                                                <div class="state p-primary">
+                                                    <label>原生</label>
+                                                </div>
+                                            </div>
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="comment_system" value="valine">
+                                                <div class="state p-primary">
+                                                    <label>Valine</label>
+                                                </div>
+                                            </div>
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="comment_system" value="disqus">
+                                                <div class="state p-primary">
+                                                    <label>Disqus</label>
+                                                </div>
+                                            </div>
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="comment_system" value="livere">
+                                                <div class="state p-primary">
+                                                    <label>Livere</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 原生设置 -->
+                                    <div class="native-options" style="">
+                                        <div class="form-group">
+                                            <label for="nativeCommentAvatar" class="col-lg-2 col-sm-4 control-label">评论者头像：
+                                                <span data-toggle="tooltip" data-placement="top" title="" style="cursor: pointer" data-original-title="为评论者默认设置一个头像">
+                                                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                    </span>
+                                            </label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <select class="form-control" id="nativeCommentAvatar" name="native_comment_avatar">
+                                                    <option value="mm">默认</option>
+                                                    <option value="identicon">抽象几何图形</option>
+                                                    <option value="monsterid">小怪物</option>
+                                                    <option value="wavatar">Wavatar</option>
+                                                    <option value="retro">复古</option>
+                                                    <option value="robohash">机器人</option>
+                                                    <option value="blank">不显示头像</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 col-sm-4 control-label">评论审核后才显示：</label>
+                                            <div class="col-lg-4 col-sm-8 control-radio">
+                                                <div class="pretty p-default p-round">
+                                                    <input type="radio" name="new_comment_need_check" value="true" checked="">
+                                                    <div class="state p-primary">
+                                                        <label>启用</label>
+                                                    </div>
+                                                </div>
+                                                <div class="pretty p-default p-round">
+                                                    <input type="radio" name="new_comment_need_check" value="false">
+                                                    <div class="state p-primary">
+                                                        <label>禁用</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 col-sm-4 control-label">新评论通知：</label>
+                                            <div class="col-lg-4 col-sm-8 control-radio">
+                                                <div class="pretty p-default p-round">
+                                                    <input type="radio" name="new_comment_notice" value="true">
+                                                    <div class="state p-primary">
+                                                        <label>启用</label>
+                                                    </div>
+                                                </div>
+                                                <div class="pretty p-default p-round">
+                                                    <input type="radio" name="new_comment_notice" value="false" checked="">
+                                                    <div class="state p-primary">
+                                                        <label>禁用</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 col-sm-4 control-label">评论审核通过通知对方：</label>
+                                            <div class="col-lg-4 col-sm-8 control-radio">
+                                                <div class="pretty p-default p-round">
+                                                    <input type="radio" name="comment_pass_notice" value="true">
+                                                    <div class="state p-primary">
+                                                        <label>启用</label>
+                                                    </div>
+                                                </div>
+                                                <div class="pretty p-default p-round">
+                                                    <input type="radio" name="comment_pass_notice" value="false" checked="">
+                                                    <div class="state p-primary">
+                                                        <label>禁用</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 col-sm-4 control-label">评论回复通知对方：</label>
+                                            <div class="col-lg-4 col-sm-8 control-radio">
+                                                <div class="pretty p-default p-round">
+                                                    <input type="radio" name="comment_reply_notice" value="true">
+                                                    <div class="state p-primary">
+                                                        <label>启用</label>
+                                                    </div>
+                                                </div>
+                                                <div class="pretty p-default p-round">
+                                                    <input type="radio" name="comment_reply_notice" value="false" checked="">
+                                                    <div class="state p-primary">
+                                                        <label>禁用</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="indexComments" class="col-lg-2 col-sm-4 control-label">每页显示条数：
+                                                <span data-toggle="tooltip" data-placement="top" title="" style="cursor: pointer" data-original-title="默认为10条">
+                                                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                </span>
+                                            </label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <input type="number" class="form-control" id="indexComments" name="index_comments" value="10">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nativeCommentPlaceholder" class="col-lg-2 col-sm-4 control-label">占位提示：</label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <input type="url" class="form-control" id="nativeCommentPlaceholder" name="native_comment_placeholder" value="赶快评论一个吧！">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nativeCss" class="col-lg-2 col-sm-4 control-label">自定义 CSS：
+                                                <span data-toggle="tooltip" data-placement="top" title="" style="cursor: pointer" data-original-title="对评论框自定义样式，如边距等">
+                                                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                    </span>
+                                            </label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <textarea class="form-control" rows="5" id="nativeCss" name="native_css" style="resize: none"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- valine选项 -->
+                                    <div class="valine-options" style="display: none">
+                                        <div class="form-group">
+                                            <label for="valineAppId" class="col-lg-2 col-sm-4 control-label">APP ID：</label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <input type="text" class="form-control" id="valineAppId" name="valine_appid" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valineAppKey" class="col-lg-2 col-sm-4 control-label">APP KEY：</label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <input type="text" class="form-control" id="valineAppKey" name="valine_appkey" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valineAvatar" class="col-lg-2 col-sm-4 control-label">头像类型：</label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <input type="text" class="form-control" id="valineAvatar" name="valine_avatar" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valinePlaceholder" class="col-lg-2 col-sm-4 control-label">占位提示：</label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <input type="text" class="form-control" id="valinePlaceholder" name="valine_placeholder" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valineCss" class="col-lg-2 col-sm-4 control-label">自定义 CSS：
+                                                <span data-toggle="tooltip" data-placement="top" title="" style="cursor: pointer" data-original-title="对评论框自定义样式，如边距等">
+                                                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                    </span>
+                                            </label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <textarea class="form-control" rows="5" id="valineCss" name="valine_css" style="resize: none"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- disqus选项 -->
+                                    <div class="disqus-options" style="display: none">
+                                        <div class="form-group">
+                                            <label for="disqusShortname" class="col-lg-2 col-sm-4 control-label">Disqus ShortName：</label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <input type="text" class="form-control" id="disqusShortname" name="disqus_shortname" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="disqusCss" class="col-lg-2 col-sm-4 control-label">自定义 CSS：
+                                                <span data-toggle="tooltip" data-placement="top" title="" style="cursor: pointer" data-original-title="对评论框自定义样式，如边距等">
+                                                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                    </span>
+                                            </label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <textarea class="form-control" rows="5" id="disqusCss" name="disqus_css" style="resize: none"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- livere选项 -->
+                                    <div class="livere-options" style="display: none">
+                                        <div class="form-group">
+                                            <label for="livereDataUid" class="col-lg-2 col-sm-4 control-label">livere data-uid：</label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <input type="text" class="form-control" id="livereDataUid" name="livere_data_uid" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="livereCss" class="col-lg-2 col-sm-4 control-label">自定义 CSS：
+                                                <span data-toggle="tooltip" data-placement="top" title="" style="cursor: pointer" data-original-title="对评论框自定义样式，如边距等">
+                                                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                    </span>
+                                            </label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <textarea class="form-control" rows="5" id="livereCss" name="livere_css" style="resize: none"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 畅言选项 -->
+                                    <div class="changyan-options" style="display: none">
+                                        <div class="form-group">
+                                            <label for="changyanAppId" class="col-lg-2 col-sm-4 control-label">APP ID：</label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <input type="text" class="form-control" id="changyanAppId" name="changyan_appid" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="changyanConf" class="col-lg-2 col-sm-4 control-label">CONF：</label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <input type="text" class="form-control" id="changyanConf" name="changyan_conf" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="changyanCss" class="col-lg-2 col-sm-4 control-label">自定义 CSS：
+                                                <span data-toggle="tooltip" data-placement="top" title="" style="cursor: pointer" data-original-title="对评论框自定义样式，如边距等">
+                                                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                    </span>
+                                            </label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <textarea class="form-control" rows="5" id="changyanCss" name="changyan_css" style="resize: none"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <button type="button" class="btn btn-primary btn-sm " onclick="saveOptions('commentOptions')">保存</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- 附件设置 -->
+                        <div class="tab-pane" id="attach">
+                            <form method="post" class="form-horizontal" id="attachOptions">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-sm-4 control-label">存储位置：</label>
+                                        <div class="col-lg-4 col-sm-8 control-radio">
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="attach_loc" value="server" checked="">
+                                                <div class="state p-primary">
+                                                    <label>本地服务器</label>
+                                                </div>
+                                            </div>
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="attach_loc" value="upyun" disabled="disabled">
+                                                <div class="state p-primary">
+                                                    <label>又拍云</label>
+                                                </div>
+                                            </div>
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="attach_loc" value="qiniu" disabled="disabled">
+                                                <div class="state p-primary">
+                                                    <label>七牛云</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 原生设置 -->
+                                    <div class="server-options" style="">
+
+                                    </div>
+
+                                    <!-- 又拍云选项 -->
+                                    <div class="upyun-options" style="display: none">
+                                        <div class="form-group">
+                                            <label for="upyunOssDomain" class="col-lg-2 col-sm-4 control-label">域名绑定：</label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <input type="text" class="form-control" id="upyunOssDomain" name="upyun_oss_domain" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="upyunOssBucket" class="col-lg-2 col-sm-4 control-label">空间名称：</label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <input type="text" class="form-control" id="upyunOssBucket" name="upyun_oss_bucket" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="upyunOssOperator" class="col-lg-2 col-sm-4 control-label">操作员名称：</label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <input type="text" class="form-control" id="upyunOssOperator" name="upyun_oss_operator" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="upyunOssPwd" class="col-lg-2 col-sm-4 control-label">操作员密码：</label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <input type="text" class="form-control" id="upyunOssPwd" name="upyun_oss_pwd" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="upyunOssSrc" class="col-lg-2 col-sm-4 control-label">文件目录：</label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <input type="text" class="form-control" id="upyunOssSrc" name="upyun_oss_src" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 七牛云 -->
+                                    <div class="qiniu-options" style="display: none">
+                                        <div class="form-group">
+                                            <label for="qiniuDomain" class="col-lg-2 col-sm-4 control-label">域名：</label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <input type="text" class="form-control" id="qiniuDomain" name="qiniu_domain" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="qiniuAccessKey" class="col-lg-2 col-sm-4 control-label">Access Key：</label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <input type="text" class="form-control" id="qiniuAccessKey" name="qiniu_access_key" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="qiniuSecretKey" class="col-lg-2 col-sm-4 control-label">Secret Key：</label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <input type="text" class="form-control" id="qiniuSecretKey" name="qiniu_secret_key" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="qiniuBucket" class="col-lg-2 col-sm-4 control-label">Bucket：</label>
+                                            <div class="col-lg-4 col-sm-8">
+                                                <input type="text" class="form-control" id="qiniuBucket" name="qiniu_bucket" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <button type="button" class="btn btn-primary btn-sm " onclick="saveOptions('attachOptions')">保存</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- 后台设置 -->
+                        <div class="tab-pane" id="admin">
+                            <form method="post" class="form-horizontal" id="adminOptions">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-sm-4 control-label">启用 pjax：</label>
+                                        <div class="col-lg-4 col-sm-8 control-radio">
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="admin_pjax" value="true" checked="">
+                                                <div class="state p-primary">
+                                                    <label>启用</label>
+                                                </div>
+                                            </div>
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="admin_pjax" value="false">
+                                                <div class="state p-primary">
+                                                    <label>禁用</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-sm-4 control-label">后台加载动画：</label>
+                                        <div class="col-lg-4 col-sm-8 control-radio">
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="admin_loading" value="true">
+                                                <div class="state p-primary">
+                                                    <label>启用</label>
+                                                </div>
+                                            </div>
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="admin_loading" value="false" checked="">
+                                                <div class="state p-primary">
+                                                    <label>禁用</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-sm-4 control-label">后台布局：</label>
+                                        <div class="col-lg-4 col-sm-8 control-radio">
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="admin_layout" value="" checked="">
+                                                <div class="state p-primary">
+                                                    <label>正常布局</label>
+                                                </div>
+                                            </div>
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="admin_layout" value="layout-boxed">
+                                                <div class="state p-primary">
+                                                    <label>盒子布局</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="adminTheme" class="col-lg-2 col-sm-4 control-label">后台主题：</label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <select class="form-control" id="adminTheme" name="admin_theme">
+                                                <option value="skin-blue" selected="">默认主题</option>
+                                                <option value="skin-blue-light">上蓝左白</option>
+                                                <option value="skin-black">上白左黑</option>
+                                                <option value="skin-black-light">上白左白</option>
+                                                <option value="skin-green">上绿左黑</option>
+                                                <option value="skin-green-light">上绿左白</option>
+                                                <option value="skin-purple">上紫左黑</option>
+                                                <option value="skin-purple-light">上紫左白</option>
+                                                <option value="skin-red">上红左黑</option>
+                                                <option value="skin-red-light">上红左白</option>
+                                                <option value="skin-yellow">上黄左黑</option>
+                                                <option value="skin-yellow-light">上黄左白</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-sm-4 control-label">侧边栏样式：</label>
+                                        <div class="col-lg-4 col-sm-8 control-radio">
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="sidebar_style" value="" checked="">
+                                                <div class="state p-primary">
+                                                    <label>展开</label>
+                                                </div>
+                                            </div>
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="sidebar_style" value="sidebar-collapse">
+                                                <div class="state p-primary">
+                                                    <label>收拢</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <button type="button" class="btn btn-primary btn-sm " onclick="saveOptions('adminOptions')">保存</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- 邮箱设置 -->
+                        <div class="tab-pane" id="email">
+                            <form method="post" class="form-horizontal" id="emailOptions">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-sm-4 control-label">是否启用：</label>
+                                        <div class="col-lg-4 col-sm-8 control-radio">
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="smtp_email_enable" value="true">
+                                                <div class="state p-primary">
+                                                    <label>启用</label>
+                                                </div>
+                                            </div>
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="smtp_email_enable" value="false" checked="">
+                                                <div class="state p-primary">
+                                                    <label>禁用</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="emailSmtpHost" class="col-lg-2 col-sm-4 control-label">SMTP 地址：</label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <input type="text" class="form-control" id="emailSmtpHost" name="mail_smtp_host" value="" autocomplete="address-line1">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="emailSmtpUserName" class="col-lg-2 col-sm-4 control-label">邮箱账号：</label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <input type="email" class="form-control" id="emailSmtpUserName" name="mail_smtp_username" value="" autocomplete="email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="emailSmtpPassword" class="col-lg-2 col-sm-4 control-label">邮箱密码：</label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <input type="password" class="form-control" id="emailSmtpPassword" name="mail_smtp_password" value="" current-password="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="emailFromName" class="col-lg-2 col-sm-4 control-label">发件姓名：</label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <input type="text" class="form-control" id="emailFromName" name="mail_from_name" value="" autocomplete="name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <button type="button" class="btn btn-primary btn-sm " onclick="saveOptions('emailOptions')">保存</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- 其他设置 -->
+                        <div class="tab-pane" id="other">
+                            <form method="post" class="form-horizontal" id="otherOptions">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-sm-4 control-label">API 服务：</label>
+                                        <div class="col-lg-4 col-sm-8 control-radio">
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="api_status" value="true">
+                                                <div class="state p-primary">
+                                                    <label>启用</label>
+                                                </div>
+                                            </div>
+                                            <div class="pretty p-default p-round">
+                                                <input type="radio" name="api_status" value="false" checked="">
+                                                <div class="state p-primary">
+                                                    <label>禁用</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="statisticsCode" class="col-lg-2 col-sm-4 control-label">统计代码：
+                                            <span data-toggle="tooltip" data-placement="top" title="" style="cursor: pointer" data-original-title="可以使用cnzz，百度，google等">
+                                                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                    </span>
+                                        </label>
+                                        <div class="col-lg-4 col-sm-8">
+                                            <textarea class="form-control" rows="6" id="statisticsCode" name="statistics_code" style="resize: none"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <button type="button" class="btn btn-primary btn-sm " onclick="saveOptions('otherOptions')">保存</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</v-box>
+<script>
+    new Vue({
+        el: '#app',
+        data: {}
+    })
+</script>

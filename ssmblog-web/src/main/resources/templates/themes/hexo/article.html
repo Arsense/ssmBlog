@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{themes/hexo/module/_header:: head}"></div>
+
+<body>
+<div th:replace="~{themes/hexo/module/_header:: menu}"></div>
+
+<div class ="cube-content" style="visibility: visible;" id="main">
+    <div class="cube-left">
+        <style>
+            @media(max-width: 768px) {
+                body {
+                    background-color: #fff!important;
+                }
+            }
+        </style>
+
+
+        <div class="cube-article">
+
+            <h1 class="title">{{current['title']}}</h1>
+            <div class="cube-article-header">
+
+                <div class="post-data">
+                    <time datetime="2018-03-19" itemprop="datePublished">发布于  {{current['month']}}/</time>
+                    <a href="">默认分类</a> / <a href="#comments">{{comments.length}}条评论</a>
+                   /{{current['hits']}}浏览
+                </div>
+                <br>
+
+            </div>
+
+            <div class="cube-article-tags">
+                <p class="post-tags" v-if="current.tags != null"><a href="#">{{current['tags']}}</a></p>
+
+            <div v-html="current['article']" class="cube-article-content cube-markdown" lg-uid="lg0">
+
+
+                </div>
+            </div>
+        </div>
+
+
+        <div  class="comment-container">
+            <div id="comments" class="clearfix">
+                <span class="response"></span>
+
+                <form method="post" id="comment-form" name="commnentForm" class="comment-form" onsubmit="">
+                    <input type="hidden" name="coid" id="coid">
+                    <input type="hidden" name="cid" id="cid" value="1">
+                    <!--<input type="hidden" name="csrf_token" value="HEYEoUQ5HHi7Q0X0KS_1Z0">-->
+                    <input name="author" maxlength="12" id="author" class="form-control input-control clearfix" placeholder="姓名 (*)" value="" required="">
+                    <input id = "email" type="email" name="mail" class="form-control input-control clearfix" placeholder="邮箱 (*)" value="" required="">
+                    <input id= "url" type="url" name="url" class="form-control input-control clearfix" placeholder="网址 (http://)" value="">
+                    <textarea id="content" name="content"  class="form-control" placeholder="基佬，留下你的评论." required="" minlength="5" maxlength="2000"></textarea>
+                    <button id="commentFrom" type="button" class="submit" @click="insertComment">提交</button>
+                </form>
+
+
+                <ol class="comment-list" v-for="comment in comments" v-if="comments !=null">
+                    <li id="li-comment-5" class="comment-body comment-parent comment-odd">
+                        <div id="comment-5">
+                            <div class="comment-view" onclick="">
+                                <div class="comment-header">
+                                    <img class="avatar" src="https://cn.gravatar.com/avatar/e94656cb82a8f7228e13e1d9d56fb101?s=80&amp;r=G&amp;d=" title="11" width="80" height="80">
+                                    <span class="comment-author">
+                                <a href="" target="_blank" rel="external nofollow">{{comment['author']}}</a>
+                            </span>
+                                </div>
+                                <div class="comment-content">
+                                    <span class="comment-author-at"></span>
+                                    <p></p><p>{{comment['content']}}</p>
+                                    <p></p>
+                                </div>
+                                <div class="comment-meta">
+                                    <time class="comment-time">{{comment['time']}}  </time>
+                                    <span class="comment-reply">
+                                <a rel="nofollow" onclick="TaleComment.reply('5');">回复</a>
+                            </span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+
+            </div>
+        </div>
+
+        <div class="cube-article-nav">
+            <ul>
+
+                <li class="prev" v-if="previous != null">
+                    <a :href="getPostUrl(previous)">
+                        <i class="cube-icon cube-prev" aria-hidden="true"></i>
+                        {{previous.title}}
+                    </a>
+                </li>
+
+                <li class="next" v-if="next != null">
+                    <a :href="getPostUrl(next)">
+                        {{next.title}}
+                        <i class="cube-icon cube-next" aria-hidden="true"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class ="cube-right"  >
+        <div th:replace="~{themes/hexo/sidebar/_author:: copy}"></div>
+        <div th:replace="~{themes/hexo/sidebar/_music:: copy}"></div>
+        <!--播放音乐JS-->
+        <script>
+            (function (window) {
+                window.musicModule = {}
+                window.musicModule.musicConfig = '{"narrow":false,"autoplay":false,"showlrc":3,"theme":"#b7daff","mutex":true,"mode":"circulation","preload":"auto","listmaxheight":"513px","music":[{"title":"Dear friends","author":"TRIPLANE","url":"http://cube-1252774894.cosgz.myqcloud.com/music/source/TRIPLANE - Dear friends.mp3","lrc":"http://cube-1252774894.cosgz.myqcloud.com/music/lrc/Dear friends - TRIPLANE.lrc","pic":"http://cube-1252774894.cosgz.myqcloud.com/music/image/TRIPLANE - Dear friends.jpg"},{"title":"Butter-Fly","author":"和田光司","url":"http://cube-1252774894.cosgz.myqcloud.com/music/source/和田光司 - Butter-Fly (ピアノヴァージョン).mp3","lrc":"http://cube-1252774894.cosgz.myqcloud.com/music/lrc/Butter-Fly (ピアノヴァージョン) - 和田光司.lrc","pic":"http://cube-1252774894.cosgz.myqcloud.com/music/image/和田光司 - Butter-Fly (ピアノヴァージョン).jpg"},{"title":"宵闇花火","author":"葉月ゆら","url":"http://cube-1252774894.cosgz.myqcloud.com/music/source/葉月ゆら - 宵闇花火.mp3","lrc":"http://cube-1252774894.cosgz.myqcloud.com/music/lrc/宵闇花火 - 葉月ゆら.lrc","pic":"http://cube-1252774894.cosgz.myqcloud.com/music/image/葉月ゆら - 宵闇花火.jpg"}]}'
+                window.musicModule.lrcConfig = {
+                    open: '开启歌词',
+                    close: '关闭歌词'
+                }
+            })(window)
+        </script>
+        <div th:replace="~{themes/hexo/sidebar/_post:: copy}"></div>
+        <div th:replace="~{themes/hexo/sidebar/_tag:: copy}"></div>
+        <div th:replace="~{themes/hexo/sidebar/_links:: copy}"></div>
+    </div>
+    </div>
+    <div id="post-bottom-bar" class="post-bottom-bar">
+        <div class="bottom-bar-inner">
+            <div class="bottom-bar-items social-share left">
+                <span class="bottom-bar-item">Share : </span>
+                <span class="bottom-bar-item bottom-bar-facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=${permalink()}" target="_blank" title="${title()}" rel="nofollow">facebook</a></span>
+                <span class="bottom-bar-item bottom-bar-twitter"><a href="https://twitter.com/intent/tweet?url=${permalink()}&text=${title()}" target="_blank" title="${title()}" rel="nofollow">Twitter</a></span>
+                <span class="bottom-bar-item bottom-bar-weibo"><a :href="getSharUrl()" target="_blank" title="${title()}" rel="nofollow">Weibo</a></span>
+                <span class="bottom-bar-item bottom-bar-qrcode"><a href="//pan.baidu.com/share/qrcode?w=300&amp;h=300&amp;url=${permalink()}" target="_blank" rel="nofollow">QRcode</a></span>
+            </div>
+            <div class="bottom-bar-items right">
+                <span class="bottom-bar-item"><a href="#footer">↓</a></span>
+                <span class="bottom-bar-item"><a href="#">↑</a></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{themes/hexo/module/_footer:: html}"></div>
+
+<div class="cube-loading out"></div>
+</body>
+    <script>
+        var vm = new Vue({
+            el: "#main",
+            data: function(){
+                return {
+                    current:"",
+                    previous:"",
+                    next:"",
+                    blogs:[],
+                    tagsCount:0,
+                    blogsCount:1,
+                    tagsName:[],
+                    comments:"",
+                    newComment:{
+                        author:"",
+                        email:"",
+                        content:"",
+                        url:"",
+                        article_id :""
+                    },
+                    categoryCount:0,
+
+                }
+            },
+            methods:{
+                getPostUrl:function (Object) {
+                    return "article.html?id="+Object.uid;
+                },
+
+                getTagLink:function (data) {
+                    return "/tag/"+data;
+                },
+                repley:function () {
+                    //留言回复
+                },
+                insertComment:function () {
+                    debugger;
+                    this._data.newComment.author = document.commnentForm.author.value
+                    this._data.newComment.email  = document.commnentForm.email.value
+                    this._data.newComment.content = document.commnentForm.content.value
+                    this._data.newComment.url = document.commnentForm.url.value
+                    this._data.newComment.article_id = this._data.current.uid
+                    axios.post("/comments/send",this._data.newComment).then(function (response) {
+                        if(response.data.code==0){
+                            layer.msg(response.data.msg, {icon: 2});
+                        }else if(response.data.code==1){
+                            var t=setTimeout("window.location.reload()",2000)
+                        }
+
+
+        });
+                },
+                getQueryString:function (key) {
+                    var pairs = location.search.slice(1).split('&')
+                    for(var i = 0 ; i < pairs.length  ; i++ ) {
+                        var pair = pairs[i].split('=');
+                        if (pair[0] == key) {
+                            return decodeURIComponent(pair[1]);
+                        }
+                    }
+                    console.log('Query variable %s not found', key);
+                },
+                getSharUrl:function () {
+                    var pairs = location.search.slice(1).split('&');
+                    var url = "http://service.weibo.com/share/share.php?url=http://localhost:8002/article.html?"+pairs+"&title=分享我的博文";
+                    return url
+
+                }
+
+        },
+        mounted : function () {
+            var self = this;
+            //vue 一个方法调用另一个方法
+            var id = this.$options.methods.getQueryString("id");
+            var type = "article";
+            axios.get("/front/base/" + type + id).then(function (response) {
+                //一行搞定
+                $.extend(self._data , response.data);
+            });
+
+        }
+
+    });
+</script>
+
+
+</html>

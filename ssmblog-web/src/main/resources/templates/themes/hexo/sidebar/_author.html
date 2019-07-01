@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!--作者信息-->
+<div class="cube-author cube-sidebar" id="cube-author" th:fragment="copy">
+    <style>
+        @media(min-width: 768px) {
+            .cube-author img {
+                margin-top: 40px;
+                margin-bottom: 10px;
+            }
+        }
+        @media(max-width: 1120px) and (min-width: 768px) {
+            .cube-author img {
+                width: 128px;
+                height: 128px;
+            }
+        }
+        @media(min-width: 1120px) {
+            .cube-author img {
+                width: 100px;
+                height: 160px;
+            }
+        }
+
+    </style>
+
+    <!--<img src="./images/font.jpg" alt="avatar"  class="cube-avatar">-->
+    <span>AONOSORA</span>
+    <a title="今生今世轮回尽, 来世愿为幻想乡">今生今世轮回尽, 来世愿为幻想乡</a>
+    <div class="count" >
+        <a class="count articles"><span>{{blogsCount}}</span>文章</a>
+        <a class="count tags"><span>{{tagsCount}}</span>标签</a>
+        <a class="count categories"><span>{{categoryCount}}</span>分类</a>
+    </div>
+</div>
+
+</html>

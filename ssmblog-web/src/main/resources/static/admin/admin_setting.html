@@ -1,0 +1,105 @@
+<head>
+    <link rel="shortcut icon" href="../images/icon/snow.ico" type="image/x-icon" />
+    <meta charset="utf-8" />
+    <title>博客后台管理系统</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/editormd.css" />
+    <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+    <style>
+    </style>
+</head>
+<body>
+
+    <!-- /.content-wrapper -->
+    <v-box>
+
+        <form method="/post" id="pageFrom" name="pageFrom" >
+            <!--style="position:absolute;width:2200px;height:110px;left:40%;top:20px;-->
+            <div style="width:90%;margin: 10px auto;">
+                <v-form-item span="5" label="标题" class="text-warning">
+                    <input  type="text" class="form-control" name="title" placeholder="请输入页面标题"/>
+                </v-form-item >
+
+                <v-form-item span="5" label="访问名" class="text-warning">
+                    <input  type="text" class="form-control" name="slug" placeholder="请输入访问名" />
+                </v-form-item>
+                <div class="clearfix"></div>
+                <div id="page-wrapper">
+                    <div class="row">
+                        <div class="col-md-12 column">
+                            <div id="test-editormd">
+                                <textarea style="display:none;"></textarea>
+                            </div>
+                        </div>
+                    </div><!-- /.row -->
+                </div><!-- /#page-wrapper -->
+                <div class="text-right">
+                    <input id = "blogSubmit" type="submit" class="btn btn-success" @click="getData" value="保存文章"/>
+                </div>
+                <input type="hidden" name="mdText" id = "mdText" />
+                <input type="hidden" name="article" id = "article"/>
+            </div>
+        </form>
+        <!--这里是编辑器-->
+        <!--<div id="test-editormd"></div>-->
+    </v-box>
+
+
+<script src="../js/editormd.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el:"#app" ,
+        data: {
+            editor:Object,
+        } ,
+        methods: {
+            getData:function () {
+                //这里可以更换为axios
+                var a=document.forms[0];
+                var b,c;
+                a.action="/admin/page/publish";
+                a.method="post";
+                b = this.editor.getMarkdown();
+                c = this.editor.getHTML();
+                document.pageFrom.mdText.value=this.editor.getMarkdown();
+                document.pageFrom.article.value = this.editor.getHTML();
+                a.submit()
+            }
+        } ,
+        mounted : function () {
+            var testEditor;
+            var self=this;
+            $(function() {
+                $.get('add.md', function(md){
+                    testEditor = editormd("test-editormd", {
+                        width: "98%",
+                        height: 540,
+                        path : '../lib/',
+                        theme : "default",
+                        previewTheme : "default",
+                        editorTheme : "default",
+                        markdown : md,
+                        codeFold : true,
+                        saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
+                        searchReplace : true,
+                        htmlDecode : "style,script,iframe|on*",            // 开启 HTML 标签解析，为了
+                        emoji : true,
+                        taskList : true,
+                        tocm            : true,         // Using [TOCM]
+                        tex : true,                   // 开启科学公式TeX语言支持，默认关闭
+                        imageUpload : true,
+                        imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                        imageUploadURL : "/admin/upload",
+                        onload : function() {
+                            console.log('onload', this);
+                        }
+                    });
+                    self.editor = testEditor;
+                });
+
+
+            });
+        }
+    });
+</script>
+

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<div th:replace="~{themes/hexo/module/_header:: head}"></div>
+
+<body>
+
+<div th:replace="~{themes/hexo/module/_header:: menu}"></div>
+
+
+<div class ="cube-content" id = "main" style="visibility: visible;">
+    <div class="cube-left">
+        <div class="cube-boxs">
+
+        </div>
+        <div class="cube-archives">
+
+            <div class="cube-archive" style="margin-top: 0;" v-for="cateBlogs in cateData">
+                <h1 class="title">{{cateBlogs.category}}</h1>
+                <ul class="posts" >
+
+                    <li class="post" v-for="cateBlog in cateBlogs.blogs">
+                        <a :href="getPostUrl(cateBlog)">{{cateBlog.title}}</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+    <div class ="cube-right"  >
+        <div th:replace="~{themes/hexo/sidebar/_author:: copy}"></div>
+        <div th:replace="~{themes/hexo/sidebar/_music:: copy}"></div>
+        <!--播放音乐JS-->
+        <script>
+            (function (window) {
+                window.musicModule = {}
+                window.musicModule.musicConfig = '{"narrow":false,"autoplay":false,"showlrc":3,"theme":"#b7daff","mutex":true,"mode":"circulation","preload":"auto","listmaxheight":"513px","music":[{"title":"Dear friends","author":"TRIPLANE","url":"http://cube-1252774894.cosgz.myqcloud.com/music/source/TRIPLANE - Dear friends.mp3","lrc":"http://cube-1252774894.cosgz.myqcloud.com/music/lrc/Dear friends - TRIPLANE.lrc","pic":"http://cube-1252774894.cosgz.myqcloud.com/music/image/TRIPLANE - Dear friends.jpg"},{"title":"Butter-Fly","author":"和田光司","url":"http://cube-1252774894.cosgz.myqcloud.com/music/source/和田光司 - Butter-Fly (ピアノヴァージョン).mp3","lrc":"http://cube-1252774894.cosgz.myqcloud.com/music/lrc/Butter-Fly (ピアノヴァージョン) - 和田光司.lrc","pic":"http://cube-1252774894.cosgz.myqcloud.com/music/image/和田光司 - Butter-Fly (ピアノヴァージョン).jpg"},{"title":"宵闇花火","author":"葉月ゆら","url":"http://cube-1252774894.cosgz.myqcloud.com/music/source/葉月ゆら - 宵闇花火.mp3","lrc":"http://cube-1252774894.cosgz.myqcloud.com/music/lrc/宵闇花火 - 葉月ゆら.lrc","pic":"http://cube-1252774894.cosgz.myqcloud.com/music/image/葉月ゆら - 宵闇花火.jpg"}]}'
+                window.musicModule.lrcConfig = {
+                    open: '开启歌词',
+                    close: '关闭歌词'
+                }
+            })(window)
+        </script>
+        <div th:replace="~{themes/hexo/sidebar/_post:: copy}"></div>
+        <div th:replace="~{themes/hexo/sidebar/_tag:: copy}"></div>
+        <div th:replace="~{themes/hexo/sidebar/_links:: copy}"></div>
+        </div>
+    </div>
+
+
+</div>
+
+<div th:replace="~{themes/hexo/module/_footer:: html}"></div>
+<!-- endinject -->
+<div class="cube-loading out"></div>
+</body>
+<script>
+
+     new Vue({
+        el: "#main",
+        data: function(){
+            return {
+                blogs:[],
+                tagsCount:0,
+                blogsCount:1,
+                tagsName:[],
+                cateData:[],
+                categoryCount:0,
+            }
+        },
+        methods:{
+            getPostUrl:function (Object) {
+                return "article.html?id="+Object.uid;
+            },
+            getTagLink:function (data) {
+                return "/tag/"+data;
+            }
+
+        },
+        mounted:function () {
+            var self = this;
+            var type = "category";
+            axios.get("/front/base/"+type).then(function (response) {
+                //一行搞定
+                $.extend(self._data,response.data);
+            });
+        }
+    });
+</script>
+
+</html>

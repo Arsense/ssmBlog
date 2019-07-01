@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <!--标签-->
+    <div class="cube-tagcloud cube-sidebar" id="cube-tagcloud" th:fragment="copy">
+        <div class="title">
+            <a href="tags.html">便签大大</a>
+        </div>
+        <div class="cube-boxs">
+            <div class="cube-box " v-for="tagName in tagsName">
+                <a :href="getTagLink(tagName)">#{{tagName}}</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</html>

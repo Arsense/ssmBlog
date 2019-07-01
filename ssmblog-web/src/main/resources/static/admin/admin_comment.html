@@ -1,0 +1,140 @@
+<v-box title="评论修改">
+    <v-tab ref="tab">
+        <v-row>
+            <v-col span="10">
+                <v-form ref="queryForm" ajax_url="/admin/comments/model"></v-form>
+            </v-col>
+            <v-col span="2">
+                <button class="layui-btn" @click="query">
+                    <i class="fa fa-search"></i> 查询</button>
+            </v-col>
+        </v-row>
+        <v-tab-pane label="已通过">
+                <v-table ajax_url="/admin/comments/list?status=0"  ref="table"
+                         :operations="operations"  ></v-table>
+        </v-tab-pane>
+        <v-tab-pane label="待审核">
+                <v-table ajax_url="/admin/comments/list?status=1"
+                         ref="table" :operations="operations1"  ></v-table>
+        </v-tab-pane>
+        <v-tab-pane label="回收站">
+                <v-table ajax_url="/admin/comments/list?status=2"
+                         ref="table" :operations="operations2"  ></v-table>
+        </v-tab-pane>
+    </v-tab>
+
+</v-box>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            userName:'',
+            query : {} ,
+            ajax_url : '/admin/comments/table' ,
+            send_req : 0 ,
+            operations : [
+                {
+                    name : '回复' ,
+                    class: 'btn-info',
+                    icon:'edit',
+                    method : function(row , $table) {
+                        //prompt层
+                        layer.prompt({title: '输入您要回复的内容', formType: 2}, function(text, index){
+                            layer.close(index);
+                            //这里text发到后端去
+                            axios.post('/admin/comments/reply/' + row.cid,text).then(function(reponse){
+                                if(reponse.data.code === 1)
+                                    layer.msg('您已成功回复'+text);
+                                else alert("回复失败");
+                            });
+
+                        });
+                    }
+                } ,
+                {
+                    name : '丢弃'  ,
+                    class: 'btn-success',
+                    icon:'trash',
+                    method : function(row ,$table) {
+                        axios.get('/admin/comments/throw/'+row.cid).then(function (response) {
+                            $.alert(response.data);
+                            $table.fetchData()
+                        });
+                    }
+                }
+            ],
+            operations1 : [
+                {
+                    name : '通过' ,
+                    class: 'btn-info',
+                    icon:'edit',
+                    method : function(row , $table) {
+                        axios.get('/admin/comments/revert/'+row.cid).then(function (response) {
+                            $.alert(response.data);
+                            $table.fetchData()
+                        });
+                    }
+                } ,
+                {
+                    name : '通过并回复'  ,
+                    class: 'btn-success',
+                    icon:'trash',
+                    method : function(row ,$table) {
+                        //prompt层
+                        layer.prompt({title: '输入您要回复的内容', formType: 2}, function(text, index){
+                            layer.close(index);
+                            //这里text发到后端去
+                            axios.post('/admin/comments/reply/'+row.cid,text).then(function(reponse){
+                                if(reponse.data.code === 1)
+                                    layer.msg('您已成功回复'+text);
+                                else alert(reponse.data);
+                            });
+
+                        });
+                    }
+                },
+                {
+                    name : '丢弃'  ,
+                    class: 'btn-danger',
+                    icon:'trash',
+                    method : function(row ,$table) {
+                        axios.get('/admin/comments/throw/'+row.cid).then(function (response) {
+                            $.alert(response.data);
+                            $table.fetchData()
+                        });
+                    }
+                }
+            ],
+            operations2 : [
+                {
+                    name : '还原' ,
+                    class: 'btn-success',
+                    icon:'edit',
+                    method : function(row , $table) {
+                        axios.get('/admin/comments/revert/'+row.cid).then(function (response) {
+                            $.alert(response.data);
+                            $table.fetchData()
+                        });
+                    }
+                } ,
+                {
+                    name : '永久删除'  ,
+                    class: 'btn-danger',
+                    icon:'trash',
+                    method : function(row ,$table) {
+                        axios.get('/admin/comments/delete/'+row.cid).then(function (response) {
+                            $.alert(response.data);
+                            $table.fetchData()
+                        });
+                    }
+                }
+            ],
+        },
+        methods:{
+            add:function () {
+
+            },
+        }
+    });
+
+</script>

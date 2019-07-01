@@ -1,7 +1,7 @@
 package com.we.weblog.service.impl;
 
 import com.we.weblog.domain.Metas;
-import com.we.weblog.domain.common.Result;
+import com.we.weblog.domain.result.Result;
 import com.we.weblog.domain.modal.Select;
 import com.we.weblog.domain.modal.Types;
 import com.we.weblog.mapper.TagMapper;

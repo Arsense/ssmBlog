@@ -94,11 +94,11 @@ public class IndexController extends BaseController {
         formModel.createFormItem("month").setHidden(false).setLabel("发布时间");
         formModel.createFormItem("publish").setHidden(false).setLabel("发布状态");
 
-        List<Post> tempContexts = postService.getArticlePages();
+//        List<Post> tempContexts = postService.getArticlePages();
         TableData tableData = new TableData() ;
         tableData.setPage(true);
         tableData.setPageSize(15);
-        tableData.setDataItems(tempContexts);
+//        tableData.setDataItems(tempContexts);
         tableData.setFormItems(formModel.getFormItems());
 
         return UIModel.success().tableData(tableData) ;
@@ -109,25 +109,25 @@ public class IndexController extends BaseController {
     @ResponseBody
     public Map<String,Object> getIndexData(@PathVariable String page) throws Exception {
         Map<String,Object> maps = new HashMap<>(20);
-        try {
-            List<String> tagsName = tagService.getTotalTagsName();
-            int postCount = postService.findPostCount();
-            int categoryCount = postService.getCategoryCount();
-            int totalTags = 10;
-
-            //旁边博客展示都需要
-            List<Post> blogs = postService.findLastestPost(1);
-            maps.put(Types.BLOGS,blogs);
-
-            findResourceByPageType(maps , page);
-
-            maps.put(Types.TAG_NAME,tagsName);
-            maps.put(Types.TAG_COUNT,totalTags);
-            maps.put(Types.BLOG_COUNT,postCount);
-            maps.put(Types.CATEGORY_COUNT,categoryCount);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            List<String> tagsName = tagService.getTotalTagsName();
+//            int postCount = postService.findPostCount();
+//            int categoryCount = postService.getCategoryCount();
+//            int totalTags = 10;
+//
+//            //旁边博客展示都需要
+//            List<Post> blogs = postService.findLastestPost(1);
+//            maps.put(Types.BLOGS,blogs);
+//
+//            findResourceByPageType(maps , page);
+//
+//            maps.put(Types.TAG_NAME,tagsName);
+//            maps.put(Types.TAG_COUNT,totalTags);
+//            maps.put(Types.BLOG_COUNT,postCount);
+//            maps.put(Types.CATEGORY_COUNT,categoryCount);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         return maps;
     }
@@ -142,44 +142,44 @@ public class IndexController extends BaseController {
      * @throws Exception
      */
     private void findResourceByPageType(Map<String,Object> maps, String pageType) throws Exception {
-        try {
-            if (pageType.equals(Types.PAGE_CATEGORY)) {
-                List<Category> cBlogs = postService.sortBlogsByCategories();
-                maps.put(Types.CATEGORIES,cBlogs);
-            } else if (pageType.contains(Types.PAGE_ARTICLE)) {
-
-                int getId = Integer.parseInt(pageType.substring(7,pageType.length()));
-                if(getId <= 0){
-                    throw new Exception("GET ARTICLE ID FAIL,CHECK");
-                }
-                Post currentContext = postService.findByPostId(getId);
-                //增加一次访问量
-                postService.updatePostVisit(currentContext);
-                Post preContext = postService.findPreviousPost(getId);
-                Post nextContext = postService.findNextPost(getId);
-
-                int uid = currentContext.getUid();
-                //显示评论
-                if (uid > 0) {
-                    List<Comment> comments =  commentSerivce.findCommentByUid(uid);
-                    maps.put(Types.COMMENTS,comments);
-                }
-                maps.put(Types.CURRENT_BLOG, currentContext);
-                maps.put(Types.NEXT_BLOG, nextContext);
-                maps.put(Types.PREVIOUS_BLOG, preContext);
-
-            } else if (pageType.equals(Types.PAGE_ARCHIVE)) {
-                List<YearBlog> yearBlogs = postService.findPostByYearAndMonth(1);
-                maps.put(Types.BLOGS_DATA,yearBlogs);
-
-            } else if (pageType.equals(Types.PAGE_ABOUT)) {
-                Post about = postService.findAuthor();
-                maps.put(Types.BLOG,about);
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            if (pageType.equals(Types.PAGE_CATEGORY)) {
+//                List<Category> cBlogs = postService.sortBlogsByCategories();
+//                maps.put(Types.CATEGORIES,cBlogs);
+//            } else if (pageType.contains(Types.PAGE_ARTICLE)) {
+//
+//                int getId = Integer.parseInt(pageType.substring(7,pageType.length()));
+//                if(getId <= 0){
+//                    throw new Exception("GET ARTICLE ID FAIL,CHECK");
+//                }
+//                Post currentContext = postService.findByPostId(getId);
+//                //增加一次访问量
+//                postService.updatePostVisit(currentContext);
+//                Post preContext = postService.findPreviousPost(getId);
+//                Post nextContext = postService.findNextPost(getId);
+//
+//                int uid = currentContext.getUid();
+//                //显示评论
+//                if (uid > 0) {
+//                    List<Comment> comments =  commentSerivce.findCommentByUid(uid);
+//                    maps.put(Types.COMMENTS,comments);
+//                }
+//                maps.put(Types.CURRENT_BLOG, currentContext);
+//                maps.put(Types.NEXT_BLOG, nextContext);
+//                maps.put(Types.PREVIOUS_BLOG, preContext);
+//
+//            } else if (pageType.equals(Types.PAGE_ARCHIVE)) {
+//                List<YearBlog> yearBlogs = postService.findPostByYearAndMonth(1);
+//                maps.put(Types.BLOGS_DATA,yearBlogs);
+//
+//            } else if (pageType.equals(Types.PAGE_ABOUT)) {
+//                Post about = postService.findAuthor();
+//                maps.put(Types.BLOG,about);
+//
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
 

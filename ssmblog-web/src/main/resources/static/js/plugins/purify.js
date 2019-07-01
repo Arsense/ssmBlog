@@ -173,7 +173,7 @@ function createDOMPurify() {
   /* Output should be safe for jQuery's $() factory? */
   var SAFE_FOR_JQUERY = false;
 
-  /* Output should be safe for common template engines.
+  /* Output should be safe for result template engines.
    * This means, DOMPurify removes data attributes, mustaches and ERB
    */
   var SAFE_FOR_TEMPLATES = false;

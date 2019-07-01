@@ -1,11 +1,11 @@
-package com.we.weblog.service;
+package com.we.weblog.web;
 
-import com.we.weblog.domain.Post;
-import com.we.weblog.service.base.BaseTest;
+import com.we.weblog.domain.result.Result;
+import com.we.weblog.service.PostService;
+import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
+import javax.annotation.Resource;
 
 /**
  * @author tangwei
@@ -14,29 +14,39 @@ import java.util.List;
 public class PostServiceTest extends BaseTest {
 
 
-    @Autowired
+    @Resource
     private PostService postService;
 
     @Test
     public void findByTagName() {
-        String tagName = "";
-        List<Post> posts = postService.findByTagName(tagName);
+        String tagName = "标签";
+        Result result = postService.findByTagName(tagName);
+        Assert.assertTrue(result.isSuccess());
+        System.out.println("最后的结果是:" + result.getData());
+
     }
 
     @Test
     public void updatePostVisit() {
+        System.out.println("ddddd");
     }
 
     @Test
     public void getCategoryCount() {
+
+
     }
 
     @Test
     public void getLastestBlogId() {
+
+
     }
 
     @Test
     public void sortBlogsByCategories() {
+
+
     }
 
     @Test

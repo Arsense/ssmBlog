@@ -5,7 +5,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ZipUtil;
 import com.we.weblog.domain.BackFile;
 import com.we.weblog.domain.Post;
-import com.we.weblog.domain.common.Result;
+import com.we.weblog.domain.result.Result;
 import com.we.weblog.domain.util.BackupContants;
 import com.we.weblog.domain.util.TimeUtil;
 import com.we.weblog.service.BackupService;

@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class LogsServicesImpl implements LogsService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JmiTemplateServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LogsServicesImpl.class);
 
     @Resource
     private LogMapper logMapper;

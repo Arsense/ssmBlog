@@ -1,6 +1,6 @@
-package com.we.weblog.service;
+package com.we.weblog.web;
 
-import com.we.weblog.service.base.BaseTest;
+import com.we.weblog.service.CategoryService;
 import org.junit.Test;
 
 import javax.annotation.Resource;

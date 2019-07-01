@@ -190,9 +190,9 @@ public class PageAdminController extends BaseController {
 //            galleryService.removeByGalleryId(galleryId);
 //        } catch (Exception e) {
 //            log.error("删除图片失败：{}", e.getMessage());
-//            return new UIModel(ResultCodeEnum.FAIL.getCode(), localeMessageUtil.getMessage("code.admin.common.delete-failed"));
+//            return new UIModel(ResultCodeEnum.FAIL.getCode(), localeMessageUtil.getMessage("code.admin.result.delete-failed"));
 //        }
-//        return new UIModel(ResultCodeEnum.SUCCESS.getCode(), localeMessageUtil.getMessage("code.admin.common.delete-success"));
+//        return new UIModel(ResultCodeEnum.SUCCESS.getCode(), localeMessageUtil.getMessage("code.admin.result.delete-success"));
 //    }
 //
 //
@@ -215,7 +215,7 @@ public class PageAdminController extends BaseController {
 //    @PostMapping(value = "/new/push")
 //    @ResponseBody
 //    public UIModel pushPage(@ModelAttribute Post post, HttpSession session) {
-//        String msg = localeMessageUtil.getMessage("code.admin.common.save-success");
+//        String msg = localeMessageUtil.getMessage("code.admin.result.save-success");
 //        try {
 //            post.setPostDate(DateUtil.date());
 //            //发表用户
@@ -226,7 +226,7 @@ public class PageAdminController extends BaseController {
 //                post.setPostViews(postService.findByPostId(post.getPostId()).get().getPostViews());
 //                post.setPostDate(postService.findByPostId(post.getPostId()).get().getPostDate());
 //                post.setPostUpdate(DateUtil.date());
-//                msg = localeMessageUtil.getMessage("code.admin.common.update-success");
+//                msg = localeMessageUtil.getMessage("code.admin.result.update-success");
 //            } else {
 //                post.setPostDate(DateUtil.date());
 //                post.setPostUpdate(DateUtil.date());
@@ -240,7 +240,7 @@ public class PageAdminController extends BaseController {
 //            return new UIModel(ResultCodeEnum.SUCCESS.getCode(), msg);
 //        } catch (Exception e) {
 //            log.error("保存页面失败：{}", e.getMessage());
-//            return new UIModel(ResultCodeEnum.FAIL.getCode(), localeMessageUtil.getMessage("code.admin.common.save-failed"));
+//            return new UIModel(ResultCodeEnum.FAIL.getCode(), localeMessageUtil.getMessage("code.admin.result.save-failed"));
 //        }
 //    }
 //
@@ -269,7 +269,7 @@ public class PageAdminController extends BaseController {
 //    public UIModel checkUrlExists(@RequestParam("postUrl") String postUrl) {
 //        Post post = postService.findByPostUrl(postUrl, PostTypeEnum.POST_TYPE_PAGE.getDesc());
 //        if (null != post) {
-//            return new UIModel(ResultCodeEnum.FAIL.getCode(), localeMessageUtil.getMessage("code.admin.common.url-is-exists"));
+//            return new UIModel(ResultCodeEnum.FAIL.getCode(), localeMessageUtil.getMessage("code.admin.result.url-is-exists"));
 //        }
 //        return new UIModel(ResultCodeEnum.SUCCESS.getCode(), "");
 //    }

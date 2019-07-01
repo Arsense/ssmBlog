@@ -1,9 +1,8 @@
 package com.we.weblog.service.impl;
 
 import cn.hutool.core.date.DateUtil;
-import com.sun.org.apache.regexp.internal.RE;
 import com.we.weblog.domain.Attachment;
-import com.we.weblog.domain.common.Result;
+import com.we.weblog.domain.result.Result;
 import com.we.weblog.mapper.AttachmentMapper;
 import com.we.weblog.service.AttachmentService;
 import com.we.weblog.service.LogsService;
@@ -40,7 +39,6 @@ public class AttachmentServiceImpl implements AttachmentService {
     public Result findAllAttachments(int currentPage) {
         Result result = new Result();
         List<Attachment>  attachments =  attachmentMapper.selectAllAttachment(currentPage,15);
-        result.addDefaultModel("attachments" , attachments);
         result.setSuccess(true);
         return result;
     }

@@ -1,13 +1,11 @@
 package com.we.weblog.service.impl;
 
 import com.we.weblog.domain.Category;
-import com.we.weblog.domain.common.Result;
+import com.we.weblog.domain.result.Result;
 import com.we.weblog.service.CategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author tangwei

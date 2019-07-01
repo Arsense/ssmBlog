@@ -1,9 +1,6 @@
 package com.we.weblog.service;
 
-import com.we.weblog.domain.common.Result;
-import com.we.weblog.domain.modal.Select;
-
-import java.util.List;
+import com.we.weblog.domain.result.Result;
 
 /**
  * @author tangwei

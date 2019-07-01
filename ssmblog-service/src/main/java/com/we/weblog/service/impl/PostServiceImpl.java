@@ -2,7 +2,7 @@ package com.we.weblog.service.impl;
 
 import com.we.weblog.domain.Category;
 import com.we.weblog.domain.Post;
-import com.we.weblog.domain.common.Result;
+import com.we.weblog.domain.result.Result;
 import com.we.weblog.domain.enums.PostStatus;
 import com.we.weblog.domain.modal.Types;
 import com.we.weblog.domain.modal.YearBlog;
@@ -13,6 +13,7 @@ import com.we.weblog.service.TagService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -22,6 +23,8 @@ import java.util.*;
 
 @Service
 public class PostServiceImpl implements PostService {
+
+    //todo 查询全合并成一个 改为传javaBean的
     private static final Logger LOGGER = LoggerFactory.getLogger(PostServiceImpl.class);
 
     @Resource
@@ -216,9 +219,16 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Result findByTagName(String tagName) {
-
-        Result result = new Result();
-        postMapper.findByTagName(tagName);
+        Result result = new Result(false);
+        if (StringUtils.isEmpty(tagName)) {
+            result.setErrMsg("参数错误");
+            return result;
+        }
+        List<Post> posts = postMapper.findByTagName(tagName);
+        if (!CollectionUtils.isEmpty(posts)) {
+            result.setData(posts);
+        }
+        result.setSuccess(true);
         return result;
     }
 

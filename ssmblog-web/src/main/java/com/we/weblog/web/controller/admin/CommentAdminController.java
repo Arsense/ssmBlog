@@ -253,7 +253,7 @@ public class CommentAdminController extends BaseController {
 //                    map.put("replyContent", commentContent);
 //                    map.put("blogUrl", BaseConfigUtil.OPTIONS.get(BlogPropertiesEnum.BLOG_URL.getProp()));
 //                    mailService.sendTemplateMail(
-//                            lastComment.getCommentAuthorEmail(), "您在" + BaseConfigUtil.OPTIONS.get(BlogPropertiesEnum.BLOG_URL.getProp()) + "的评论有了新回复", map, "common/mail_template/mail_reply.ftl");
+//                            lastComment.getCommentAuthorEmail(), "您在" + BaseConfigUtil.OPTIONS.get(BlogPropertiesEnum.BLOG_URL.getProp()) + "的评论有了新回复", map, "result/mail_template/mail_reply.ftl");
 //                }
             }
         }
@@ -293,7 +293,7 @@ public class CommentAdminController extends BaseController {
 //                        map.put("author", user.getUserDisplayName());
 //                        mailService.sendTemplateMail(
 //                                comment.getCommentAuthorEmail(),
-//                                "您在" + BaseConfigUtil.OPTIONS.get(BlogPropertiesEnum.BLOG_URL.getProp()) + "的评论已审核通过！", map, "common/mail_template/mail_passed.ftl");
+//                                "您在" + BaseConfigUtil.OPTIONS.get(BlogPropertiesEnum.BLOG_URL.getProp()) + "的评论已审核通过！", map, "result/mail_template/mail_passed.ftl");
 //                    }
 //                } catch (Exception e) {
 //                    log.error("邮件服务器未配置：{}", e.getMessage());

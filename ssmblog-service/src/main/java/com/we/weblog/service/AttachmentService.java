@@ -1,11 +1,7 @@
 package com.we.weblog.service;
 
-import com.we.weblog.domain.Attachment;
-import com.we.weblog.domain.common.Result;
+import com.we.weblog.domain.result.Result;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author tangwei

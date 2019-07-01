@@ -2,7 +2,7 @@ package com.we.weblog.service.impl;
 
 
 import com.we.weblog.domain.Comment;
-import com.we.weblog.domain.common.Result;
+import com.we.weblog.domain.result.Result;
 import com.we.weblog.domain.util.TimeUtil;
 import com.we.weblog.mapper.CommentMapper;
 import com.we.weblog.service.CommentService;
@@ -40,7 +40,6 @@ public class CommentServiceImpl implements CommentService {
             comment.setCommentDate(
                     TimeUtil.getFormatClearToSecond(comment.getCreated()));
         }
-        result.addDefaultModel("comment", comments);
         return result;
     }
 
@@ -53,7 +52,6 @@ public class CommentServiceImpl implements CommentService {
                     TimeUtil.getFormatClearToSecond(comment.getCreated()));
         }
         result.setSuccess(true);
-        result.addDefaultModel("comment", comments);
         return result;
     }
 

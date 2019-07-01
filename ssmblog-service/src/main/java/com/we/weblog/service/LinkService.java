@@ -1,9 +1,7 @@
 package com.we.weblog.service;
 
 import com.we.weblog.domain.Link;
-import com.we.weblog.domain.common.Result;
-
-import java.util.List;
+import com.we.weblog.domain.result.Result;
 
 /**
    <pre>

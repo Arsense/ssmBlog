@@ -1,12 +1,9 @@
-package com.we.weblog.service;
+package com.we.weblog.web;
 
-import com.we.weblog.domain.Attachment;
-import com.we.weblog.service.base.BaseTest;
-import org.junit.Assert;
+import com.we.weblog.service.AttachmentService;
 import org.junit.Test;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 
 /**

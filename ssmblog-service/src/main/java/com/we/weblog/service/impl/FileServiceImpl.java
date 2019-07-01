@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Service
 public class FileServiceImpl implements FileService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(JmiTemplateServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileServiceImpl.class);
 
     /**
      * 上传图片

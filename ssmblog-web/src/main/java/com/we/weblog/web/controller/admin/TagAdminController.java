@@ -77,7 +77,7 @@ public class TagAdminController extends BaseController {
 //    public UIModel checkTagUrlExists(@RequestParam("tagUrl") String tagUrl) {
 //        Tags tag = tagService.findByTagUrl(tagUrl);
 //        if (null != tag) {
-//            return new UIModel(ResultCodeEnum.FAIL.getCode(), localeMessageUtil.getMessage("code.admin.common.url-is-exists"));
+//            return new UIModel(ResultCodeEnum.FAIL.getCode(), localeMessageUtil.getMessage("code.admin.result.url-is-exists"));
 //        }
 //        return new UIModel(ResultCodeEnum.SUCCESS.getCode(), "");
 //    }

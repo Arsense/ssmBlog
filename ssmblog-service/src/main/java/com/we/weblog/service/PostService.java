@@ -22,6 +22,16 @@ public interface PostService {
     Result saveByPost(Post post) throws SQLException;
 
     /**
+     * 新增文章
+     *
+     * @param post Post
+     * @return Post
+     */
+    Result queryPost(Post post) throws SQLException;
+
+
+
+    /**
      * 根据编号删除文章
      *
      * @param postId postId
@@ -30,7 +40,6 @@ public interface PostService {
     Result removeByPostId(Integer postId);
 
 
-    Result findByTagName(String tagName);
 
     /**
      * 更新博客访问量
@@ -43,13 +52,8 @@ public interface PostService {
      *
      * @return
      */
-    Result getCategoryCount();
+    Result countCategory();
 
-    /**
-     * 获取最新博客Id
-     * @return
-     */
-    Result getLastestBlogId();
 
     /**
      * 根据分类查询整理博客
@@ -65,20 +69,7 @@ public interface PostService {
      */
     Result findAuthor() throws Exception;
 
-    /**
-     * 更新博客
-     * @param context
-     * @param uid
-     * @throws SQLException
-     */
-    Result updatePost(Post context, int uid) throws SQLException;
 
-    /**
-     * 根据标签名查询博客
-     * @param tagName
-     * @return
-     */
-    Result findPostsByTagName(String tagName);
 
     /**
      * 根据年份和月份查询文章

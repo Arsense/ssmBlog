@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public class Post {
     // 博客id
-    private int   uid;
+    private Integer   uid;
     //文章标题
     private String   title;
     //文章类型
@@ -106,11 +106,11 @@ public class Post {
     public void setCategories(String categories) {
         this.categories = categories;
     }
-    public int getUid() {
+    public Integer getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(Integer uid) {
         this.uid = uid;
     }
 
@@ -146,4 +146,22 @@ public class Post {
         this.hits = hits;
     }
 
+    @Override
+    public String toString() {
+        return "Post{" +
+                "uid=" + uid +
+                ", title='" + title + '\'' +
+                ", type='" + type + '\'' +
+                ", tags='" + tags + '\'' +
+                ", created=" + created +
+                ", article='" + article + '\'' +
+                ", md='" + md + '\'' +
+                ", month='" + month + '\'' +
+                ", slug='" + slug + '\'' +
+                ", publish='" + publish + '\'' +
+                ", categories='" + categories + '\'' +
+                ", hits=" + hits +
+                ", status=" + status +
+                '}';
+    }
 }

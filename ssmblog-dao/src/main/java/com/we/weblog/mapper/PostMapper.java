@@ -2,10 +2,10 @@ package com.we.weblog.mapper;
 
 
 import com.we.weblog.domain.Post;
+import com.we.weblog.mapper.builder.PostSqlBuilder;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.StatementType;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 /**
@@ -15,30 +15,26 @@ import java.util.List;
 @Mapper
 public interface PostMapper {
 
-    String SELECT_FROM_HEXO_POST_WHERE_TYPE_POST_AND_STATUS_STATUS_ORDER_BY_UID_ASC = "select * from hexo_post where type = 'post' and status = #{status} order by uid asc";
+    /**
+     * 查询文章接口
+     * @param post
+     * @return
+     */
+    @SelectProvider(type = PostSqlBuilder.class, method = "buildGetPostQuery")
+    List<Post> queryPost(Post post);
 
     /**
      * 分类标签查询 这里 in not null去除空列表
      * @return
      */
-    @Select({"select DISTINCT categories FROM hexo_post  where categories is not null"})
+    @SelectProvider(type = PostSqlBuilder.class, method = "buildGetCategoryQuery")
     List<String> findAllCategory();
 
-    @Select({"select * from hexo_post where type = 'post' and tags = #{tagName} order by uid asc"})
-    List<Post> findByTagName(String tagName);
-
-    @Select({"select * from hexo_post where type = 'post' order by uid asc limit 1 "})
-    Post findLastestPost();
+    @SelectProvider(type = PostSqlBuilder.class, method = "buildCountPostQuery")
+    int countPost();
 
 
-    @Select({"select * from hexo_post where type = 'post' order by uid asc"})
-    List<Post> findAllPosts();
 
-    @Select({SELECT_FROM_HEXO_POST_WHERE_TYPE_POST_AND_STATUS_STATUS_ORDER_BY_UID_ASC})
-    List<Post> findAllPostsByStatus(@Param("status") int status);
-
-    @Select({"select uid,title,created,article from hexo_post where title='关于我'"})
-   Post findAuthor();
 
     @Update({"update hexo_post set status = #{s} where uid = #{id}"})
     void updateByStatus(@Param("id") Integer postId, @Param("s") Integer status);
@@ -46,8 +42,16 @@ public interface PostMapper {
      * 得到博客的总数量
       * @return
      */
-    @Select({"select count(*) from hexo_post where type = 'post'"})
-    int findPostNumber();
+
+
+    /**
+     * todo 这个其实也可以和第一个合并 研究一下
+     * 批量查询博客  目前10个一次
+     * @param count
+     * @return
+     */
+    @SelectProvider(type = PostSqlBuilder.class, method = "buildRecentPostsQuery")
+    List<Post> findRecentPosts(@Param("count") int count);
 
     /**
      *  插入博客 用于增加博客内容吧
@@ -70,15 +74,6 @@ public interface PostMapper {
     @Delete({"delete from hexo_post where uid = #{id}"})
     int removeByPostId(@Param("id") int id);
 
-    /**
-     * 批量查询博客  目前10个一次
-     * @param count
-     * @return
-     */
-    @Select({"select uid,title,created,tags,article" +
-            ",slug,hits from hexo_post where type = 'post'  limit #{count}"})
-    List<Post> findRecent10Posts(@Param("count") int count);
-
 
     @Update({" update hexo_post " +
             " set title = #{b.title}," +
@@ -98,23 +93,6 @@ public interface PostMapper {
     List<Post> findPostByYearAndMonth(@Param("p") int page);
 
 
-    @Select({"select uid,title,created,tags,categories from hexo_post " +
-            "where type = 'post'  order by tags desc "})
-    List<Post> findPostsByCategory();
-
-
-    @Select({"select uid,title,article,created from hexo_post " +
-            "where type = 'post' order by created desc limit #{p},20"})
-    List<Post> findLastPostsByPage(@Param("p") int page);
-
-
-    @Select({"select uid,title,article,tags,created from hexo_post " +
-            "where type = 'post' order by created desc limit #{p},20"})
-    List<Post> findPostBaseByPage(@Param("p") int page);
-
-    @Select({"select uid,title,article,md,created,tags,hits from hexo_post where uid = #{id}  "})
-    Post findPostById(@Param("id") int id);
-
     @Select({"select uid,title,tags,created from hexo_post " +
             "where uid < #{id} and type = 'post'   order by uid desc limit 1"})
     Post findPreviousPost(@Param("id") int id);
@@ -124,17 +102,12 @@ public interface PostMapper {
   Post findNextPost(@Param("id") int id);
 
 
-    @Select("select * from hexo_post where tags=#{tag}")
-    List<Post> findPostByTagName(@Param("tag") String tagName);
-
-
-    @Select({"select * from hexo_post where type= #{type} order by uid desc"})
-    List<Post> findPostByPageType(@Param("type") String page);
-
     /**
      * 标签页面删除相关数据
      * @param categoryName
      */
     @Delete({"update hexo_post set categories = null where categories = #{cate}"})
     int removePostCategory(@Param("cate") String categoryName);
+
+
 }

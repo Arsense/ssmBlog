@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,11 +43,12 @@ public class AttachmentController extends BaseController {
      */
     @GetMapping
     public String attachments(Model model,
-                              @RequestParam(value = "page", defaultValue = "0") Integer page,
-                              @RequestParam(value = "size", defaultValue = "18") Integer size) {
+                              @RequestParam(value = "page", defaultValue = "0")                                 Integer page,
+                              @RequestParam(value = "size", defaultValue = "18")                                Integer size) {
         try {
             int currentPage = 1;
-            List<Attachment> attachments = attachmentService.findAllAttachments(currentPage);
+//            List<Attachment> attachments = attachmentService.findAllAttachments(currentPage);
+            List<Attachment> attachments = new ArrayList<>();
             model.addAttribute("attachments", attachments);
         } catch (Exception e) {
             //todo 改为404页面 友好不
@@ -64,7 +66,8 @@ public class AttachmentController extends BaseController {
     @ResponseBody
     public Map<String, Object> upload(@RequestParam("file") MultipartFile file) {
 //        @RequestParam("file") MultipartFile file,
-        return attachmentService.uploadAttachment(null);
+//        return attachmentService.uploadAttachment(null);
+        return null;
     }
 
     /**
@@ -97,7 +100,7 @@ public class AttachmentController extends BaseController {
 
         List<Attachment> attachments = null;
         try {
-            attachments = attachmentService.findAllAttachments(1);
+//            attachments = attachmentService.findAllAttachments(1);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -121,13 +124,13 @@ public class AttachmentController extends BaseController {
      */
     @GetMapping(value = "/attachment")
     public String attachmentDetail(Model model, @RequestParam("attachId") Integer attachId) {
-        Attachment attachment = null;
-        try {
-            attachment = attachmentService.findByAttachId(attachId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        model.addAttribute("attachment", attachment);
+//        Attachment attachment = null;
+//        try {
+//            attachment = attachmentService.findByAttachId(attachId);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        model.addAttribute("attachment", attachment);
         return "admin/widget/_attachment-detail";
     }
 
@@ -142,35 +145,35 @@ public class AttachmentController extends BaseController {
     @ResponseBody
     public UIModel removeAttachment(@RequestParam("attachId") Integer attachId,
                                     HttpServletRequest request) {
-        String delFileName = null;
-        try {
-            Attachment attachment = attachmentService.findByAttachId(attachId);
-            delFileName = attachment.getAttachName();
-            String delSmallFileName = delFileName.substring(0, delFileName.lastIndexOf('.')) + "_small" + attachment.getAttachSuffix();
-
-            //删除数据库中的内容
-            attachmentService.removeByAttachId(attachId);
-            //删除文件
-            String userPath = System.getProperties().getProperty("user.home") + "/halo";
-            File mediaPath = new File(userPath, attachment.getAttachPath().substring(0, attachment.getAttachPath().lastIndexOf('/')));
-            File delFile = new File(new StringBuffer(mediaPath.getAbsolutePath()).append("/").append(delFileName).toString());
-            File delSmallFile = new File(new StringBuffer(mediaPath.getAbsolutePath()).append("/").append(delSmallFileName).toString());
-            if (delFile.exists() && delFile.isFile()) {
-                if (delFile.delete() && delSmallFile.delete()) {
-                    LOG.info("删除文件[{}]成功！", delFileName);
-//                    logsService.saveByLogs(
-//                            new Logs(LogsRecord.REMOVE_FILE, delFileName, ServletUtil.getClientIP(request), DateUtil.date())
-//                    );
-                } else {
-                    LOG.error("删除附件[{}]失败！", delFileName);
-                    return UIModel.fail().msg("删除附件失败");
-                }
-            }
-        } catch (Exception e) {
-            LOG.error("删除附件[{}]失败:{}", delFileName, e.getMessage());
-            return UIModel.fail().msg("删除附件失败");
-
-        }
+//        String delFileName = null;
+//        try {
+//            Attachment attachment = attachmentService.findByAttachId(attachId);
+//            delFileName = attachment.getAttachName();
+//            String delSmallFileName = delFileName.substring(0, delFileName.lastIndexOf('.')) + "_small" + attachment.getAttachSuffix();
+//
+//            //删除数据库中的内容
+//            attachmentService.removeByAttachId(attachId);
+//            //删除文件
+//            String userPath = System.getProperties().getProperty("user.home") + "/halo";
+//            File mediaPath = new File(userPath, attachment.getAttachPath().substring(0, attachment.getAttachPath().lastIndexOf('/')));
+//            File delFile = new File(new StringBuffer(mediaPath.getAbsolutePath()).append("/").append(delFileName).toString());
+//            File delSmallFile = new File(new StringBuffer(mediaPath.getAbsolutePath()).append("/").append(delSmallFileName).toString());
+//            if (delFile.exists() && delFile.isFile()) {
+//                if (delFile.delete() && delSmallFile.delete()) {
+//                    LOG.info("删除文件[{}]成功！", delFileName);
+////                    logsService.saveByLogs(
+////                            new Logs(LogsRecord.REMOVE_FILE, delFileName, ServletUtil.getClientIP(request), DateUtil.date())
+////                    );
+//                } else {
+//                    LOG.error("删除附件[{}]失败！", delFileName);
+//                    return UIModel.fail().msg("删除附件失败");
+//                }
+//            }
+//        } catch (Exception e) {
+//            LOG.error("删除附件[{}]失败:{}", delFileName, e.getMessage());
+//            return UIModel.fail().msg("删除附件失败");
+//
+//        }
         return UIModel.success().msg("删除附件成功");
 
     }

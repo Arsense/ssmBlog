@@ -42,7 +42,8 @@ public class CategoryAdminController {
     @ResponseBody
     public List<Select> getAllKindCategories(){
 //        {code:'1' ,  label:'男' ,checked:false},
-        return  tagService.getCategories();
+//        return  tagService.getCategories();
+        return null;
     }
     /**
      * 删除类别
@@ -82,23 +83,23 @@ public class CategoryAdminController {
     @GetMapping("/save/{name}")
     @ResponseBody
     public UIModel newCategory(@PathVariable("name")  String name) {
-        //这里全是空格 全是数字 null 都要检查
-        if (StringUtils.isEmpty(name)) {
-            return UIModel.fail().msg("请输入类别");
-        } else if(name.length()> 25) {
-            return  UIModel.fail().msg("您输入的类别过长");
-        }
-        List<String> tagName = tagService.getMates();
-        if (tagName.contains(name)) {
-            return UIModel.fail().msg("该分类已存在");
-        }
-        try {
-            tagService.saveCategory(name);
-        } catch (Exception e) {
-            return UIModel.fail().msg("添加失败");
-//            log.error("修改分类失败：{}", e.getMessage());
-        }
-
+//        //这里全是空格 全是数字 null 都要检查
+//        if (StringUtils.isEmpty(name)) {
+//            return UIModel.fail().msg("请输入类别");
+//        } else if(name.length()> 25) {
+//            return  UIModel.fail().msg("您输入的类别过长");
+//        }
+//        List<String> tagName = tagService.getMates();
+//        if (tagName.contains(name)) {
+//            return UIModel.fail().msg("该分类已存在");
+//        }
+//        try {
+//            tagService.saveCategory(name);
+//        } catch (Exception e) {
+//            return UIModel.fail().msg("添加失败");
+////            log.error("修改分类失败：{}", e.getMessage());
+//        }
+//
 
         return UIModel.success().msg("添加成功");
 
@@ -113,8 +114,8 @@ public class CategoryAdminController {
      */
     @GetMapping(value = "/edit")
     public String toEditCategory(Model model, @RequestParam("cateId") Integer cateId) {
-        Category category = categoryService.findByCateId(cateId);
-        model.addAttribute("updateCategory", category);
+//        Category category = categoryService.findByCateId(cateId);
+//        model.addAttribute("updateCategory", category);
         return "admin/admin_category";
     }
 

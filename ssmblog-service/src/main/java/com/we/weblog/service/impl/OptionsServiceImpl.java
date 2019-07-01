@@ -2,6 +2,8 @@ package com.we.weblog.service.impl;
 
 import com.we.weblog.domain.Options;
 import com.we.weblog.service.OptionsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -12,6 +14,7 @@ import java.util.Map;
  */
 @Service
 public class OptionsServiceImpl implements OptionsService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(OptionsServiceImpl.class);
 
     /**
      * 存储配置

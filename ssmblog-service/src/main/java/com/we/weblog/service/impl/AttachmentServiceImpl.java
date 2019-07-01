@@ -1,7 +1,9 @@
 package com.we.weblog.service.impl;
 
 import cn.hutool.core.date.DateUtil;
+import com.sun.org.apache.regexp.internal.RE;
 import com.we.weblog.domain.Attachment;
+import com.we.weblog.domain.common.Result;
 import com.we.weblog.mapper.AttachmentMapper;
 import com.we.weblog.service.AttachmentService;
 import com.we.weblog.service.LogsService;
@@ -35,18 +37,22 @@ public class AttachmentServiceImpl implements AttachmentService {
     private LogsService logsService;
 
     @Override
-    public List<Attachment> findAllAttachments(int currentPage) {
-        return attachmentMapper.selectAllAttachment(currentPage,15);
+    public Result findAllAttachments(int currentPage) {
+        Result result = new Result();
+        List<Attachment>  attachments =  attachmentMapper.selectAllAttachment(currentPage,15);
+        result.addDefaultModel("attachments" , attachments);
+        result.setSuccess(true);
+        return result;
     }
 
     @Override
-    public Attachment findByAttachId(int attachId) {
+    public Result findByAttachId(int attachId) {
         return null;
     }
 
     @Override
-    public void removeByAttachId(int id) {
-    String a;
+    public Result removeByAttachId(int id) {
+        return null;
     }
 
     /**
@@ -56,8 +62,9 @@ public class AttachmentServiceImpl implements AttachmentService {
      * @return Map
      */
     @Override
-    public Map<String, Object> uploadAttachment(MultipartFile file) {
-        Map<String, Object> result = new HashMap<>(3);
+    public Result uploadAttachment(MultipartFile file) {
+        Result result = new Result();
+        Map<String, Object> map = new HashMap<>(3);
         if (file.isEmpty()) {
             LOG.error("文件不能为空");
             return result;
@@ -110,14 +117,14 @@ public class AttachmentServiceImpl implements AttachmentService {
 //                    new Log(LogsRecord.UPLOAD_FILE, fileName, ServletUtil.getClientIP(request), DateUtil.date())
 //            );
 
-            result.put("success", 1);
-            result.put("message", "上传成功");
-            result.put("url", attachment.getAttachPath());
-            result.put("filename",fileName);
+            map.put("success", 1);
+            map.put("message", "上传成功");
+            map.put("url", attachment.getAttachPath());
+            map.put("filename",fileName);
         } catch (Exception e) {
             LOG.error("上传文件失败：{}", e.getMessage());
-            result.put("success", 0);
-            result.put("message", "上传失败");
+            map.put("success", 0);
+            map.put("message", "上传失败");
         }
 
 

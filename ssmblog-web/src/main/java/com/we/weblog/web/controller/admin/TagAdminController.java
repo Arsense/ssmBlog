@@ -37,8 +37,8 @@ public class TagAdminController extends BaseController {
         int result = 0;
         int check = 0;
         try {
-            result = tagService.clearTagData(tagName);
-            check = postService.removePostCategory(tagName);
+//            result = tagService.clearTagData(tagName);
+//            check = postService.removePostCategory(tagName);
         } catch (Exception e) {
             e.printStackTrace();
         }

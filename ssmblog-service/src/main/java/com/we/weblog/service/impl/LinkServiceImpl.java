@@ -1,10 +1,11 @@
 package com.we.weblog.service.impl;
 
 import com.we.weblog.domain.Link;
+import com.we.weblog.domain.common.Result;
 import com.we.weblog.service.LinkService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author tangwei
@@ -12,24 +13,25 @@ import java.util.List;
  */
 @Service
 public class LinkServiceImpl implements LinkService{
+    private static final Logger LOGGER = LoggerFactory.getLogger(JmiTemplateServiceImpl.class);
 
     @Override
-    public Link saveByLink(Link link) {
+    public Result saveByLink(Link link) {
         return null;
     }
 
     @Override
-    public Link removeByLinkId(Long linkId) {
+    public Result removeByLinkId(Long linkId) {
         return null;
     }
 
     @Override
-    public List<Link> findAllLinks() {
+    public Result findAllLinks() {
         return null;
     }
 
     @Override
-    public Link findByLinkId(Long linkId) {
+    public Result findByLinkId(Long linkId) {
         return null;
     }
 }

@@ -78,7 +78,7 @@ public class PostAdminController extends BaseController {
         TableData tableData = new TableData() ;
         tableData.setTotalSize(50);
         tableData.setFormItems(formModel.getFormItems());
-        tableData.setDataItems(postService.findAllPostsByStatus(status));
+//        tableData.setDataItems(postService.findAllPostsByStatus(status));
 
         return  UIModel.success().tableData(tableData);
 
@@ -129,18 +129,18 @@ public class PostAdminController extends BaseController {
     @GetMapping("/delete/{id}")
     @ResponseBody
     public UIModel deleteBlog(@PathVariable("id") int deleteId, HttpServletRequest request) {
-        if (deleteId <= 0) {
-            return UIModel.fail().msg("删除文章非法");
-        }
-        Post context = postService.findByPostId(deleteId);
-        if(StringUtils.isEmpty(context)) {
-            return UIModel.fail().msg("该博客不存在");
-        }
-        postService.removeByPostId(deleteId);
-        tagService.deleteTag(deleteId);
-
-        commentSerivce.removeByCommentId(deleteId);
-        logService.saveByLogs(new Log (LogActions.DELETE_BLOG,deleteId + " ", AddressUtil.getIpAddress(request),1));
+//        if (deleteId <= 0) {
+//            return UIModel.fail().msg("删除文章非法");
+//        }
+//        Post context = postService.findByPostId(deleteId);
+//        if(StringUtils.isEmpty(context)) {
+//            return UIModel.fail().msg("该博客不存在");
+//        }
+//        postService.removeByPostId(deleteId);
+//        tagService.deleteTag(deleteId);
+//
+//        commentSerivce.removeByCommentId(deleteId);
+//        logService.saveByLogs(new Log (LogActions.DELETE_BLOG,deleteId + " ", AddressUtil.getIpAddress(request),1));
 
         return UIModel.success().msg("删除成功");
     }
@@ -180,12 +180,12 @@ public class PostAdminController extends BaseController {
      @GetMapping("/update_send_data/{id}")
      @ResponseBody
      public Map<String, Object> getTagretUpdateContext(@PathVariable int id){
-         updateId = id;
+//         updateId = id;
          Map<String,Object> maps = new HashMap<>(20);
-         Post context = postService.findByPostId(updateId);
-
-         maps.put("context",context);
-         maps.put("options",tagService.getCategories());
+//         Post context = postService.findByPostId(updateId);
+//
+//         maps.put("context",context);
+//         maps.put("options",tagService.getCategories());
 
          return maps;
      }

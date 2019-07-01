@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,7 +58,8 @@ public class CommentAdminController extends BaseController {
     @ResponseBody
     public UIModel list(@RequestParam(value = "status", defaultValue = "0") String status,int currentPage) {
         TableData tableData = new TableData();
-        List<Comment> comments = commentService.findAllCommentsByStatus(Integer.parseInt(status));
+//        List<Comment> comments = commentService.findAllCommentsByStatus(Integer.parseInt(status));
+        List<Comment> comments = new ArrayList<>();
         tableData.setDataItems(comments);
         tableData.setPage(true);
         tableData.setPageSize(15);
@@ -83,7 +85,8 @@ public class CommentAdminController extends BaseController {
     public  UIModel removeComment(@PathVariable("id") Integer commentId) {
         if (commentId <= 0 )
             return UIModel.fail().msg("删除id非法");
-        int result  = commentService.removeByCommentId(commentId);
+//        int result  = commentService.removeByCommentId(commentId);
+        int result = 0;
         if (result > 0) {
             return UIModel.success().msg("删除成功");
         }
@@ -103,7 +106,10 @@ public class CommentAdminController extends BaseController {
             return UIModel.fail().msg("输入评论过长");
         }
         //查看该评论是否存在
-        Comment lastComment = commentService.findCommentById(commentId);
+//        Comment lastComment = commentService.findCommentById(commentId);
+
+        Comment lastComment = new Comment();
+
         if (lastComment == null) {
             return UIModel.fail().msg("评论的文章不存在");
         }
@@ -174,39 +180,39 @@ public class CommentAdminController extends BaseController {
     @PostMapping(value = "/reply")
     public String replyComment(@RequestParam("commentId") Integer commentId,
                                @RequestBody String text) {
-        try {
-            Post post = postService.findByPostId(commentId);
-
-            //博主信息
-            //被回复的评论
-            Comment lastComment = commentService.findCommentById(commentId);
-
-            //修改被回复的评论的状态
-            lastComment.setCommentStatus(CommentStatus.PUBLISHED.getCode());
-            commentService.saveByComment(lastComment);
-
-            //保存评论
-            Comment comment = new Comment();
-//            comment.setPost(post);
-//            comment.setAuthor(user.getUserDisplayName());
-//            comment.setCommentAuthorEmail(user.getUserEmail());
-//            comment.setCommentAuthorUrl(BaseConfigUtil.OPTIONS.get(BlogPropertiesEnum.BLOG_URL.getProp()));
-//            comment.setCommentAuthorIp(ServletUtil.getClientIP(request));
-//            comment.setCommentAuthorAvatarMd5(SecureUtil.md5(user.getUserEmail()));
-//            comment.setCommentDate(DateUtil.date().toString());
-////            String lastContent = "<a href='#comment-id-" + lastComment.getCommentId() + "'>@" + lastComment.getCommentAuthor() + "</a> ";
-//            comment.setCommentContent(lastContent + OwoUtil.markToImg(HtmlUtil.escape(commentContent)));
-//            comment.setCommentAgent(userAgent);
-//            comment.setCommentParent(commentId);
-            comment.setCommentStatus(CommentStatus.PUBLISHED.getCode());
-            comment.setIsAdmin(1);
-            commentService.saveByComment(comment);
-
-            //邮件通知
-//            new EmailToAuthor(comment, lastComment, post, user, commentContent).start();
-        } catch (Exception e) {
-            logger.error("回复评论失败：{}", e.getMessage());
-        }
+//        try {
+//            Post post = postService.findByPostId(commentId);
+//
+//            //博主信息
+//            //被回复的评论
+//            Comment lastComment = commentService.findCommentById(commentId);
+//
+//            //修改被回复的评论的状态
+//            lastComment.setCommentStatus(CommentStatus.PUBLISHED.getCode());
+//            commentService.saveByComment(lastComment);
+//
+//            //保存评论
+//            Comment comment = new Comment();
+////            comment.setPost(post);
+////            comment.setAuthor(user.getUserDisplayName());
+////            comment.setCommentAuthorEmail(user.getUserEmail());
+////            comment.setCommentAuthorUrl(BaseConfigUtil.OPTIONS.get(BlogPropertiesEnum.BLOG_URL.getProp()));
+////            comment.setCommentAuthorIp(ServletUtil.getClientIP(request));
+////            comment.setCommentAuthorAvatarMd5(SecureUtil.md5(user.getUserEmail()));
+////            comment.setCommentDate(DateUtil.date().toString());
+//////            String lastContent = "<a href='#comment-id-" + lastComment.getCommentId() + "'>@" + lastComment.getCommentAuthor() + "</a> ";
+////            comment.setCommentContent(lastContent + OwoUtil.markToImg(HtmlUtil.escape(commentContent)));
+////            comment.setCommentAgent(userAgent);
+////            comment.setCommentParent(commentId);
+//            comment.setCommentStatus(CommentStatus.PUBLISHED.getCode());
+//            comment.setIsAdmin(1);
+//            commentService.saveByComment(comment);
+//
+//            //邮件通知
+////            new EmailToAuthor(comment, lastComment, post, user, commentContent).start();
+//        } catch (Exception e) {
+//            logger.error("回复评论失败：{}", e.getMessage());
+//        }
         return "redirect:/admin/comments";
     }
 

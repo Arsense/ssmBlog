@@ -5,6 +5,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ZipUtil;
 import com.we.weblog.domain.BackFile;
 import com.we.weblog.domain.Post;
+import com.we.weblog.domain.common.Result;
 import com.we.weblog.domain.util.BackupContants;
 import com.we.weblog.domain.util.TimeUtil;
 import com.we.weblog.service.BackupService;
@@ -113,7 +114,8 @@ public class BackUpServiceImpl implements BackupService {
     @Override
     public void backupPosts() {
         //再处理一下
-        List<Post> posts = postService.findAllPosts();
+        Result result = postService.findAllPosts();
+        List<Post> posts = new ArrayList<>();
         try {
             if (getBackUps("post").size() > 10) {
                 FileUtil.del(System.getProperties().getProperty("user.home") + "/blog/backup/posts/");

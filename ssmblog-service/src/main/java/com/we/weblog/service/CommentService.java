@@ -1,6 +1,7 @@
 package com.we.weblog.service;
 
 import com.we.weblog.domain.Comment;
+import com.we.weblog.domain.common.Result;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface CommentService {
      *
      * @return Page
      */
-    List<Comment> findAllComments();
+    Result findAllComments();
 
 
     /**
@@ -22,28 +23,28 @@ public interface CommentService {
      *
      * @return Page
      */
-    List<Comment> findAllCommentsByStatus(int status);
+    Result findAllCommentsByStatus(int status);
 
     /**
      * 查询评论byId
      * @param id
      * @return
      */
-    Comment findCommentById(Integer id);
+    Result findCommentById(Integer id);
 
     /**
      * 删除评论
      * @param cid
      * @return
      */
-    Integer removeByCommentId(Integer cid);
+    Result removeByCommentId(Integer cid);
 
     /**
      * 新增评论
      *
      * @param comment comment
      */
-    Integer saveByComment(Comment comment);
+    Result saveByComment(Comment comment);
 
 
     /**
@@ -56,7 +57,7 @@ public interface CommentService {
      * 根据文章id获取评论
      * @return
      */
-    List<Comment> findCommentByUid(int uid);
+    Result findCommentByUid(int uid);
 
     /**
      * 回复评论
@@ -64,7 +65,7 @@ public interface CommentService {
      * @param cid
      * @param reply
      */
-    Integer replyComment(String messgae, Integer cid, Comment reply);
+    Result replyComment(String messgae, Integer cid, Comment reply);
 
     /**
      * 更改评论的状态
@@ -73,5 +74,5 @@ public interface CommentService {
      * @param status    status
      * @return Comment
      */
-    void updateCommentStatus(Integer commentId, Integer status);
+    Result updateCommentStatus(Integer commentId, Integer status);
 }

@@ -1,6 +1,7 @@
 package com.we.weblog.service;
 
 import com.we.weblog.domain.Attachment;
+import com.we.weblog.domain.common.Result;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -16,27 +17,27 @@ public interface AttachmentService {
      *
      * @return Page
      */
-    List<Attachment> findAllAttachments(int currentPage);
+    Result findAllAttachments(int currentPage);
 
     /**
      * 根据Id查找附件
      *
      * @return Page
      */
-    Attachment findByAttachId(int attachId);
+    Result findByAttachId(int attachId);
 
     /**
      * 根据Id删除附件
      * @param id
      */
-    void removeByAttachId(int id);
+    Result removeByAttachId(int id);
 
     /**
      * 上传附件
      * @param file
      * @return
      */
-    Map<String, Object> uploadAttachment(MultipartFile file);
+    Result uploadAttachment(MultipartFile file);
 
 
 }

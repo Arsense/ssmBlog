@@ -56,27 +56,27 @@ public class IndexAdminController {
     public Map<String,Object> index(){
         //获得最新的20条日志  获得最新的文章  后台统计对象
         Map<String,Object> map = new HashMap<>();
-        //文章总数 TODO 其实Long会更好
-        int commentCount = 0;
-        List<Comment> comments = new ArrayList<>();
-        List<Log> logs = new ArrayList<>();
-        List<Post> contexts = new ArrayList<>();
-        int blogCount = 0;
-        try {
-            //todo 这些计数应该在内部去处理
-            blogCount = postService.findPostCount();
-            commentCount = commentSerivce.getCommentCount();
-            contexts = postService.findLastestPost(5);
-            comments = commentSerivce.findAllComments();
-            logs = logsService.findLastestTenLogs(10);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        map.put("contexts", contexts);
-        map.put("blogNumber",blogCount);
-        map.put("comments",comments);
-        map.put("commentNumber",commentCount);
-        map.put("logs",logs);
+//        //文章总数 TODO 其实Long会更好
+//        int commentCount = 0;
+//        List<Comment> comments = new ArrayList<>();
+//        List<Log> logs = new ArrayList<>();
+//        List<Post> contexts = new ArrayList<>();
+//        int blogCount = 0;
+//        try {
+//            //todo 这些计数应该在内部去处理
+//            blogCount = postService.findPostCount();
+//            commentCount = commentSerivce.getCommentCount();
+//            contexts = postService.findLastestPost(5);
+//            comments = commentSerivce.findAllComments();
+//            logs = logsService.findLastestTenLogs(10);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        map.put("contexts", contexts);
+//        map.put("blogNumber",blogCount);
+//        map.put("comments",comments);
+//        map.put("commentNumber",commentCount);
+//        map.put("logs",logs);
 
         return map;
     }

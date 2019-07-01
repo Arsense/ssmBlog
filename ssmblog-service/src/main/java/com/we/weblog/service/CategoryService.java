@@ -1,6 +1,7 @@
 package com.we.weblog.service;
 
 import com.we.weblog.domain.Category;
+import com.we.weblog.domain.common.Result;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface CategoryService {
      * @param category 分类目录
      * @return 如果插入成功，返回分类目录对象
      */
-    Category saveByCategory(Category category);
+    Result saveByCategory(Category category);
 
 
     /**
@@ -29,15 +30,15 @@ public interface CategoryService {
      * @param cateId 分类目录编号
      * @return category
      */
-    Category removeByCategoryId(Integer cateId);
+    Result removeByCategoryId(Integer cateId);
 
     /**
      * 获取所有分类目录
      *
      * @return 返回List集合
      */
-    List<Category> getAllCategories();
+    Result getAllCategories();
 
-    Category findByCateId(Integer id);
+    Result findByCateId(Integer id);
 
 }

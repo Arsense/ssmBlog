@@ -4,6 +4,8 @@ package com.we.weblog.service.impl;
 import com.we.weblog.domain.User;
 import com.we.weblog.mapper.UserMapper;
 import com.we.weblog.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -13,6 +15,7 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Resource
     private UserMapper userMapper;
@@ -21,7 +24,6 @@ public class UserServiceImpl implements UserService {
     public User userLoginByName(String username, String password) throws Exception {
         return userMapper.selectByPassAndName(username,password);
     }
-
     /**
      * 获取管理员用户
      * @return

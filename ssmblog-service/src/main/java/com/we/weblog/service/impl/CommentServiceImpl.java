@@ -2,9 +2,12 @@ package com.we.weblog.service.impl;
 
 
 import com.we.weblog.domain.Comment;
+import com.we.weblog.domain.common.Result;
 import com.we.weblog.domain.util.TimeUtil;
 import com.we.weblog.mapper.CommentMapper;
 import com.we.weblog.service.CommentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,6 +22,7 @@ import java.util.List;
  */
 @Service
 public class CommentServiceImpl implements CommentService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommentServiceImpl.class);
 
     @Resource
     private CommentMapper commentMapper;
@@ -29,23 +33,28 @@ public class CommentServiceImpl implements CommentService {
      * @return Page
      */
     @Override
-    public List<Comment> findAllComments() {
+    public Result findAllComments() {
+        Result result = new Result();
         List<Comment> comments = commentMapper.selectAllComments();
         for (Comment comment:comments){
             comment.setCommentDate(
                     TimeUtil.getFormatClearToSecond(comment.getCreated()));
         }
-        return  comments;
+        result.addDefaultModel("comment", comments);
+        return result;
     }
 
     @Override
-    public List<Comment> findAllCommentsByStatus(int status) {
+    public Result findAllCommentsByStatus(int status) {
+        Result result = new Result();
         List<Comment> comments = commentMapper.findAllCommentsByStatus(status);
-        for (Comment comment:comments){
+        for (Comment comment : comments) {
             comment.setCommentDate(
                     TimeUtil.getFormatClearToSecond(comment.getCreated()));
         }
-        return  comments;
+        result.setSuccess(true);
+        result.addDefaultModel("comment", comments);
+        return result;
     }
 
 
@@ -55,8 +64,11 @@ public class CommentServiceImpl implements CommentService {
      * @param comment comment
      */
     @Override
-    public Integer saveByComment(Comment comment) {
-        return commentMapper.insertComment(comment);
+    public Result saveByComment(Comment comment) {
+        Result result = new Result();
+        int status = commentMapper.insertComment(comment);
+        result.setSuccess(true);
+        return result;
     }
 
 
@@ -65,15 +77,16 @@ public class CommentServiceImpl implements CommentService {
      * @return
      */
     @Override
-    public List<Comment> findCommentByUid(int uid) {
+    public Result findCommentByUid(int uid) {
+        Result result = new Result();
         List<Comment> comments = commentMapper.getArticleById(uid);
         if(comments.isEmpty()){
-            return comments;
+            return result;
         }
         for(Comment comment:comments){
             comment.setCommentDate(TimeUtil.getFormatClearToDay(comment.getCreated()));
         }
-        return comments;
+        return result;
     }
 
     /**
@@ -84,22 +97,24 @@ public class CommentServiceImpl implements CommentService {
      * @return
      */
     @Override
-    public Integer replyComment(String messgae, Integer cid, Comment reply) {
+    public Result replyComment(String messgae, Integer cid, Comment reply) {
+        Result result = new Result();
+
         Comment comment = new Comment();
         comment.setCreated(new Date(System.currentTimeMillis()));
         comment.setAuthor("admin");
         //后面再改吧
         comment.setEmail("admin@qq.com");
-//        comment.(reply.getArticle_id());
         comment.setContent("回复@" + reply.getAuthor() + "  " + messgae);
         comment.setParent(cid);
-
-        return commentMapper.insertComment(comment);
+        commentMapper.insertComment(comment);
+        return result;
     }
 
     @Override
-    public void updateCommentStatus(Integer commentId, Integer status) {
+    public Result updateCommentStatus(Integer commentId, Integer status) {
         commentMapper.updateByStatus(commentId, status);
+        return new Result();
     }
 
 
@@ -118,8 +133,10 @@ public class CommentServiceImpl implements CommentService {
      * @return
      */
     @Override
-    public Comment findCommentById(Integer cid) {
-        return commentMapper.selectCommentById(cid);
+    public Result findCommentById(Integer cid) {
+        Result result = new Result();
+        commentMapper.selectCommentById(cid);
+        return result;
     }
 
     /**
@@ -128,8 +145,10 @@ public class CommentServiceImpl implements CommentService {
      * @return
      */
     @Override
-    public Integer removeByCommentId(Integer cid) {
-        return commentMapper.deleteCommentById(cid);
+    public Result removeByCommentId(Integer cid) {
+        Result result = new Result();
+        commentMapper.deleteCommentById(cid);
+        return result;
     }
 
 

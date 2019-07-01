@@ -1,7 +1,6 @@
 package com.we.weblog.web;
 
 import com.vue.adminlte4j.support.FileChangeListener;
-import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

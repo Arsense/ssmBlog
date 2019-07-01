@@ -1,6 +1,7 @@
 package com.we.weblog.service;
 
 import com.we.weblog.domain.Post;
+import com.we.weblog.service.base.BaseTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,10 +1,13 @@
 package com.we.weblog.service.impl;
 
 import com.we.weblog.domain.Metas;
+import com.we.weblog.domain.common.Result;
 import com.we.weblog.domain.modal.Select;
 import com.we.weblog.domain.modal.Types;
 import com.we.weblog.mapper.TagMapper;
 import com.we.weblog.service.TagService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,27 +18,38 @@ import java.util.StringTokenizer;
 @Service
 public class TagServiceImpl implements TagService  {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(TagServiceImpl.class);
+
+
     @Resource
     private TagMapper tagMapper;
 
     @Override
-    public List<String> getTotalTagsName(){
-        return tagMapper.findAll();
+    public Result getTotalTagsName(){
+        Result result = new Result();
+        tagMapper.findAll();
+        return result;
     }
 
     @Override
-    public void deleteTag(int uid){
+    public Result deleteTag(int uid){
+        Result result = new Result();
         tagMapper.deleteTagById(uid);
+        return result;
     }
 
     @Override
-    public int removeByTagId(String name) {
-        return 0;
+    public Result removeByTagId(String name) {
+        Result result = new Result();
+
+        return result;
     }
 
     // 删除category from metas
-    public int deleteMetas(String name){
-        return tagMapper.deleteCategoryByName(name);
+    public Result deleteMetas(String name){
+        Result result = new Result();
+        tagMapper.deleteCategoryByName(name);
+        return result;
     }
 
     /**
@@ -44,11 +58,14 @@ public class TagServiceImpl implements TagService  {
      * @param id
      */
     @Override
-    public  void addBlogTags(String tags, int id){
+    public  Result addBlogTags(String tags, int id){
+        Result result = new Result();
+
         List<String> tagList = getTagList(tags);
         for(String tag:tagList){
             tagMapper.insertBlogTag(tag,id);
         }
+        return result;
     }
 
     /**
@@ -57,14 +74,15 @@ public class TagServiceImpl implements TagService  {
      * @return
      */
     @Override
-    public int clearTagData(String tagName) {
-       int result = tagMapper.deleteTagByName(tagName);
-       if (result > 0) {
+    public Result clearTagData(String tagName) {
+        Result result = new Result();
+       int status = tagMapper.deleteTagByName(tagName);
+       if (status > 0) {
            tagMapper.deleleTagFromContext(tagName);
        } else {
-           return 0;
+           return result;
        }
-       return 1;
+       return result;
     }
 
     /**
@@ -73,32 +91,37 @@ public class TagServiceImpl implements TagService  {
      * @return
      */
     @Override
-    public int saveCategory(String name) {
+    public Result saveCategory(String name) {
+        Result result = new Result();
         if (name == null) {
-            return 0;
+            return result;
         }
         Metas category = new Metas();
         category.setName(name);
         category.setType(Types.MATE_CATEGOTY);
-
-        return tagMapper.save(category);
+        tagMapper.save(category);
+        return result;
     }
 
 
     @Override
-    public List<String> getMates() {
-       List<String> categories = new ArrayList<>();
+    public Result getMates() {
+        Result result = new Result();
+
+        List<String> categories = new ArrayList<>();
        List<Metas> metas =  tagMapper.selectCategories();
        for (Metas meta: metas) {
            categories.add(meta.getName());
        }
-       return categories;
+       return result;
     }
 
 
 
     @Override
-    public List<Select> getCategories(){
+    public Result getCategories(){
+        Result result = new Result();
+
         List<Select> selects = new ArrayList<>();
         List<String> categories = tagMapper.getAllCategories();
 
@@ -110,7 +133,7 @@ public class TagServiceImpl implements TagService  {
             select.setChecked(false);
             selects.add(select);
         }
-        return selects;
+        return result;
     }
     /**
      * 更新博客标签 实际是删除重插入
@@ -118,13 +141,15 @@ public class TagServiceImpl implements TagService  {
      * @param id
      */
     @Override
-    public  void updateBlogTag(String tags, int id){
+    public Result updateBlogTag(String tags, int id){
+        Result result = new Result();
+
         tagMapper.deleteTagById(id);
         List<String> tagList = getTagList(tags);
         for(String tag:tagList){
             tagMapper.insertBlogTag(tag,id);
         }
-
+        return result;
     }
 
     /**
@@ -133,8 +158,10 @@ public class TagServiceImpl implements TagService  {
      * @return List
      */
     @Override
-    public List<String> findAllTags() {
-        return tagMapper.findAll();
+    public Result findAllTags() {
+        Result result = new Result();
+        tagMapper.findAll();
+        return result;
     }
 
 

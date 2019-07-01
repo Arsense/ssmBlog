@@ -1,5 +1,7 @@
 package com.we.weblog.service;
 
+import com.we.weblog.domain.common.Result;
+
 /**
  * @author tangwei
  * @date 2018/12/9 21:56

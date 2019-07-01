@@ -3,6 +3,8 @@ package com.we.weblog.service.impl;
 import com.we.weblog.domain.modal.Picture;
 import com.we.weblog.domain.util.FileUtil;
 import com.we.weblog.service.FileService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Service
 public class FileServiceImpl implements FileService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(JmiTemplateServiceImpl.class);
 
     /**
      * 上传图片

@@ -89,8 +89,8 @@ public class PageAdminController extends BaseController {
      */
     @GetMapping(value = "/links/edit")
     public String toEditLink(Model model, @RequestParam("linkId") Long linkId) {
-        Link link = linkService.findByLinkId(linkId);
-        model.addAttribute("updateLink", link);
+//        Link link = linkService.findByLinkId(linkId);
+//        model.addAttribute("updateLink", link);
         return "admin/admin_page_link";
     }
     /**

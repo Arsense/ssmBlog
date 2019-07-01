@@ -1,7 +1,10 @@
 package com.we.weblog.service.impl;
 
 import com.we.weblog.domain.Category;
+import com.we.weblog.domain.common.Result;
 import com.we.weblog.service.CategoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,24 +15,25 @@ import java.util.List;
  */
 @Service
 public class CategoryServiceImpl implements CategoryService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CategoryServiceImpl.class);
 
     @Override
-    public Category saveByCategory(Category category) {
+    public Result saveByCategory(Category category) {
         return null;
     }
 
     @Override
-    public Category removeByCategoryId(Integer cateId) {
+    public Result removeByCategoryId(Integer cateId) {
         return null;
     }
 
     @Override
-    public List<Category> getAllCategories() {
+    public Result getAllCategories() {
         return null;
     }
 
     @Override
-    public Category findByCateId(Integer id) {
+    public Result findByCateId(Integer id) {
         return null;
     }
 }

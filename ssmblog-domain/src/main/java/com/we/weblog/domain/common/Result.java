@@ -47,4 +47,8 @@ public class Result {
     public void setResultCode(String resultCode) {
         this.resultCode = resultCode;
     }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
 }

@@ -1,5 +1,6 @@
 package com.we.weblog.service;
 
+import com.we.weblog.domain.common.Result;
 import com.we.weblog.domain.modal.Select;
 
 import java.util.List;
@@ -16,14 +17,14 @@ public interface TagService {
      *
      * @return List
      */
-     List<String> getTotalTagsName();
+    Result getTotalTagsName();
 
     /**
      * 获取所有标签
      *
      * @return List
      */
-     void deleteTag(int uid);
+    Result deleteTag(int uid);
 
 
     /**
@@ -31,7 +32,7 @@ public interface TagService {
      *
      * @return List
      */
-    int removeByTagId(String name);
+    Result removeByTagId(String name);
 
 
     /**
@@ -39,43 +40,21 @@ public interface TagService {
      * @param tagName
      * @return
      */
-    int clearTagData(String tagName);
+    Result clearTagData(String tagName);
 
     /**
      * 添加分类
      * @param name
      * @return
      */
-    int saveCategory(String name);
+    Result saveCategory(String name);
 
     /**
      * 获取所有标签
      *
      * @return List
      */
-    List<String> getMates();
-
-
-    /**
-     * 获取所有标签
-     *
-     * @return List
-     */
-    List<Select> getCategories();
-
-    /**
-     * 获取所有标签
-     *
-     * @return List
-     */
-    void updateBlogTag(String tags, int id);
-
-    /**
-     * 获取所有标签
-     *
-     * @return List
-     */
-    List<String> findAllTags();
+    Result getMates();
 
 
     /**
@@ -83,7 +62,29 @@ public interface TagService {
      *
      * @return List
      */
-    void addBlogTags(String tags, int id);
+    Result getCategories();
+
+    /**
+     * 获取所有标签
+     *
+     * @return List
+     */
+    Result updateBlogTag(String tags, int id);
+
+    /**
+     * 获取所有标签
+     *
+     * @return List
+     */
+    Result findAllTags();
+
+
+    /**
+     * 获取所有标签
+     *
+     * @return List
+     */
+    Result addBlogTags(String tags, int id);
 
 
 

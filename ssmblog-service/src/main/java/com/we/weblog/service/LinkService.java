@@ -1,6 +1,7 @@
 package com.we.weblog.service;
 
 import com.we.weblog.domain.Link;
+import com.we.weblog.domain.common.Result;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface LinkService {
      * @param link link
      * @return Link
      */
-    Link saveByLink(Link link);
+    Result saveByLink(Link link);
 
     /**
      * 根据编号删除
@@ -27,14 +28,14 @@ public interface LinkService {
      * @param linkId linkId
      * @return Link
      */
-    Link removeByLinkId(Long linkId);
+    Result removeByLinkId(Long linkId);
 
     /**
      * 查询所有
      *
      * @return List
      */
-    List<Link> findAllLinks();
+    Result findAllLinks();
 
     /**
      * 根据编号查询单个链接
@@ -42,5 +43,5 @@ public interface LinkService {
      * @param linkId linkId
      * @return Link
      */
-    Link findByLinkId(Long linkId);
+    Result findByLinkId(Long linkId);
 }

@@ -2,6 +2,7 @@ package com.we.weblog.service.impl;
 
 import com.we.weblog.domain.Category;
 import com.we.weblog.domain.Post;
+import com.we.weblog.domain.common.Result;
 import com.we.weblog.domain.enums.PostStatus;
 import com.we.weblog.domain.modal.Types;
 import com.we.weblog.domain.modal.YearBlog;
@@ -9,6 +10,8 @@ import com.we.weblog.domain.util.TimeUtil;
 import com.we.weblog.mapper.PostMapper;
 import com.we.weblog.service.PostService;
 import com.we.weblog.service.TagService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -19,6 +22,7 @@ import java.util.*;
 
 @Service
 public class PostServiceImpl implements PostService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PostServiceImpl.class);
 
     @Resource
     private PostMapper postMapper;
@@ -31,14 +35,18 @@ public class PostServiceImpl implements PostService {
      * @return
      */
     @Override
-   public int getCategoryCount(){
-        return postMapper.findAllCategory().size();
+   public Result getCategoryCount(){
+        Result result = new Result();
+        postMapper.findAllCategory().size();
+        return result;
    }
 
     @Override
-    public List<Category> sortBlogsByCategories(){
+    public Result sortBlogsByCategories(){
+        Result result = new Result();
         List<Post> contexts = postMapper.findPostsByCategory();
-        return getBlogsFromTags(contexts);
+        getBlogsFromTags(contexts);
+        return result;
     }
 
     /**
@@ -54,7 +62,10 @@ public class PostServiceImpl implements PostService {
      * 根据分类分配到相应的类中
      * @return
      */
-    public List<Category>  getBlogsFromTags(List<Post> contexts){
+    public Result  getBlogsFromTags(List<Post> contexts){
+
+        Result result = new Result();
+
         List<Category> categoryBlogs = new ArrayList<>();
         Map<String, Category>  maps = new HashMap<>();
         for(Post context:contexts){
@@ -68,7 +79,7 @@ public class PostServiceImpl implements PostService {
                 categoryBlogs.add(cBlog);
             }
         }
-        return  categoryBlogs;
+        return  result;
     }
 
     /**
@@ -77,8 +88,11 @@ public class PostServiceImpl implements PostService {
      * @return
      */
     @Override
-    public int getLastestBlogId(){
-        return postMapper.findLastestPost().getUid();
+    public Result getLastestBlogId(){
+
+        Result result = new Result();
+        postMapper.findLastestPost().getUid();
+        return result;
     }
 
 
@@ -102,13 +116,16 @@ public class PostServiceImpl implements PostService {
      * @return List
      */
     @Override
-    public Post findPreviousPost(int uid) {
+    public Result findPreviousPost(int uid) {
+
+        Result result = new Result();
+
         Post context =postMapper.findPreviousPost(uid);
         if(context == null){
             return null;
         }
         context.setMonth(TimeUtil.getFormatClearToDay(context.getCreated()));
-        return context;
+        return result;
     }
 
     /**
@@ -117,29 +134,36 @@ public class PostServiceImpl implements PostService {
      * @return List
      */
     @Override
-    public Post findNextPost(int uid) {
+    public Result findNextPost(int uid) {
+        Result result = new Result();
+
         Post context = postMapper.findNextPost(uid);
         if (context == null) {
             return null;
         }
         context.setMonth(TimeUtil.getFormatClearToDay(context.getCreated()));
-        return context;
+        return result;
     }
 
     @Override
-    public Post findAuthor() throws Exception {
+    public Result findAuthor() throws Exception {
+
+        Result result = new Result();
+
         Post context = postMapper.findAuthor();
         if (context == null) {
             throw new Exception("关于我没创建");
         }
         context.setMonth(TimeUtil.getFormatClearToDay(context.getCreated()));
-        return context;
+        return result;
     }
 
 
     @Override
-    public List<Post> findPostsByTagName(String tagName) {
-        return postMapper.findPostByTagName(tagName);
+    public Result findPostsByTagName(String tagName) {
+        Result result = new Result();
+        postMapper.findPostByTagName(tagName);
+        return result;
     }
 
     /**
@@ -148,10 +172,13 @@ public class PostServiceImpl implements PostService {
      * @return
      */
     @Override
-    public List<YearBlog> findPostByYearAndMonth(int page) throws IOException {
+    public Result findPostByYearAndMonth(int page) throws IOException {
+        Result result = new Result();
+
         int start = (page - 1) * 12;
         List<Post> list = postMapper.findPostByYearAndMonth(start);
-        return sortBlogsByYears(list);
+        sortBlogsByYears(list);
+        return result;
     }
 
     /**
@@ -159,8 +186,10 @@ public class PostServiceImpl implements PostService {
      * @return
      */
     @Override
-    public int findPostCount() {
-        return postMapper.findPostNumber();
+    public Result findPostCount() {
+        Result result = new Result();
+        postMapper.findPostNumber();
+        return result;
     }
 
 
@@ -169,19 +198,28 @@ public class PostServiceImpl implements PostService {
      * @return
      */
     @Override
-    public List<Post> getArticlePages(){
-        return sortPostDate(postMapper.findPostByPageType(Types.PAGE));
+    public Result getArticlePages(){
+
+        Result result = new Result();
+        sortPostDate(postMapper.findPostByPageType(Types.PAGE));
+        return result;
     }
 
     @Override
-    public int removePostCategory(String name) {
-        return postMapper.removePostCategory(name);
+    public Result removePostCategory(String name) {
+
+        Result result = new Result();
+        postMapper.removePostCategory(name);
+        return result;
     }
 
 
     @Override
-    public List<Post> findByTagName(String tagName) {
-        return postMapper.findByTagName(tagName);
+    public Result findByTagName(String tagName) {
+
+        Result result = new Result();
+        postMapper.findByTagName(tagName);
+        return result;
     }
 
     /**
@@ -190,9 +228,12 @@ public class PostServiceImpl implements PostService {
      * @return
      */
     @Override
-    public void updatePostVisit(Post context){
+    public Result updatePostVisit(Post context){
+        Result result = new Result();
+
         context.setHits(context.getHits() + 1);
         postMapper.updateOnePostVisit(context);
+        return result;
     }
 
     /**
@@ -202,7 +243,10 @@ public class PostServiceImpl implements PostService {
      * @return Post
      */
     @Override
-    public void saveByPost(Post post) throws SQLException {
+    public Result saveByPost(Post post) throws SQLException {
+
+        Result result = new Result();
+
         //默认没有分类则创建分类
         if(StringUtils.isEmpty(post.getCategories())){
             post.setCategories("默认分类");
@@ -219,6 +263,7 @@ public class PostServiceImpl implements PostService {
             e.printStackTrace();
             throw new SQLException("添加博客失败");
         }
+        return result;
     }
 
     /**
@@ -228,18 +273,22 @@ public class PostServiceImpl implements PostService {
      * @return Post
      */
     @Override
-    public Integer removeByPostId(Integer postId) {
-        return postMapper.removeByPostId(postId);
+    public Result removeByPostId(Integer postId) {
+        Result result = new Result();
+        postMapper.removeByPostId(postId);
+        return result;
     }
 
     @Override
-    public Post findByPostId(int postId) {
+    public Result findByPostId(int postId) {
+        Result result = new Result();
+
         Post context = postMapper.findPostById(postId);
         if(context == null){
             return null;
         }
         context.setMonth(TimeUtil.getFormatClearToDay(context.getCreated()));
-        return context;
+        return result;
     }
 
     /**
@@ -248,41 +297,52 @@ public class PostServiceImpl implements PostService {
      * @return List
      */
     @Override
-    public List<Post> findLastestPost(int limit) {
+    public Result findLastestPost(int limit) {
+        Result result = new Result();
+
         if (limit < 0 || limit >20) {
             limit = 10;
         }
-        return  sortPostDate(postMapper.findLastPostsByPage(limit));
+        sortPostDate(postMapper.findLastPostsByPage(limit));
+        return result ;
     }
 
     @Override
-    public void updatePostStatus(Integer postId, Integer status) {
+    public Result updatePostStatus(Integer postId, Integer status) {
         postMapper.updateByStatus(postId,status);
+        return null;
     }
 
     @Override
-    public List<Post> findAllPosts(int page) {
+    public Result findAllPosts(int page) {
+        Result result = new Result();
+
         if (page < 0 || page > 10){
             page = 1;
         }
         page = page * 10;
-        return sortPostDate(postMapper.findRecent10Posts(page));
+        sortPostDate(postMapper.findRecent10Posts(page));
+        return result;
     }
 
     @Override
-    public List<Post> findAllPosts(){
-        return sortPostDate(postMapper.findAllPosts());
+    public Result findAllPosts() {
+        Result result = new Result();
+        sortPostDate(postMapper.findAllPosts());
+        return result;
 
     }
 
     @Override
-    public List<Post> findAllPostsByStatus(int status) {
-        return sortPostDate(postMapper.findAllPostsByStatus(status));
+    public Result findAllPostsByStatus(int status) {
+        Result result = new Result();
+        sortPostDate(postMapper.findAllPostsByStatus(status));
+        return result;
     }
 
     @Override
-    public void updatePost(Post context, int uid) throws SQLException {
-
+    public Result updatePost(Post context, int uid) throws SQLException {
+        return null;
     }
 
 

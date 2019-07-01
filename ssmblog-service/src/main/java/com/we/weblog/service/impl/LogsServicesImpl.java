@@ -4,6 +4,8 @@ import com.we.weblog.domain.Log;
 import com.we.weblog.domain.util.TimeUtil;
 import com.we.weblog.mapper.LogMapper;
 import com.we.weblog.service.LogsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -12,6 +14,7 @@ import java.util.List;
 @Service
 public class LogsServicesImpl implements LogsService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(JmiTemplateServiceImpl.class);
 
     @Resource
     private LogMapper logMapper;

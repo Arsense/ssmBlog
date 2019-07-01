@@ -3,6 +3,7 @@ package com.we.weblog.service;
 
 import com.we.weblog.domain.Category;
 import com.we.weblog.domain.Post;
+import com.we.weblog.domain.common.Result;
 import com.we.weblog.domain.modal.YearBlog;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public interface PostService {
      * @param post Post
      * @return Post
      */
-    void saveByPost(Post post) throws SQLException;
+    Result saveByPost(Post post) throws SQLException;
 
     /**
      * 根据编号删除文章
@@ -29,43 +30,43 @@ public interface PostService {
      * @param postId postId
      * @return Post
      */
-    Integer removeByPostId(Integer postId);
+    Result removeByPostId(Integer postId);
 
 
-    List<Post> findByTagName(String tagName);
+    Result findByTagName(String tagName);
 
     /**
      * 更新博客访问量
      *
      * @param context
      */
-    void updatePostVisit(Post context);
+    Result updatePostVisit(Post context);
     /**
      * 得到分类总数
      *
      * @return
      */
-    int getCategoryCount();
+    Result getCategoryCount();
 
     /**
      * 获取最新博客Id
      * @return
      */
-    int getLastestBlogId();
+    Result getLastestBlogId();
 
     /**
      * 根据分类查询整理博客
      *
      * @return
      */
-    List<Category> sortBlogsByCategories();
+    Result sortBlogsByCategories();
 
     /***
      * 查询关于我
      * @return
      * @throws Exception
      */
-    Post findAuthor() throws Exception;
+    Result findAuthor() throws Exception;
 
     /**
      * 更新博客
@@ -73,40 +74,40 @@ public interface PostService {
      * @param uid
      * @throws SQLException
      */
-    void updatePost(Post context, int uid) throws SQLException;
+    Result updatePost(Post context, int uid) throws SQLException;
 
     /**
      * 根据标签名查询博客
      * @param tagName
      * @return
      */
-    List<Post> findPostsByTagName(String tagName);
+    Result findPostsByTagName(String tagName);
 
     /**
      * 根据年份和月份查询文章
      *
      * @return List
      */
-    List<YearBlog> findPostByYearAndMonth(int page) throws IOException;
+    Result findPostByYearAndMonth(int page) throws IOException;
 
     /**
      * 获取博客总数量
      * @return
      */
-    int findPostCount();
+    Result findPostCount();
 
     /**
      * 得到页面管理的信息
      * @return
      */
-    List<Post> getArticlePages();
+    Result getArticlePages();
 
     /**
      * 清楚博客里面分类字段
      * @param name
      * @return
      */
-     int removePostCategory(String name);
+    Result removePostCategory(String name);
 
 
 
@@ -115,14 +116,14 @@ public interface PostService {
      *
      * @return List
      */
-    Post findNextPost(int uid);
+    Result findNextPost(int uid);
 
     /**
      * 查询Id之前的一篇文章
      *
      * @return List
      */
-    Post findPreviousPost(int uid);
+    Result findPreviousPost(int uid);
 
     /**
      * 修改文章状态
@@ -131,14 +132,14 @@ public interface PostService {
      * @param status status
      * @return Post
      */
-    void updatePostStatus(Integer postId, Integer status);
+    Result updatePostStatus(Integer postId, Integer status);
     /**
      * 获取文章列表 不分页
      *
      * @param page post or page
      * @return List
      */
-    List<Post> findAllPosts(int page);
+    Result findAllPosts(int page);
 
 
     /**
@@ -146,7 +147,7 @@ public interface PostService {
      *
      * @return List
      */
-    List<Post> findAllPosts();
+    Result findAllPosts();
 
 
     /**
@@ -154,7 +155,7 @@ public interface PostService {
      *
      * @return List
      */
-    List<Post> findAllPostsByStatus(int status);
+    Result findAllPostsByStatus(int status);
 
 
 
@@ -164,12 +165,12 @@ public interface PostService {
      * @param postId postId
      * @return Post
      */
-    Post findByPostId(int postId);
+    Result findByPostId(int postId);
 
     /**
      * 查询前五条数据
      *
      * @return List
      */
-    List<Post> findLastestPost(int limit);
+    Result findLastestPost(int limit);
 }

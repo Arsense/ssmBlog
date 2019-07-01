@@ -4,7 +4,7 @@ import com.we.weblog.domain.Post;
 import org.apache.ibatis.jdbc.SQL;
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2019/7/1 18:31
  */
 public class PostSqlBuilder {
@@ -62,8 +62,7 @@ public class PostSqlBuilder {
     }
 
     public String buildRecentPostsQuery(){
-        String sql = "select uid,title,created,tags,article" + ",slug,hits from hexo_post where type = 'post'  limit #{count}";
-        return sql;
+        return "select uid,title,created,tags,article" + ",slug,hits from hexo_post where type = 'post'  limit #{count}";
     }
 
 

@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * 统一返回值
  *
- * @author tangwei
+ * @author Clay
  * @date 2019/6/28 18:35
  */
 public class Result<T>  {

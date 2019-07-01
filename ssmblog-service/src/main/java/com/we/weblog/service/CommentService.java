@@ -4,7 +4,7 @@ import com.we.weblog.domain.Comment;
 import com.we.weblog.domain.result.Result;
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2018/10/23 19:23
  */
 public interface CommentService {

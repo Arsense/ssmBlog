@@ -3,7 +3,7 @@ package com.we.weblog.service;
 import com.we.weblog.domain.result.Result;
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2018/10/23 19:35
  */
 public interface TagService {

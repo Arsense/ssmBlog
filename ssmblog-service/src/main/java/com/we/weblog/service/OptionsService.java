@@ -11,7 +11,7 @@ import java.util.Map;
  *     系统配置
  * </pre>
  *
- * @author tangwei
+ * @author Clay
  * @date 2018/10/23 18:42
  */
 public interface OptionsService {

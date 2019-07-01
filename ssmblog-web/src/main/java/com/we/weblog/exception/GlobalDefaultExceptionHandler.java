@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  *  *  * <pre>
  *     公共常量
  * </pre>
- * @author tangwei
+ * @author Clay
  * @date 2018/12/7 15:10
  */
 @ControllerAdvice

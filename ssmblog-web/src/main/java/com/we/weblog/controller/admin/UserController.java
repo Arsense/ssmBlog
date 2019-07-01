@@ -24,7 +24,7 @@ import javax.validation.Valid;
  * </pre>
  * 用户信息的修改
  *
- * @author tangwei
+ * @author Clay
  * @date 2018/11/5 19:55
  */
 @Controller

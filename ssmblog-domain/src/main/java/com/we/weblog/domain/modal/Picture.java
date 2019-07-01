@@ -3,7 +3,7 @@ package com.we.weblog.domain.modal;
 
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2018/8/18 14:59
  */
 public class Picture {

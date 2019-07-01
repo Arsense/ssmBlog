@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
  *     附件文件管理接口
  * </pre>
  *
- * @author tangwei
+ * @author Clay
  * @date 2018/10/23 19:34
  */
 public interface FileService {

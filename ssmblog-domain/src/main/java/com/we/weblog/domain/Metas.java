@@ -5,7 +5,7 @@ package com.we.weblog.domain;
  * <pre>
  *     博客分类
  * <pre/>
- * @author tangwei
+ * @author Clay
  * @date 2018/3/25 16:33
  * 元数据
  */

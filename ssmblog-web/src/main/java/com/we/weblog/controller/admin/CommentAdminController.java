@@ -28,7 +28,7 @@ import java.util.List;
  *     公共常量
  * </pre>
  *  评论管理页面
- * @author tangwei9
+ * @author Clay9
  */
 @Controller
 @RequestMapping("/admin/comments")

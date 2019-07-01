@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2018/10/23 19:22
  */
 @Repository

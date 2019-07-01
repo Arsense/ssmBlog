@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2018/12/9 19:49
  */
 @Service
@@ -38,7 +38,7 @@ public class AttachmentServiceImpl implements AttachmentService {
     @Override
     public Result findAllAttachments(int currentPage) {
         Result result = new Result();
-        List<Attachment>  attachments =  attachmentMapper.selectAllAttachment(currentPage,15);
+        List<Attachment>  attachments =  attachmentMapper.queryAttachments(currentPage,15);
         result.setSuccess(true);
         return result;
     }

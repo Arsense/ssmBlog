@@ -5,7 +5,7 @@ import com.we.weblog.domain.Log;
 import java.util.List;
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2018/10/23 19:34
  */
 public interface LogsService {

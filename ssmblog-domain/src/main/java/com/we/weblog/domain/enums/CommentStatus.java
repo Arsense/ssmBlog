@@ -1,7 +1,7 @@
 package com.we.weblog.domain.enums;
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2018/12/29 18:05
  */
 public enum CommentStatus {
@@ -13,7 +13,6 @@ public enum CommentStatus {
      * 待审核
      */
     CHECKING(1, "待审核"),
-
     /**
      * 回收站
      */

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *  *  * <pre>
  *     公共常量
  * </pre>
- * @author tangwei
+ * @author Clay
  * @date 2018/9/28 10:51
  */
 @Controller

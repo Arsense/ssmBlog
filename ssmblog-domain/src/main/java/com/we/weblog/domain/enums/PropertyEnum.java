@@ -1,7 +1,7 @@
 package com.we.weblog.domain.enums;
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2018/10/23 18:38
  */
 public enum PropertyEnum {

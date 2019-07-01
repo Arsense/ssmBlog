@@ -7,7 +7,7 @@ import org.junit.Test;
 import javax.annotation.Resource;
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2019/7/1 18:39
  */
 public class PostMapperTest extends BaseTest {

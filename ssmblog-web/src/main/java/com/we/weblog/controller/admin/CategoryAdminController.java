@@ -21,7 +21,7 @@ import java.util.Map;
  *     公共常量
  * </pre>
  * 分类标签控制器
- * created by tangwei at 2018/3/19
+ * created by Clay at 2018/3/19
  */
 @Controller
 @RequestMapping("/admin/category")

@@ -24,7 +24,7 @@ import java.util.Map;
  * 首页、归档、分类、评论
  *   前端页面显示的控制器
  * @date 2019-03-28 13:49
- * @author tangwei9
+ * @author Clay9
  */
 @Controller
 public class IndexController extends BaseController {

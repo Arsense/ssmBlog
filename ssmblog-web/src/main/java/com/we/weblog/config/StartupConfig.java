@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
  * </pre>
  *
  *
- * @author tangwei
+ * @author Clay
  * @date 2018/10/23 17:25
  */
 @Configuration

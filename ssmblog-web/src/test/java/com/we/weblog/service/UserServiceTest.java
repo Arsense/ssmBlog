@@ -6,7 +6,7 @@ import org.junit.Test;
 import javax.annotation.Resource;
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2019/3/28 15:11
  */
 public class UserServiceTest extends BaseTest {

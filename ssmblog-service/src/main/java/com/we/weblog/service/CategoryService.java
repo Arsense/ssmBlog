@@ -8,7 +8,7 @@ import com.we.weblog.domain.result.Result;
  *     评论业务逻辑接口
  * </pre>
  *
- * @author tangwei
+ * @author Clay
  * @date 2018/10/24 10:49
  */
 public interface CategoryService {

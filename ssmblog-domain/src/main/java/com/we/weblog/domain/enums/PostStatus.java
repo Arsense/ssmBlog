@@ -1,7 +1,7 @@
 package com.we.weblog.domain.enums;
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2018/12/27 18:40
  */
 public enum PostStatus {

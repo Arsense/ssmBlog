@@ -6,7 +6,7 @@ import com.we.weblog.domain.User;
 import java.util.Date;
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2018/10/23 19:35
  */
 public interface UserService {

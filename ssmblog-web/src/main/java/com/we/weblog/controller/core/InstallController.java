@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * </pre>
  *  安装页面留用
  * @date 2019-03-28 13:50
- * @author tangwei9
+ * @author Clay9
  */
 @Controller
 @RequestMapping(value = "/install")

@@ -13,7 +13,7 @@ import java.util.Map;
  *     公共常量
  * </pre>
  *
- * @author tangwei
+ * @author Clay
  * @date 2018/10/23 18:28
  */
 public class BaseConfigUtil {

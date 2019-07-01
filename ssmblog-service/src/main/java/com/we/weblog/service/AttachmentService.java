@@ -4,7 +4,7 @@ import com.we.weblog.domain.result.Result;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2018/12/9 19:49
  */
 public interface AttachmentService {

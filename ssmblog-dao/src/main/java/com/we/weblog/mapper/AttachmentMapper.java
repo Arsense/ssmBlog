@@ -1,16 +1,14 @@
 package com.we.weblog.mapper;
 
 import com.we.weblog.domain.Attachment;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import com.we.weblog.mapper.builder.AttachmentSqlBuilder;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2018/12/9 19:52
  */
 @Mapper
@@ -18,8 +16,8 @@ import java.util.List;
 public interface AttachmentMapper {
 
 
-    @Select({"select * from hexo_attach limit #{page},#{size}"})
-    List<Attachment> selectAllAttachment(@Param("page") int currentPage, @Param("size") int pageSize);
+    @SelectProvider(type = AttachmentSqlBuilder.class, method = "buildAttachmentQuery")
+    List<Attachment> queryAttachments(@Param("page") int currentPage, @Param("size") int pageSize);
 
     @Insert({"insert into hexo_attach (attachId,attachName,attachPath,attachSmallPath,attachType,attachCreated,attachSize) "+
             "values (#{file.attachId},#{file.attachName}," +

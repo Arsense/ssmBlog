@@ -7,7 +7,7 @@ import com.we.weblog.domain.result.Result;
    <pre>
  *     友情链接业务逻辑接口
  * </pre>
- * @author tangwei
+ * @author Clay
  * @date 2018/12/9 23:41
  */
 public interface LinkService {

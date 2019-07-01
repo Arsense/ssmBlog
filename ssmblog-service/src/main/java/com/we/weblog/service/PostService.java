@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2018/10/23 19:24
  */
 public interface PostService {

@@ -30,18 +30,12 @@ public interface PostMapper {
     @SelectProvider(type = PostSqlBuilder.class, method = "buildGetCategoryQuery")
     List<String> findAllCategory();
 
-    @SelectProvider(type = PostSqlBuilder.class, method = "buildCountPostQuery")
-    int countPost();
-
-
-
-
-    @Update({"update hexo_post set status = #{s} where uid = #{id}"})
-    void updateByStatus(@Param("id") Integer postId, @Param("s") Integer status);
     /**
      * 得到博客的总数量
-      * @return
+     * @return
      */
+    @SelectProvider(type = PostSqlBuilder.class, method = "buildCountPostQuery")
+    int countPost();
 
 
     /**
@@ -52,6 +46,12 @@ public interface PostMapper {
      */
     @SelectProvider(type = PostSqlBuilder.class, method = "buildRecentPostsQuery")
     List<Post> findRecentPosts(@Param("count") int count);
+
+
+    @Update({"update hexo_post set status = #{s} where uid = #{id}"})
+    void updateByStatus(@Param("id") Integer postId, @Param("s") Integer status);
+
+
 
     /**
      *  插入博客 用于增加博客内容吧

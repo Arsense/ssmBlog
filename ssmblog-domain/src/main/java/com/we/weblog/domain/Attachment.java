@@ -3,7 +3,7 @@ package com.we.weblog.domain;
 import java.util.Date;
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2018/12/9 19:48
  */
 public class Attachment {

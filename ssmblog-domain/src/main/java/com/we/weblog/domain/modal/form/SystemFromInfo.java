@@ -6,7 +6,7 @@ import com.vue.adminlte4j.annotation.UIFormItem;
 import java.io.Serializable;
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2018/9/28 10:59
  */
 public class SystemFromInfo implements Serializable {

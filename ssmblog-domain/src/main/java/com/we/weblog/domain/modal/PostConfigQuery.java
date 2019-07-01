@@ -6,7 +6,7 @@ import com.vue.adminlte4j.annotation.UIFormItem;
 import com.vue.adminlte4j.model.form.FormItemType;
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2018/12/18 15:09
  */
 public class PostConfigQuery {

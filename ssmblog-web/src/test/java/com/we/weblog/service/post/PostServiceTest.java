@@ -9,7 +9,7 @@ import org.junit.Test;
 import javax.annotation.Resource;
 
 /**
- * @author tangwei
+ * @author Clay
  * @date 2019/3/28 15:10
  */
 public class PostServiceTest extends BaseTest {

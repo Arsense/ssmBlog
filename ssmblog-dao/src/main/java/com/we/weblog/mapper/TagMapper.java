@@ -2,6 +2,7 @@ package com.we.weblog.mapper;
 
 
 import com.we.weblog.domain.Metas;
+import com.we.weblog.mapper.builder.TagSqlBuilder;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -12,15 +13,19 @@ import java.util.List;
 public interface TagMapper {
 
     /**
-     *  显示所有的tags
-     * @return
+     * 查询所有的标签
+     *
      */
-    @Select({"select distinct tag_name from hexo_tag "})
-    @ResultType(String.class)
-    List<String> findAll();
+    @SelectProvider(type = TagSqlBuilder.class , method = "buildGetTagQuery")
+    List<String> queryTags();
 
-    @Insert({
-            "insert ignore into hexo_tag (tag_name,uid) values (#{tag},#{id})"})
+
+    @SelectProvider(type = TagSqlBuilder.class , method = "buildGetCategorysQuery")
+    List<String> queryCategorys();
+
+
+
+    @Insert({"insert ignore into hexo_tag (tag_name,uid) values (#{tag},#{id})"})
     int insertBlogTag(@Param("tag") String tag, @Param("id") int id);
 
 
@@ -37,14 +42,10 @@ public interface TagMapper {
     @Insert({"insert into hexo_metas (name,type) values (#{m.name},#{m.type})"})
     int save(@Param("m") Metas name);
 
-    @Select({"select distinct name from hexo_metas where type = 'category'"})
-    List<Metas> selectCategories();
 
 
     @Delete({"delete from hexo_metas where name= #{name}"})
     int deleteCategoryByName(@Param("name") String name);
 
 
-    @Select({"select name from hexo_metas  where type ='category'"})
-    List<String> getAllCategories();
 }

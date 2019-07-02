@@ -3,10 +3,8 @@ package com.we.weblog.mapper;
 
 import com.we.weblog.domain.Post;
 import com.we.weblog.domain.User;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.we.weblog.mapper.builder.UserSqlBuilder;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,14 +19,11 @@ public interface UserMapper {
 
     /**
      * 根据用户名搜索User
-     * @param username
      * @return
      */
-    @Select({"select * from hexo_user where username = #{name} and password = #{pass}"})
-    User selectByPassAndName(@Param("name") String username, @Param("pass") String password) throws RuntimeException;
+    @SelectProvider(type = UserSqlBuilder.class, method = "buildGetUserQuery")
+    List<User> queryUser(User user) throws RuntimeException;
 
-    @Select({"select * from hexo_user where userEmail = #{email} and password = #{pass}"})
-    User findByUserEmailAndPassword(@Param("email") String userEmail, @Param("pass") String password) throws RuntimeException;
 
     //TODO 修改密码
     @Update({"update hexo_user " +
@@ -46,17 +41,9 @@ public interface UserMapper {
             " article=#{b.article} where uid= #{id}"})
     void updatePostByUid(@Param("b") Post context, @Param("id") int uid);
 
-    @Select({"select user from hexo_user where username=#{name} and password=#{ps}"})
-    User findByUserIdAndPassword(@Param("name") String username, @Param("ps") String password);
 
 
-    /**
-     * 查询所有User
-     * @param
-     * @return
-     */
-    @Select({"select * from hexo_user"})
-    List<User> findAllUsers() throws RuntimeException;
+
 
 
 }

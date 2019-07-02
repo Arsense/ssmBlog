@@ -1,6 +1,7 @@
 package com.we.weblog.mapper;
 
 import com.we.weblog.domain.Log;
+import com.we.weblog.mapper.builder.LogSqlBuilder;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -14,13 +15,16 @@ import java.util.List;
 @Mapper
 public interface LogMapper  {
 
+
+    @SelectProvider(type = LogSqlBuilder.class, method = "buildGetLogsQuery")
+    List<Log> getLogs(@Param("l") int limit);
+
     @Insert({"insert into hexo_logs (action,data,author_id,ip,created) " +
             "values (#{l.action},#{l.data},#{l.author_id},#{l.ip},#{l.created})"})
     int addLog(@Param("l") Log log);
 
 
-    @Select({"select id,action,ip,created from hexo_logs order by id desc limit #{l}"})
-    List<Log> getLogs(@Param("l") int limit);
+
 
 
     @Delete({"delete from hexo_logs"})

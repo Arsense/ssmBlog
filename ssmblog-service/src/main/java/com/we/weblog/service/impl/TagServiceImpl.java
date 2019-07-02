@@ -27,7 +27,7 @@ public class TagServiceImpl implements TagService  {
     @Override
     public Result getTotalTagsName(){
         Result result = new Result();
-        tagMapper.findAll();
+        tagMapper.queryTags();
         return result;
     }
 
@@ -107,13 +107,9 @@ public class TagServiceImpl implements TagService  {
     @Override
     public Result getMates() {
         Result result = new Result();
+        List<String> categories = tagMapper.getAllCategories();
 
-        List<String> categories = new ArrayList<>();
-       List<Metas> metas =  tagMapper.selectCategories();
-       for (Metas meta: metas) {
-           categories.add(meta.getName());
-       }
-       return result;
+        return result;
     }
 
 
@@ -143,10 +139,9 @@ public class TagServiceImpl implements TagService  {
     @Override
     public Result updateBlogTag(String tags, int id){
         Result result = new Result();
-
         tagMapper.deleteTagById(id);
         List<String> tagList = getTagList(tags);
-        for(String tag:tagList){
+        for(String tag:tagList) {
             tagMapper.insertBlogTag(tag,id);
         }
         return result;
@@ -160,7 +155,7 @@ public class TagServiceImpl implements TagService  {
     @Override
     public Result findAllTags() {
         Result result = new Result();
-        tagMapper.findAll();
+        tagMapper.queryMetas();
         return result;
     }
 

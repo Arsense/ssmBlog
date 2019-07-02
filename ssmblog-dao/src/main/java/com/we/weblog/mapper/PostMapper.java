@@ -38,6 +38,9 @@ public interface PostMapper {
     int countPost();
 
 
+    @UpdateProvider(type = PostSqlBuilder.class, method = "buildGetPostQuery")
+    void updateOnePostVisit(@Param("c") Post post);
+
     /**
      * todo 这个其实也可以和第一个合并 研究一下
      * 批量查询博客  目前10个一次
@@ -48,9 +51,27 @@ public interface PostMapper {
     List<Post> findRecentPosts(@Param("count") int count);
 
 
-    @Update({"update hexo_post set status = #{s} where uid = #{id}"})
-    void updateByStatus(@Param("id") Integer postId, @Param("s") Integer status);
+    @SelectProvider(type = PostSqlBuilder.class, method = "buildGetPostByCreated")
+    List<Post> findPostByYearAndMonth(@Param("p") int page);
 
+
+    @UpdateProvider(type = PostSqlBuilder.class, method = "buildUpdate")
+    int updatePost(Post post);
+
+    /**
+     *  删除博客
+     * @param id
+     * @return
+     */
+    @UpdateProvider(type = PostSqlBuilder.class, method = "buildDelete")
+    int removePost(@Param("id") int id);
+
+    /**
+     * 标签页面删除相关数据
+     * @param categoryName
+     */
+    @UpdateProvider(type = PostSqlBuilder.class, method = "buildDeleteByCategory")
+    int removePostCategory(@Param("cate") String categoryName);
 
 
     /**
@@ -58,56 +79,19 @@ public interface PostMapper {
      * @param post
      * @return
      */
-    @Insert({"insert into hexo_post " +
-            "(article,title,created,tags,md,type,slug,publish,categories) " +
-            "values (#{b.article},#{b.title},#{b.created},#{b.tags},#{b.md}" +
-            ",#{b.type},#{b.slug},#{b.publish},#{b.categories})"})
+    @InsertProvider(type = PostSqlBuilder.class, method = "buildInsert")
     @SelectKey(before=false,keyProperty="b.uid",resultType=Integer.class,
             statementType= StatementType.STATEMENT,statement="SELECT LAST_INSERT_ID() AS id")
     int savePost(@Param("b") Post post);
 
-    /**
-     *  删除博客
-     * @param id
-     * @return
-     */
-    @Delete({"delete from hexo_post where uid = #{id}"})
-    int removeByPostId(@Param("id") int id);
 
-
-    @Update({" update hexo_post " +
-            " set title = #{b.title}," +
-            " md = #{b.md}," +
-            " slug = #{b.slug}," +
-            " categories = #{b.categories},"+
-            " tags = #{b.tags},"+
-            " article=#{b.article} where uid= #{id}"})
-    void updatePostByUid(@Param("b")Post context, @Param("id") int uid);
-
-    @Update({"update hexo_post set hits=#{c.hits} where uid = #{c.uid}"})
-    void updateOnePostVisit(@Param("c") Post context);
-
-
-    @Select({"select uid,title,created,tags from hexo_post " +
-            "where type = 'post'  order by created desc limit #{p},12"})
-    List<Post> findPostByYearAndMonth(@Param("p") int page);
-
-
-    @Select({"select uid,title,tags,created from hexo_post " +
-            "where uid < #{id} and type = 'post'   order by uid desc limit 1"})
+    @SelectProvider(type = PostSqlBuilder.class, method = "buildGetPreviousQuery")
     Post findPreviousPost(@Param("id") int id);
 
-    @Select({"select uid,title,article,tags,created " +
-            "from hexo_post where uid > #{id} and type = 'post' order by uid asc limit 1"})
-  Post findNextPost(@Param("id") int id);
+    @SelectProvider(type = PostSqlBuilder.class, method = "buildGetNextQuery")
+    Post findNextPost(@Param("id") int id);
 
 
-    /**
-     * 标签页面删除相关数据
-     * @param categoryName
-     */
-    @Delete({"update hexo_post set categories = null where categories = #{cate}"})
-    int removePostCategory(@Param("cate") String categoryName);
 
 
 }

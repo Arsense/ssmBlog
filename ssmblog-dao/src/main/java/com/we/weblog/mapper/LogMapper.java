@@ -17,16 +17,12 @@ public interface LogMapper  {
 
 
     @SelectProvider(type = LogSqlBuilder.class, method = "buildGetLogsQuery")
-    List<Log> getLogs(@Param("l") int limit);
+    List<Log> queryLogs(@Param("l") int limit);
 
-    @Insert({"insert into hexo_logs (action,data,author_id,ip,created) " +
-            "values (#{l.action},#{l.data},#{l.author_id},#{l.ip},#{l.created})"})
-    int addLog(@Param("l") Log log);
-
+    @InsertProvider(type = LogSqlBuilder.class, method = "buildDelete")
+    int saveLog(@Param("l") Log log);
 
 
-
-
-    @Delete({"delete from hexo_logs"})
-    int removeAllLog();
+    @DeleteProvider(type = LogSqlBuilder.class, method = "buildDelete")
+    int clearLog();
 }

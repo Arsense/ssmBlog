@@ -19,10 +19,6 @@ public interface AttachmentMapper {
     @SelectProvider(type = AttachmentSqlBuilder.class, method = "buildAttachmentQuery")
     List<Attachment> queryAttachments(@Param("page") int currentPage, @Param("size") int pageSize);
 
-    @Insert({"insert into hexo_attach (attachId,attachName,attachPath,attachSmallPath,attachType,attachCreated,attachSize) "+
-            "values (#{file.attachId},#{file.attachName}," +
-            "#{file.attachPath},#{file.attachSmallPath}" +
-            ",#{file.attachType},#{file.attachCreated}" +
-            ",#{file.attachSize})"})
-    int save(@Param("file") Attachment attachment);
+    @InsertProvider(type = AttachmentSqlBuilder.class, method = "buildAttachmentQuery")
+    int saveAttachment(@Param("file") Attachment attachment);
 }

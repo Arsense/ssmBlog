@@ -1,6 +1,8 @@
 package com.we.weblog.mapper;
 
 import com.we.weblog.domain.Comment;
+import com.we.weblog.domain.enums.CommentStatus;
+import com.we.weblog.mapper.builder.CommentSqlBuilder;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -11,33 +13,23 @@ import java.util.List;
 public interface CommentMapper {
 
 
-    @Select({"select cid,article_id,created,author,email,content from hexo_comment"})
-    List<Comment> selectAllComments();
+    @SelectProvider(type = CommentSqlBuilder.class, method = "buildCommentQuery")
+    List<Comment> queryComment(Comment comment);
+
+    @SelectProvider(type = CommentSqlBuilder.class, method = "buildCountCommentQuery")
+    int countComment();
 
 
-    @Update({"update hexo_comment set status = #{status} where cid = #{id}"})
+    @UpdateProvider(type = CommentSqlBuilder.class, method = "buildUpdate")
     void updateByStatus(@Param("id") Integer commentId, @Param("status") Integer status);
 
-    @Select({"select cid,article_id,created,author,email,content from hexo_comment where status = #{status}"})
-    List<Comment> findAllCommentsByStatus(@Param("status") int status);
 
-
-    @Select({"select count(*) from hexo_comment"})
-    int getNumberOfComment();
-
-    @Select({"select article_id,author,content,created from hexo_comment where article_id = #{uid} "})
-    List<Comment> getArticleById(@Param("uid") int uid);
-
-    @Insert({"insert into hexo_comment (article_id,created,author,email,ip,content,parent) "+
-    "values (#{c.article_id},#{c.created},#{c.author},#{c.email},#{c.ip},#{c.content},#{c.parent})"})
+    @InsertProvider(type = CommentSqlBuilder.class, method = "buildInsert")
     int insertComment(@Param("c") Comment comment);
 
 
-    @Delete({"delete from hexo_comment where cid = #{id}"})
-    int deleteCommentById(@Param("id") Integer cid);
+    @DeleteProvider(type = CommentSqlBuilder.class, method = "buildDelete")
+    int deleteComment(@Param("id") Integer cid);
 
-
-    @Select({"select * from hexo_comment where cid = #{c}"})
-    Comment selectCommentById(@Param("c") Integer cid);
 
 }

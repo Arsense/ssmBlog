@@ -8,9 +8,19 @@ public class AttachmentSqlBuilder {
 
 
     public String buildAttachmentQuery() {
-        String sql = "select * from hexo_attach limit #{page},#{size}";
-        return sql;
+        return "select * from hexo_attach limit #{page},#{size}";
     }
 
 
+    /**
+     * todo 后续优化
+     * @return
+     */
+    public String buildInsert() {
+        return "insert into hexo_attach (attachId,attachName,attachPath,attachSmallPath,attachType,attachCreated,attachSize) "+
+                "values (#{file.attachId},#{file.attachName}," +
+                "#{file.attachPath},#{file.attachSmallPath}" +
+                ",#{file.attachType},#{file.attachCreated}" +
+                ",#{file.attachSize})";
+    }
 }

@@ -33,13 +33,6 @@ public interface TagService {
 
 
     /**
-     * 分类管理删除标签
-     * @param tagName
-     * @return
-     */
-    Result clearTagData(String tagName);
-
-    /**
      * 添加分类
      * @param name
      * @return

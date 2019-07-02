@@ -2,6 +2,7 @@ package com.we.weblog.mapper;
 
 
 import com.we.weblog.domain.Metas;
+import com.we.weblog.domain.Tags;
 import com.we.weblog.mapper.builder.TagSqlBuilder;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
@@ -24,27 +25,23 @@ public interface TagMapper {
     List<String> queryCategorys();
 
 
+    @DeleteProvider(type = TagSqlBuilder.class , method = "buildDelete")
+   int deleteTag(Tags tag);
 
-    @Insert({"insert ignore into hexo_tag (tag_name,uid) values (#{tag},#{id})"})
+
+    @InsertProvider(type = TagSqlBuilder.class , method = "buildInsert")
     int insertBlogTag(@Param("tag") String tag, @Param("id") int id);
 
 
-    @Delete({"delete from hexo_tag where uid = #{id}"})
-    void  deleteTagById(@Param("id") int id);
-
-    @Delete({"update hexo_post set tags = null where tags = #{tag}"})
-    int deleleTagFromContext(@Param("tag") String tagName);
+    @DeleteProvider(type = TagSqlBuilder.class , method = "buildDeletePostTag")
+    int delTagInPost(@Param("tag") String tagName);
 
 
-    @Delete({"delete from hexo_tag  where tag_name = #{tag}"})
-    int deleteTagByName(@Param("tag") String tagName);
-
-    @Insert({"insert into hexo_metas (name,type) values (#{m.name},#{m.type})"})
+    @InsertProvider(type = TagSqlBuilder.class , method = "buildMetaInsertQuery")
     int save(@Param("m") Metas name);
 
 
-
-    @Delete({"delete from hexo_metas where name= #{name}"})
+    @DeleteProvider(type = TagSqlBuilder.class , method = "buildMetaDelete")
     int deleteCategoryByName(@Param("name") String name);
 
 

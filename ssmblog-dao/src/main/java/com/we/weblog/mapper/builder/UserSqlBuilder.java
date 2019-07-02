@@ -29,4 +29,13 @@ public class UserSqlBuilder {
         }}.toString();
 
     }
+
+
+    public String buildUpdate( ){
+        return "update hexo_user " +
+                "set username = #{u.userName}," +
+                "password = #{u.password}";
+    }
+
+
 }

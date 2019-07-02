@@ -41,7 +41,6 @@ public class TagServiceImpl implements TagService  {
     @Override
     public Result removeByTagId(String name) {
         Result result = new Result();
-
         return result;
     }
 
@@ -60,30 +59,14 @@ public class TagServiceImpl implements TagService  {
     @Override
     public  Result addBlogTags(String tags, int id){
         Result result = new Result();
-
         List<String> tagList = getTagList(tags);
-        for(String tag:tagList){
+        for (String tag:tagList) {
             tagMapper.insertBlogTag(tag,id);
         }
         return result;
     }
 
-    /**
-     * 分类管理删除标签
-      * @param tagName
-     * @return
-     */
-    @Override
-    public Result clearTagData(String tagName) {
-        Result result = new Result();
-       int status = tagMapper.deleteTagByName(tagName);
-       if (status > 0) {
-           tagMapper.deleleTagFromContext(tagName);
-       } else {
-           return result;
-       }
-       return result;
-    }
+
 
     /**
      * 添加分类

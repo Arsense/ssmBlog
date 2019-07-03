@@ -35,7 +35,8 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Result findAllComments() {
         Result result = new Result();
-        List<Comment> comments = commentMapper.selectAllComments();
+
+        List<Comment> comments = commentMapper.queryComment(new Comment());
         for (Comment comment:comments){
             comment.setCommentDate(
                     TimeUtil.getFormatClearToSecond(comment.getCreated()));
@@ -46,7 +47,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Result findAllCommentsByStatus(int status) {
         Result result = new Result();
-        List<Comment> comments = commentMapper.findAllCommentsByStatus(status);
+        Comment request = new Comment();
+        //todo 优化 统一入参
+        request.setCommentStatus(status);
+        List<Comment> comments = commentMapper.queryComment(request);
         for (Comment comment : comments) {
             comment.setCommentDate(
                     TimeUtil.getFormatClearToSecond(comment.getCreated()));
@@ -77,7 +81,9 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Result findCommentByUid(int uid) {
         Result result = new Result();
-        List<Comment> comments = commentMapper.getArticleById(uid);
+        Comment request = new Comment();
+        request.setArticle_id(uid);
+        List<Comment> comments = commentMapper.queryComment(request);
         if(comments.isEmpty()){
             return result;
         }
@@ -122,7 +128,7 @@ public class CommentServiceImpl implements CommentService {
      */
     @Override
     public Integer getCommentCount() {
-        return commentMapper.getNumberOfComment();
+        return commentMapper.countComment();
     }
 
     /**
@@ -133,7 +139,9 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Result findCommentById(Integer cid) {
         Result result = new Result();
-        commentMapper.selectCommentById(cid);
+        Comment comment = new Comment();
+        comment.setCid(cid);
+        commentMapper.queryComment(comment);
         return result;
     }
 
@@ -145,7 +153,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Result removeByCommentId(Integer cid) {
         Result result = new Result();
-        commentMapper.deleteCommentById(cid);
+        commentMapper.deleteComment(cid);
         return result;
     }
 

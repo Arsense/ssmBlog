@@ -200,7 +200,7 @@ public class PostAdminController extends BaseController {
      @PostMapping("/update")
      @ResponseBody
      public UIModel updateDate(@RequestBody Post context) throws SQLException {
-        postService.updatePost(context,updateId);
+//        postService.updatePost(context,updateId);
          return UIModel.success().msg("修改成功！");
      }
 

@@ -109,7 +109,7 @@ public class AttachmentServiceImpl implements AttachmentService {
             attachment.setAttachCreated(DateUtil.date());
             attachment.setAttachSize("1024");
 
-            attachmentMapper.save(attachment);
+            attachmentMapper.saveAttachment(attachment);
             LOG.info("上传文件[{}]到[{}]成功", fileName, mediaPath.getAbsolutePath());
 //            logsService.saveByLogs(
 //                    new Log(LogsRecord.UPLOAD_FILE, fileName, ServletUtil.getClientIP(request), DateUtil.date())

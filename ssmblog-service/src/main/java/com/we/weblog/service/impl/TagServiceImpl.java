@@ -2,13 +2,13 @@ package com.we.weblog.service.impl;
 
 import com.we.weblog.domain.Metas;
 import com.we.weblog.domain.result.Result;
-import com.we.weblog.domain.modal.Select;
 import com.we.weblog.domain.modal.Types;
 import com.we.weblog.mapper.TagMapper;
 import com.we.weblog.service.TagService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -26,15 +26,26 @@ public class TagServiceImpl implements TagService  {
 
     @Override
     public Result getTotalTagsName(){
-        Result result = new Result();
-        tagMapper.queryTags();
+        Result<List<String>> result = new Result<>();
+        try {
+            List<String> tagList = tagMapper.queryTags();
+            if (CollectionUtils.isEmpty(tagList)) {
+                throw new RuntimeException("tagList 为空 系统错误");
+            }
+            result.setData(tagList);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            LOGGER.error("getTotalTagsName error!");
+            e.printStackTrace();
+        }
+
         return result;
     }
 
     @Override
     public Result deleteTag(int uid){
         Result result = new Result();
-        tagMapper.deleteTagById(uid);
+//        tagMapper.deleteTagById(uid);
         return result;
     }
 
@@ -90,7 +101,7 @@ public class TagServiceImpl implements TagService  {
     @Override
     public Result getMates() {
         Result result = new Result();
-        List<String> categories = tagMapper.getAllCategories();
+//        List<String> categories = tagMapper.getAllCategories();
 
         return result;
     }
@@ -100,18 +111,18 @@ public class TagServiceImpl implements TagService  {
     @Override
     public Result getCategories(){
         Result result = new Result();
-
-        List<Select> selects = new ArrayList<>();
-        List<String> categories = tagMapper.getAllCategories();
-
-        int codeId = 1;
-        for (String category : categories) {
-            Select select = new Select();
-            select.setCode(String.valueOf(codeId++));
-            select.setLabel(category);
-            select.setChecked(false);
-            selects.add(select);
-        }
+//
+//        List<Select> selects = new ArrayList<>();
+//        List<String> categories = tagMapper.getAllCategories();
+//
+//        int codeId = 1;
+//        for (String category : categories) {
+//            Select select = new Select();
+//            select.setCode(String.valueOf(codeId++));
+//            select.setLabel(category);
+//            select.setChecked(false);
+//            selects.add(select);
+//        }
         return result;
     }
     /**
@@ -122,11 +133,11 @@ public class TagServiceImpl implements TagService  {
     @Override
     public Result updateBlogTag(String tags, int id){
         Result result = new Result();
-        tagMapper.deleteTagById(id);
-        List<String> tagList = getTagList(tags);
-        for(String tag:tagList) {
-            tagMapper.insertBlogTag(tag,id);
-        }
+//        tagMapper.deleteTagById(id);
+//        List<String> tagList = getTagList(tags);
+//        for(String tag:tagList) {
+//            tagMapper.insertBlogTag(tag,id);
+//        }
         return result;
     }
 
@@ -138,7 +149,7 @@ public class TagServiceImpl implements TagService  {
     @Override
     public Result findAllTags() {
         Result result = new Result();
-        tagMapper.queryMetas();
+//        tagMapper.queryMetas();
         return result;
     }
 

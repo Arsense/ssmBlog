@@ -26,7 +26,7 @@ public class LogsServicesImpl implements LogsService {
      */
     @Override
     public int saveByLogs(Log log) {
-        return logMapper.addLog(log);
+        return logMapper.saveLog(log);
     }
 
     /**
@@ -39,14 +39,12 @@ public class LogsServicesImpl implements LogsService {
         if (limit < 0 || limit > 20) {
             limit = 10;
         }
-        List<Log> logs= logMapper.getLogs(limit);
+        List<Log> logs = logMapper.queryLogs(limit);
         for (Log log:logs) {
             log.setDateFormat(TimeUtil.getFormatClearToSecond(log.getCreated()));
         }
         return logs;
     }
-
-
 
     /**
      * 根据id移除
@@ -63,7 +61,7 @@ public class LogsServicesImpl implements LogsService {
      */
     @Override
     public int removeAllLogs() {
-        return logMapper.removeAllLog();
+        return logMapper.clearLog();
     }
 
 }

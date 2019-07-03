@@ -32,7 +32,9 @@ public class PostSqlBuilder {
             ORDER_BY("uid asc");
         }}.toString();
     }
-
+    public String buildGetlimitPostQuery(Post post, int limit){
+        return buildGetPostQuery(post) + " limit 1," + limit;
+    }
 
     public String buildGetCategoryQuery(){
         return "select DISTINCT categories FROM hexo_post  where categories is not null";

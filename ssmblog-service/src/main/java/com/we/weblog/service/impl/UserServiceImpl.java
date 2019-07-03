@@ -7,6 +7,7 @@ import com.we.weblog.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -22,7 +23,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User userLoginByName(String username, String password) throws Exception {
-        return userMapper.selectByPassAndName(username,password);
+        User user  = new User();
+        user.setPassword(password);
+        user.setUserName(username);
+        List<User> allUser = null;
+        try {
+            //todo 各种加打印的日志
+            allUser = userMapper.queryUser(user);
+            if (CollectionUtils.isEmpty(allUser)) {
+                throw new RuntimeException("用户存在异常, 请创建用户");
+            }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+
+        return allUser.get(0);
     }
     /**
      * 获取管理员用户
@@ -30,7 +45,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User findUser() {
-        List<User> users = userMapper.findAllUsers();
+        List<User> users = userMapper.queryUser(new User());
         if (users != null && users.size() > 0) {
             return users.get(0);
         } else {
@@ -71,12 +86,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUserIdAndUserPass(String userId, String password) {
-        return userMapper.findByUserIdAndPassword(userId, password);
+//        return userMapper.queryUser(new U);
+        return null;
     }
 
     @Override
     public User userLoginByEmail(String userEmail, String password) {
-        return userMapper.findByUserEmailAndPassword(userEmail, password);
+        return null;
+//        return userMapper.findByUserEmailAndPassword(userEmail, password);
     }
 
     @Override

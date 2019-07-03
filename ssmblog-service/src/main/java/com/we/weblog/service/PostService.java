@@ -60,7 +60,7 @@ public interface PostService {
      *
      * @return
      */
-    Result sortBlogsByCategories();
+    Result queryByCategory();
 
     /***
      * 查询关于我
@@ -160,5 +160,5 @@ public interface PostService {
      *
      * @return List
      */
-    Result findLastestPost(int limit);
+    Result findHotPosts(int limit);
 }

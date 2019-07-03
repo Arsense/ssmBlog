@@ -23,6 +23,9 @@ public interface PostMapper {
     @SelectProvider(type = PostSqlBuilder.class, method = "buildGetPostQuery")
     List<Post> queryPost(Post post);
 
+    @SelectProvider(type = PostSqlBuilder.class, method = "buildGetlimitPostQuery")
+    List<Post> querylimitPost(Post post, int limit);
+
     /**
      * 分类标签查询 这里 in not null去除空列表
      * @return
@@ -35,7 +38,7 @@ public interface PostMapper {
      * @return
      */
     @SelectProvider(type = PostSqlBuilder.class, method = "buildCountPostQuery")
-    int countPost();
+    int countPost(Post post);
 
 
     @UpdateProvider(type = PostSqlBuilder.class, method = "buildGetPostQuery")

@@ -10,6 +10,7 @@
         <module>ssmblog-dao</module>
         <module>ssmblog-service</module>
         <module>ssmblog-domain</module>
+		<module>ssmblog-web</module>
     </modules>
     <packaging>pom</packaging>
 

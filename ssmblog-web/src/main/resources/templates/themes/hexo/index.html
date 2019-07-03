@@ -87,7 +87,6 @@
             }
         },
         mounted : function () {
-            debugger;
             var self = this;
             var type = "index";
             axios.get("/front/base/" + type).then(function (response) {
@@ -97,6 +96,7 @@
         }
 
     });
-    vm.recommend()
+
+    // vm.recommend()
 </script>
 </html>

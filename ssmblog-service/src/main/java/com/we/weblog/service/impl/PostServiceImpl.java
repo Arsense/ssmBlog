@@ -50,14 +50,18 @@ public class PostServiceImpl implements PostService {
    }
 
     @Override
-    public Result sortBlogsByCategories(){
-        Result result = new Result(false);
+    public Result queryByCategory(){
+        Result result;
         Post post = new Post();
         post.setType(Types.ARTICLE);
-        List<Post> posts = postMapper.queryPost(post);
-        getBlogsFromTags(posts);
-        result.setSuccess(true);
-
+        List<Post> posts = null;
+        try {
+            posts = postMapper.queryPost(post);
+            result = getBlogsFromTags(posts);
+        } catch (Exception e) {
+            LOGGER.error("queryByCategory error,param" + post);
+            throw new RuntimeException("queryByCategory error" + post);
+        }
         return result;
     }
 
@@ -74,20 +78,23 @@ public class PostServiceImpl implements PostService {
      * 根据分类分配到相应的类中
      * @return
      */
-    public Result  getBlogsFromTags(List<Post> posts){
+    public Result getBlogsFromTags(List<Post> posts){
         Result result = new Result();
-        List<Category> categoryBlogs = new ArrayList<>();
+        List<Category> categoryList = new ArrayList<>();
         Map<String, Category>  maps = new HashMap<>();
         for(Post post:posts){
             if(maps.containsKey(post.getCategories())){
                 //如果已有该标签
                 maps.get(post.getCategories()).getBlogs().add(post);
-            }else{
-                Category cBlog = new Category(post.getCategories(),new ArrayList<Post>());
-                maps.put(post.getCategories(),cBlog);
-                cBlog.getBlogs().add(post);
-                categoryBlogs.add(cBlog);
+            } else {
+                Category category = new Category(post.getCategories(),new ArrayList<Post>());
+                maps.put(post.getCategories(),category);
+                category.getBlogs().add(post);
+                categoryList.add(category);
             }
+        }
+        if (!CollectionUtils.isEmpty(categoryList)) {
+            result.setData(categoryList);
         }
         result.setSuccess(true);
 
@@ -109,6 +116,7 @@ public class PostServiceImpl implements PostService {
             return null;
         }
         post.setMonth(TimeUtil.getFormatClearToDay(post.getCreated()));
+        result.setData(post);
         return result;
     }
 
@@ -126,6 +134,7 @@ public class PostServiceImpl implements PostService {
             return null;
         }
         post.setMonth(TimeUtil.getFormatClearToDay(post.getCreated()));
+        result.setData(post);
         return result;
     }
 
@@ -172,7 +181,7 @@ public class PostServiceImpl implements PostService {
     public Result findPostCount() {
         Result result = new Result();
         try {
-            int count = postMapper.countPost();
+            int count = postMapper.countPost(new Post());
             if (count > 0) {
                 result.setData(count);
             }
@@ -231,7 +240,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public Result saveByPost(Post post) throws SQLException {
         Result result = new Result();
-
+        //校验
         //默认没有分类则创建分类
         if(StringUtils.isEmpty(post.getCategories())){
             post.setCategories("默认分类");
@@ -241,13 +250,19 @@ public class PostServiceImpl implements PostService {
         post.setPublish(Types.PUBLISH);
         post.setStatus(PostStatus.PUBLISHED.getCode());
         post.setCreated(new Date(System.currentTimeMillis()));
-        postMapper.savePost(post);
         try {
-            tagService.addBlogTags(post.getTags(), post.getUid());
+            postMapper.savePost(post);
         } catch (Exception e) {
+            LOGGER.info("saveByPost error");
             e.printStackTrace();
-            throw new SQLException("添加博客失败");
         }
+//        try {
+//            tagService.addBlogTags(post.getTags(), post.getUid());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw new SQLException("添加博客失败");
+//        }
+        result.setSuccess(true);
         return result;
     }
 
@@ -265,7 +280,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public Result removeByPostId(Integer postId) {
         Result result = new Result();
-        postMapper.removeByPostId(postId);
+//        postMapper.removeByPostId(postId);
         return result;
     }
 
@@ -293,18 +308,28 @@ public class PostServiceImpl implements PostService {
      * @return List
      */
     @Override
-    public Result findLastestPost(int limit) {
+    public Result findHotPosts(int limit) {
         Result result = new Result();
         if (limit < 0 || limit > 20) {
             limit = 10;
         }
-//        sortPostDate(postMapper.findLastPostsByPage(limit));
+        List<Post> postList;
+        try {
+            postList = sortPostDate(postMapper.querylimitPost(new Post(),limit));
+            if (!CollectionUtils.isEmpty(postList)) {
+                result.setData(postList);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         return result ;
     }
 
     @Override
     public Result updatePostStatus(Integer postId, Integer status) {
-        postMapper.updateByStatus(postId,status);
+//        postMapper.updateByStatus(postId,status);
         return null;
     }
 

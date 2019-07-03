@@ -48,7 +48,7 @@ public class Comment {
     /**
      * 评论状态，0：正常，1：待审核，2：回收站
      */
-    private Integer commentStatus = 1;
+    private Integer status = 1;
     /**
      * 评论内容
      */
@@ -144,12 +144,12 @@ public class Comment {
         this.commentDate = commentDate;
     }
 
-    public Integer getCommentStatus() {
-        return commentStatus;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setCommentStatus(Integer commentStatus) {
-        this.commentStatus = commentStatus;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Integer getIsAdmin() {

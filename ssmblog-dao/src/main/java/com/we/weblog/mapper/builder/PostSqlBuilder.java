@@ -92,9 +92,13 @@ public class PostSqlBuilder {
             if(post.getArticle() != null) {
                 SET("article = #{article}");
             }
-            if(post.getUid() != null) {
-                WHERE("uid = #{c.uid}");
+            if(post.getHits() > 0) {
+                SET("hits = #{hits}");
             }
+            if(post.getUid() != null) {
+                WHERE("uid = #{uid}");
+            }
+
         }}.toString();
 
     }

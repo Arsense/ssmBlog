@@ -10,19 +10,21 @@ import org.apache.ibatis.jdbc.SQL;
 public class CommentSqlBuilder {
 
     public String buildCommentQuery(Comment comment) {
-        return new SQL() {{
-            SELECT("select cid,article_id,created,author,email,content");
-            FROM("hexo_comment");
-            if (comment.getCommentStatus() != null) {
-              WHERE("status = #{status}");
-            }
-            if (comment.getCid() > 0) {
-                WHERE("cid = #{cid}");
-            }
-            if (comment.getArticle_id() > 0) {
-                WHERE("article_id = #{uid}");
-            }
-        }}.toString();
+//        return new SQL() {{
+//            SELECT("select *");
+//            FROM("hexo_comment");
+////            if (comment.getCid() > 0) {
+////                WHERE("cid = #{cid}");
+////            }
+////            if (comment.getArticle_id() > 0) {
+////                WHERE("article_id = #{article_id}");
+////            }
+////            if (comment.getStatus() > 0) {
+////                WHERE("status = #{status}");
+////            }
+//        }}.toString();
+
+            return "select * from hexo_comment";
     }
     public String buildCountCommentQuery() {
         return "select count(*) from hexo_comment";

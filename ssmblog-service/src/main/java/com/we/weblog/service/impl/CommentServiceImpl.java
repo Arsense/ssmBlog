@@ -49,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
         Result result = new Result();
         Comment request = new Comment();
         //todo 优化 统一入参
-        request.setCommentStatus(status);
+        request.setStatus(status);
         List<Comment> comments = commentMapper.queryComment(request);
         for (Comment comment : comments) {
             comment.setCommentDate(
@@ -90,6 +90,7 @@ public class CommentServiceImpl implements CommentService {
         for(Comment comment:comments){
             comment.setCommentDate(TimeUtil.getFormatClearToDay(comment.getCreated()));
         }
+        result.setData(comments);
         return result;
     }
 

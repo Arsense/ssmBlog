@@ -153,7 +153,8 @@ public class PostServiceImpl implements PostService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        result.setSuccess(true);
+        result.setData(post);
         return result;
     }
 
@@ -168,8 +169,19 @@ public class PostServiceImpl implements PostService {
     public Result findPostByYearAndMonth(int page) throws IOException {
         Result result = new Result();
         int start = (page - 1) * 12;
-        List<Post> list = postMapper.findPostByYearAndMonth(start);
-        sortBlogsByYears(list);
+        List<Post> list = null;
+        try {
+            list = postMapper.findPostByYearAndMonth(start);
+            if(CollectionUtils.isEmpty(list)) {
+                LOGGER.info("findPostByYearAndMonth 没有查询到数据, param" + page);
+                return result;
+            }
+        } catch (Exception e) {
+           result.setErrMsg("服务端错误");
+           LOGGER.info("findPostByYearAndMonth error, param" + page);
+        }
+        result.setData(sortBlogsByYears(list));
+        result.setSuccess(true);
         return result;
     }
 
@@ -225,9 +237,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public Result updatePostVisit(Post post){
         Result result = new Result();
-
-        post.setHits(post.getHits() + 1);
-        postMapper.updateOnePostVisit(post);
+        Post request = new Post();
+        request.setHits(post.getHits() + 1);
+        request.setUid(post.getUid());
+        postMapper.updateVisit(request);
         return result;
     }
 
@@ -292,9 +305,10 @@ public class PostServiceImpl implements PostService {
         try {
             List<Post> posts = postMapper.queryPost(post);
             if(!CollectionUtils.isEmpty(posts)){
-                result.setData(posts.get(0));
+                post = posts.get(0);
             }
             post.setMonth(TimeUtil.getFormatClearToDay(post.getCreated()));
+            result.setData(post);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -380,19 +394,19 @@ public class PostServiceImpl implements PostService {
     private List<YearBlog> sortBlogsByYears(List<Post> bloglist) {
         List<YearBlog> yearBlogs = new ArrayList<>();
         Map<Integer,YearBlog> yearMap = new HashMap<>();
-//
-//        for (Post post : bloglist) {
-//            post.setMonth(TimeUtil.getEdate(post.getCreated()));
-//            Integer year = TimeUtil.getYear(post.getCreated());
-//            if (yearMap.containsKey(year)) {
-//                yearMap.get(year).getYearposts().add(post);
-//            } else {
-//                YearBlog yearBlog = new YearBlog(year, new ArrayList<>());
-//                yearMap.put(year,yearBlog);
-//                yearBlog.getYearposts().add(post);
-//                yearBlogs.add(yearBlog);
-//            }
-//        }
+
+        for (Post post : bloglist) {
+            post.setMonth(TimeUtil.getEdate(post.getCreated()));
+            Integer year = TimeUtil.getYear(post.getCreated());
+            if (yearMap.containsKey(year)) {
+                yearMap.get(year).getYearContexts().add(post);
+            } else {
+                YearBlog yearBlog = new YearBlog(year, new ArrayList<>());
+                yearMap.put(year,yearBlog);
+                yearBlog.getYearContexts().add(post);
+                yearBlogs.add(yearBlog);
+            }
+        }
         return yearBlogs;
     }
 

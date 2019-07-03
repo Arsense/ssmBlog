@@ -116,7 +116,7 @@ public class CommentAdminController extends BaseController {
         }
 
         //修改被回复的评论的状态
-        lastComment.setCommentStatus(CommentStatus.PUBLISHED.getCode());
+        lastComment.setStatus(CommentStatus.PUBLISHED.getCode());
         commentService.saveByComment(lastComment);
 
         //保存评论
@@ -127,7 +127,7 @@ public class CommentAdminController extends BaseController {
         text = cleanXSS(text);
         comment.setContent(text);
         comment.setParent(commentId);
-        comment.setCommentStatus(CommentStatus.PUBLISHED.getCode());
+        comment.setStatus(CommentStatus.PUBLISHED.getCode());
         comment.setIsAdmin(1);
         commentService.saveByComment(comment);
 

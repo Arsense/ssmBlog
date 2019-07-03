@@ -41,8 +41,8 @@ public interface PostMapper {
     int countPost(Post post);
 
 
-    @UpdateProvider(type = PostSqlBuilder.class, method = "buildGetPostQuery")
-    void updateOnePostVisit(@Param("c") Post post);
+    @UpdateProvider(type = PostSqlBuilder.class, method = "buildUpdate")
+    int updateVisit( Post post);
 
     /**
      * todo 这个其实也可以和第一个合并 研究一下

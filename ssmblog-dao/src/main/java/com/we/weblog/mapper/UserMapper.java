@@ -24,7 +24,7 @@ public interface UserMapper {
     List<User> queryUser(User user) throws RuntimeException;
 
 
-    @UpdateProvider(type = UserSqlBuilder.class, method = "buildGetUserQuery")
+    @UpdateProvider(type = UserSqlBuilder.class, method = "buildUpdate")
     void saveByUser(@Param("u") User user);
 
 

@@ -11,7 +11,7 @@ public class CommentSqlBuilder {
 
     public String buildCommentQuery(Comment comment) {
 //        return new SQL() {{
-//            SELECT("select *");
+//            SELECT("*");
 //            FROM("hexo_comment");
 ////            if (comment.getCid() > 0) {
 ////                WHERE("cid = #{cid}");

@@ -13,17 +13,17 @@ public class UserSqlBuilder {
 
     public String buildGetUserQuery(User user) {
         return new SQL(){{
-            SELECT("select *");
+            SELECT("*");
             FROM("hexo_user");
             if (user.getUserName() != null) {
-                WHERE("username=#{username}");
+                WHERE("username=#{userName}");
             }
             if (user.getPassword() != null) {
-                WHERE("password = #{pass}");
+                WHERE("password = #{password}");
             }
 
             if (user.getUserEmail() != null) {
-                WHERE("userEmail = #{email}");
+                WHERE("email = #{userEmail}");
             }
 
         }}.toString();

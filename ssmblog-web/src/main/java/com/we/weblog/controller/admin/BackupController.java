@@ -12,6 +12,7 @@ import com.we.weblog.domain.util.BaseConfigUtil;
 import com.we.weblog.service.BackupService;
 import com.we.weblog.service.MailService;
 import com.we.weblog.service.UserService;
+import com.we.weblog.utils.UiModelModelUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 /**
  * <pre>
@@ -61,13 +63,7 @@ public class BackupController extends BaseController {
             backups = new ArrayList<>();
         }
 
-
-        FormModel formModel = new FormModel();
-        formModel.createFormItem("fileName").setHidden(false).setLabel("文件名称");
-        formModel.createFormItem("createTime").setHidden(false).setLabel("日期");
-        formModel.createFormItem("fileSize").setHidden(false).setLabel("文件大小");
-        formModel.createFormItem("fileType").setHidden(false).setLabel("文件类型");
-        formModel.createFormItem("backupType").setHidden(false).setLabel("操作");
+        FormModel formModel = buildBackFrom();
 
         TableData tableData = new TableData() ;
         tableData.setFormItems(formModel.getFormItems());
@@ -78,6 +74,21 @@ public class BackupController extends BaseController {
 
         return  UIModel.success().tableData(tableData);
     }
+
+    public FormModel buildBackFrom() {
+        Map<String, String> formMap = new HashMap<>();
+
+        formMap.put("fileName","文件名称");
+        formMap.put("createTime","日期");
+        formMap.put("fileSize","文件大小");
+        formMap.put("fileType","文件类型");
+        formMap.put("backupType","操作");
+
+        return UiModelModelUtil.createUIModelForm(formMap);
+    }
+
+
+
 
 
     /**

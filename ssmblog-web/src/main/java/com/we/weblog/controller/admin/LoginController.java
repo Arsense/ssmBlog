@@ -69,6 +69,7 @@ public class LoginController extends BaseController {
     public String getLogin(HttpServletRequest request) throws Exception {
         //写的看起来有点乱
 //        WafRequestWrapper wafRequest = new WafRequestWrapper(request);
+        //todo 这里玩是不是不太好 放到拦截器里面
         String loginName = request.getParameter("username");
         String password = request.getParameter("password");
         //管理员只有一个
@@ -94,8 +95,9 @@ public class LoginController extends BaseController {
         if (user != null && adminUser.getUserId() == user.getUserId() ) {
             //重置用户的登录状态为正常
             Log loginLog = new Log(LogActions.LOGIN,loginName, AddressUtil.getIpAddress(request),1);
-            if (logService.saveByLogs(loginLog) < 0)
+            if (logService.saveByLogs(loginLog) < 0) {
                 throw new Exception("loginLog add error");
+            }
             userService.updateUserNormal();
 
             SSOHelper.setCookie(request, response, SSOToken.create().setIp(request).setId(1000).setIssuer(loginName), false);

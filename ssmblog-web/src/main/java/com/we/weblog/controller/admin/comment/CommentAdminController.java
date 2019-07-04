@@ -1,4 +1,4 @@
-package com.we.weblog.controller.admin;
+package com.we.weblog.controller.admin.comment;
 
 
 import cn.hutool.core.date.DateUtil;
@@ -15,14 +15,15 @@ import com.we.weblog.domain.modal.CommentConfigQuery;
 import com.we.weblog.service.CommentService;
 import com.we.weblog.service.MailService;
 import com.we.weblog.service.PostService;
+import com.we.weblog.utils.UiModelModelUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 /**
  * <pre>
  *     公共常量
@@ -57,19 +58,23 @@ public class CommentAdminController extends BaseController {
      */
     @RequestMapping("/list")
     @ResponseBody
-    public UIModel list(@RequestParam(value = "status", defaultValue = "0") String status,int currentPage) {
+    public UIModel list(@RequestParam(value = "status", defaultValue = "0") String status, int currentPage) {
         TableData tableData = new TableData();
-//        List<Comment> comments = commentService.findAllCommentsByStatus(Integer.parseInt(status));
-        List<Comment> comments = new ArrayList<>();
+        List<Comment> comments = (List<Comment>) commentService.findAllCommentsByStatus(Integer.parseInt(status)).getData();
         tableData.setDataItems(comments);
         tableData.setPage(true);
         tableData.setPageSize(15);
-        FormModel formModel = new FormModel();
-        formModel.createFormItem("cid").setHidden(false).setLabel("评论Id");
-        formModel.createFormItem("content").setHidden(false).setLabel("评论内容");
-        formModel.createFormItem("time").setHidden(false).setLabel("评论时间");
-        formModel.createFormItem("author").setHidden(false).setLabel("评论人");
-        formModel.createFormItem("email").setHidden(false).setLabel("邮箱");
+
+        Map<String,String > formMap = new HashMap<>();
+
+        formMap.put("cid", "评论Id");
+        formMap.put("content", "评论内容");
+        formMap.put("time", "评论时间");
+        formMap.put("author", "评论人");
+        formMap.put("email", "邮箱");
+
+        FormModel formModel = UiModelModelUtil.createUIModelForm(formMap);
+
         tableData.setFormItems(formModel.getFormItems());
         tableData.setTotalSize(commentService.getCommentCount());
 
@@ -84,8 +89,9 @@ public class CommentAdminController extends BaseController {
     @GetMapping("/delete/{id}")
     @ResponseBody
     public  UIModel removeComment(@PathVariable("id") Integer commentId) {
-        if (commentId <= 0 )
+        if (commentId <= 0 ) {
             return UIModel.fail().msg("删除id非法");
+        }
 //        int result  = commentService.removeByCommentId(commentId);
         int result = 0;
         if (result > 0) {

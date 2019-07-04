@@ -17,6 +17,7 @@ import com.we.weblog.domain.modal.Types;
 import com.we.weblog.domain.util.AddressUtil;
 import com.we.weblog.mapper.PostMapper;
 import com.we.weblog.service.*;
+import com.we.weblog.utils.UiModelModelUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -28,6 +29,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -67,22 +69,28 @@ public class PostAdminController extends BaseController {
     @GetMapping("/blog/list")
     @ResponseBody
     public UIModel getBlogList(@RequestParam(value = "status",defaultValue = "2")Integer status) {
+        Map<String,String > formMap = new HashMap<>();
 
-        FormModel formModel = new FormModel();
-        formModel.createFormItem("uid").setHidden(false).setLabel("博客编号");
-        formModel.createFormItem("title").setHidden(false).setLabel("标题");
-        formModel.createFormItem("tags").setHidden(false).setLabel("标签");
-        formModel.createFormItem("hits").setHidden(false).setLabel("访问量");
-        formModel.createFormItem("month").setHidden(false).setLabel("发布时间");
+        formMap.put("uid", "博客编号");
+        formMap.put("title", "标题");
+        formMap.put("tags", "标签");
+        formMap.put("hits", "访问量");
+        formMap.put("month", "发布时间");
+
+        FormModel formModel = UiModelModelUtil.createUIModelForm(formMap);
 
         TableData tableData = new TableData() ;
         tableData.setTotalSize(50);
         tableData.setFormItems(formModel.getFormItems());
-//        tableData.setDataItems(postService.findAllPostsByStatus(status));
+        tableData.setDataItems((List) postService.findAllPostsByStatus(status).getData());
 
         return  UIModel.success().tableData(tableData);
 
     }
+
+
+
+
 
     /**
      * 获得配置的查询模型

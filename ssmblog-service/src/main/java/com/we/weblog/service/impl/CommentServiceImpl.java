@@ -36,12 +36,21 @@ public class CommentServiceImpl implements CommentService {
     public Result findAllComments() {
         Result result = new Result();
 
-        List<Comment> comments = commentMapper.queryComment(new Comment());
-        for (Comment comment:comments){
-            comment.setCommentDate(
-                    TimeUtil.getFormatClearToSecond(comment.getCreated()));
+        List<Comment> comments = null;
+        try {
+            comments = commentMapper.queryComment(new Comment());
+            for (Comment comment:comments){
+                comment.setCommentDate(
+                        TimeUtil.getFormatClearToSecond(comment.getCreated()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        result.setSuccess(true);
+        result.setData(comments);
         return result;
+
     }
 
     @Override

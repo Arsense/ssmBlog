@@ -1,4 +1,4 @@
-package com.we.weblog.controller.admin;
+package com.we.weblog.controller.admin.login;
 
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;

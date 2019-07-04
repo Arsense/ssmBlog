@@ -200,7 +200,6 @@ public class PostServiceImpl implements PostService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         result.setSuccess(true);
         return result;
     }
@@ -373,9 +372,16 @@ public class PostServiceImpl implements PostService {
         Result result = new Result();
         Post post = new Post();
         post.setStatus(status);
-        //todo 类型加个枚举
-        post.setType("post");
-        sortPostDate(postMapper.queryPost(post));
+        post.setType(Types.PAGE);
+        try {
+           List<Post> postList =  sortPostDate(postMapper.queryPost(post));
+           if (!CollectionUtils.isEmpty(postList)) {
+               result.setData(postList);
+           }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        result.setSuccess(true);
         return result;
     }
 

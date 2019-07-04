@@ -280,7 +280,20 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Result queryPost(Post post) throws SQLException {
-       return null;
+        Result result = new Result();
+        List<Post> postList = null;
+        try {
+             postList = postMapper.queryPost(post);
+             if (!CollectionUtils.isEmpty(postList)) {
+                 result.setData(post);
+             }
+        } catch (Exception e) {
+            result.setErrMsg("queryPost error");
+
+        }
+        result.setSuccess(true);
+        return result;
+
     }
 
     /**
@@ -353,7 +366,11 @@ public class PostServiceImpl implements PostService {
             page = 1;
         }
         page = page * 10;
-        sortPostDate(postMapper.findRecentPosts(page));
+        try {
+            sortPostDate(postMapper.findRecentPosts(page));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return result;
     }
 
@@ -362,7 +379,11 @@ public class PostServiceImpl implements PostService {
         Result result = new Result();
         Post post = new Post();
         post.setType("post");
-        sortPostDate(postMapper.queryPost(post));
+        try {
+            sortPostDate(postMapper.queryPost(post));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return result;
 
     }

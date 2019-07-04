@@ -39,10 +39,15 @@ public class LogsServicesImpl implements LogsService {
         if (limit < 0 || limit > 20) {
             limit = 10;
         }
-        List<Log> logs = logMapper.queryLogs(limit);
-        for (Log log:logs) {
-            log.setDateFormat(TimeUtil.getFormatClearToSecond(log.getCreated()));
+        List<Log> logs = null;
+        try {
+            logs = logMapper.queryLogs(limit);
+            for (Log log:logs) {
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
         return logs;
     }
 

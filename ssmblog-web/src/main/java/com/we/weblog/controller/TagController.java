@@ -1,12 +1,15 @@
 package com.we.weblog.controller;
 
 import com.we.weblog.controller.core.BaseController;
+import com.we.weblog.domain.Post;
 import com.we.weblog.service.PostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.annotation.Resource;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * <pre>
@@ -32,7 +35,13 @@ public class TagController extends BaseController {
 
     @GetMapping("/tag/{tageName}")
     public String findArticleByTag(@PathVariable("tageName")String tagName){
-//        List<Post> posts = postService.findByTagName(tagName);
+        Post post = new Post();
+        post.setTags(tagName);
+        try {
+            List<Post> posts = (List<Post>) postService.queryPost(post).getData();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return redirectTo("/tags");
     }
 

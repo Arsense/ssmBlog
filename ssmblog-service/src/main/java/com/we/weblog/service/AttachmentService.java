@@ -8,12 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 2018/12/9 19:49
  */
 public interface AttachmentService {
-    /**
-     * 查询所有附件，分页
-     *
-     * @return Page
-     */
-    Result findAllAttachments(int currentPage);
 
     /**
      * 根据Id查找附件

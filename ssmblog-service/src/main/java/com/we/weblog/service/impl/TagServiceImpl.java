@@ -58,7 +58,11 @@ public class TagServiceImpl implements TagService  {
     // 删除category from metas
     public Result deleteMetas(String name){
         Result result = new Result();
-        tagMapper.deleteCategoryByName(name);
+        try {
+            tagMapper.deleteCategoryByName(name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return result;
     }
 
@@ -70,9 +74,13 @@ public class TagServiceImpl implements TagService  {
     @Override
     public  Result addBlogTags(String tags, int id){
         Result result = new Result();
-        List<String> tagList = getTagList(tags);
-        for (String tag:tagList) {
-            tagMapper.insertBlogTag(tag,id);
+        try {
+            List<String> tagList = getTagList(tags);
+            for (String tag:tagList) {
+                tagMapper.insertBlogTag(tag,id);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return result;
     }
@@ -93,7 +101,11 @@ public class TagServiceImpl implements TagService  {
         Metas category = new Metas();
         category.setName(name);
         category.setType(Types.MATE_CATEGOTY);
-        tagMapper.save(category);
+        try {
+            tagMapper.save(category);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return result;
     }
 

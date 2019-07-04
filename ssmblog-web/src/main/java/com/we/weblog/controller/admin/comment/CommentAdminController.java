@@ -37,10 +37,10 @@ public class CommentAdminController extends BaseController {
 
     @Resource
     private CommentService commentService;
-    @Resource
-    private PostService postService;
-    @Resource
-    private MailService mailService;
+//    @Resource
+//    private PostService postService;
+//    @Resource
+//    private MailService mailService;
 
     /**
      * 获得配置的查询模型
@@ -58,7 +58,7 @@ public class CommentAdminController extends BaseController {
      */
     @RequestMapping("/list")
     @ResponseBody
-    public UIModel list(@RequestParam(value = "status", defaultValue = "0") String status, int currentPage) {
+    public UIModel list(@RequestParam(value = "status", defaultValue = "0") String status) {
         TableData tableData = new TableData();
         List<Comment> comments = null;
         try {

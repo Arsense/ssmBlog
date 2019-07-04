@@ -83,8 +83,8 @@
         },
         mounted: function () {
             var self = this;
-            var type = "category";
-            axios.get("/front/base/"+type).then(function (response) {
+            var type = "tags";
+            axios.get("/front/base/" + type).then(function (response) {
                 //一行搞定
                 $.extend(self._data,response.data);
             });

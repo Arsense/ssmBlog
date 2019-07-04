@@ -83,7 +83,11 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Result saveByComment(Comment comment) {
         Result result = new Result();
-        int status = commentMapper.insertComment(comment);
+        try {
+            int status = commentMapper.insertComment(comment);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         result.setSuccess(true);
         return result;
     }

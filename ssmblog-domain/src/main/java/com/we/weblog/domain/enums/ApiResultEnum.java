@@ -1,4 +1,4 @@
-package com.we.weblog.service;
+package com.we.weblog.domain.enums;
 
 /**
  * @author Clay

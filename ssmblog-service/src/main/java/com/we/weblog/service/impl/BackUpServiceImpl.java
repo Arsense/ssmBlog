@@ -114,7 +114,11 @@ public class BackUpServiceImpl implements BackupService {
     @Override
     public void backupPosts() {
         //再处理一下
-        Result result = postService.findAllPosts();
+        try {
+            Result result = postService.findAllPosts();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         List<Post> posts = new ArrayList<>();
         try {
             if (getBackUps("post").size() > 10) {

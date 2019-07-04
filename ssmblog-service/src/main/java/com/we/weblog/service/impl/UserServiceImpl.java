@@ -60,9 +60,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUserLoginLast(Date lastDate) {
-        User user = this.findUser();
-        user.setLoginLast(lastDate);
-        userMapper.saveByUser(user);
+        User user = null;
+        try {
+            user = this.findUser();
+            user.setLoginLast(lastDate);
+            userMapper.saveByUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return user;
     }
 
@@ -70,7 +75,11 @@ public class UserServiceImpl implements UserService {
     public Integer updateUserLoginError() {
         User user = this.findUser();
         user.setLoginError((user.getLoginError() == null ? 0 : user.getLoginError()) + 1);
-        userMapper.saveByUser(user);
+        try {
+            userMapper.saveByUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return user.getLoginError();
     }
 
@@ -80,7 +89,11 @@ public class UserServiceImpl implements UserService {
         user.setLoginEnable("true");
         user.setLoginError(0);
         user.setLoginLast(new Date());
-        userMapper.saveByUser(user);
+        try {
+            userMapper.saveByUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return user;
     }
 
@@ -100,7 +113,11 @@ public class UserServiceImpl implements UserService {
     public void updateUserLoginEnable(String enable) {
         User user = this.findUser();
         user.setLoginEnable(enable);
-        userMapper.saveByUser(user);
+        try {
+            userMapper.saveByUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

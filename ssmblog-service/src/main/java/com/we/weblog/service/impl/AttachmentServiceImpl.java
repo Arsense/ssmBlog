@@ -17,7 +17,6 @@ import javax.annotation.Resource;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,14 +33,6 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     @Resource
     private LogsService logsService;
-
-    @Override
-    public Result findAllAttachments(int currentPage) {
-        Result result = new Result();
-        List<Attachment>  attachments =  attachmentMapper.queryAttachments(currentPage,15);
-        result.setSuccess(true);
-        return result;
-    }
 
     @Override
     public Result findByAttachId(int attachId) {
@@ -109,7 +100,11 @@ public class AttachmentServiceImpl implements AttachmentService {
             attachment.setAttachCreated(DateUtil.date());
             attachment.setAttachSize("1024");
 
-            attachmentMapper.saveAttachment(attachment);
+            try {
+                attachmentMapper.saveAttachment(attachment);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             LOG.info("上传文件[{}]到[{}]成功", fileName, mediaPath.getAbsolutePath());
 //            logsService.saveByLogs(
 //                    new Log(LogsRecord.UPLOAD_FILE, fileName, ServletUtil.getClientIP(request), DateUtil.date())

@@ -11,6 +11,7 @@ import com.we.weblog.domain.modal.Types;
 import com.we.weblog.domain.modal.YearBlog;
 import com.we.weblog.domain.result.Result;
 import com.we.weblog.service.CommentService;
+import com.we.weblog.service.HomeService;
 import com.we.weblog.service.PostService;
 import com.we.weblog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +47,9 @@ public class IndexController extends BaseController {
     private static String  tagName = null;
     //
     private TagService tagService;
+
+    @Resource
+    private HomeService homeService;
 
     @Autowired
     public IndexController(PostService postService, TagService tagService, CommentService commentSerivce){
@@ -111,16 +116,10 @@ public class IndexController extends BaseController {
     public Map<String,Object> getIndexData(@PathVariable String page) throws Exception {
         Map<String,Object> maps = new HashMap<>(20);
         try {
-            int totalTags = 10;
             //旁边博客展示都需要
-            maps.put("blogs", postService.findHotPosts(5).getData());
-
             findResourceByPageType(maps , page);
-
-            maps.put("tagsName", tagService.getTotalTagsName().getData());
-            maps.put("tagsCount", totalTags);
-            maps.put("blogsCount", postService.findPostCount().getData());
-            maps.put("categoryCount", 10);
+            //todo 单独提供一个接口
+            homeService.getViewCommon(maps, 1);
         } catch (Exception e) {
             e.printStackTrace();
         }

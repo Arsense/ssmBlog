@@ -1,4 +1,4 @@
-package com.we.weblog.controller.admin;
+package com.we.weblog.controller.admin.page;
 
 
 import com.we.weblog.controller.core.BaseController;
@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  *  * <pre>
  *     公共常量
  * </pre>
+ * @author Clay
  */
 @Controller
 @RequestMapping("/admin/page")
@@ -47,10 +48,10 @@ public class PageAdminController extends BaseController {
     public void createPages(Post context, HttpServletResponse response) throws Exception {
         try {
             context.setType(Types.PAGE);
-            context.setTags("test");  //tags not null
+            context.setTags("test");
             postService.saveByPost(context);
-            Log loginLog =new Log(LogActions.ADD_PAGES,"admin", AddressUtil.getIpAddress(request),1);
-            if (logService.saveByLogs(loginLog)<0) {
+            Log loginLog = new Log(LogActions.ADD_PAGES,"admin", AddressUtil.getIpAddress(request),1);
+            if (logService.saveByLogs(loginLog) < 0) {
                 throw new Exception("添加新页面失败");
             }
         } catch (Exception e) {
@@ -63,8 +64,12 @@ public class PageAdminController extends BaseController {
     @GetMapping("/delete/{id}")
     @ResponseBody
     public void deletePages(@PathVariable  int id){
-        postService.removeByPostId(id);
-        tagService.deleteTag(id);
+        try {
+            postService.removeByPostId(id);
+            tagService.deleteTag(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

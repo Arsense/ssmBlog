@@ -40,14 +40,12 @@ public class ThemeAdminController {
      * 激活主题
      *
      * @param siteTheme 主题名称
-     * @param request   request
      * @return UIModel
      */
     @GetMapping(value = "/set")
     @ResponseBody
     @CacheEvict(value = "posts", allEntries = true, beforeInvocation = true)
-    public UIModel activeTheme(@RequestParam("siteTheme") String siteTheme,
-                               HttpServletRequest request) {
+    public UIModel activeTheme(@RequestParam("siteTheme") String siteTheme) {
         return UIModel.success().msg("激活主题成功");
     }
 
@@ -60,8 +58,7 @@ public class ThemeAdminController {
      */
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
-    public UIModel uploadTheme(@RequestParam("file") MultipartFile file,
-                                  HttpServletRequest request) {
+    public UIModel uploadTheme(@RequestParam("file") MultipartFile file) {
         return UIModel.success().msg("上传主题成功");
 
     }

@@ -57,13 +57,19 @@ public class CommentServiceImpl implements CommentService {
     public Result findAllCommentsByStatus(int status) {
         Result result = new Result();
         Comment request = new Comment();
-        //todo 优化 统一入参
         request.setStatus(status);
-        List<Comment> comments = commentMapper.queryComment(request);
-        for (Comment comment : comments) {
-            comment.setCommentDate(
-                    TimeUtil.getFormatClearToSecond(comment.getCreated()));
+        List<Comment> comments = null;
+        try {
+            comments = commentMapper.queryComment(request);
+            for (Comment comment : comments) {
+                comment.setCommentDate(
+                        TimeUtil.getFormatClearToSecond(comment.getCreated()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        result.setData(comments);
         result.setSuccess(true);
         return result;
     }

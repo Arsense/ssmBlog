@@ -71,8 +71,12 @@ public class CategoryAdminController {
     @ResponseBody
     public Map<String,Object> manageCategoryAndTag() {
         Map<String,Object> maps  = new HashMap<>();
-        maps.put("categories", tagService.getMates());
-        maps.put("tags",tagService.findAllTags());
+        try {
+            maps.put("categories", tagService.getMates());
+            maps.put("tags",tagService.findAllTags());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return maps;
     }
 

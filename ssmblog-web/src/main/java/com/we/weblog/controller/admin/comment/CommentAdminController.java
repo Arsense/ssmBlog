@@ -60,7 +60,12 @@ public class CommentAdminController extends BaseController {
     @ResponseBody
     public UIModel list(@RequestParam(value = "status", defaultValue = "0") String status, int currentPage) {
         TableData tableData = new TableData();
-        List<Comment> comments = (List<Comment>) commentService.findAllCommentsByStatus(Integer.parseInt(status)).getData();
+        List<Comment> comments = null;
+        try {
+            comments = (List<Comment>) commentService.findAllCommentsByStatus(Integer.parseInt(status)).getData();
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
         tableData.setDataItems(comments);
         tableData.setPage(true);
         tableData.setPageSize(15);
@@ -121,24 +126,31 @@ public class CommentAdminController extends BaseController {
             return UIModel.fail().msg("评论的文章不存在");
         }
 
-        //修改被回复的评论的状态
-        lastComment.setStatus(CommentStatus.PUBLISHED.getCode());
-        commentService.saveByComment(lastComment);
+        try {
+             //todo 定义错误码 枚举 逻辑在内部
+            //修改被回复的评论的状态
+            lastComment.setStatus(CommentStatus.PUBLISHED.getCode());
+            commentService.saveByComment(lastComment);
 
-        //保存评论
-        Comment comment = new Comment();
-        comment.setAuthor("aa");
-        comment.setEmail("bb");
-        comment.setCommentDate(DateUtil.date().toString());
-        text = cleanXSS(text);
-        comment.setContent(text);
-        comment.setParent(commentId);
-        comment.setStatus(CommentStatus.PUBLISHED.getCode());
-        comment.setIsAdmin(1);
-        commentService.saveByComment(comment);
+            //保存评论
+            Comment comment = new Comment();
+            comment.setAuthor("aa");
+            comment.setEmail("bb");
+            comment.setCommentDate(DateUtil.date().toString());
+            text = cleanXSS(text);
+            comment.setContent(text);
+            comment.setParent(commentId);
+            comment.setStatus(CommentStatus.PUBLISHED.getCode());
+            comment.setIsAdmin(1);
+            commentService.saveByComment(comment);
+        } catch (Exception e){
+
+        }
 
         return UIModel.success().msg("回复成功");
     }
+
+
 
 
     /**

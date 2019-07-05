@@ -75,16 +75,16 @@ public class UserController {
     public UIModel changePass(@ModelAttribute("beforePass") String beforePass,
                                  @ModelAttribute("newPass") String newPass,
                                  @ModelAttribute("userId") String userId) {
-            try {
-                User user = userService.findByUserIdAndUserPass(userId, beforePass);
-                if (null == user) {
-                    return UIModel.fail().msg("改用户不存在");
-                }
-                userService.saveByUser(user);
-            } catch (Exception e) {
-                LOG.error("修改密码失败：{}", e.getMessage());
-                return UIModel.fail().msg("修改密码失败");
-            }
+       try {
+           User user = userService.findByUserIdAndUserPass(userId, beforePass);
+           if (null == user) {
+               return UIModel.fail().msg("改用户不存在");
+           }
+           userService.saveByUser(user);
+       } catch (Exception e) {
+           LOG.error("修改密码失败：{}", e.getMessage());
+           return UIModel.fail().msg("修改密码失败");
+       }
         return UIModel.success().msg("修改密码成功");
     }
 

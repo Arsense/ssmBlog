@@ -41,16 +41,12 @@ public class AttachmentController extends BaseController {
      * @return 模板路径admin/admin_attachment
      */
     @GetMapping
-    public String attachments(Model model,
-                              @RequestParam(value = "page", defaultValue = "0")                                 Integer page,
-                              @RequestParam(value = "size", defaultValue = "18")                                Integer size) {
+    public String attachments(Model model, @RequestParam(defaultValue = "0")Integer page, @RequestParam(defaultValue = "18")Integer size                                ) {
         try {
             int currentPage = 1;
 //            List<Attachment> attachments = attachmentService.findAllAttachments(currentPage);
-            List<Attachment> attachments = new ArrayList<>();
-            model.addAttribute("attachments", attachments);
+//            model.addAttribute("attachments", attachments);
         } catch (Exception e) {
-            //todo 改为404页面 友好不
             return "admin/admin_attachment";
         }
         return "admin/admin_attachment";

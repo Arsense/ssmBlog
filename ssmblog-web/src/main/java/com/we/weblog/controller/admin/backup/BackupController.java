@@ -52,30 +52,25 @@ public class BackupController extends BaseController {
     @ResponseBody
     public UIModel baseSourceFromData(@RequestParam(value = "type", defaultValue = "resources") String type) {
         //需要优化
-        List<BackFile> backups;
-        if (StringUtils.equals(type, "resources")) {
-            backups = backupService.getBackUps("resources");
-        } else if (StringUtils.equals(type, "databases")) {
-            backups = backupService.getBackUps("databases");
-        } else if (StringUtils.equals(type, "posts")) {
-            backups = backupService.getBackUps("posts");
-        } else {
-            backups = new ArrayList<>();
+        List<BackFile> backups = null;
+        try {
+            if (StringUtils.equals(type, "resources")) {
+                backups = backupService.getBackUps("resources");
+            } else if (StringUtils.equals(type, "databases")) {
+                backups = backupService.getBackUps("databases");
+            } else if (StringUtils.equals(type, "posts")) {
+                backups = backupService.getBackUps("posts");
+            } else {
+                backups = new ArrayList<>();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        FormModel formModel = buildBackFrom();
-
-        TableData tableData = new TableData() ;
-        tableData.setFormItems(formModel.getFormItems());
-        tableData.setDataItems(backups);
-        tableData.setPage(true);
-        tableData.setPageSize(15);
-        tableData.setTotalSize(50);
-
-        return  UIModel.success().tableData(tableData);
+        return  UIModel.success().tableData(buildUITableData(backups));
     }
 
-    public FormModel buildBackFrom() {
+    public TableData buildUITableData(List<BackFile> backups) {
         Map<String, String> formMap = new HashMap<>();
 
         formMap.put("fileName","文件名称");
@@ -84,7 +79,16 @@ public class BackupController extends BaseController {
         formMap.put("fileType","文件类型");
         formMap.put("backupType","操作");
 
-        return UiModelModelUtil.createUIModelForm(formMap);
+        FormModel formModel = UiModelModelUtil.createUIModelForm(formMap);
+        TableData tableData = new TableData();
+
+        tableData.setFormItems(formModel.getFormItems());
+        tableData.setDataItems(backups);
+        tableData.setPage(true);
+        tableData.setPageSize(15);
+        tableData.setTotalSize(50);
+
+        return tableData;
     }
 
 

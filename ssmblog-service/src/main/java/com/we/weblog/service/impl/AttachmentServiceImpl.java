@@ -58,7 +58,6 @@ public class AttachmentServiceImpl implements AttachmentService {
             LOG.error("文件不能为空");
             return result;
         }
-
         try {
             //用户目录
             String userPath = System.getProperties().getProperty("user.home") + HOME_DIR;
@@ -72,7 +71,6 @@ public class AttachmentServiceImpl implements AttachmentService {
                     throw new Exception("创建文件异常");
                 }
             }
-
             String fileFullPath  = buildUploadFilePath(file.getOriginalFilename());
             file.transferTo(new File(mediaPath.getAbsoluteFile(), fileFullPath));
             //压缩图片
@@ -82,7 +80,6 @@ public class AttachmentServiceImpl implements AttachmentService {
                                                         .append(fileName)
                                                         .append("_small.")
                                                         .append("先随便写");
-
 
             fileFullPath = "/upload/" + DateUtil.thisYear() + "/"
                                           + DateUtil.thisMonth() + "/" + fileName;
@@ -112,8 +109,8 @@ public class AttachmentServiceImpl implements AttachmentService {
 
             map.put("success", 1);
             map.put("message", "上传成功");
-            map.put("url", attachment.getAttachPath());
-            map.put("filename",fileName);
+            map.put("url",  attachment.getAttachPath());
+            map.put("filename", fileName);
         } catch (Exception e) {
             LOG.error("上传文件失败：{}", e.getMessage());
             map.put("success", 0);

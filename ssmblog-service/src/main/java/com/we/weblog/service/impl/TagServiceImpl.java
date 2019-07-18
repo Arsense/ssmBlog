@@ -1,6 +1,8 @@
 package com.we.weblog.service.impl;
 
 import com.we.weblog.domain.Metas;
+import com.we.weblog.domain.Tags;
+import com.we.weblog.domain.modal.Select;
 import com.we.weblog.domain.result.Result;
 import com.we.weblog.domain.modal.Types;
 import com.we.weblog.mapper.TagMapper;
@@ -33,11 +35,12 @@ public class TagServiceImpl implements TagService  {
                 throw new RuntimeException("tagList 为空 系统错误");
             }
             result.setData(tagList);
-            result.setSuccess(true);
+            result.setSuccess();
         } catch (Exception e) {
             LOGGER.error("getTotalTagsName error!");
             e.printStackTrace();
         }
+        result.setSuccess();
 
         return result;
     }
@@ -45,15 +48,19 @@ public class TagServiceImpl implements TagService  {
     @Override
     public Result deleteTag(int uid){
         Result result = new Result();
-//        tagMapper.deleteTagById(uid);
+        Tags tags = new Tags();
+        tags.setTagId(uid);
+        try {
+            tagMapper.deleteTag(tags);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        result.setSuccess();
+
         return result;
     }
 
-    @Override
-    public Result removeByTagId(String name) {
-        Result result = new Result();
-        return result;
-    }
+
 
     // 删除category from metas
     public Result deleteMetas(String name){
@@ -63,6 +70,7 @@ public class TagServiceImpl implements TagService  {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        result.setSuccess();
         return result;
     }
 
@@ -82,6 +90,8 @@ public class TagServiceImpl implements TagService  {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        result.setSuccess();
+
         return result;
     }
 
@@ -106,6 +116,8 @@ public class TagServiceImpl implements TagService  {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        result.setSuccess();
+
         return result;
     }
 
@@ -114,6 +126,7 @@ public class TagServiceImpl implements TagService  {
     public Result getMates() {
         Result result = new Result();
 //        List<String> categories = tagMapper.getAllCategories();
+        result.setSuccess();
 
         return result;
     }
@@ -123,33 +136,51 @@ public class TagServiceImpl implements TagService  {
     @Override
     public Result getCategories(){
         Result result = new Result();
-//
-//        List<Select> selects = new ArrayList<>();
-//        List<String> categories = tagMapper.getAllCategories();
-//
-//        int codeId = 1;
-//        for (String category : categories) {
-//            Select select = new Select();
-//            select.setCode(String.valueOf(codeId++));
-//            select.setLabel(category);
-//            select.setChecked(false);
-//            selects.add(select);
-//        }
+
+        List<Select> selects = new ArrayList<>();
+        List<String> categories = null;
+        try {
+            categories = tagMapper.queryCategorys();
+            if (CollectionUtils.isEmpty(categories)) {
+                result.setSuccess();
+                return result;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        int codeId = 1;
+        for (String category : categories) {
+            Select select = new Select();
+            select.setCode(String.valueOf(codeId++));
+            select.setLabel(category);
+            select.setChecked(false);
+            selects.add(select);
+        }
+        result.setData(selects);
+        result.setSuccess();
         return result;
     }
     /**
      * 更新博客标签 实际是删除重插入
-     * @param tags
+     * @param tagName
      * @param id
      */
     @Override
-    public Result updateBlogTag(String tags, int id){
+    public Result updateBlogTag(String tagName, int id){
         Result result = new Result();
-//        tagMapper.deleteTagById(id);
-//        List<String> tagList = getTagList(tags);
-//        for(String tag:tagList) {
-//            tagMapper.insertBlogTag(tag,id);
-//        }
+        try {
+            Tags tags = new Tags();
+            tags.setTagId(id);
+            tagMapper.deleteTag(tags);
+            List<String> tagList = getTagList(tagName);
+            for(String tag:tagList) {
+                tagMapper.insertBlogTag(tag,id);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        result.setSuccess();
         return result;
     }
 
@@ -161,7 +192,15 @@ public class TagServiceImpl implements TagService  {
     @Override
     public Result findAllTags() {
         Result result = new Result();
-//        tagMapper.queryMetas();
+        try {
+            List<String> tagList = tagMapper.queryTags();
+            if (!CollectionUtils.isEmpty(tagList)) {
+               result.setData(tagList);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        result.setSuccess();
         return result;
     }
 

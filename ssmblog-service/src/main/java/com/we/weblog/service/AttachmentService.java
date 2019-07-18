@@ -18,9 +18,9 @@ public interface AttachmentService {
 
     /**
      * 根据Id删除附件
-     * @param id
+     * @param attachId
      */
-    Result removeByAttachId(int id);
+    Result removeByAttachId(int attachId);
 
     /**
      * 上传附件

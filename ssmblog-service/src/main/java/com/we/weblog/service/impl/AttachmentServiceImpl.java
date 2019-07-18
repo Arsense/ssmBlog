@@ -2,11 +2,13 @@ package com.we.weblog.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import com.we.weblog.domain.Attachment;
+import com.we.weblog.domain.result.ErrorCode;
 import com.we.weblog.domain.result.Result;
 import com.we.weblog.mapper.AttachmentMapper;
 import com.we.weblog.service.AttachmentService;
 import com.we.weblog.service.LogsService;
 import net.coobird.thumbnailator.Thumbnails;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,12 +38,33 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     @Override
     public Result findByAttachId(int attachId) {
-        return null;
+        Result result = new Result();
+        if (attachId <= 0){
+            result.setErrMsg("参数非法");
+            return result;
+        }
+        try {
+            Attachment attachment = attachmentMapper.queryByAttachId(attachId);
+            if (attachment != null) {
+                result.setData(attachment);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        result.setSuccess();
+        return result;
     }
 
     @Override
-    public Result removeByAttachId(int id) {
-        return null;
+    public Result removeByAttachId(int attachId) {
+        Result result = new Result();
+        try {
+            attachmentMapper.deleteAttachment(attachId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        result.setSuccess();
+        return result;
     }
 
     /**
@@ -93,7 +116,7 @@ public class AttachmentServiceImpl implements AttachmentService {
             attachment.setAttachPath(fileFullPath);
             attachment.setAttachSmallPath(compressionPath.toString());
             attachment.setAttachType(file.getContentType());
-            attachment.setAttachSuffix(new StringBuffer(".").append("png").toString());
+            attachment.setAttachSuffix("." + "png");
             attachment.setAttachCreated(DateUtil.date());
             attachment.setAttachSize("1024");
 

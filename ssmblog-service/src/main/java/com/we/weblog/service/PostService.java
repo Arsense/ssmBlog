@@ -98,7 +98,6 @@ public interface PostService {
     Result removePostCategory(String name);
 
 
-
     /**
      * 查询Id之后的一篇文章
      *
@@ -129,7 +128,6 @@ public interface PostService {
      */
     Result findAllPosts(int page);
 
-
     /**
      * 获取所有文章
      *
@@ -137,14 +135,12 @@ public interface PostService {
      */
     Result findAllPosts();
 
-
     /**
      * 根据文章状态获取所有文章
      *
      * @return List
      */
     Result findAllPostsByStatus(int status);
-
 
 
     /**

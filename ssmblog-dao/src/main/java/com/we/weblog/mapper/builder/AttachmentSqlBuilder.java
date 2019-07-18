@@ -11,6 +11,14 @@ public class AttachmentSqlBuilder {
         return "select * from hexo_attach limit #{page},#{size}";
     }
 
+    public String buildAttachmentIdQuery() {
+        return "select * from hexo_attach where attachId = #{attachId}";
+    }
+
+
+    public String buildDelete() {
+        return "delete  from hexo_attach where attachId = #{attachId}";
+    }
 
     /**
      * todo 后续优化

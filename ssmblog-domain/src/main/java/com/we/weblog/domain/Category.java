@@ -13,7 +13,9 @@ public class Category {
     private  String category;
 
     private List<Post> blogs;
+    public Category() {
 
+    }
     public Category(String category, List<Post> blogs) {
         this.category = category;
         this.blogs = blogs;

@@ -24,12 +24,7 @@ public interface TagService {
     Result deleteTag(int uid);
 
 
-    /**
-     * 获取所有标签
-     *
-     * @return List
-     */
-    Result removeByTagId(String name);
+
 
 
     /**

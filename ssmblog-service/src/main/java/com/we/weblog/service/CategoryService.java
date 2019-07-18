@@ -28,7 +28,7 @@ public interface CategoryService {
      * @param cateId 分类目录编号
      * @return category
      */
-    Result removeByCategoryId(Integer cateId);
+    Result removeCategory(Integer cateId);
 
     /**
      * 获取所有分类目录

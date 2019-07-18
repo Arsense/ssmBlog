@@ -43,8 +43,8 @@ public class Result<T>  {
         return success;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setSuccess() {
+        this.success = true;
     }
 
     public int getErrCode() {

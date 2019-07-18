@@ -21,4 +21,12 @@ public interface AttachmentMapper {
 
     @InsertProvider(type = AttachmentSqlBuilder.class, method = "buildAttachmentQuery")
     int saveAttachment(@Param("file") Attachment attachment);
+
+    @SelectProvider(type = AttachmentSqlBuilder.class, method = "buildAttachmentIdQuery")
+    Attachment queryByAttachId(int attachId);
+
+
+    @DeleteProvider(type = AttachmentSqlBuilder.class, method = "buildDelete")
+    int deleteAttachment(int attachId);
+
 }

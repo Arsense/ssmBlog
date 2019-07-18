@@ -74,8 +74,8 @@ public class PostServiceTest extends BaseTest {
 
 
     @Test
-    public void getLastestBlogIdTest() {
-        Result result = postService.countCategory();
+    public void getLastestBlogIdTest() throws SQLException {
+        Result result =  postService.queryPost(new Post());
         Assert.assertNotNull(result);
 
         Assert.assertTrue(result.isSuccess());
@@ -84,12 +84,12 @@ public class PostServiceTest extends BaseTest {
 
     @Test
     public void sortBlogsByCategoriesTest() {
-
-        Result result = postService.countCategory();
-        Assert.assertNotNull(result);
-
-        Assert.assertTrue(result.isSuccess());
-        System.out.println("最后的结果是:" + result.getData());
+//
+//        Result result = postService.s();
+//        Assert.assertNotNull(result);
+//
+//        Assert.assertTrue(result.isSuccess());
+//        System.out.println("最后的结果是:" + result.getData());
     }
 
     @Test

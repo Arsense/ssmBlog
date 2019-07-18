@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 public interface FileService {
 
     /**
-     * 上传图片
+     * 上传图片  Markdown编辑器固定接口
      * @param request
      * @return
      * @throws Exception

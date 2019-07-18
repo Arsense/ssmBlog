@@ -10,7 +10,6 @@ import com.we.weblog.domain.util.TimeUtil;
 import com.we.weblog.mapper.PostMapper;
 import com.we.weblog.service.PostService;
 import com.we.weblog.service.TagService;
-import javafx.geometry.Pos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -22,6 +21,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 
+/**
+ *  文章处理服务
+ */
 @Service
 public class PostServiceImpl implements PostService {
 
@@ -29,6 +31,7 @@ public class PostServiceImpl implements PostService {
 
     @Resource
     private PostMapper postMapper;
+
     @Resource
     private TagService tagService;
 
@@ -45,7 +48,7 @@ public class PostServiceImpl implements PostService {
         if (count > 0) {
             result.setData(count);
         }
-        result.setSuccess(true);
+        result.setSuccess();
         return result;
    }
 
@@ -96,7 +99,7 @@ public class PostServiceImpl implements PostService {
         if (!CollectionUtils.isEmpty(categoryList)) {
             result.setData(categoryList);
         }
-        result.setSuccess(true);
+        result.setSuccess();
 
         return  result;
     }
@@ -111,10 +114,15 @@ public class PostServiceImpl implements PostService {
     public Result findPreviousPost(int uid) {
 
         Result result = new Result();
-        Post post = postMapper.findPreviousPost(uid);
-        if(post == null){
-            return null;
+        Post post = null;
+        try {
+            post = postMapper.findPreviousPost(uid);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        if(post == null)
+            return result;
+
         post.setMonth(TimeUtil.getFormatClearToDay(post.getCreated()));
         result.setData(post);
         return result;
@@ -129,10 +137,14 @@ public class PostServiceImpl implements PostService {
     public Result findNextPost(int uid) {
         Result result = new Result();
 
-        Post post = postMapper.findNextPost(uid);
-        if (post == null) {
-            return null;
+        Post post = null;
+        try {
+            post = postMapper.findNextPost(uid);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        if(post == null)
+            return result;
         post.setMonth(TimeUtil.getFormatClearToDay(post.getCreated()));
         result.setData(post);
         return result;
@@ -153,7 +165,7 @@ public class PostServiceImpl implements PostService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        result.setSuccess(true);
+        result.setSuccess();
         result.setData(post);
         return result;
     }
@@ -181,7 +193,7 @@ public class PostServiceImpl implements PostService {
            LOGGER.info("findPostByYearAndMonth error, param" + page);
         }
         result.setData(sortBlogsByYears(list));
-        result.setSuccess(true);
+        result.setSuccess();
         return result;
     }
 
@@ -200,10 +212,9 @@ public class PostServiceImpl implements PostService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        result.setSuccess(true);
+        result.setSuccess();
         return result;
     }
-
 
     /**
      * 得到页面管理的信息
@@ -214,18 +225,27 @@ public class PostServiceImpl implements PostService {
         Result result = new Result();
         Post post = new Post();
         post.setType(Types.PAGE);
-        sortPostDate(postMapper.queryPost(post));
+        try {
+            sortPostDate(postMapper.queryPost(post));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        result.setSuccess();
         return result;
     }
 
     @Override
     public Result removePostCategory(String name) {
         Result result = new Result();
-        postMapper.removePostCategory(name);
+        try {
+            postMapper.removePostCategory(name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        result.setSuccess();
+
         return result;
     }
-
-
 
 
     /**
@@ -239,7 +259,13 @@ public class PostServiceImpl implements PostService {
         Post request = new Post();
         request.setHits(post.getHits() + 1);
         request.setUid(post.getUid());
-        postMapper.updateVisit(request);
+        try {
+            postMapper.updateVisit(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        result.setSuccess();
+
         return result;
     }
 
@@ -264,24 +290,25 @@ public class PostServiceImpl implements PostService {
         post.setCreated(new Date(System.currentTimeMillis()));
         try {
             postMapper.savePost(post);
+            tagService.addBlogTags(post.getTags(), post.getUid());
+
         } catch (Exception e) {
             LOGGER.info("saveByPost error");
-            e.printStackTrace();
+            throw new SQLException("添加博客失败");
         }
-//        try {
-//            tagService.addBlogTags(post.getTags(), post.getUid());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            throw new SQLException("添加博客失败");
-//        }
-        result.setSuccess(true);
+
+        result.setSuccess();
         return result;
     }
 
     @Override
-    public Result queryPost(Post post) throws SQLException {
+    public Result queryPost(Post post) {
         Result result = new Result();
-        List<Post> postList = null;
+        if (post == null) {
+            result.setErrMsg("Post不能为空");
+            return result;
+        }
+        List<Post> postList;
         try {
              postList = postMapper.queryPost(post);
              if (!CollectionUtils.isEmpty(postList)) {
@@ -291,7 +318,7 @@ public class PostServiceImpl implements PostService {
             result.setErrMsg("queryPost error");
 
         }
-        result.setSuccess(true);
+        result.setSuccess();
         return result;
 
     }
@@ -305,7 +332,12 @@ public class PostServiceImpl implements PostService {
     @Override
     public Result removeByPostId(Integer postId) {
         Result result = new Result();
-//        postMapper.removeByPostId(postId);
+        try {
+            postMapper.removePost(postId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        result.setSuccess();
         return result;
     }
 
@@ -324,7 +356,7 @@ public class PostServiceImpl implements PostService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        result.setSuccess(true);
+        result.setSuccess();
         return result;
     }
 
@@ -348,6 +380,7 @@ public class PostServiceImpl implements PostService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        result.setSuccess();
 
 
         return result ;
@@ -371,6 +404,8 @@ public class PostServiceImpl implements PostService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        result.setSuccess();
+
         return result;
     }
 
@@ -384,6 +419,8 @@ public class PostServiceImpl implements PostService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        result.setSuccess();
+
         return result;
 
     }
@@ -402,7 +439,7 @@ public class PostServiceImpl implements PostService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        result.setSuccess(true);
+        result.setSuccess();
         return result;
     }
 

@@ -7,6 +7,7 @@ import com.vue.adminlte4j.model.form.FormModel;
 import com.we.weblog.controller.core.BaseController;
 import com.we.weblog.domain.BackFile;
 import com.we.weblog.domain.User;
+import com.we.weblog.domain.enums.FileTypeEnum;
 import com.we.weblog.domain.enums.PropertyEnum;
 import com.we.weblog.domain.util.BaseConfigUtil;
 import com.we.weblog.service.BackupService;
@@ -54,12 +55,12 @@ public class BackupController extends BaseController {
         //需要优化
         List<BackFile> backups = null;
         try {
-            if (StringUtils.equals(type, "resources")) {
-                backups = backupService.getBackUps("resources");
-            } else if (StringUtils.equals(type, "databases")) {
-                backups = backupService.getBackUps("databases");
-            } else if (StringUtils.equals(type, "posts")) {
-                backups = backupService.getBackUps("posts");
+            if (StringUtils.equals(type, FileTypeEnum.RESOURCE.getKey())) {
+                backups = backupService.getBackUps(FileTypeEnum.RESOURCE.getKey());
+            } else if (StringUtils.equals(type, FileTypeEnum.DATABASES.getKey())) {
+                backups = backupService.getBackUps(FileTypeEnum.DATABASES.getKey());
+            } else if (StringUtils.equals(type, FileTypeEnum.POSTS.getKey())) {
+                backups = backupService.getBackUps(FileTypeEnum.POSTS.getKey());
             } else {
                 backups = new ArrayList<>();
             }
@@ -93,8 +94,6 @@ public class BackupController extends BaseController {
 
 
 
-
-
     /**
      * 执行备份
      *
@@ -104,11 +103,11 @@ public class BackupController extends BaseController {
     @GetMapping(value = "doBackup")
     @ResponseBody
     public UIModel doBackup(@RequestParam("type") String type) {
-        if (StringUtils.equals(type, "resources")) {
+        if (StringUtils.equals(type, FileTypeEnum.RESOURCE.getKey())) {
              backupService.backupResources();
-        } else if (StringUtils.equals(type, "databases")) {
+        } else if (StringUtils.equals(type, FileTypeEnum.DATABASES.getKey())) {
              backupService.backupDatabase();
-        } else if (StringUtils.equals(type, "posts")) {
+        } else if (StringUtils.equals(type, FileTypeEnum.POSTS.getKey())) {
              backupService.backupPosts();
         } else {
            return UIModel.fail().msg("备份失败");
@@ -135,7 +134,6 @@ public class BackupController extends BaseController {
         } catch (Exception e) {
             return UIModel.success().msg("备份删除失败");
         }
-
     }
 
     /**

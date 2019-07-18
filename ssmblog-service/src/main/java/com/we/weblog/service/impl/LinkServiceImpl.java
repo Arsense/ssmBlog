@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * @date 2018/12/9 23:41
  */
 @Service
-public class LinkServiceImpl implements LinkService{
+public class LinkServiceImpl implements LinkService {
     private static final Logger LOGGER = LoggerFactory.getLogger(LinkServiceImpl.class);
 
     @Override

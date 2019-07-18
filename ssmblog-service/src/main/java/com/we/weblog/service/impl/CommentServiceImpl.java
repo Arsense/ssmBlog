@@ -47,7 +47,7 @@ public class CommentServiceImpl implements CommentService {
             e.printStackTrace();
         }
 
-        result.setSuccess(true);
+        result.setSuccess();
         result.setData(comments);
         return result;
 
@@ -70,7 +70,7 @@ public class CommentServiceImpl implements CommentService {
         }
 
         result.setData(comments);
-        result.setSuccess(true);
+        result.setSuccess();
         return result;
     }
 
@@ -88,7 +88,7 @@ public class CommentServiceImpl implements CommentService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        result.setSuccess(true);
+        result.setSuccess();
         return result;
     }
 

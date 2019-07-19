@@ -54,7 +54,7 @@
                     method : function(row ,$table) {
                         axios.get('/admin/throw/' + row.id).then(function (response) {
                             $.alert(response.data);
-                            $table.fetchData()
+                            // $table.fetchData()
                         });
                     }
                 }
@@ -79,10 +79,10 @@
                     name : '丢弃'  ,
                     class: 'btn-danger',
                     icon:'trash',
-                    method : function(row ,$table) {
-                        axios.get('/admin/throw/'+row.uid).then(function (response) {
+                    method : function(row) {
+                        axios.get('/admin/throw/' + row.uid).then(function (response) {
                             $.alert(response.data);
-                            $table.fetchData()
+                            // $table.fetchData()
                         });
 
                     }
@@ -96,7 +96,7 @@
                     method : function(row) {
                         axios.get('/admin/revert/' + row.uid).then(function (response) {
                             $.alert(response.data);
-                            $table.fetchData()
+                            // $table.fetchData()
                         });
                     }
                 } ,

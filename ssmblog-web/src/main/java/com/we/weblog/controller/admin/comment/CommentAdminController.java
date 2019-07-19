@@ -71,12 +71,11 @@ public class CommentAdminController extends BaseController {
         tableData.setPageSize(15);
 
         Map<String,String > formMap = new HashMap<>();
-
-        formMap.put("cid", "评论Id");
         formMap.put("content", "评论内容");
-        formMap.put("time", "评论时间");
         formMap.put("author", "评论人");
         formMap.put("email", "邮箱");
+        formMap.put("time", "评论时间");
+        formMap.put("cid", "评论Id");
 
         FormModel formModel = UiModelModelUtil.createUIModelForm(formMap);
 

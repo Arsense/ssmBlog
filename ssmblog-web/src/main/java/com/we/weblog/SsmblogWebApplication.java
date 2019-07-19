@@ -39,7 +39,7 @@ public class SsmblogWebApplication {
 		FileChangeListener fileChangeListener = FileChangeListener.getInstance();
 		Path distLibPath = Paths.get("src", "main", "static", "jequery", "lib");
 		Path targetLibPath = Paths.get("target", "classes", "META-INF", "resources", "lib");
-		Path vueAdminlteJs = Paths.get("vue-adminlte", "jequery", "js", "vue-adminlte.min.js");
+		Path vueAdminlteJs = Paths.get("vue-adminlte", "jequery", "js", "vue-adminlte.dropzone.js");
 		Path baseCss = Paths.get("vue-adminlte", "jequery", "css", "base.css");
 
 		fileChangeListener.listen(distLibPath, "base.js")

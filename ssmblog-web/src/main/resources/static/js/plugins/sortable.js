@@ -1373,7 +1373,7 @@
 		var lastEl = el.lastElementChild,
 			rect = lastEl.getBoundingClientRect();
 
-		// 5 — min delta
+		// 5 — dropzone delta
 		// abs — нельзя добавлять, а то глюки при наведении сверху
 		return (evt.clientY - (rect.top + rect.height) > 5) ||
 			(evt.clientX - (rect.left + rect.width) > 5);

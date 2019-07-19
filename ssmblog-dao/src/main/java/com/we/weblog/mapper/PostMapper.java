@@ -24,7 +24,7 @@ public interface PostMapper {
     List<Post> queryPost(Post post);
 
     @SelectProvider(type = PostSqlBuilder.class, method = "buildGetlimitPostQuery")
-    List<Post> querylimitPost(Post post, int limit);
+    List<Post> querylimitPost(@Param("post") Post post);
 
     /**
      * 分类标签查询 这里 in not null去除空列表

@@ -125,9 +125,14 @@ public class TagServiceImpl implements TagService  {
     @Override
     public Result getMates() {
         Result result = new Result();
-//        List<String> categories = tagMapper.getAllCategories();
+        List<String> categories = null;
+        try {
+            categories = tagMapper.queryCategorys();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        result.setData(categories);
         result.setSuccess();
-
         return result;
     }
 

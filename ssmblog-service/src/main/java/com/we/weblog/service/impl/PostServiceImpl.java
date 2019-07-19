@@ -342,6 +342,21 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public Result updatePost(Post post) {
+        Result result = new Result();
+        if (post == null) {
+            return result;
+        }
+        try {
+            postMapper.updatePost(post);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        result.setSuccess();
+        return result;
+    }
+
+    @Override
     public Result findByPostId(int postId) {
         Result result = new Result();
         Post post = new Post();
@@ -373,7 +388,7 @@ public class PostServiceImpl implements PostService {
         }
         List<Post> postList;
         try {
-            postList = sortPostDate(postMapper.querylimitPost(new Post(),limit));
+            postList = sortPostDate(postMapper.querylimitPost(new Post()));
             if (!CollectionUtils.isEmpty(postList)) {
                 result.setData(postList);
             }
@@ -388,8 +403,17 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Result updatePostStatus(Integer postId, Integer status) {
-//        postMapper.updateByStatus(postId,status);
-        return null;
+        Result result = new Result();
+        Post post = new Post();
+        post.setUid(postId);
+        post.setStatus(status);
+        try {
+            postMapper.updatePost(post);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        result.setSuccess();
+        return result;
     }
 
     @Override

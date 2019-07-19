@@ -39,7 +39,7 @@ public interface PostService {
      */
     Result removeByPostId(Integer postId);
 
-
+    Result updatePost(Post post);
 
     /**
      * 更新博客访问量

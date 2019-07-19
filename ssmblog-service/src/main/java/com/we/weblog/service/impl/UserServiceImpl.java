@@ -30,8 +30,9 @@ public class UserServiceImpl implements UserService {
         try {
             //todo 各种加打印的日志
             allUser = userMapper.queryUser(user);
-            if (CollectionUtils.isEmpty(allUser)) {
-                throw new RuntimeException("用户存在异常, 请创建用户");
+            if (CollectionUtils.isEmpty(allUser) && allUser.size() == 0) {
+                return null;
+
             }
         } catch (RuntimeException e) {
             e.printStackTrace();

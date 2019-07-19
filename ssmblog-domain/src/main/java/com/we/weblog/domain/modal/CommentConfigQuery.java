@@ -11,11 +11,11 @@ import com.vue.adminlte4j.model.form.FormItemType;
  */
 public class CommentConfigQuery {
 
-    @UIFormItem(span = 3, label = "博客编号")
+    @UIFormItem(span = 3, label = "博客编号" )
     private String blogId;
-    @UIFormItem(span = 3, label = "标题")
+    @UIFormItem(span = 3, label = "标题",order = 2)
     private String title;
-    @UIFormItem(span = 3, label = "标签")
+    @UIFormItem(span = 3, label = "标签",order = 3)
     private Long tags;
     @UIFormItem(type = FormItemType.SELECT, span = 3, label = "分类选择")
     @DictData({@DictEntry(code = "101", value = "博客编号"),

@@ -74,7 +74,7 @@
                 // vm.mdData.categories = document.getElementsByName("categories")[0].value;
                 axios.post("/admin/update",this.mdData).then(function (response) {
                     $.alert(response.data);
-                    var t=setTimeout(" window.location.href = \"/admin/index.html#/admin/bloglist.html\" ",1500);
+                    var time = setTimeout(" window.location.href = \"/index.html/#/admin/admin_post.html\" ",1500);
                 }).catch(function (error){
                     console.log(error);
                 });
@@ -83,7 +83,6 @@
         } ,
         mounted : function () {
             var self = this;
-            debugger
             var id = $.getQueryStr("id");
             axios.get("/admin/update_send_data/" + id).then(function (response) {
                 self.mdData = response.data.context;

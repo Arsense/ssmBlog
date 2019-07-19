@@ -29,11 +29,13 @@ public class PostSqlBuilder {
             if(null != post.getTitle()) {
                 WHERE("title = #{title}");
             }
-            ORDER_BY("uid asc");
+            ORDER_BY("uid desc");
         }}.toString();
     }
-    public String buildGetlimitPostQuery(Post post, int limit){
-        return buildGetPostQuery(post) + " limit 1," + limit;
+    public String buildGetlimitPostQuery(){
+                return "select * from hexo_post limit 1,10 ";
+
+//        return buildGetPostQuery(post) + " limit 1,#{limit}" ;
     }
 
     public String buildGetCategoryQuery(){

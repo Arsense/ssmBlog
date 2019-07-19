@@ -14,6 +14,7 @@ import com.we.weblog.domain.modal.LogActions;
 import com.we.weblog.domain.modal.Picture;
 import com.we.weblog.domain.modal.PostConfigQuery;
 import com.we.weblog.domain.modal.Types;
+import com.we.weblog.domain.result.Result;
 import com.we.weblog.domain.util.AddressUtil;
 import com.we.weblog.mapper.PostMapper;
 import com.we.weblog.service.*;
@@ -35,7 +36,7 @@ import java.util.Map;
 
 /**
  *
- *  * <pre>
+ * <pre>
  *     公共常量
  * </pre>
  * 文章控制管理器
@@ -137,18 +138,28 @@ public class PostAdminController extends BaseController {
     @GetMapping("/delete/{id}")
     @ResponseBody
     public UIModel deleteBlog(@PathVariable("id") int deleteId, HttpServletRequest request) {
-//        if (deleteId <= 0) {
-//            return UIModel.fail().msg("删除文章非法");
-//        }
-//        Post context = postService.findByPostId(deleteId);
-//        if(StringUtils.isEmpty(context)) {
-//            return UIModel.fail().msg("该博客不存在");
-//        }
-//        postService.removeByPostId(deleteId);
-//        tagService.deleteTag(deleteId);
-//
-//        commentSerivce.removeByCommentId(deleteId);
-//        logService.saveByLogs(new Log (LogActions.DELETE_BLOG,deleteId + " ", AddressUtil.getIpAddress(request),1));
+        if (deleteId <= 0) {
+            return UIModel.fail().msg("该文章不存在");
+        }
+
+        try {
+            // 应该改用 count 查询数量
+            Result result =  postService.findByPostId(deleteId);
+            if (result.isSuccess() == false) {
+                //do something
+            }
+            Post context = (Post) result.getData();
+            if(StringUtils.isEmpty(context)) {
+                return UIModel.fail().msg("该博客不存在");
+            }
+            postService.removeByPostId(deleteId);
+            tagService.deleteTag(deleteId);
+
+            commentSerivce.removeByCommentId(deleteId);
+            logService.saveByLogs(new Log (LogActions.DELETE_BLOG,deleteId + " ", AddressUtil.getIpAddress(request),1));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return UIModel.success().msg("删除成功");
     }
@@ -188,12 +199,13 @@ public class PostAdminController extends BaseController {
      @GetMapping("/update_send_data/{id}")
      @ResponseBody
      public Map<String, Object> getTagretUpdateContext(@PathVariable int id){
-//         updateId = id;
+         updateId = id;
          Map<String,Object> maps = new HashMap<>(20);
-//         Post context = postService.findByPostId(updateId);
-//
-//         maps.put("context",context);
-//         maps.put("options",tagService.getCategories());
+         Result result = postService.findByPostId(updateId);
+         Post context = (Post) result.getData();
+
+         maps.put("context", context);
+         maps.put("options", tagService.getCategories().getData());
 
          return maps;
      }
@@ -208,7 +220,12 @@ public class PostAdminController extends BaseController {
      @PostMapping("/update")
      @ResponseBody
      public UIModel updateDate(@RequestBody Post context) throws SQLException {
-//        postService.updatePost(context,updateId);
+         try {
+             context.setUid(updateId);
+             postService.updatePost(context);
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
          return UIModel.success().msg("修改成功！");
      }
 
@@ -243,7 +260,7 @@ public class PostAdminController extends BaseController {
      */
     @GetMapping(value = "/throw/{id}")
     @ResponseBody
-    public UIModel moveToTrash(@PathVariable("id")Integer postId) {
+    public UIModel moveToTrash(@PathVariable("id") Integer postId) {
         try {
             postService.updatePostStatus(postId, PostStatus.RECYCLE.getCode());
             logger.info("编号为" + postId + "的文章已被移到回收站");

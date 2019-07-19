@@ -72,7 +72,7 @@ public class CategoryAdminController {
         Map<String,Object> maps  = new HashMap<>();
         try {
             maps.put("categories", tagService.getMates().getData());
-            maps.put("tags",tagService.findAllTags().getData());
+            maps.put("tags", tagService.findAllTags().getData());
         } catch (Exception e) {
             e.printStackTrace();
         }

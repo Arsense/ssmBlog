@@ -13,12 +13,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,6 +37,40 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     @Resource
     private LogsService logsService;
+
+
+    @Override
+    public Result saveFile(Attachment attachment) {
+        Result result = new Result();
+        if (attachment == null) {
+            result.setErrMsg("attachment 不能为空");
+            return result;
+        }
+        try {
+            attachmentMapper.saveAttachment(attachment);
+            result.setSuccess();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+
+    }
+
+    @Override
+    public Result queryAttach() {
+        Result result = new Result();
+
+        try {
+            List<Attachment> attachments= attachmentMapper.getAttachments();
+            if (!CollectionUtils.isEmpty(attachments)) {
+                result.setData(attachments);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        result.setSuccess();
+        return result;
+    }
 
     @Override
     public Result findByAttachId(int attachId) {

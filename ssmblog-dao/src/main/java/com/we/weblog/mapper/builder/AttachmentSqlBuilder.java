@@ -6,16 +6,34 @@ package com.we.weblog.mapper.builder;
  */
 public class AttachmentSqlBuilder {
 
-
+    /**
+     *
+     * @return
+     */
     public String buildAttachmentQuery() {
         return "select * from hexo_attach limit #{page},#{size}";
     }
 
+    /**
+     *
+     * @return
+     */
+    public String buildAttachmentsQuery() {
+        return "select * from hexo_attach ";
+    }
+
+    /**
+     *
+     * @return
+     */
     public String buildAttachmentIdQuery() {
         return "select * from hexo_attach where attachId = #{attachId}";
     }
 
-
+    /**
+     *
+     * @return
+     */
     public String buildDelete() {
         return "delete  from hexo_attach where attachId = #{attachId}";
     }

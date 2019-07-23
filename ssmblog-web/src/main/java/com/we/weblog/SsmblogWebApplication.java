@@ -5,12 +5,18 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+@EnableAutoConfiguration(exclude = MultipartAutoConfiguration.class)
 @SpringBootApplication
 @MapperScan(basePackages = "com.we.weblog.mapper")
 public class SsmblogWebApplication {
@@ -30,6 +36,14 @@ public class SsmblogWebApplication {
 		LOG.info("Clay started at http://localhost:" + serverPort);
 	}
 
+
+
+	@Bean(name="multipartResolver")
+	public CommonsMultipartResolver multipartResolver(){
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		multipartResolver.setMaxUploadSize(1000000);
+		return multipartResolver;
+	}
 
 	/**.
 	 * .

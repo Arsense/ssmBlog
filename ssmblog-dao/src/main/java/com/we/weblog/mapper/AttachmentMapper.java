@@ -19,7 +19,10 @@ public interface AttachmentMapper {
     @SelectProvider(type = AttachmentSqlBuilder.class, method = "buildAttachmentQuery")
     List<Attachment> queryAttachments(@Param("page") int currentPage, @Param("size") int pageSize);
 
-    @InsertProvider(type = AttachmentSqlBuilder.class, method = "buildAttachmentQuery")
+    @SelectProvider(type = AttachmentSqlBuilder.class, method = "buildAttachmentsQuery")
+    List<Attachment> getAttachments();
+
+    @InsertProvider(type = AttachmentSqlBuilder.class, method = "buildInsert")
     int saveAttachment(@Param("file") Attachment attachment);
 
     @SelectProvider(type = AttachmentSqlBuilder.class, method = "buildAttachmentIdQuery")

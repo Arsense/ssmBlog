@@ -3,6 +3,7 @@ package com.we.weblog.controller.admin.attachment;
 import com.vue.adminlte4j.model.UIModel;
 import com.we.weblog.controller.core.BaseController;
 import com.we.weblog.domain.Attachment;
+import com.we.weblog.domain.result.Result;
 import com.we.weblog.service.AttachmentService;
 import com.we.weblog.service.LogsService;
 import org.apache.commons.lang3.StringUtils;
@@ -12,12 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
 /**
  * @author Clay
@@ -34,6 +37,7 @@ public class AttachmentController extends BaseController {
     @Resource
     private LogsService logsService;
 
+
     /**
      * 获取upload的所有图片资源并渲染页面
      *
@@ -44,8 +48,8 @@ public class AttachmentController extends BaseController {
     public String attachments(Model model, @RequestParam(defaultValue = "0")Integer page, @RequestParam(defaultValue = "18")Integer size                                ) {
         try {
             int currentPage = 1;
-//            List<Attachment> attachments = attachmentService.findAllAttachments(currentPage);
-//            model.addAttribute("attachments", attachments);
+            List<Attachment> attachments = (List<Attachment>) attachmentService.queryAttach().getData();
+            model.addAttribute("attachments", attachments);
         } catch (Exception e) {
             return "admin/admin_attachment";
         }
@@ -54,16 +58,64 @@ public class AttachmentController extends BaseController {
 
     /**
      * 上传附件
-     *
+     * https://www.cnblogs.com/tele-share/p/8983180.html
+     * https://www.cnblogs.com/fu-yong/p/9053515.html
+     * MultipartFile file 名称不用file很容易找不到
      * @return Map
      */
-    @PostMapping(value = "/upload", produces = {"application/json;charset=UTF-8"})
+
     @ResponseBody
-    public Map<String, Object> upload(@RequestParam("file") MultipartFile file) {
-//        @RequestParam("file") MultipartFile file,
-//        return attachmentService.uploadAttachment(null);
-        return null;
+    @RequestMapping(value = "upload", method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    public UIModel upload(@RequestParam MultipartFile file, HttpServletRequest request){
+        //todo 防重上传
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd/HH");
+        //step1 构建文件保存的目录
+        String logoPathDir = "/test/upload" + dateFormat.format(new Date());
+        String filePathDir = request.getSession().getServletContext().getRealPath(logoPathDir);
+        //根据真实路径创建文件夹
+        File saveFile = new File(filePathDir);
+        if(!saveFile.exists())
+            saveFile.mkdirs();
+
+        //获取文件后缀
+        String fileSuffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        //使用UUID生成文件名
+        String filename = UUID.randomUUID().toString() + fileSuffix;;
+        String fullPath = filePathDir + File.separator + filename;
+
+        File uploadFile = new File(fullPath);
+
+        try {
+            // 转存文件
+            file.transferTo(uploadFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        /** 打印出上传到服务器的文件的绝对路径* */
+        System.out.println("****************" + fullPath +"**************");
+        Attachment attachment = new Attachment();
+        attachment.setAttachName(filename);
+        attachment.setAttachCreated(new Date());
+        attachment.setAttachPath(fullPath);
+        attachment.setAttachSize(String.valueOf(file.getSize()));
+        attachment.setAttachSuffix(fileSuffix);
+        Result result = new Result();
+        try {
+             result = attachmentService.saveFile(attachment);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (result.isSuccess()) {
+            return UIModel.success().msg("上传成功");
+        }
+        return UIModel.fail().msg("上传文件出错:" + result.getErrMsg());
+
+
     }
+
 
     /**
      * editor.md上传图片

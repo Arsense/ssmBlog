@@ -4,8 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 
 /**
@@ -49,4 +51,5 @@ public class StartupConfig implements ApplicationListener<ApplicationStartedEven
 //            BaseConfigUtil.OPTIONS = options;
 //        }
     }
+
 }

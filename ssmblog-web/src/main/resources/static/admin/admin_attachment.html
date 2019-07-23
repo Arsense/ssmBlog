@@ -34,74 +34,20 @@
     }
 </style>
 <v-box title="附件管理">
-
     <v-row>
-        <div class="row">
-        <div class="col-sm-12">
-        <h4 class="page-title">文件管理</h4>
-        </div>
-        <div class="row">
-        <div class="col-md-12 portlets">
-        <!-- Your awesome content goes here -->
-        <div class="m-b-30">
-        <form action="#" class="dropzone" id="dropzone">
-        <div class="fallback">
-        <input name="file" type="file" multiple="multiple">
-        </div>
-        <div class="dz-message">
-        <p>将文件拖至此处或点击上传</p>
-        <p>
-        <span style="font-size: 16px; color: #d0d0d0;">一次最多可以上传10个文件</span>
-        </p>
-        </div>
+        <form action="/" method="post" class="dropzone" id="my-awesome-dropzone" enctype="multipart/form-data">
+            <input type="file" name="file" />
         </form>
-        </div>
-        </div>
-        </div>
-        <div class="col-md-12 attach">
-        <div class="row">
-        <div class="col-md-4 text-center">
-        <div class="alert alert-warning">
-        目前还没有一个附件呢，你可以上传试试!
-        </div>
-        </div>
-        </div>
-        </div>
-
-        <!--#for(attach : attachs.rows)-->
-        <!--<div class="col-md-2 text-center m-t-10">-->
-        <!--<a href="${attach_url}${attach.fkey}" target="_blank">-->
-        <!--<img class="attach-img"-->
-        <!--src="#if(attach.ftype == 'image') ${attach_url}${attach.fkey} #else /static/admin/images/attach.png #end"-->
-        <!--title="${attach.fname}"/>-->
-        <!--</a>-->
-        <!--<div class="clearfix m-t-10">-->
-        <!--<span class="attach-text" data-toggle="tooltip" data-placement="top"-->
-        <!--data-original-title="${attach.fname}">${substr(attach.fname, 12)}</span>-->
-        <!--</div>-->
-        <!--<div class="clearfix">-->
-        <!--<button url="${attach_url}${attach.fkey}" type="button"-->
-        <!--class="btn btn-warning btn-sm waves-effect waves-light m-t-5 copy">-->
-        <!--<i class="fa fa-copy"></i> <span>复制</span>-->
-        <!--</button>-->
-        <!--<button type="button" class="btn btn-danger btn-sm waves-effect waves-light m-t-5"-->
-        <!--onclick="delAttach(${attach.id});">-->
-        <!--<i class="fa fa-trash-o"></i> <span>删除</span>-->
-        <!--</button>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--#end-->
-        <!--#call pageAdminNav(attachs)-->
-        <!--#end-->
-        <!--</div>-->
-        </div>
     </v-row>
 
 </v-box>
+
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+<script src="/lib/axios/dist/axios.js"></script>
 <script src="../plugins/dropzone/dropzone.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
-<script src="lib/jquery/dist/jquery.min.js"></script>
-<script src="/lib/axios/dist/axios.js"></script>
+
 <script>
     new Vue({
         el:"#app" ,
@@ -115,45 +61,88 @@
 
 
         }
-    });
-    $("#dropzone").dropzone({
-        url: "/admin/attach/upload",
-        filesizeBase:1024,//定义字节算法 默认1000
-        maxFiles: $.constant().MAX_FILES,//最大文件数量
-        maxFilesize: '1024', //MB
-        fallback:function(){
-            // tale.alertError('暂不支持您的浏览器上传!');
-        },
-        uploadMultiple: true,
-        dictFileTooBig:'您的文件超过'+ 12 +'MB!',
-        dictInvalidInputType:'不支持您上传的类型',
-        dictMaxFilesExceeded:'您的文件超过'+ $.constant().MAX_FILES+'个!',
-        init: function() {
-            this.on('queuecomplete', function (files) {
-                // tale.alertOkAndReload('上传成功');
-            });
-            this.on('error', function (a, errorMessage, result) {
-                if(!result.success && result.msg){
-                    tale.alertError(result.msg || '上传失败');
-                }
-            });
-            this.on('maxfilesreached', function () {
-                this.removeAllFiles(true);
-                // tale.alertWarn('文件数量超出限制');
-            });
-        }
+
+
     });
 
-    var clipboard = new Clipboard('button.copy', {
-        text: function (trigger) {
-            return $(trigger).attr('url');
-        }
-    });
+    $(function() {
+        Dropzone.options.myAwesomeDropzone = {
+            url: "/admin/attachments/upload",
+            maxFilesize: 1024,
+            method:"post",
+            addRemoveLinks: true,
+            uploadMultiple: false,//多个文件上传
+            dictResponseError: 'Server not Configured',
+            acceptedFiles: ".png,.jpg,.gif,.bmp,.jpeg,.txt",
+            init: function() {
+                var self = this;
+                // config
+                self.options.addRemoveLinks = true;
+                self.options.dictRemoveFile = "Delete";
+                //New file added
+                self.on("addedfile", function(file) {
+                    debugger;
+                    console.log('new file added ', file);
+                });
+                // Send file starts
+                self.on("sending", function(file) {
+                    debugger;
+                    console.log('upload started', file);
+                    $('.meter').show();
+                });
 
-    clipboard.on('success', function (e) {
-        console.info('Action:', e.action);
-        console.info('Text:', e.text);
-        console.info('Trigger:', e.trigger);
-        e.clearSelection();
-    });
+                // File upload Progress
+                self.on("totaluploadprogress", function(progress) {
+                    console.log("progress ", progress);
+                    $('.roller').width(progress + '%');
+                });
+
+                self.on("queuecomplete", function(progress) {
+                    $('.meter').delay(999).slideUp(999);
+                });
+
+                // On removing file
+                self.on("removedfile", function(file) {
+                    console.log(file);
+                });
+            }
+        };
+    })
+    // $("#dropzone").dropzone({
+    //     url: "/admin/attachments/upload",
+    //     filesizeBase:1024,//定义字节算法 默认1000
+    //     maxFiles: $.constant().MAX_FILES,//最大文件数量
+    //     maxFilesize: '1024', //MB
+    //     fallback:function(){
+    //         console.log("暂不支持您的浏览器上传!")
+    //     },
+    //     uploadMultiple: true,
+    //     dictFileTooBig:'您的文件超过'+ 12 +'MB!',
+    //     dictInvalidInputType:'不支持您上传的类型',
+    //     dictMaxFilesExceeded:'您的文件超过'+ $.constant().MAX_FILES+'个!',
+    //     init: function() {
+    //         this.on('queuecomplete', function (files) {
+    //             console.log("'上传成功'")
+    //             alert("v")
+    //
+    //         });
+    //         this.on('error', function (a, errorMessage, result) {
+    //             if(!result.success && result.msg){
+    //                 alert("上传失败")
+    //
+    //                 console.log(result.msg + '上传失败')
+    //
+    //             }
+    //         });
+    //         this.on('maxfilesreached', function () {
+    //             this.removeAllFiles(true);
+    //             alert("文件数量超出限制");
+    //
+    //             console.log("文件数量超出限制")
+    //
+    //         });
+    //     }
+    // });
+
+
 </script>

@@ -12,8 +12,10 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
+import java.net.URLDecoder;
+import java.util.*;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.util.List;
 
 /**
@@ -123,7 +125,7 @@ public class ThemeAdminController {
     /**
      * 编辑主题
      *
-     * @param model model
+     * @param
      * @return 模板路径admin/admin_theme-editor
      */
     @GetMapping(value = "/editor")
@@ -159,20 +161,49 @@ public class ThemeAdminController {
             System.out.println("获取文件错误");
         }
         return tplContent;
+
     }
 
     /**
      * 保存修改模板
      *
-     * @param tplName    模板名称
-     * @param tplContent 模板内容
      * @return UIModel
      */
     @PostMapping(value = "/editor/save")
     @ResponseBody
-    public UIModel saveTpl(@RequestParam("tplName") String tplName,
-                              @RequestParam("tplContent") String tplContent) {
-        return UIModel.success().msg("保存修改模板");
+    public UIModel saveTpl(@RequestBody String tplContext) {
+        FileWriter writer = null;
+        try {
+            tplContext = URLDecoder.decode(tplContext, "UTF-8");
 
+            //去除前面莫名的=号
+            String templateName = tplContext.substring(0, tplContext.indexOf("&") -1);
+            tplContext = tplContext.substring(tplContext.indexOf("&") + 1 , tplContext.length() -1);
+            //获取项目跟路径
+            File basePath = new File(ResourceUtils.getURL("classpath:").getPath());
+            //获取主题路径
+            File tplPath = new File(basePath.getAbsolutePath(), new StringBuffer("templates/themes/").append(BaseController.THEME).append("/").append(templateName).toString());
+            writer = new FileWriter(tplPath);
+            writer.write(tplContext);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+
+        return UIModel.success().msg("修改模板成功");
     }
+
+
+
 }

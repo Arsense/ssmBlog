@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div class="box-footer">
-                        <button type="button" class="btn btn-primary " onclick="saveTpl()">确定修改</button>
+                        <button type="button" class="btn btn-primary" @click="saveTpl" >确定修改</button>
                     </div>
                 </div>
             </div>
@@ -63,73 +63,36 @@
             simplemde: Object
         },
         methods: {
-            saveTpl: function (data) {
-                debugger;
-                $.ajax({
-                    type: 'POST',
-                    url: '/admin/themes/editor/save',
-                    async: false,
-                    data:{
-                        'tplName': $('#tplNameTitle').html(),
-                        'tplContent': simplemde.value()
-                    },
-                    success: function (data) {
-                        if(data.code==1){
-                            $.toast({
-                                text: data.msg,
-                                heading: 'asdsadasd',
-                                icon: 'success',
-                                showHideTransition: 'fade',
-                                allowToastClose: true,
-                                hideAfter: 1000,
-                                stack: 1,
-                                position: 'top-center',
-                                textAlign: 'left',
-                                loader: true,
-                                loaderBg: '#ffffff'
-                            });
-                        }else{
-                            $.toast({
-                                text: data.msg,
-                                heading: '是打算打算',
-                                icon: 'error',
-                                showHideTransition: 'fade',
-                                allowToastClose: true,
-                                hideAfter: 2000,
-                                stack: 1,
-                                position: 'top-center',
-                                textAlign: 'left',
-                                loader: true,
-                                loaderBg: '#ffffff'
-                            });
-                        }
-                    }
-                });
 
-
-            }
         },
         methods: {
             loadContent:function (tplName) {
-                debugger;
-                var self = this
-                if (tplName && tplName != '') {
+                var self = this;
+                if (tplName && tplName !== '') {
                     axios.post("/admin/theme/getTpl", tplName).then(function (response) {
                         //一行搞定
                         self.simplemde.value(response.data);
                         $('#tplNameTitle').html(tplName);
                     });
                 } else {
-                    simplemde.value('');
-                    // $('#tplNameTitle').html('');
+                    self.simplemde.value('');
+                    $('#tplNameTitle').html('');
                 }
+            },
+            saveTpl: function () {
+                debugger;
+                var self = this;
+                var tplName = $('#tplNameTitle').html() + "&" + self.simplemde.value();
+                axios.post("/admin/theme/editor/save/",tplName).then(function (response) {
+                    $.alert(response.data);
+                });
+
             }
         },
         mounted: function () {
             /**
              * 加载编辑器
              */
-
             var self = this;
             self.simplemde = new SimpleMDE({
                 element: document.getElementById("tplContent"),
@@ -148,8 +111,6 @@
                 //一行搞定
                self.tpls = response.data;
             });
-
-
         }
     })
 </script>

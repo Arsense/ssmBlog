@@ -68,7 +68,7 @@
     $(function() {
         Dropzone.options.myAwesomeDropzone = {
             url: "/admin/attachments/upload",
-            maxFilesize: 1024,
+            maxFilesize: 100,
             method:"post",
             addRemoveLinks: true,
             uploadMultiple: false,//多个文件上传
@@ -81,12 +81,10 @@
                 self.options.dictRemoveFile = "Delete";
                 //New file added
                 self.on("addedfile", function(file) {
-                    debugger;
                     console.log('new file added ', file);
                 });
                 // Send file starts
                 self.on("sending", function(file) {
-                    debugger;
                     console.log('upload started', file);
                     $('.meter').show();
                 });
@@ -108,41 +106,7 @@
             }
         };
     })
-    // $("#dropzone").dropzone({
-    //     url: "/admin/attachments/upload",
-    //     filesizeBase:1024,//定义字节算法 默认1000
-    //     maxFiles: $.constant().MAX_FILES,//最大文件数量
-    //     maxFilesize: '1024', //MB
-    //     fallback:function(){
-    //         console.log("暂不支持您的浏览器上传!")
-    //     },
-    //     uploadMultiple: true,
-    //     dictFileTooBig:'您的文件超过'+ 12 +'MB!',
-    //     dictInvalidInputType:'不支持您上传的类型',
-    //     dictMaxFilesExceeded:'您的文件超过'+ $.constant().MAX_FILES+'个!',
-    //     init: function() {
-    //         this.on('queuecomplete', function (files) {
-    //             console.log("'上传成功'")
-    //             alert("v")
-    //
-    //         });
-    //         this.on('error', function (a, errorMessage, result) {
-    //             if(!result.success && result.msg){
-    //                 alert("上传失败")
-    //
-    //                 console.log(result.msg + '上传失败')
-    //
-    //             }
-    //         });
-    //         this.on('maxfilesreached', function () {
-    //             this.removeAllFiles(true);
-    //             alert("文件数量超出限制");
-    //
-    //             console.log("文件数量超出限制")
-    //
-    //         });
-    //     }
-    // });
+
 
 
 </script>

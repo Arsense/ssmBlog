@@ -22,4 +22,10 @@ public class PostMapperTest extends BaseTest {
         System.out.println("结果是: " + postMapper.queryPost(post));
 
     }
+    @Test
+    public void demo() {
+        String demo = "module%2F_footer.html=";
+        demo = demo.replace("%2F","/");
+        System.out.println(demo.replace("=",""));
+    }
 }

@@ -1,15 +1,20 @@
 package com.we.weblog.controller.admin.theme;
 
+import cn.hutool.core.io.file.FileReader;
 import com.vue.adminlte4j.model.UIModel;
 import com.we.weblog.controller.core.BaseController;
 import com.we.weblog.domain.util.BaseConfigUtil;
+import com.we.weblog.domain.util.FileUtil;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.util.List;
 
 /**
  *
@@ -122,10 +127,9 @@ public class ThemeAdminController {
      * @return 模板路径admin/admin_theme-editor
      */
     @GetMapping(value = "/editor")
-    public String editor(Model model) {
-
-//        List<String> tpls = FileUtil.findAllTemplateFileName(BaseController.THEME);
-        return null;
+    @ResponseBody
+    public List<String> editor() {
+        return FileUtil.findAllTemplateFileName(BaseController.THEME);
     }
 
 
@@ -136,10 +140,25 @@ public class ThemeAdminController {
      * @param tplName 模板文件名
      * @return 模板内容
      */
-    @GetMapping(value = "/getTpl", produces = "text/text;charset=UTF-8")
+    @PostMapping(value = "/getTpl", produces = "text/text;charset=UTF-8")
     @ResponseBody
-    public String getTplContent(@RequestParam("tplName") String tplName) {
-        return null;
+    public String getTplContent(@RequestBody String tplName) {
+        tplName = tplName.replace("%2F","/");
+        if (tplName.indexOf("=") > 0){
+            tplName = tplName.replace("=","");
+        }
+        String tplContent = "";
+        try {
+            //获取项目根路径
+            File basePath = new File(ResourceUtils.getURL("classpath:").getPath());
+            //获取主题路径
+            File themesPath = new File(basePath.getAbsolutePath(), new StringBuffer("templates/themes/").append("hexo").append("/").append(tplName).toString());
+            FileReader fileReader = new FileReader(themesPath);
+            tplContent = fileReader.readString();
+        } catch (Exception e) {
+            System.out.println("获取文件错误");
+        }
+        return tplContent;
     }
 
     /**

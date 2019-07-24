@@ -1,10 +1,12 @@
 package com.we.weblog.domain.util;
 
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -97,8 +99,35 @@ public class FileUtil {
 
 
     public static List<String> findAllTemplateFileName(String themeName){
-        List<String> fileNames = new ArrayList<>();
-        return fileNames;
+        //todo 目前先写死 后面优化
+        List<String> tpls = new ArrayList<>();
+        themeName = "hexo";
+        try {
+            //获取项目根路径
+            File basePath = new File(ResourceUtils.getURL("classpath:").getPath());
+            //获取主题路径
+            File themesPath = new File(basePath.getAbsolutePath(), "templates/themes/" + themeName);
+            File modulePath = new File(themesPath.getAbsolutePath(), "module");
+            File[] baseFiles = themesPath.listFiles();
+            File[] moduleFiles = modulePath.listFiles();
+            if (null != moduleFiles) {
+                for (File file : moduleFiles) {
+                    if (file.isFile() && file.getName().endsWith(".html")) {
+                        tpls.add("module/" + file.getName());
+                    }
+                }
+            }
+            if (null != baseFiles) {
+                for (File file : baseFiles) {
+                    if (file.isFile() && file.getName().endsWith(".html")) {
+                        tpls.add(file.getName());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("findAllTemplateFileName error!");
+        }
+        return tpls;
     }
 
 

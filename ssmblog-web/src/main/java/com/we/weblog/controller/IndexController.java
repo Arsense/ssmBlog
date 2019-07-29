@@ -39,13 +39,10 @@ import java.util.Map;
 public class IndexController extends BaseController {
     //
     private PostService postService;
-    //
     private CommentService commentSerivce;
-    //
     private static int  postId ;
-    //
     private static String  tagName = null;
-    //
+
     private TagService tagService;
 
     @Resource

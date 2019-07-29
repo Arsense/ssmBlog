@@ -71,7 +71,7 @@ public class BackupController extends BaseController {
         return  UIModel.success().tableData(buildUITableData(backups));
     }
 
-    public TableData buildUITableData(List<BackFile> backups) {
+    private TableData buildUITableData(List<BackFile> backups) {
         Map<String, String> formMap = new HashMap<>();
 
         formMap.put("fileName","文件名称");
@@ -163,7 +163,6 @@ public class BackupController extends BaseController {
         } catch (Exception e) {
              UIModel.fail().msg("发送邮件服务端异常");
         }
-
         return UIModel.success().msg("发送到邮件成功");
     }
 

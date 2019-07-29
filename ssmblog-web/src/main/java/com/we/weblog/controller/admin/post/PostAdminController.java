@@ -20,7 +20,6 @@ import com.we.weblog.mapper.PostMapper;
 import com.we.weblog.service.*;
 import com.we.weblog.utils.UiModelModelUtil;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -232,15 +231,13 @@ public class PostAdminController extends BaseController {
     /**
      * 模糊查询文章
      *
-     * @param model   Model
      * @param keyword keyword 关键字
      * @param page    page 当前页码
      * @param size    size 每页显示条数
      * @return 模板路径admin/admin_post
      */
     @PostMapping(value = "/search")
-    public String searchPost(Model model,
-                             @RequestParam(value = "keyword") String keyword,
+    public String searchPost(@RequestParam(value = "keyword") String keyword,
                              @RequestParam(value = "page", defaultValue = "0") Integer page,
                              @RequestParam(value = "size", defaultValue = "10") Integer size) {
         try {

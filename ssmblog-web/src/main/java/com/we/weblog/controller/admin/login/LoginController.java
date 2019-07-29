@@ -67,7 +67,6 @@ public class LoginController extends BaseController {
     @Login(action = Action.Skip)
     @PostMapping("/doLogin")
     public String getLogin(HttpServletRequest request) throws Exception {
-        //写的看起来有点乱
 //        WafRequestWrapper wafRequest = new WafRequestWrapper(request);
         //todo 这里玩是不是不太好 放到拦截器里面
         String loginName = request.getParameter("username");

@@ -68,7 +68,6 @@ public class AttachmentController extends BaseController {
     @RequestMapping(value = "upload", method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public UIModel upload(@RequestParam MultipartFile file, HttpServletRequest request){
         //todo 防重上传
-        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd/HH");
         //step1 构建文件保存的目录
         String logoPathDir = "/test/upload" + dateFormat.format(new Date());
@@ -92,7 +91,6 @@ public class AttachmentController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         /** 打印出上传到服务器的文件的绝对路径* */
         System.out.println("****************" + fullPath +"**************");

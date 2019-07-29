@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
- *  *  * <pre>
+ * <pre>
  *     公共常量
  * </pre>
  * @author Clay

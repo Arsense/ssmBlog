@@ -1,0 +1,116 @@
+<head>
+    <link rel="stylesheet" href="../plugins/simplemde/simplemde.min.css">
+    <style type="text/css">
+        .CodeMirror .cm-spell-error:not(.cm-url):not(.cm-comment):not(.cm-tag):not(.cm-word) {background: none;}
+        .CodeMirror-fullscreen,.editor-toolbar.fullscreen{z-index: 1030;}
+        .CodeMirror, .CodeMirror-scroll {min-height: 480px;}
+        .divCSS a:link {color:blue;}
+    </style>
+</head>
+
+<v-box title="主题编辑">
+    <section class="content container-fluid">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title" id="tplNameTitle"></h3>
+                    </div>
+                    <div class="box-body">
+                        <div id="theme-editor">
+                            <textarea style="display:none;" id="tplContent"></textarea>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="button" class="btn btn-primary" @click="saveTpl" >确定修改</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Hexo主题</h3>
+                    </div>
+                    <div class="box-body table-responsive">
+                        <div class="table-responsive mailbox-messages">
+                            <table class="table table-hover table-striped">
+                                <tbody v-for="tpl in tpls">
+                                <tr style="cursor: pointer">
+                                    <td class="mailbox-name" @click="loadContent(tpl)"><a>{{tpl}}</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</v-box>
+<script src="../plugins/simplemde/simplemde.min.js"></script>
+<script>
+
+
+
+</script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            tpls: Array,
+            simplemde: Object
+        },
+        methods: {
+
+        },
+        methods: {
+            loadContent:function (tplName) {
+                var self = this;
+                if (tplName && tplName !== '') {
+                    axios.post("/admin/theme/getTpl", tplName).then(function (response) {
+                        //一行搞定
+                        self.simplemde.value(response.data);
+                        $('#tplNameTitle').html(tplName);
+                    });
+                } else {
+                    self.simplemde.value('');
+                    $('#tplNameTitle').html('');
+                }
+            },
+            saveTpl: function () {
+                debugger;
+                var self = this;
+                var tplName = $('#tplNameTitle').html() + "&" + self.simplemde.value();
+                axios.post("/admin/theme/editor/save/",tplName).then(function (response) {
+                    $.alert(response.data);
+                });
+
+            }
+        },
+        mounted: function () {
+            /**
+             * 加载编辑器
+             */
+            var self = this;
+            self.simplemde = new SimpleMDE({
+                element: document.getElementById("tplContent"),
+                autoDownloadFontAwesome: false,
+                autofocus: true,
+                renderingConfig: {
+                    codeSyntaxHighlighting: true
+                },
+                showIcons: ["code", "table"],
+                status: false,
+                tabSize: 4,
+                toolbar: false,
+                toolbarTips: false
+            });
+            axios.get("/admin/theme/editor").then(function (response) {
+                //一行搞定
+               self.tpls = response.data;
+            });
+        }
+    })
+</script>

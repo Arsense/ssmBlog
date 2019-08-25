@@ -1,0 +1,28 @@
+server:
+  port: 8002
+spring:
+    thymeleaf:
+        prefix: classpath:/templates/
+    mvc:
+      view:
+        prefix: /
+        suffix: .html
+    datasource:
+      username: root
+      password: clay
+      url: jdbc:mysql://127.0.0.1:3306/ssmblog?useUnicode=true&characterEncoding=utf8&useSSL=true
+      sql-script-encoding: UTF-8
+      driverClassName: com.mysql.jdbc.Driver
+mybatis:
+    type-aliases-package: com.we.weblog.mapper
+    config-location: classpath:mybatis-config.xml
+# SQL打印配置
+logging:
+  level:
+    com.we.weblog.mapper : debug
+
+
+kisso:
+   config:
+       signkey: C691d971EJ3H376G81
+       cookieName: kisso

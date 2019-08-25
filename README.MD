@@ -3,10 +3,19 @@
 
 交流群：951459325 欢迎交流学习
 
-## 最近更新
+
+
+## 2019年7月更新内容
+- 整体项目重构 拆分
+- SQL mapper优化 使用Mybatis更高级的注解API 去除一些无用的
+- service层 异常处理 与 统一返回解耦
+- controller层 异常处理 
+- 各个方法测试用例补全
+
+
+## 2019 1月版本更新
 登陆后台地址改为  /admin/login.html
 - vue-admintle jar包需要更新 maven clean 后重新编译打包
-
 - 增加了themleaf模板 
 - 代码优化重构 升级到springboot2.5
 - 增加了备份的功能
@@ -24,7 +33,6 @@
 - admintle 后台页面
 - editor.md 开源markdown编辑器
 - springmvc框架
-
 
 
 ## 注意的是
@@ -101,8 +109,6 @@ pom.xml引入:
 端口配置在 application.yml文件中 
 7.后台路径 加 "login1.html"
 ![](https://i.imgur.com/HWemR8y.jpg)
-### 远程搭建
-待更新....
 
 项目maven package打包成war包 放到相应tomcat工作目录 运行tomcat
 ### 默认账号名密码都是 admin admin  路劲是login1/html 如果想使用请数据库直接修改

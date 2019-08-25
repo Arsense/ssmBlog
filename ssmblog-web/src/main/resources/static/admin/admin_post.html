@@ -1,0 +1,127 @@
+<v-box title="博客列表">
+    <v-tab ref="tableList">
+        <v-row>
+            <v-col span="10">
+                <v-form ref="queryForm" ajax_url="/admin/model"></v-form>
+            </v-col>
+            <v-col span="2">
+                <button class="layui-btn" @click="query"><i class="fa fa-search"></i> 查询</button>
+            </v-col>
+        </v-row>
+        <v-tab-pane label="已发布">
+            <v-table ajax_url="/admin/blog/list?status=0" ref="postList2" :operations="operations"></v-table>
+        </v-tab-pane>
+        <v-tab-pane label="草稿">
+            <v-table ajax_url="/admin/blog/list?status=1" ref="postList" :operations="operations1"></v-table>
+        </v-tab-pane>
+        <v-tab-pane label="回收站">
+            <v-table ajax_url="/admin/blog/list?status=2" ref="postList1" :operations="operations2"></v-table>
+        </v-tab-pane>
+    </v-tab>
+</v-box>
+
+<script>
+    new Vue({
+        el:"#app" ,
+        data: {
+            render: {
+                myIcon: function (row, $table) {
+                    return '<i class="' + row.myIcon + '"></i>'
+                }
+            },
+            operations : [
+                {
+                    name : '查看'  ,
+                    class: 'btn-info',
+                    icon:'trash',
+                    method : function(row) {
+                        debugger;
+                        window.location.href =  "/article.html?id=" + row.uid;
+                    }
+                },
+                {
+                    name : '编辑' ,
+                    class: 'btn-success',
+                    icon:'edit',
+                    method : function(row) {
+                        window.location.href = "/index.html/#/admin/admin_edit.html"+"?id=" + row.uid;
+                    }
+                } ,
+                {
+                    name : '丢弃'  ,
+                    class: 'btn-danger',
+                    icon:'trash',
+                    method : function(row ,$table) {
+                        axios.get('/admin/throw/' + row.id).then(function (response) {
+                            $.alert(response.data);
+                            // $table.fetchData()
+                        });
+                    }
+                }
+            ],
+            operations1 : [
+                {
+                    name : '编辑' ,
+                    class: 'btn-success',
+                    icon:'edit',
+                    method : function(row) {
+                        window.location.href = "/index.html/#/admin/admin_edit.html"+"?id=" + row.uid;
+                    }
+                } ,
+                {
+                    name : '发布' ,
+                    class: 'btn-info',
+                    icon:'edit',
+                    method : function(row) {
+                    }
+                } ,
+                {
+                    name : '丢弃'  ,
+                    class: 'btn-danger',
+                    icon:'trash',
+                    method : function(row) {
+                        axios.get('/admin/throw/' + row.uid).then(function (response) {
+                            $.alert(response.data);
+                            // $table.fetchData()
+                        });
+
+                    }
+                }
+            ],
+            operations2 : [
+                {
+                    name : '还原' ,
+                    class: 'btn-success',
+                    icon:'edit',
+                    method : function(row) {
+                        axios.get('/admin/revert/' + row.uid).then(function (response) {
+                            $.alert(response.data);
+                            // $table.fetchData()
+                        });
+                    }
+                } ,
+                {
+                    name : '永久删除'  ,
+                    class: 'btn-danger',
+                    icon:'trash',
+                    method : function(row ,$table) {
+                        axios.get('/admin/delete/'+row.uid).then(function (response) {
+                            $.alert(response.data);
+                            $table.fetchData()
+                        });
+                    }
+                }
+            ]
+        } ,
+        methods: {
+            query: function (event) {
+                debugger;
+                this.$refs.postList.refresh(this.$refs.queryForm)
+            },
+            re_query : function () {
+                this.send_req++
+            }
+        } ,
+    });
+
+</script>

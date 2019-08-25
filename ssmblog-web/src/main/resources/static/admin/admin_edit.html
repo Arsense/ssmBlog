@@ -1,0 +1,122 @@
+<head>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/editormd.css" />
+</head>
+<v-box>
+    <v-row>
+        <v-col span="5">
+            <v-form-item  class="text-warning" label="博客标题(必须)">
+                <v-input span="5" v-model="mdData['title']" name="title"></v-input>
+            </v-form-item>
+        </v-col>
+        <v-col span="5">
+            <v-form-item class="text-warning" label="自定义访问路径">
+                <v-input span="5" v-model="mdData['slug']" name="slug"></v-input>
+            </v-form-item>
+        </v-col>
+    </v-row>
+
+    <v-row >
+        <v-col span="5">
+            <v-form-item class="text-warning" label="博客标签(必须)">
+                <v-input span="5" v-model="mdData['tags']" name="tags"></v-input>
+            </v-form-item>
+        </v-col>
+        <v-col span="5">
+            <v-form-item class="text-warning" label="博客分类">
+                <v-select name="categories"   :items="items" value="1" placeholder="请选择"></v-select>
+            </v-form-item>
+        </v-col>
+    </v-row>
+    <input type="hidden" name="mdText" id = "mdText"  />
+    <input type="hidden" name="article" id = "article"/>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-md-12 column">
+                <div id="editormd">
+                    <textarea style="display:none;"></textarea>
+                </div>
+            </div>
+        </div><!-- /.row -->
+    </div>
+    <div class="text-right">
+        <button id = "blogSubmit" type="button" class="btn btn-success"   @click="updateData"  >确认修改</button>
+    </div>
+</v-box>
+<script src="../js/editormd.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data:{
+            items : [
+                {code:'1' ,  label:'默认分类' ,checked:false},
+                {code:'2' ,   label:'name',checked:false},
+                {code:'3' ,    label:'hello',checked:false}
+            ],
+            mdData:{
+                mdText:11,
+                article:"",
+                title:"",
+                slug:"",
+                tags:"",
+                categories:"",
+            },
+            mdText:"",
+            editor:Object,              //存放md的值
+            options:Object,
+        },
+        methods : {
+            updateData : function(){
+                debugger
+                vm.mdData.mdText = vm.editor.getMarkdown();
+                vm.mdData.md = vm.editor.getMarkdown();
+                vm.mdData.article = vm.editor.getHTML();
+                // vm.mdData.categories = document.getElementsByName("categories")[0].value;
+                axios.post("/admin/update",this.mdData).then(function (response) {
+                    $.alert(response.data);
+                    var time = setTimeout(" window.location.href = \"/index.html/#/admin/admin_post.html\" ",1500);
+                }).catch(function (error){
+                    console.log(error);
+                });
+
+            }
+        } ,
+        mounted : function () {
+            var self = this;
+            var id = $.getQueryStr("id");
+            axios.get("/admin/update_send_data/" + id).then(function (response) {
+                self.mdData = response.data.context;
+                self.mdText = response.data.context.mdText;
+                self.options = response.data.options;
+                testEditor.markdownTextarea[0].value = self.mdText
+            }) .catch(function (error) {
+                console.log(error);
+            });
+            var testEditor = editormd("editormd", {
+                    path : "../lib/",
+                    width: "85%",
+                    height: 430,
+                    theme        : (localStorage.theme) ? localStorage.theme : "dark",
+                    previewTheme : (localStorage.previewTheme) ? localStorage.previewTheme : "dark",
+                    editorTheme  : (localStorage.editorTheme) ? localStorage.editorTheme : "pastel-on-dark",
+                    markdown: self.mdText,
+                    codeFold: true,
+                    saveHTMLToTextarea: true, // 保存 HTML 到 Textarea
+                    htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了
+                    tocm            : true,         // Using [TOCM]
+                    tex : true,                   // 开启科学公式TeX语言支持，默认关闭
+                    taskList : true,
+                    imageUpload: true,
+                    searchReplace : true,
+                    imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                    imageUploadURL: "/admin/upload",
+                    onload: function () {
+                        console.log('onload', this);
+                    }
+                 });
+            self.editor = testEditor;
+        }
+    });
+
+
+</script>
